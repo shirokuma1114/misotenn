@@ -9,7 +9,7 @@ public class PlayerController : CharacterControllerBase
 
     bool _isMoved = false;
 
-    SquareBase[] _roots;
+    SquareBase[] _directionRoots;
 
     
     // Start is called before the first frame update
@@ -51,8 +51,10 @@ public class PlayerController : CharacterControllerBase
     public void SetSquareRoots()
     {
         // ４方向の選択肢を生成
-        
-        _roots = new SquareBase[4];
+
+        //TODO 前進？後退？
+
+        _directionRoots = new SquareBase[4];
 
         // 左0 上 1 右 2 下 3 の順に向きが適切なマスを入れる
         var squarePos = _character.CurrentSquare.GetPosition();
@@ -62,16 +64,16 @@ public class PlayerController : CharacterControllerBase
             var pos = (x.GetPosition() - squarePos);
             pos.y = 0.0f;
             if (Vector3.Dot(new Vector3(-1, 0, 0), pos.normalized) > 0.8f){
-                _roots[0] = x;
+                _directionRoots[0] = x;
             }
             if (Vector3.Dot(new Vector3(0, 1, 0), pos.normalized) > 0.8f){
-                _roots[1] = x;
+                _directionRoots[1] = x;
             }
             if (Vector3.Dot(new Vector3(1, 0, 0), pos.normalized) > 0.8f){
-                _roots[2] = x;
+                _directionRoots[2] = x;
             }
             if (Vector3.Dot(new Vector3(0, -1, 0), pos.normalized) > 0.8f){
-                _roots[3] = x;
+                _directionRoots[3] = x;
             }
         }
 
@@ -80,16 +82,16 @@ public class PlayerController : CharacterControllerBase
             var pos = (x.GetPosition() - squarePos);
             pos.y = 0.0f;
             if (Vector3.Dot(new Vector3(-1, 0, 0), pos.normalized) > 0.8f){
-                _roots[0] = x;
-            }
-            if (Vector3.Dot(new Vector3(0, 1, 0), pos.normalized) > 0.8f){
-                _roots[1] = x;
-            }
-            if (Vector3.Dot(new Vector3(1, 0, 0), pos.normalized) > 0.8f){
-                _roots[2] = x;
+                _directionRoots[0] = x;
             }
             if (Vector3.Dot(new Vector3(0, -1, 0), pos.normalized) > 0.8f){
-                _roots[3] = x;
+                _directionRoots[1] = x;
+            }
+            if (Vector3.Dot(new Vector3(1, 0, 0), pos.normalized) > 0.8f){
+                _directionRoots[2] = x;
+            }
+            if (Vector3.Dot(new Vector3(0, 1, 0), pos.normalized) > 0.8f){
+                _directionRoots[3] = x;
             }
         }
 
@@ -104,9 +106,21 @@ public class PlayerController : CharacterControllerBase
 
         var inputDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        if(Vector2.Dot(inputDir, new Vector2(-1.0f, 0.0f)) < 0.8f)
+        if(_directionRoots[0] && Vector2.Dot(inputDir, new Vector2(-1.0f, 0.0f)) < 0.8f)
         {
-            _character.StartMove(_roots[0]);
+            _character.StartMove(_directionRoots[0]);
+        }
+        if(_directionRoots[1] && Vector2.Dot(inputDir, new Vector2(0.0f, -1.0f)) < 0.8f)
+        {
+            _character.StartMove(_directionRoots[1]);
+        }
+        if(_directionRoots[2] && Vector2.Dot(inputDir, new Vector2(1.0f, 0.0f)) < 0.8f)
+        {
+            _character.StartMove(_directionRoots[2]);
+        }
+        if(_directionRoots[3] && Vector2.Dot(inputDir, new Vector2(0.0f, 1.0f)) < 0.8f)
+        {
+            _character.StartMove(_directionRoots[3]);
         }
 
     }
