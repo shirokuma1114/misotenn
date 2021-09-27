@@ -4,56 +4,104 @@ using UnityEngine;
 
 public class EarthMove : MonoBehaviour
 {
-    ////テストコード
-    private GameObject _targetSquare = null;
-    [SerializeField]
-    List<GameObject> _squares;
+    public enum EarthMoveState
+    {
+        IDLE,
+        MOVE_INIT,
+        MOVE,
+        END,
+    }
+    private EarthMoveState _state = EarthMoveState.IDLE;
+    public EarthMoveState State => _state;
+
+
+    //合わせる視点
     [SerializeField]
     private GameObject _camera = null;
-    //補完用
-    private GameObject _preSquare = null;
-    private bool _lerpStart = false;
-    private Quaternion _lerpStartRot;
-    private Quaternion _lerpEndRot;
+
+    //回転
+    private Vector3 _targetPosition;
+    private Quaternion _startRot;
+    private Quaternion _endRot;
     private float _lerpTime = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        _targetSquare = _preSquare = _squares[0];
-        _lerpStartRot = transform.rotation;
-        _lerpEndRot = Quaternion.identity;
+        _targetPosition = Vector3.zero;
+        _startRot = transform.rotation;
+        _endRot = Quaternion.identity;
+        _lerpTime = 0;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //テスト用マス移動
-        if (Input.GetKeyDown(KeyCode.Alpha1)) _targetSquare = _squares[0];
-        if (Input.GetKeyDown(KeyCode.Alpha2)) _targetSquare = _squares[1];
-        if (Input.GetKeyDown(KeyCode.Alpha3)) _targetSquare = _squares[2];
-
-
-        if(_targetSquare != _preSquare) //ターゲット変更判定
+        switch (_state)
         {
-            Vector3 refVec = (_camera.transform.position - transform.position).normalized;
-            Vector3 vec = (_targetSquare.transform.localPosition - transform.position).normalized;
-            _lerpEndRot = Quaternion.FromToRotation(vec, refVec);
-            _lerpTime = 0.0f;
-
-            _lerpStartRot = transform.rotation;
-            _preSquare = _targetSquare;
-            _lerpStart = true;
+            case EarthMoveState.IDLE:
+                IdleStateProcess();
+                break;
+            case EarthMoveState.MOVE_INIT:
+                MoveInitStateProcess();
+                break;
+            case EarthMoveState.MOVE:
+                MoveStateProcess();
+                break;
+            case EarthMoveState.END:
+                EndStateProcess();
+                break;
         }
+    }
 
-        if(_lerpStart)
-        {
-            transform.rotation = Quaternion.Lerp(_lerpStartRot,_lerpEndRot,_lerpTime);
 
-            if (_lerpTime >= 1.0f)
-                _lerpStart = false;
+    //=================================
+    //public
+    //=================================
+    public void MoveToPosition(Vector3 position)    //ワールド座標
+    {
+        _state = EarthMoveState.MOVE_INIT;
 
-            _lerpTime += Time.deltaTime;
-        }
+        _targetPosition = position;
+    }
+
+    //=================================
+
+
+    //private
+    private void IdleStateProcess()
+    {
+
+    }
+
+    private void MoveInitStateProcess()
+    {
+        Vector3 refVec = (_camera.transform.position - transform.position).normalized;
+        Vector3 vec = (_targetPosition - transform.position).normalized;
+        _endRot = Quaternion.FromToRotation(vec, refVec);
+
+        _lerpTime = 0.0f;
+
+        _startRot = transform.rotation;
+
+
+        _state = EarthMoveState.MOVE;
+    }
+
+    private void MoveStateProcess()
+    {
+        transform.rotation = Quaternion.Lerp(_startRot, _endRot, _lerpTime);
+
+
+        if (_lerpTime >= 1.0f)
+            _state = EarthMoveState.END;
+
+
+        _lerpTime += Time.deltaTime;
+    }
+
+    private void EndStateProcess()
+    {
+        _state = EarthMoveState.IDLE;
     }
 }
