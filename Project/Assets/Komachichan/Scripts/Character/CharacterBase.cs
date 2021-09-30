@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterBase : MonoBehaviour
 {
+    [SerializeField]
+    CharacterControllerBase _controller;
+
     // 所持金
     private int _money;
 
@@ -12,12 +16,12 @@ public class CharacterBase : MonoBehaviour
 
 
     // 移動カードリスト
-    private List<int> _movingCards;
+    private List<int> _movingCards = new List<int>();
     public List<int> MovingCards
     { get { return _movingCards; } }
 
     // お土産カードリスト
-    private List<Souvenir> _souvenirs;
+    private List<Souvenir> _souvenirs = new List<Souvenir>();
 
     public List<Souvenir> Souvenirs
     { get { return _souvenirs; } }
@@ -39,9 +43,14 @@ public class CharacterBase : MonoBehaviour
     }
 
     // ルート保存用
-    private Stack<SquareBase> _rootStack;
+    private Stack<SquareBase> _rootStack = new Stack<SquareBase>();
 
     private int _movingCount;
+
+    public int MovingCount
+    {
+        get { return _movingCount; }
+    }
 
     void Start()
     {
@@ -83,6 +92,7 @@ public class CharacterBase : MonoBehaviour
     {
         _isMoved = true;
 
+        
         // 後退
         if (_rootStack.Contains(square))
         {
@@ -96,27 +106,29 @@ public class CharacterBase : MonoBehaviour
             _movingCount--;
         }
         _currentSquare = square;
+
+        // ステージ回転
+        FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition());
     }
 
     private void UpdateMove()
     {
         if (!_isMoved) return;
-
+        if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
+        {
+            _controller.SetRoot();
+            _isMoved = false;
+        }
     }
 
-    public List<SquareBase> GetInConnects()
+    public List<SquareConnect> GetInConnects()
     {
-        return _currentSquare.InConnects;
-    }
-
-    public List<SquareBase> GetOutConnects()
-    {
-        var outs = new List<SquareBase>();
+        var outs = new List<SquareConnect>();
 
         // スタックにあるマスのみ
-        foreach(var s in _currentSquare.OutConnects)
+        foreach (var s in _currentSquare.InConnects)
         {
-            if (_rootStack.Contains(s))
+            if (_rootStack.Contains(s._square))
             {
                 outs.Add(s);
             }
@@ -124,4 +136,11 @@ public class CharacterBase : MonoBehaviour
         
         return outs;
     }
+
+    public List<SquareConnect> GetOutConnects()
+    {
+        return _movingCount > 0 ? _currentSquare.OutConnects : new List<SquareConnect>();
+    }
+
+
 }

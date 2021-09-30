@@ -9,18 +9,18 @@ public class SquareBase : MonoBehaviour
 
     // イン
     [SerializeField]
-    protected List<SquareBase> _inConnects = new List<SquareBase>();
+    protected List<SquareConnect> _inConnects = new List<SquareConnect>();
 
-    public List<SquareBase> InConnects
+    public List<SquareConnect> InConnects
     {
         get { return _inConnects; }
     }
 
     // アウト
     [SerializeField]
-    protected List<SquareBase> _outConnects = new List<SquareBase>();
+    protected List<SquareConnect> _outConnects = new List<SquareConnect>();
 
-    public List<SquareBase> OutConnects
+    public List<SquareConnect> OutConnects
     {
         get { return _outConnects; }
     }
@@ -42,19 +42,9 @@ public class SquareBase : MonoBehaviour
 
     }
 
-    public void AddInConnect(SquareBase squareBase)
-    {
-        _inConnects.Add(squareBase);
-    }
-
-    public void AddOutConnect(SquareBase squareBase)
-    {
-        _outConnects.Add(squareBase);
-    }
-
     public Vector3 GetPosition()
     {
-        return GetComponent<Transform>().position;
+        return GetComponent<Transform>().localPosition;
     }
     
 }

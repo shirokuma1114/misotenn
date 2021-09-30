@@ -14,5 +14,9 @@ public class CharacterControllerBase : MonoBehaviour
 
     }
 
+    public virtual void SetRoot()
+    {
+
+    }
    
 }

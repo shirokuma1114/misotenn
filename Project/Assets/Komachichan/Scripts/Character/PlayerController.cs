@@ -21,7 +21,7 @@ public class PlayerController : CharacterControllerBase
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateMove();
     }
 
     // 移動カードを選ぶ
@@ -29,23 +29,30 @@ public class PlayerController : CharacterControllerBase
     {
         var movingCount = _character.MovingCards[0];
 
-
         // とりあえず０番目を選ぶ
         _character.RemoveMovingCard(0);
-
-        // UIに通知
-        NotifyMovingCount(movingCount);
-
         _isMoved = true;
-        
-        // ルート生成
-        SetSquareRoots();
-        NotifyArrow();
+
+        SetRoot();
     }
 
-    private void NotifyArrow()
+    public override void SetRoot()
     {
+        NotifyMovingCount(_character.MovingCount);
 
+        // ルート生成
+        SetSquareRoots();
+        CreateArrow();
+    }
+
+    private void CreateArrow()
+    {
+        FindObjectOfType<UIArrow>().Create(_directionRoots);
+    }
+
+    private void DeleteArrow()
+    {
+        FindObjectOfType<UIArrow>().Delete();
     }
 
     public void SetSquareRoots()
@@ -59,43 +66,54 @@ public class PlayerController : CharacterControllerBase
         // 左0 上 1 右 2 下 3 の順に向きが適切なマスを入れる
         var squarePos = _character.CurrentSquare.GetPosition();
         
+
         foreach(var x in _character.GetInConnects())
         {
-            var pos = (x.GetPosition() - squarePos);
-            pos.y = 0.0f;
-            if (Vector3.Dot(new Vector3(-1, 0, 0), pos.normalized) > 0.8f){
-                _directionRoots[0] = x;
+            if(x._directionType == ConnectDirection.LEFT)
+            {
+                _directionRoots[0] = x._square;
             }
-            if (Vector3.Dot(new Vector3(0, 1, 0), pos.normalized) > 0.8f){
-                _directionRoots[1] = x;
+            if(x._directionType == ConnectDirection.UP)
+            {
+                _directionRoots[1] = x._square;
             }
-            if (Vector3.Dot(new Vector3(1, 0, 0), pos.normalized) > 0.8f){
-                _directionRoots[2] = x;
+            if(x._directionType == ConnectDirection.RIGHT)
+            {
+                _directionRoots[2] = x._square;
             }
-            if (Vector3.Dot(new Vector3(0, -1, 0), pos.normalized) > 0.8f){
-                _directionRoots[3] = x;
+            if(x._directionType == ConnectDirection.DOWN)
+            {
+                _directionRoots[3] = x._square;
             }
         }
-
+        
         foreach(var x in _character.GetOutConnects())
         {
-            var pos = (x.GetPosition() - squarePos);
-            pos.y = 0.0f;
-            if (Vector3.Dot(new Vector3(-1, 0, 0), pos.normalized) > 0.8f){
-                _directionRoots[0] = x;
+            if(x._directionType == ConnectDirection.LEFT)
+            {
+                _directionRoots[0] = x._square;
             }
-            if (Vector3.Dot(new Vector3(0, -1, 0), pos.normalized) > 0.8f){
-                _directionRoots[1] = x;
+            if(x._directionType == ConnectDirection.UP)
+            {
+                _directionRoots[1] = x._square;
             }
-            if (Vector3.Dot(new Vector3(1, 0, 0), pos.normalized) > 0.8f){
-                _directionRoots[2] = x;
+            if(x._directionType == ConnectDirection.RIGHT)
+            {
+                _directionRoots[2] = x._square;
             }
-            if (Vector3.Dot(new Vector3(0, 1, 0), pos.normalized) > 0.8f){
-                _directionRoots[3] = x;
+            if(x._directionType == ConnectDirection.DOWN)
+            {
+                _directionRoots[3] = x._square;
             }
         }
-
+        
         // 選択肢の表示
+        /*
+        Debug.Log(_directionRoots[0]);
+        Debug.Log(_directionRoots[1]);
+        Debug.Log(_directionRoots[2]);
+        Debug.Log(_directionRoots[3]);
+        */
     }
 
     private void UpdateMove()
@@ -105,22 +123,40 @@ public class PlayerController : CharacterControllerBase
         if (_character.IsMoved) return;
 
         var inputDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        
+        if (inputDir == Vector2.zero) return;
 
-        if(_directionRoots[0] && Vector2.Dot(inputDir, new Vector2(-1.0f, 0.0f)) < 0.8f)
+        if(Mathf.Abs(inputDir.x) > Mathf.Abs(inputDir.y))
         {
-            _character.StartMove(_directionRoots[0]);
+            if (inputDir.x < 0)
+            {
+                if (_directionRoots[0])
+                    StartMove(_directionRoots[0]);
+            }
+            else
+            {
+                if (_directionRoots[2])
+                    StartMove(_directionRoots[2]);
+            }
         }
-        if(_directionRoots[1] && Vector2.Dot(inputDir, new Vector2(0.0f, -1.0f)) < 0.8f)
+        else
         {
-            _character.StartMove(_directionRoots[1]);
+            if (inputDir.y < 0)
+            {
+                if (_directionRoots[1])
+                    StartMove(_directionRoots[1]);
+            }
+            else
+            {
+                if (_directionRoots[3])
+                    StartMove(_directionRoots[3]);
+            }
         }
-        if(_directionRoots[2] && Vector2.Dot(inputDir, new Vector2(1.0f, 0.0f)) < 0.8f)
+
+        // マス目を決定する
+        if(_character.MovingCount == 0)
         {
-            _character.StartMove(_directionRoots[2]);
-        }
-        if(_directionRoots[3] && Vector2.Dot(inputDir, new Vector2(0.0f, 1.0f)) < 0.8f)
-        {
-            _character.StartMove(_directionRoots[3]);
+
         }
 
     }
@@ -128,5 +164,11 @@ public class PlayerController : CharacterControllerBase
     void NotifyMovingCount(int count)
     {
         GameObject.Find("Text").GetComponent<Text>().text = count.ToString();
+    }
+
+    void StartMove(SquareBase square)
+    {
+        _character.StartMove(square);
+        
     }
 }

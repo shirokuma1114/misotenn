@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44902527, g: 0.49908912, b: 0.5757123, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -156,9 +156,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 388156674}
+  - _square: {fileID: 388156674}
+    _directionType: 0
   _outConnects:
-  - {fileID: 566986087}
+  - _square: {fileID: 566986087}
+    _directionType: 1
 --- !u!65 &22413891
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -343,10 +345,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1040221521}
-  _outConnects:
-  - {fileID: 738108315}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &312403249
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,11 +455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 925740937}
-  - {fileID: 776601712}
-  _outConnects:
-  - {fileID: 1827757110}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &336174569
 GameObject:
   m_ObjectHideFlags: 0
@@ -568,10 +565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1422776078}
-  _outConnects:
-  - {fileID: 1730712076}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &388156673
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,9 +600,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 1830798716}
+  - _square: {fileID: 1830798716}
+    _directionType: 0
   _outConnects:
-  - {fileID: 22413890}
+  - _square: {fileID: 22413890}
+    _directionType: 1
 --- !u!65 &388156675
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -792,10 +789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1563947240}
-  _outConnects:
-  - {fileID: 1773790534}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &566986086
 GameObject:
   m_ObjectHideFlags: 0
@@ -829,9 +824,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 22413890}
+  - _square: {fileID: 22413890}
+    _directionType: 0
   _outConnects:
-  - {fileID: 1269288062}
+  - _square: {fileID: 1269288062}
+    _directionType: 1
 --- !u!65 &566986088
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -999,8 +996,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 589488578}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.02, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -2.14, z: -78.91}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -1017,7 +1014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2e4a1b6a45454b4d8f119d71ecf7d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: {fileID: 0}
+  _character: {fileID: 589488584}
 --- !u!114 &589488584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1030,6 +1027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6c8420dfbf61f54f9ca54cea95dfbac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _controller: {fileID: 589488583}
 --- !u!1 &621603720
 GameObject:
   m_ObjectHideFlags: 0
@@ -1146,9 +1144,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 1269288062}
+  - _square: {fileID: 1269288062}
+    _directionType: 0
   _outConnects:
-  - {fileID: 744038554}
+  - _square: {fileID: 744038554}
+    _directionType: 1
 --- !u!65 &628374108
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1316,10 +1316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f89f6af85d7ed745a54b4f0adf54462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _squares:
-  - {fileID: 2055021303}
-  - {fileID: 0}
-  - {fileID: 0}
   _camera: {fileID: 621603720}
 --- !u!1 &738108310
 GameObject:
@@ -1429,11 +1425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 49847684}
-  _outConnects:
-  - {fileID: 1358718561}
-  - {fileID: 776601712}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &744038553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,9 +1460,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 628374107}
+  - _square: {fileID: 628374107}
+    _directionType: 0
   _outConnects:
-  - {fileID: 1857215264}
+  - _square: {fileID: 1857215264}
+    _directionType: 1
 --- !u!65 &744038555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1754,10 +1749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 738108315}
-  _outConnects:
-  - {fileID: 312403254}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &842110317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,10 +1938,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1730712076}
-  _outConnects:
-  - {fileID: 312403254}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1040221516
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,10 +2048,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1773790534}
-  _outConnects:
-  - {fileID: 49847684}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1148040693
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,9 +2128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 566986087}
+  - _square: {fileID: 566986087}
+    _directionType: 0
   _outConnects:
-  - {fileID: 628374107}
+  - _square: {fileID: 628374107}
+    _directionType: 1
 --- !u!65 &1269288063
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2326,10 +2317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 738108315}
-  _outConnects:
-  - {fileID: 1422776078}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1422776073
 GameObject:
   m_ObjectHideFlags: 0
@@ -2438,10 +2427,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1358718561}
-  _outConnects:
-  - {fileID: 336174574}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1563947235
 GameObject:
   m_ObjectHideFlags: 0
@@ -2550,10 +2537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1640463253}
-  _outConnects:
-  - {fileID: 458774190}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1571439331
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,6 +2549,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1571439333}
   - component: {fileID: 1571439332}
+  - component: {fileID: 1571439334}
   m_Layer: 0
   m_Name: GameMasterKomachi
   m_TagString: Untagged
@@ -2597,6 +2583,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1571439334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571439331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51e9eb99e48769f44b817cbc4027e270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 758677476}
+  _prefab: {fileID: 2148099070059283166, guid: 6de7697b1a657a7428cf94f6698bd2bf, type: 3}
 --- !u!1 &1628559720
 GameObject:
   m_ObjectHideFlags: 0
@@ -2630,9 +2630,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 1694274085}
+  - _square: {fileID: 1694274085}
+    _directionType: 0
   _outConnects:
-  - {fileID: 2055021308}
+  - _square: {fileID: 2055021308}
+    _directionType: 1
 --- !u!65 &1628559722
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2817,10 +2819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 1827757110}
-  _outConnects:
-  - {fileID: 1563947240}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1694274084
 GameObject:
   m_ObjectHideFlags: 0
@@ -2854,9 +2854,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 1857215264}
+  - _square: {fileID: 1857215264}
+    _directionType: 0
   _outConnects:
-  - {fileID: 1628559721}
+  - _square: {fileID: 1628559721}
+    _directionType: 1
 --- !u!65 &1694274086
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3041,10 +3043,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 336174574}
-  _outConnects:
-  - {fileID: 925740937}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1773790529
 GameObject:
   m_ObjectHideFlags: 0
@@ -3153,10 +3153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 458774190}
-  _outConnects:
-  - {fileID: 1040221521}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1782825898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3331,10 +3329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects:
-  - {fileID: 312403254}
-  _outConnects:
-  - {fileID: 1640463253}
+  _inConnects: []
+  _outConnects: []
 --- !u!1 &1830798715
 GameObject:
   m_ObjectHideFlags: 0
@@ -3368,9 +3364,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 2052159048}
+  - _square: {fileID: 2052159048}
+    _directionType: 0
   _outConnects:
-  - {fileID: 388156674}
+  - _square: {fileID: 388156674}
+    _directionType: 1
 --- !u!65 &1830798717
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3480,9 +3478,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 744038554}
+  - _square: {fileID: 744038554}
+    _directionType: 0
   _outConnects:
-  - {fileID: 1694274085}
+  - _square: {fileID: 1694274085}
+    _directionType: 1
 --- !u!65 &1857215265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3645,13 +3645,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2045695758}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.36926335, y: -0.01419709, z: 0.2055499, w: 0.90619665}
+  m_LocalPosition: {x: 473, y: 163, z: 495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 42.461, y: 9.84, z: 29.391}
 --- !u!1 &2052159047
 GameObject:
   m_ObjectHideFlags: 0
@@ -3685,9 +3685,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 2055021308}
+  - _square: {fileID: 2055021308}
+    _directionType: 0
   _outConnects:
-  - {fileID: 1830798716}
+  - _square: {fileID: 1830798716}
+    _directionType: 1
 --- !u!65 &2052159049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3873,6 +3875,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - {fileID: 1628559721}
+  - _square: {fileID: 1628559721}
+    _directionType: 0
   _outConnects:
-  - {fileID: 2052159048}
+  - _square: {fileID: 2052159048}
+    _directionType: 1
