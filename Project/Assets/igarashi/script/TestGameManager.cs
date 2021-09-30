@@ -20,6 +20,12 @@ public class TestGameManager : MonoBehaviour
     [SerializeField]
     private GameObject _cardManager;
 
+
+    [Header("BGM")]
+    [Space(20)]
+    [SerializeField]
+    private BGMManager _bgmManage;
+
     // Start is called before the first frame update
     void Start()
     {
