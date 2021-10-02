@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MoveCardManager : MonoBehaviour
 {
     private List<int> _cardNumberLists;
-    private int _selectedCardIndex = -1;
+    private int _selectedCardIndex = 0;
     private bool _selectComplete;
     public bool IsSelectComplete => _selectComplete;
 
@@ -14,17 +14,24 @@ public class MoveCardManager : MonoBehaviour
     private GameObject _cardPrefab;
     private List<GameObject> _cards = new List<GameObject>();
 
+
     // Start is called before the first frame update
     void Start()
     {
-        _selectedCardIndex = -1;
+        _selectedCardIndex = 0;
         _selectComplete = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_selectedCardIndex);
+        if(_selectComplete) Debug.Log(_selectedCardIndex);
+
+        if(_cards.Count != 0)
+        {
+            if (!_selectComplete)
+                SelectCards();
+        }
     }
 
 
@@ -40,6 +47,7 @@ public class MoveCardManager : MonoBehaviour
                 Destroy(card);
 
         CreateCards();
+        SelectCardColorUpdate();
 
         _selectComplete = false;
 
@@ -80,6 +88,47 @@ public class MoveCardManager : MonoBehaviour
             card.GetComponent<MoveCard>().SetIndex(i);
 
             _cards.Add(card);
+        }
+    }
+
+    
+    private void SelectCards()
+    {
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            _selectedCardIndex--;
+            if (_selectedCardIndex < 0)
+                _selectedCardIndex = _cards.Count - 1;
+
+            SelectCardColorUpdate();
+        }
+        if(Input.GetKeyDown(KeyCode.D))
+        {
+            _selectedCardIndex++;
+            if (_selectedCardIndex >= _cards.Count)
+                _selectedCardIndex = 0;
+
+            SelectCardColorUpdate();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            _selectComplete = true;
+        }
+    }
+
+    private void SelectCardColorUpdate()
+    {
+        for(int i = 0; i < _cards.Count; i++)
+        {
+            if (i == _selectedCardIndex)
+            {
+                _cards[i].GetComponent<Image>().color = new Color(1, 0, 0, 0.5f);
+
+                continue;
+            }
+
+            _cards[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
         }
     }
 }
