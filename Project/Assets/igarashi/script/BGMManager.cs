@@ -4,63 +4,47 @@ using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
+    private bool _change = false;
+    private float _leapCount = 0;
     [SerializeField]
-    private AudioClip _clip1;
-    [SerializeField]
-    private AudioClip _clip2;
+    private float _leapSpeed;
 
-    private bool _change;
+    private AudioSource _audioSourcePlaying;
+    private AudioSource _audioSourceNext;
 
-    private AudioSource _audioSourceMain;
-    private AudioSource _audioSourceWait;
-    private int _playingSourceIndex;
-
-    private float _fream = 0;
 
     // Start is called before the first frame update
     void Start()
     {
+        _change = false;
+        _leapCount = 0;
+
+
         var audioSources = GetComponents<AudioSource>();
-        _audioSourceMain = audioSources[0];
-        _audioSourceWait = audioSources[1];
-        _playingSourceIndex = 0;
-
-        _audioSourceMain.clip = _clip1;
-        _audioSourceMain.Play();
-
-        _audioSourceWait.clip = _clip2;
+        _audioSourcePlaying = audioSources[0];
+        _audioSourceNext = audioSources[1];        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha0) && !_change)
-        {
-            _change = true;
-
-            _fream = 0;
-
-            _audioSourceWait.volume = 0;
-            _audioSourceWait.Play();
-        }
-
-
         if(_change)
         {
-            _audioSourceMain.volume = 1 - _fream;
-            _audioSourceWait.volume = _fream;
+            _audioSourcePlaying.volume = 1 - _leapCount;
+            _audioSourceNext.volume = _leapCount;
 
 
-            if (_fream > 1)
+            if (_leapCount > 1)
             {
                 _change = false;
-                
-                var tmp = _audioSourceMain;
-                _audioSourceMain = _audioSourceWait;
-                _audioSourceWait = tmp;
+
+                var tmp = _audioSourcePlaying;
+                _audioSourcePlaying = _audioSourceNext;
+                _audioSourceNext = tmp;
+                _audioSourceNext.Stop();
             }
 
-            _fream += Time.deltaTime;
+            _leapCount += Time.deltaTime * _leapSpeed;
         }
     }
 
@@ -68,8 +52,13 @@ public class BGMManager : MonoBehaviour
     //=================================
     //public
     //=================================
-    public void ChangeBGM(int clipIndex)
+    public void SetNextBGMClip(AudioClip clip)
     {
-        
+        _change = true;
+        _leapCount = 0;
+
+        _audioSourceNext.clip = clip;
+        _audioSourceNext.volume = 0.0f;
+        _audioSourceNext.Play();
     }
 }

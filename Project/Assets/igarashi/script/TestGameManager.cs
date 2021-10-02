@@ -24,7 +24,9 @@ public class TestGameManager : MonoBehaviour
     [Header("BGM")]
     [Space(20)]
     [SerializeField]
-    private BGMManager _bgmManage;
+    private BGMManager _bgmManager;
+    [SerializeField]
+    private AudioClip _nextClip;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +51,14 @@ public class TestGameManager : MonoBehaviour
             _cardManager.GetComponent<MoveCardManager>().SetCardList(_cardNumberList);
 
             _cardCreate = false;
+        }
+
+
+        if(_nextClip)
+        {
+            _bgmManager.GetComponent<BGMManager>().SetNextBGMClip(_nextClip);
+
+            _nextClip = null;
         }
     }
 }
