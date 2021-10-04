@@ -25,19 +25,7 @@ public class SquareBase : MonoBehaviour
         get { return _outConnects; }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public virtual void Stop()
+    public virtual void Stop(CharacterBase character)
     {
 
     }

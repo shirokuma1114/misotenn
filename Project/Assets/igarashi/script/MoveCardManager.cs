@@ -25,7 +25,7 @@ public class MoveCardManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_selectComplete) Debug.Log(_selectedCardIndex);
+        //if(_selectComplete) Debug.Log(_selectedCardIndex);
 
         if(_cards.Count != 0)
         {

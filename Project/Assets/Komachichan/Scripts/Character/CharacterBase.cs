@@ -34,12 +34,10 @@ public class CharacterBase : MonoBehaviour
         get { return _currentSquare; }
     }
 
-
-    private bool _isMoved = false;
-
-    public bool IsMoved
+    private CharacterState _state = CharacterState.WAIT;
+    public CharacterState State
     {
-        get { return _isMoved; }
+        get { return _state; }
     }
 
     // ÉãÅ[Égï€ë∂óp
@@ -56,6 +54,7 @@ public class CharacterBase : MonoBehaviour
     {
         
     }
+
     void Update()
     {
         UpdateMove();
@@ -90,8 +89,7 @@ public class CharacterBase : MonoBehaviour
 
     public void StartMove(SquareBase square)
     {
-        _isMoved = true;
-
+        _state = CharacterState.MOVE;
         
         // å„ëﬁ
         if (_rootStack.Contains(square))
@@ -113,12 +111,18 @@ public class CharacterBase : MonoBehaviour
 
     private void UpdateMove()
     {
-        if (!_isMoved) return;
+        if (_state != CharacterState.MOVE) return;
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _controller.SetRoot();
-            _isMoved = false;
+            _state = CharacterState.WAIT;
         }
+    }
+
+    public void Stop()
+    {
+        _state = CharacterState.STOP;
+        _currentSquare.Stop(this);
     }
 
     public List<SquareConnect> GetInConnects()
@@ -142,5 +146,8 @@ public class CharacterBase : MonoBehaviour
         return _movingCount > 0 ? _currentSquare.OutConnects : new List<SquareConnect>();
     }
 
-
+    public void CompleteStopExec()
+    {
+        _state = CharacterState.END;
+    }
 }

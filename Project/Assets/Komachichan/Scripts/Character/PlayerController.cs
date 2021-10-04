@@ -136,7 +136,13 @@ public class PlayerController : CharacterControllerBase
     {
         if (!_isMoved) return;
 
-        if (_character.IsMoved) return;
+        if (_character.State != CharacterState.WAIT) return;
+
+        // マス目を決定する
+        if (_character.MovingCount == 0)
+        {
+            _character.Stop();
+        }
 
         var inputDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         
@@ -169,11 +175,7 @@ public class PlayerController : CharacterControllerBase
             }
         }
 
-        // マス目を決定する
-        if(_character.MovingCount == 0)
-        {
-
-        }
+ 
 
     }
 

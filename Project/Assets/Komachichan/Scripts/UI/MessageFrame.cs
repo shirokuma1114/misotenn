@@ -2,8 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SquareSouvenirShop : SquareBase
+public class MessageFrame : MonoBehaviour
 {
+
+    private bool _isFullDisplayed = false;
+    public bool IsFullDisplayed
+    {
+        get { return _isFullDisplayed; }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,10 +21,5 @@ public class SquareSouvenirShop : SquareBase
     void Update()
     {
         
-    }
-
-    public override void Stop(CharacterBase character)
-    {
-
     }
 }
