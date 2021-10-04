@@ -10,6 +10,8 @@ public class SquareAllowance : SquareBase
 
     bool _isUsed = false;
 
+    bool _messageExists = false;
+
     public override void Stop(CharacterBase character)
     {
         _character = character;
@@ -22,15 +24,23 @@ public class SquareAllowance : SquareBase
         _messageWindow.SetMessage(message);
 
         _isUsed = true;
+        _messageExists = true;
     }
 
     private void Update()
     {
         if (!_isUsed) return;
 
+        if(_messageExists && !_messageWindow.IsDisplayed)
+        {
+            _messageExists = false;
+            // おこづかいルーレット
+        }
+
         // 結果待ち
         if (!_messageWindow.IsDisplayed)
         {
+            // 止まる処理終了
             _character.CompleteStopExec();
             _isUsed = false;
         }
