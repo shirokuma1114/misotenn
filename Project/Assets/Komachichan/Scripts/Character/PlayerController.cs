@@ -8,32 +8,34 @@ public class PlayerController : CharacterControllerBase
 
 
     bool _isMoved = false;
+    bool _isSelectedCard = false;
 
     SquareBase[] _directionRoots;
 
+    MoveCardManager _moveCardManager;
     
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        _moveCardManager = FindObjectOfType<MoveCardManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_isSelectedCard) {
+            UpdateSelect();
+            return;
+        }
         UpdateMove();
     }
 
     // 移動カードを選ぶ
     public override void Move()
     {
-        var movingCount = _character.MovingCards[0];
+        _moveCardManager.SetCardList(_character.MovingCards);
 
-        // とりあえず０番目を選ぶ
-        _character.RemoveMovingCard(0);
-        _isMoved = true;
-
-        SetRoot();
+        _isSelectedCard = true;
     }
 
     public override void SetRoot()
@@ -114,6 +116,20 @@ public class PlayerController : CharacterControllerBase
         Debug.Log(_directionRoots[2]);
         Debug.Log(_directionRoots[3]);
         */
+    }
+
+    private void UpdateSelect()
+    {
+        if (_moveCardManager.GetSelectedCardIndex() != -1)
+        {
+            var index = _moveCardManager.GetSelectedCardIndex();
+            _character.RemoveMovingCard(index);
+            _isSelectedCard = false;
+            _isMoved = true;
+            SetRoot();
+            _moveCardManager.DeleteCards();
+            
+        }
     }
 
     private void UpdateMove()

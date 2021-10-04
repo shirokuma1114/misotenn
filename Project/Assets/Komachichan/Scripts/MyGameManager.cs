@@ -8,6 +8,8 @@ public class MyGameManager : MonoBehaviour
     void Awake()
     {
         GameObject.Find("Player").GetComponent<Player>().AddMovingCard(7);
+        GameObject.Find("Player").GetComponent<Player>().AddMovingCard(6);
+        GameObject.Find("Player").GetComponent<Player>().AddMovingCard(5);
         GameObject.Find("Player").GetComponent<Player>().SetCurrentSquare(GameObject.Find("Start").GetComponent<SquareBase>());
         GameObject.Find("Player").GetComponent<PlayerController>().Move();
     }

@@ -42,9 +42,7 @@ public class MoveCardManager : MonoBehaviour
     {
         _cardNumberLists = cardNumberList;
 
-        if(_cards.Count != 0)
-            foreach (var card in _cards)
-                Destroy(card);
+        DeleteCards();
 
         CreateCards();
         SelectCardColorUpdate();
@@ -64,7 +62,7 @@ public class MoveCardManager : MonoBehaviour
     {
         if (!_selectComplete)
         {
-            Debug.Log("card‚ª‘I‘ð‚³‚ê‚Ä‚¢‚È‚¢");
+            //Debug.Log("card‚ª‘I‘ð‚³‚ê‚Ä‚¢‚È‚¢");
             return -1;
         }
 
@@ -130,5 +128,12 @@ public class MoveCardManager : MonoBehaviour
 
             _cards[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
         }
+    }
+
+    public void DeleteCards()
+    {
+        if (_cards.Count != 0)
+            foreach (var card in _cards)
+                Destroy(card);
     }
 }
