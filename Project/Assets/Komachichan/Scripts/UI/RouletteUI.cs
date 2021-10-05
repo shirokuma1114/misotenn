@@ -60,14 +60,18 @@ public class RouletteUI : MonoBehaviour
     void UpdateMove()
     {
         if (_isStopped) return;
+
+        GameObject target = null;
         foreach(var i in _rouletteObjects)
         {
             var pos = i.GetComponent<RectTransform>().anchoredPosition;
             pos.y -= Time.deltaTime * _moveSpeed;
             if(pos.y - _offsetY <= -74.0f)
             {
-                pos.y = -64.0f + _rouletteObjects.Count * 32.0f - 10.0f + _offsetY;
+                target = i;
+                //pos.y = -64.0f + _rouletteObjects.Count * 32.0f - 10.0f + _offsetY;
                 i.GetComponent<Text>().enabled = false;
+                continue;
             }
 
             i.GetComponent<RectTransform>().anchoredPosition = pos;
@@ -76,6 +80,12 @@ public class RouletteUI : MonoBehaviour
             {
                 i.GetComponent<Text>().enabled = true;
             }
+        }
+        if (target)
+        {
+            var pos = target.GetComponent<RectTransform>().anchoredPosition;
+            pos.y = _rouletteObjects.Max(i => i.GetComponent<RectTransform>().anchoredPosition.y) + 32.0f;
+            target.GetComponent<RectTransform>().anchoredPosition = pos;
         }
 
         if (_isPushed)
