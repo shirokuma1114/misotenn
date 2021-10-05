@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +40,7 @@ public class MoveCardManager : MonoBehaviour
     {
         _cardNumberLists = cardNumberList;
 
-        if(_cards.Count != 0)
+        if (_cards.Count != 0)
         {
             foreach (var card in _cards)
                 Destroy(card);
@@ -65,11 +65,23 @@ public class MoveCardManager : MonoBehaviour
     {
         if (!_selectComplete)
         {
-            Debug.Log("card‚ª‘I‘ð‚³‚ê‚Ä‚¢‚È‚¢");
+            Debug.Log("cardâ€šÅžâ€˜Iâ€˜Ä‘â€šÅ‚â€šÄ™â€šÃ„â€šË˜â€šÄŒâ€šË˜");
             return -1;
         }
 
         return _selectedCardIndex;
+    }
+
+
+    public void DeleteCards()
+    {
+        if (_cards.Count != 0)
+        {
+            foreach (var card in _cards)
+                Destroy(card);
+
+            _cards.Clear();
+        }
     }
 
     //=================================
@@ -83,7 +95,7 @@ public class MoveCardManager : MonoBehaviour
             GameObject card = Instantiate(_cardPrefab);
             var rt = card.GetComponent<RectTransform>();
 
-            rt.position = new Vector3(0.0f,-50.0f,0.0f);
+            rt.position = new Vector3(0.0f, -50.0f, 0.0f);
             card.transform.SetParent(transform);
             card.transform.Find("Text").GetComponent<Text>().text = _cardNumberLists[i].ToString();
             var mc = card.GetComponent<MoveCard>();
@@ -96,10 +108,10 @@ public class MoveCardManager : MonoBehaviour
         _selectedCardIndex = 0;
     }
 
-    
+
     private void SelectCards()
     {
-        if(Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A))
         {
             _selectedCardIndex--;
             if (_selectedCardIndex < 0)
@@ -107,7 +119,7 @@ public class MoveCardManager : MonoBehaviour
 
             SelectCardColorUpdate();
         }
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             _selectedCardIndex++;
             if (_selectedCardIndex >= _cards.Count)
@@ -116,7 +128,7 @@ public class MoveCardManager : MonoBehaviour
             SelectCardColorUpdate();
         }
 
-        if(Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return))
         {
             _selectComplete = true;
         }
@@ -124,7 +136,7 @@ public class MoveCardManager : MonoBehaviour
 
     private void SelectCardColorUpdate()
     {
-        for(int i = 0; i < _cards.Count; i++)
+        for (int i = 0; i < _cards.Count; i++)
         {
             if (i == _selectedCardIndex)
             {
