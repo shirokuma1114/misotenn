@@ -13,11 +13,14 @@ public class PlayerController : CharacterControllerBase
     SquareBase[] _directionRoots;
 
     MoveCardManager _moveCardManager;
-    
+
+    MovingCountWindow _movingCount;
+
     // Start is called before the first frame update
     void Awake()
     {
         _moveCardManager = FindObjectOfType<MoveCardManager>();
+        _movingCount = FindObjectOfType<MovingCountWindow>();
     }
 
     // Update is called once per frame
@@ -34,6 +37,7 @@ public class PlayerController : CharacterControllerBase
     public override void Move()
     {
         _moveCardManager.SetCardList(_character.MovingCards);
+
 
         _isSelectedCard = true;
     }
@@ -122,6 +126,7 @@ public class PlayerController : CharacterControllerBase
     {
         if (_moveCardManager.GetSelectedCardIndex() != -1)
         {
+            _movingCount.SetEnable(true);
             var index = _moveCardManager.GetSelectedCardIndex();
             _character.RemoveMovingCard(index);
             _isSelectedCard = false;
@@ -141,6 +146,7 @@ public class PlayerController : CharacterControllerBase
         // ƒ}ƒX–Ú‚ðŒˆ’è‚·‚é
         if (_character.MovingCount == 0)
         {
+            _movingCount.SetEnable(false);
             _character.Stop();
         }
 
@@ -181,7 +187,7 @@ public class PlayerController : CharacterControllerBase
 
     void NotifyMovingCount(int count)
     {
-        GameObject.Find("Text").GetComponent<Text>().text = count.ToString();
+        _movingCount.SetMovingCount(count);
     }
 
     void StartMove(SquareBase square)

@@ -60,6 +60,21 @@ public class CharacterBase : MonoBehaviour
         UpdateMove();
     }
 
+    public void AddMoney(int addValue)
+    {
+        _money += addValue;
+    }
+
+    public void SubMoney(int subValue)
+    {
+        _money -= subValue;
+    }
+
+    public bool CanPay(int value)
+    {
+        return value <= _money ? true : false;
+    }
+
     public void AddMovingCard(int movingValue)
     {
         _movingCards.Add(movingValue);
