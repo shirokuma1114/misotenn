@@ -25,7 +25,8 @@ public class MoveCardManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_selectComplete) Debug.Log(_selectedCardIndex);
+        if(_selectComplete)
+            Debug.Log(_selectedCardIndex);
 
         if(_cards.Count != 0)
         {
@@ -43,14 +44,17 @@ public class MoveCardManager : MonoBehaviour
         _cardNumberLists = cardNumberList;
 
         if(_cards.Count != 0)
+        {
             foreach (var card in _cards)
                 Destroy(card);
+
+            _cards.Clear();
+        }
 
         CreateCards();
         SelectCardColorUpdate();
 
         _selectComplete = false;
-
     }
 
     public void SelectedCardIndex(int index)
@@ -82,13 +86,17 @@ public class MoveCardManager : MonoBehaviour
             GameObject card = Instantiate(_cardPrefab);
             var rt = card.GetComponent<RectTransform>();
 
-            rt.position = new Vector3((rt.rect.width / 2.0f) + (rt.rect.width * i), rt.rect.height / 2.0f, 0.0f);
+            rt.position = new Vector3(0.0f,-50.0f,0.0f);
             card.transform.SetParent(transform);
             card.transform.Find("Text").GetComponent<Text>().text = _cardNumberLists[i].ToString();
-            card.GetComponent<MoveCard>().SetIndex(i);
+            var mc = card.GetComponent<MoveCard>();
+            mc.SetIndex(i);
+            mc.SetMoveTargetPos(new Vector3((rt.rect.width / 2.0f) + (rt.rect.width * i), rt.rect.height / 2.0f, 0.0f));
 
             _cards.Add(card);
         }
+
+        _selectedCardIndex = 0;
     }
 
     
