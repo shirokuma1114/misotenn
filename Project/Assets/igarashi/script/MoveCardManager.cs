@@ -25,8 +25,8 @@ public class MoveCardManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_selectComplete)
-            Debug.Log(_selectedCardIndex);
+        //if(_selectComplete)
+            //Debug.Log(_selectedCardIndex);
 
         if(_cards.Count != 0)
         {
@@ -137,6 +137,17 @@ public class MoveCardManager : MonoBehaviour
             }
 
             _cards[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+        }
+    }
+
+    public void DeleteCards()
+    {
+        if (_cards.Count != 0)
+        {
+            foreach (var card in _cards)
+                Destroy(card);
+
+            _cards.Clear();
         }
     }
 }
