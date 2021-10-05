@@ -94,7 +94,7 @@ public class MessageWindow : MonoBehaviour
                 _text.text = "";
                 _elapsedTime = 0.0f;
                 _isOneMessage = false;
-
+                _iconImage.enabled = false;
                 if (_messageNum >= _splitMessage.Length)
                 {
                     _isOneMessage = true;
