@@ -203,7 +203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 491bfa285c95de74aaa11a339897ff59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cost: 0
+  _cost: 1000
   _choiceUIPrefab: {fileID: 6618511526441573121, guid: b84585ca33140f643b3c619012eed3ee, type: 3}
 --- !u!4 &101336281
 Transform:
