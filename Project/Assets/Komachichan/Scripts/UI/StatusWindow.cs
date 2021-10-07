@@ -16,7 +16,6 @@ public class StatusWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SetEnable(false);
         
     }
 
