@@ -204,7 +204,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cost: 1000
-  _choiceUIPrefab: {fileID: 6618511526441573121, guid: b84585ca33140f643b3c619012eed3ee, type: 3}
 --- !u!4 &101336281
 Transform:
   m_ObjectHideFlags: 0

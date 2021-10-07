@@ -13,6 +13,7 @@ public class PayUI : MonoBehaviour
 
     private bool _selectYes;
 
+    private bool _enable;
 
     private void Awake()
     {
@@ -24,12 +25,13 @@ public class PayUI : MonoBehaviour
 
         _selectYes = false;
         ButtonColorUpdate();
+
+        SetEnable(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -65,6 +67,17 @@ public class PayUI : MonoBehaviour
         _description.GetComponent<Text>().text = description;
     }
 
+    public void SetEnable(bool enable)
+    {
+        _enable = enable;
+
+        _yes.GetComponent<Image>().enabled = enable;
+        _yes.GetComponentInChildren<Text>().enabled = enable;
+
+        _no.GetComponent<Image>().enabled = enable;
+        _no.GetComponentInChildren<Text>().enabled = enable;
+    }
+
     public bool IsChoiseComplete()
     {
         return _selectComplete;
@@ -79,6 +92,9 @@ public class PayUI : MonoBehaviour
 
     private void SelectChoices()
     {
+        if (!_enable)
+            return;
+
         if (_selectYes)
         {
             if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
