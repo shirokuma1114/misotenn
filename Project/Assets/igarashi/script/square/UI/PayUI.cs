@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChoiceUI : MonoBehaviour
+public class PayUI : MonoBehaviour
 {
     private bool _selectComplete = false;
 
