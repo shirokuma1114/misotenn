@@ -29,11 +29,6 @@ public class TestGameManager : MonoBehaviour
     private AudioClip _nextClip;
 
 
-    [Header("Event")]
-    [Space(20)]
-    [SerializeField]
-    private GameObject _event;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -65,14 +60,6 @@ public class TestGameManager : MonoBehaviour
             _bgmManager.GetComponent<BGMManager>().SetNextBGMClip(_nextClip);
 
             _nextClip = null;
-        }
-
-
-        if(_event)
-        {
-            _event.GetComponent<SquareEvent>().InvokeEvent(null);
-
-            _event = null;
         }
     }
 }

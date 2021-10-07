@@ -54,9 +54,16 @@ public class MoveCardManager : MonoBehaviour
         _selectComplete = false;
     }
 
-    public void SelectedCardIndex(int index)
+    public void IndexSelect(int index)
     {
+        if(_cardNumberLists.Count <= index　|| 0 > index)
+        {
+            _selectedCardIndex = -1;
+            return;
+        }
+
         _selectedCardIndex = index;
+        SelectCardColorUpdate();
 
         _selectComplete = true;
     }
@@ -65,8 +72,7 @@ public class MoveCardManager : MonoBehaviour
     {
         if (!_selectComplete)
         {
-            Debug.Log("card‚Ş‘I‘đ‚ł‚ę‚Ä‚˘‚Č‚˘");
-            return -1;
+            return -1; //カードが選択されていない
         }
 
         return _selectedCardIndex;

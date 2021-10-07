@@ -38,7 +38,7 @@ public class MoveCard : MonoBehaviour
     //=================================
     public void OnClick()
     {
-        transform.parent.gameObject.GetComponent<MoveCardManager>().SelectedCardIndex(_index);
+        transform.parent.gameObject.GetComponent<MoveCardManager>().IndexSelect(_index);
     }
 
     public void SetIndex(int index)
