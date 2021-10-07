@@ -36,7 +36,7 @@ public class SquareAllowance : SquareBase
         _character = character;
 
         // インスタンス生成
-        var message = "こまち社長は\nおこづかいマスに　止まった！";
+        var message =  character.Name + "は\nおこづかいマスに　止まった！";
 
         _messageWindow.SetMessage(message);
         _statusWindow.SetEnable(true);

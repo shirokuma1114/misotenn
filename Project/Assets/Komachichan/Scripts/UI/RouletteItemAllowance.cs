@@ -27,7 +27,7 @@ public class RouletteItemAllowance : RouletteItemBase
         // キャラクターにお小遣い付与
         character.AddMoney(_addValue);
 
-        var message = _addValue + "円獲得！<>こまち社長の　持ち金は\n" + character.Money + "円！";
+        var message = _addValue + "円獲得！<>"+ character.Name + 'の' +"　持ち金は\n" + character.Money + "円！";
 
         _messageWindow.SetMessage(message);
         _statusWindow.SetMoney(character.Money);

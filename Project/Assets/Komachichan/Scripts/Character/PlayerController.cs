@@ -16,11 +16,14 @@ public class PlayerController : CharacterControllerBase
 
     MovingCountWindow _movingCount;
 
+    StatusWindow _statusWindow;
+
     // Start is called before the first frame update
     void Awake()
     {
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
+        _statusWindow = FindObjectOfType<StatusWindow>();
     }
 
     // Update is called once per frame
@@ -36,8 +39,11 @@ public class PlayerController : CharacterControllerBase
     // 移動カードを選ぶ
     public override void Move()
     {
+        _character.Init();
         _moveCardManager.SetCardList(_character.MovingCards);
 
+        _statusWindow.SetEnable(true);
+        _statusWindow.SetMoney(_character.Money);
 
         _isSelectedCard = true;
     }
@@ -126,6 +132,7 @@ public class PlayerController : CharacterControllerBase
     {
         if (_moveCardManager.GetSelectedCardIndex() != -1)
         {
+            _statusWindow.SetEnable(false);
             _movingCount.SetEnable(true);
             var index = _moveCardManager.GetSelectedCardIndex();
             _character.RemoveMovingCard(index);

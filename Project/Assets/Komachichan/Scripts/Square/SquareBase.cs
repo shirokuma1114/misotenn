@@ -27,7 +27,7 @@ public class SquareBase : MonoBehaviour
 
     public virtual void Stop(CharacterBase character)
     {
-
+        character.CompleteStopExec();
     }
 
     public Vector3 GetPosition()
