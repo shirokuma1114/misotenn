@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class SquareEventGift : SquareEvent
 {
-    [SerializeField]
-    private GameObject _choiceUIPrefab;
-    private ChoiceUI _choiceUI;
+   // [SerializeField]
+    //private GameObject _choiceUIPrefab;
+    //private ChoiceUI _choiceUI;
 
 
     // Start is called before the first frame update
@@ -40,31 +40,31 @@ public class SquareEventGift : SquareEvent
     //=================================
     public override void InvokeEvent(GameObject target)
     {
-        base.InvokeEvent(target);
+        //base.InvokeEvent(target);
 
-        _state = EventState.PAY_WAIT;
+        //_state = EventState.PAY_WAIT;
 
-        _choiceUI = Instantiate(_choiceUIPrefab).GetComponent<ChoiceUI>();
-        _choiceUI.SetDescription(_cost.ToString() + "Çéxï•Ç¡ÇƒÇ®ìyéYÇîÉÇ¢Ç‹Ç∑Ç©ÅH");
+        //_choiceUI = Instantiate(_choiceUIPrefab).GetComponent<ChoiceUI>();
+        //_choiceUI.SetDescription(_cost.ToString() + "Çéxï•Ç¡ÇƒÇ®ìyéYÇîÉÇ¢Ç‹Ç∑Ç©ÅH");
     }
     //=================================
 
 
     private void PayWaitProcess()
     {
-        if (_choiceUI.IsChoiseComplete())
-        {
-            if (_choiceUI.IsSelectYes())
-            {
-                _state = EventState.EVENT;
-            }
-            else
-            {
-                _state = EventState.END;
-            }
+        //if (_choiceUI.IsChoiseComplete())
+        //{
+        //    if (_choiceUI.IsSelectYes())
+        //    {
+        //        _state = EventState.EVENT;
+        //    }
+        //    else
+        //    {
+        //        _state = EventState.END;
+        //    }
 
-            Destroy(_choiceUI.gameObject);
-        }
+        //    Destroy(_choiceUI.gameObject);
+        //}
     }
 
     private void EventProcess()

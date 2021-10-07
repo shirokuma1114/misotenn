@@ -24,6 +24,8 @@ public class EarthMove : MonoBehaviour
     private Quaternion _startRot;
     private Quaternion _endRot;
     private float _lerpTime = 0;
+    private float _angle;
+    private float _rotationSpeed = 100.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -58,11 +60,12 @@ public class EarthMove : MonoBehaviour
     //=================================
     //public
     //=================================
-    public void MoveToPosition(Vector3 position)    //ワールド座標
+    public void MoveToPosition(Vector3 position,float rotSpeed = 100.0f)    //ワールド座標
     {
         _state = EarthMoveState.MOVE_INIT;
 
         _targetPosition = position;
+        _rotationSpeed = rotSpeed;
     }
 
     //=================================
@@ -84,6 +87,7 @@ public class EarthMove : MonoBehaviour
 
         _startRot = transform.rotation;
 
+        _angle = Quaternion.Angle(_endRot,_startRot);
 
         _state = EarthMoveState.MOVE;
     }
@@ -97,7 +101,7 @@ public class EarthMove : MonoBehaviour
             _state = EarthMoveState.END;
 
 
-        _lerpTime += Time.deltaTime;
+        _lerpTime += 1 / _angle * _rotationSpeed * Time.deltaTime;
     }
 
     private void EndStateProcess()
