@@ -7,6 +7,7 @@ public class SquareMoveForward : SquareBase
     public enum SquareMoveForwardState
     {
         IDEL,
+        PAY,
         MOVE,
         END,
     }
@@ -23,13 +24,15 @@ public class SquareMoveForward : SquareBase
     private int _cost;
 
     [SerializeField]
-    private SquareBase _targetsSquare; 
+    private int _moveNum; 
+    private int _moveCount; 
 
     // Start is called before the first frame update
     void Start()
     {
+        _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
-        //_payUI = FindObjectOfType<PayUI>();
+        _payUI = FindObjectOfType<PayUI>();
     }
 
     // Update is called once per frame
@@ -38,6 +41,9 @@ public class SquareMoveForward : SquareBase
         switch(_state)
         {
             case SquareMoveForwardState.IDEL:
+                break;
+            case SquareMoveForwardState.PAY:
+                PayStateProcess();
                 break;
             case SquareMoveForwardState.MOVE:
                 MoveStateProcess();
@@ -52,29 +58,50 @@ public class SquareMoveForward : SquareBase
     {
         _character = character;
 
-        // インスタンス生成
-        var message = _targetsSquare.gameObject.name + "へ移動";
+        _moveCount = 0;
 
-        //_messageWindow.SetMessage(message);
-        //_statusWindow.SetEnable(true);
-        //_payUI.SetEnable(true);
+        var message = _cost.ToString() + "円を支払って" + _moveNum + "マス進みますか？";
+        _messageWindow.SetMessage(message);
+        _statusWindow.SetEnable(true);
+        _payUI.SetEnable(true);
 
-        _state = SquareMoveForwardState.MOVE;
+        _state = SquareMoveForwardState.PAY;
     }
 
 
+    private void PayStateProcess()
+    {
+        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        {
+            if (_payUI.IsSelectYes())
+            {
+                _state = SquareMoveForwardState.MOVE;
+            }
+            else
+            {
+                _state = SquareMoveForwardState.END;
+            }
 
+            _payUI.SetEnable(false);
+        }
+    }
 
     private void MoveStateProcess()
     {
-        if(_character.State != CharacterState.MOVE)
+        if (_moveNum == _moveCount && _character.State != CharacterState.MOVE)
         {
-            Debug.Log(_character.CurrentSquare.gameObject.name);
-            _character.StartMove(_character.CurrentSquare.OutConnects[0]._square);
+            _statusWindow.SetEnable(false);
+            _character.Stop();
+
+            _state = SquareMoveForwardState.END;
+            return;
         }
 
 
-        if (_character.CurrentSquare == _targetsSquare)
-            _state = SquareMoveForwardState.END;
+        if (_character.State != CharacterState.MOVE)
+        {
+            _character.StartMove(_character.CurrentSquare.OutConnects[0]._square);
+            _moveCount++;
+        }
     }
 }
