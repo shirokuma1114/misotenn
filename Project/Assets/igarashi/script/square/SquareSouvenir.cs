@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class SquareSouvenir : SquareBase
 {
-    public enum SquareState
+    public enum SquareSouvenirState
     {
         IDLE,
         PAY_WAIT,
         EVENT,
         END,
     }
-    protected SquareState _state = SquareState.IDLE;
+    protected SquareSouvenirState _state = SquareSouvenirState.IDLE;
 
     CharacterBase _character;
     MessageWindow _messageWindow;
@@ -44,7 +44,7 @@ public class SquareSouvenir : SquareBase
         _statusWindow.SetEnable(true);
         _payUI.SetEnable(true);
 
-        _state = SquareState.PAY_WAIT;
+        _state = SquareSouvenirState.PAY_WAIT;
     }
 
     // Update is called once per frame
@@ -52,15 +52,15 @@ public class SquareSouvenir : SquareBase
     {
         switch (_state)
         {
-            case SquareState.PAY_WAIT:
+            case SquareSouvenirState.PAY_WAIT:
                 PayWaitProcess();
                 break;
 
-            case SquareState.EVENT:
+            case SquareSouvenirState.EVENT:
                 EventProcess();
                 break;
 
-            case SquareState.END:
+            case SquareSouvenirState.END:
                 EndProcess();
                 break;
         }
@@ -75,11 +75,11 @@ public class SquareSouvenir : SquareBase
         {
             if (_payUI.IsSelectYes())
             {
-                _state = SquareState.EVENT;
+                _state = SquareSouvenirState.EVENT;
             }
             else
             {
-                _state = SquareState.END;
+                _state = SquareSouvenirState.END;
             }
 
             _payUI.SetEnable(false);
@@ -88,7 +88,7 @@ public class SquareSouvenir : SquareBase
 
     private void EventProcess()
     {
-        if (_character.Money < _cost)
+        if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("‚¨‹à‚ª‘«‚ç‚È‚©‚Á‚½");
         }
@@ -100,7 +100,7 @@ public class SquareSouvenir : SquareBase
             _messageWindow.SetMessage("‚±‚Ü‚¿ŽÐ’·‚Í\n‚¨“yŽY‚ðŽè‚É“ü‚ê‚½"); //_character.name + "‚Í" + _souvenir.name + "‚ðŽè‚É“ü‚ê‚½"
         }
         
-        _state = SquareState.END;
+        _state = SquareSouvenirState.END;
     }
 
     private void EndProcess()
@@ -109,6 +109,6 @@ public class SquareSouvenir : SquareBase
         _character.CompleteStopExec();
         _statusWindow.SetEnable(false);
 
-        _state = SquareState.IDLE;
+        _state = SquareSouvenirState.IDLE;
     }
 }
