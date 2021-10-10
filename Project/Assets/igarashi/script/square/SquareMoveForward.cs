@@ -91,7 +91,7 @@ public class SquareMoveForward : SquareBase
         if (_moveNum == _moveCount && _character.State != CharacterState.MOVE)
         {
             _statusWindow.SetEnable(false);
-            _character.Stop();
+            _character.CompleteStopExec();
 
             _state = SquareMoveForwardState.END;
             return;
