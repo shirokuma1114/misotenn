@@ -35,4 +35,10 @@ public class SquareBase : MonoBehaviour
         return GetComponent<Transform>().localPosition;
     }
     
+    //•]‰¿‚ð’²‚×‚é
+    public virtual int GetScore(CharacterBase character)
+    {
+        // ‰½‚à‚È‚¢ƒ}ƒX‚È‚Ì‚Å•]‰¿‚Í0
+        return 0;
+    }
 }

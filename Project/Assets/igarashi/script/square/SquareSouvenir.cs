@@ -40,7 +40,7 @@ public class SquareSouvenir : SquareBase
         // ƒCƒ“ƒXƒ^ƒ“ƒX¶¬
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ”ƒ‚¢‚Ü‚·‚©H";
 
-        _messageWindow.SetMessage(message);
+        _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
         _payUI.SetEnable(true);
 
@@ -90,14 +90,14 @@ public class SquareSouvenir : SquareBase
     {
         if (!_character.CanPay(_cost))
         {
-            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚ç‚È‚©‚Á‚½");
+            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚ç‚È‚©‚Á‚½", _character.IsAutomatic);
         }
         else
         {    
             _character.SubMoney(_cost);
             _character.AddSouvenir(_souvenir.GetComponent<Souvenir>());
 
-            _messageWindow.SetMessage("‚±‚Ü‚¿Ğ’·‚Í\n‚¨“yY‚ğè‚É“ü‚ê‚½"); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"
+            _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yY‚ğè‚É“ü‚ê‚½", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"
         }
         
         _state = SquareSouvenirState.END;

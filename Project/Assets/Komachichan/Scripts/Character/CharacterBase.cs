@@ -58,6 +58,12 @@ public class CharacterBase : MonoBehaviour
     {
         get { return _movingCount; }
     }
+    
+
+    public bool IsAutomatic
+    {
+        get { return _controller.IsAutomatic; }
+    }
 
     void Start()
     {
@@ -136,7 +142,7 @@ public class CharacterBase : MonoBehaviour
         _currentSquare = square;
 
         // ステージ回転
-        FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition());
+        FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition(), 50.0f);
     }
 
     private void UpdateMove()
