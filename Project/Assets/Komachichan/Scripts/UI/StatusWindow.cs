@@ -13,6 +13,10 @@ public class StatusWindow : MonoBehaviour
 
     [SerializeField]
     Text _moneyText;
+
+    [SerializeField]
+    Text _turnText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,11 +34,22 @@ public class StatusWindow : MonoBehaviour
         _frame.enabled = enable;
         _nameText.enabled = enable;
         _moneyText.enabled = enable;
+        _turnText.enabled = enable;
     }
 
     public void SetMoney(int value)
     {
         _moneyText.text = value + "â~";
+    }
+
+    public void SetName(string name)
+    {
+        _nameText.text = name;
+    }
+
+    public void SetTurn(int turnCount)
+    {
+        _turnText.text = turnCount + "É^Å[Éìñ⁄";
     }
 
 }

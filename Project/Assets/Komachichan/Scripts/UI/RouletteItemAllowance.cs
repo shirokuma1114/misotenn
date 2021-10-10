@@ -29,7 +29,7 @@ public class RouletteItemAllowance : RouletteItemBase
 
         var message = _addValue + "‰~Šl“¾I<>"+ character.Name + '‚Ì' +"@‚¿‹à‚Í\n" + character.Money + "‰~I";
 
-        _messageWindow.SetMessage(message);
+        _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetMoney(character.Money);
     }
 }
