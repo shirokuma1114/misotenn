@@ -6,7 +6,7 @@ public class SquareWarp : SquareBase
 {
     public enum SquareWarpState
     {
-        IDEL,
+        IDLE,
         PAY,
         WARP,
         END,
@@ -43,7 +43,7 @@ public class SquareWarp : SquareBase
     {
         switch (_state)
         {
-            case SquareWarpState.IDEL:
+            case SquareWarpState.IDLE:
                 break;
             case SquareWarpState.PAY:
                 PayStateProcess();
@@ -62,7 +62,7 @@ public class SquareWarp : SquareBase
         _character = character;
 
         var message = _cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
-        _messageWindow.SetMessage(message);
+        _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
         _payUI.SetEnable(true);
 
@@ -101,11 +101,9 @@ public class SquareWarp : SquareBase
             return;
 
         if (_moveIndex == _characters.Count - 1)
-        {
-            _statusWindow.SetEnable(false);
-            _character.CompleteStopExec();
-
+        {         
             _state = SquareWarpState.END;
+            return;
         }        
 
         if (_characters[_moveIndex].State == CharacterState.WAIT)
@@ -114,4 +112,13 @@ public class SquareWarp : SquareBase
             _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
         }
     }
+
+    private void EndStateProcess()
+    {
+        _statusWindow.SetEnable(false);
+        _character.CompleteStopExec();
+
+        _state = SquareWarpState.IDLE;
+    }
+    
 }
