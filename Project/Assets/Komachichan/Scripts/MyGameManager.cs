@@ -34,16 +34,29 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     SimpleFade _fade;
 
+    [SerializeField]
+    StatusWindow _statusWindow;
+
+    private int _turnCount = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         _fade.FadeStart(30);
+
+        UpdateTurn();
 
         // お小遣い移動カード初期化
         InitStatus();
 
         // 初回ターン
         InitTurn();
+    }
+    
+    void UpdateTurn()
+    {
+        _turnCount++;
+        _statusWindow.SetTurn(_turnCount);
     }
 
     // Update is called once per frame
@@ -70,6 +83,7 @@ public class MyGameManager : MonoBehaviour
     void PhaseInit()
     {
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
+        //_entryPlugs[_turnIndex].Character.AddMovingCard(5);
         _entryPlugs[_turnIndex].Move();
         _phase = Phase.WAIT_TURN_END;
     }
@@ -84,6 +98,9 @@ public class MyGameManager : MonoBehaviour
             if(_turnIndex >= _entryPlugs.Count)
             {
                 _turnIndex = 0;
+
+                // 合計ターン加算
+                UpdateTurn();
             }
         }
     }
@@ -95,7 +112,7 @@ public class MyGameManager : MonoBehaviour
             _phase = Phase.MOVE_CAMERA;
 
             //次の人の止まっているマス座標
-            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition());
+            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
         }
     }
 
@@ -111,6 +128,7 @@ public class MyGameManager : MonoBehaviour
     void InitTurn()
     {
         //_entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
+        _entryPlugs[_turnIndex].Character.AddMovingCard(3);
         _entryPlugs[_turnIndex].Character.Name = "こまち社長";
         _entryPlugs[_turnIndex].Move();
         _phase = Phase.WAIT_TURN_END;
@@ -123,14 +141,14 @@ public class MyGameManager : MonoBehaviour
         foreach (var p in _entryPlugs)
         {
             var chara = p.Character;
-            chara.AddMovingCard(5);
-            chara.AddMovingCard(4);
-            chara.AddMovingCard(3);
-            /*
+            //chara.AddMovingCard(5);
+            //chara.AddMovingCard(4);
+            //chara.AddMovingCard(3);
+            
             for (int i = 0; i < _initCardValue; i++)
             {
                 chara.AddMovingCard(GetRandomRange());
-            }*/
+            }
             chara.Name = "敵" + Random.Range(1, 100) + "号";
             chara.SetCurrentSquare(startSquare);
         }
