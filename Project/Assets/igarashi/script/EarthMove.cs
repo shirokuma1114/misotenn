@@ -79,9 +79,15 @@ public class EarthMove : MonoBehaviour
 
     private void MoveInitStateProcess()
     {
-        Vector3 refVec = (_camera.transform.position - transform.position).normalized;
-        Vector3 vec = (_targetPosition - transform.position).normalized;
-        _endRot = Quaternion.FromToRotation(vec, refVec);
+        Vector3 xzCamera = new Vector3(_camera.transform.position.x,0.0f, _camera.transform.position.z).normalized;
+        Vector3 xzTarget = new Vector3(_targetPosition.x,0.0f,_targetPosition.z).normalized;
+        float yAngle = Vector3.Angle(xzCamera, xzTarget);
+        //Vector3.a
+        _endRot = Quaternion.AngleAxis(yAngle, Vector3.up);
+
+        //Vector3 refVec = (_camera.transform.position - transform.position).normalized;
+        //Vector3 vec = (_targetPosition - transform.position).normalized;
+        //_endRot = Quaternion.FromToRotation(vec, refVec);
 
         _lerpTime = 0.0f;
 
