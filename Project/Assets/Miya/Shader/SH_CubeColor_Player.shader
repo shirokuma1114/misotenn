@@ -1,120 +1,127 @@
-Shader "Custom/0_CubeColor"
+Shader "Custom/SH_CubeColor_Player"
 {
 	Properties{
 		// テクスチャ
 		[Header(MainTexture)] [Space(5)]
 		[Toggle(TEXTURE_MAIN)] _OnOff_Texture_Main("ON/OFF MainTexture", Float) = 1.0
-		[NoScaleOffset]		_MainTex("Texture", 2D)		= "white" {}
-							_Color	("Color", Color)	= (1,1,1,1)
+		[NoScaleOffset]		_MainTex("Texture", 2D) = "white" {}
+							_Color("Color", Color) = (1,1,1,1)
 		[Space(15)]
 
 		// CubeColor
 		[Header(CubeColor)][Space(5)]
 		[Toggle(CUBE_COLOR)] _OnOff_CubeColor("ON/OFF CubeColor", Float) = 1.0
 
-		_TopColor1		("Top 1",    Color) = (1, 1, 1, 1)
-		_TopColor2		("Top 2",    Color) = (1, 1, 1, 1)
-		[ShowAsVector3] _GradOrigin_T("Gradient Start Pos (Top)", Vector) = (0, 0, 0, 0)
-		_GradHeight_T("Gradient Height (Top)", Float) = 0.0
-		_GradRotate_T("Gradient Rotation (Top)", Range(0, 360)) = 0.0
+							_Ratio_CubeColor("Multiplying Ratio", Range(0, 1.0)) = 1.0
+
+							_TopColor1("Top 1",    Color) = (1, 1, 1, 1)
+							_TopColor2("Top 2",    Color) = (1, 1, 1, 1)
+		[ShowAsVector3]		_GradOrigin_T("Gradient Start Pos (Top)", Vector) = (0, 0, 0, 0)
+							_GradHeight_T("Gradient Height (Top)", Float) = 0.0
+							_GradRotate_T("Gradient Rotation (Top)", Range(0, 360)) = 0.0
 		[Space(2)]
 
-		_RightColor1	("Right 1",  Color) = (1, 1, 1, 1)
-		_RightColor2	("Right 2",  Color) = (1, 1, 1, 1)
-		[ShowAsVector3] _GradOrigin_R("Gradient Start Pos (Right)", Vector) = (0, 0, 0, 0)
-		_GradHeight_R("Gradient Height (Right)", Float) = 0.0
-		_GradRotate_R("Gradient Rotation (Right)", Range(0, 360)) = 0.0
+							_RightColor1("Right 1",  Color) = (1, 1, 1, 1)
+							_RightColor2("Right 2",  Color) = (1, 1, 1, 1)
+		[ShowAsVector3]		_GradOrigin_R("Gradient Start Pos (Right)", Vector) = (0, 0, 0, 0)
+							_GradHeight_R("Gradient Height (Right)", Float) = 0.0
+							_GradRotate_R("Gradient Rotation (Right)", Range(0, 360)) = 0.0
 		[Space(2)]
 
-		_FrontColor1	("Front 1",  Color) = (1, 1, 1, 1)
-		_FrontColor2	("Front 2",  Color) = (1, 1, 1, 1)
-		[ShowAsVector3] _GradOrigin_F("Gradient Start Pos (Front)", Vector) = (0, 0, 0, 0)
-		_GradHeight_F("Gradient Height (Front)", Float) = 0.0
-		_GradRotate_F("Gradient Rotation (Front)", Range(0, 360)) = 0.0
+							_FrontColor1("Front 1",  Color) = (1, 1, 1, 1)
+							_FrontColor2("Front 2",  Color) = (1, 1, 1, 1)
+		[ShowAsVector3]		_GradOrigin_F("Gradient Start Pos (Front)", Vector) = (0, 0, 0, 0)
+							_GradHeight_F("Gradient Height (Front)", Float) = 0.0
+							_GradRotate_F("Gradient Rotation (Front)", Range(0, 360)) = 0.0
 		[Space(2)]
 
-		_LeftColor1		("Left 1",   Color) = (1, 1, 1, 1)
-		_LeftColor2		("Left 2",   Color) = (1, 1, 1, 1)
-		[ShowAsVector3] _GradOrigin_L("Gradient Start Pos (Left)", Vector) = (0, 0, 0, 0)
-		_GradHeight_L("Gradient Height (Left)", Float) = 0.0
-		_GradRotate_L("Gradient Rotation (Left)", Range(0, 360)) = 0.0
+							_LeftColor1("Left 1",   Color) = (1, 1, 1, 1)
+							_LeftColor2("Left 2",   Color) = (1, 1, 1, 1)
+		[ShowAsVector3]		_GradOrigin_L("Gradient Start Pos (Left)", Vector) = (0, 0, 0, 0)
+							_GradHeight_L("Gradient Height (Left)", Float) = 0.0
+							_GradRotate_L("Gradient Rotation (Left)", Range(0, 360)) = 0.0
 		[Space(2)]
 
-		_BackColor1		("Back 1",   Color) = (1, 1, 1, 1)
-		_BackColor2		("Back 2",   Color) = (1, 1, 1, 1)
-		[ShowAsVector3] _GradOrigin_B("Gradient Start Pos (Back)", Vector) = (0, 0, 0, 0)
-		_GradHeight_B("Gradient Height (Back)", Float) = 0.0
-		_GradRotate_B("Gradient Rotation (Back)", Range(0, 360)) = 0.0
+							_BackColor1("Back 1",   Color) = (1, 1, 1, 1)
+							_BackColor2("Back 2",   Color) = (1, 1, 1, 1)
+		[ShowAsVector3]		_GradOrigin_B("Gradient Start Pos (Back)", Vector) = (0, 0, 0, 0)
+							_GradHeight_B("Gradient Height (Back)", Float) = 0.0
+							_GradRotate_B("Gradient Rotation (Back)", Range(0, 360)) = 0.0
 		[Space(2)]
 
-		_BottomColor1	("Bottom 1", Color) = (1, 1, 1, 1)
-		_BottomColor2	("Bottom 2", Color) = (1, 1, 1, 1)
-		[ShowAsVector3] _GradOrigin_D("Gradient Start Pos (Bottom)", Vector) = (0, 0, 0, 0)
-		_GradHeight_D("Gradient Height (Bottom)", Float) = 0
-		_GradRotate_D("Gradient Rotation (Bottom)", Range(0, 360)) = 0.0
+							_BottomColor1("Bottom 1", Color) = (1, 1, 1, 1)
+							_BottomColor2("Bottom 2", Color) = (1, 1, 1, 1)
+		[ShowAsVector3]		_GradOrigin_D("Gradient Start Pos (Bottom)", Vector) = (0, 0, 0, 0)
+							_GradHeight_D("Gradient Height (Bottom)", Float) = 0
+							_GradRotate_D("Gradient Rotation (Bottom)", Range(0, 360)) = 0.0
 		[Space(15)]
 
 		// RimLight
 		[Header(RimLighting)][Space(5)]
 		[Toggle(RIM_LIGHT)] _OnOff_RimLight("ON/OFF RimLight", Float) = 1.0
-							_RimLight_Color		("Color", Color)	= (1,1,1,1)
-							_RimLight_Strength	("Strength", Float) = 2
+
+							_RimLight_Color("Color", Color) = (1,1,1,1)
+							_RimLight_Strength("Strength", Float) = 2
 		[Space(15)]
 
 		// HeightFog
-		[Header(HeightFog)] [Space(5)]
-		[Toggle(HEIGHT_FOG)] _OnOff_HeightFog ("ON/OFF HeightFog", Float) = 1.0
-							_HeightFog_Color			("Color", Color)	= (1, 1, 1, 1)
-							_HeightFog_StartDistance	("Distance", Float)	= 50
-							_HeightFog_Length			("Length", Float)	= 10
+		[Header(HeightFog)][Space(5)]
+		[Toggle(HEIGHT_FOG)] _OnOff_HeightFog("ON/OFF HeightFog", Float) = 1.0
+
+							_HeightFog_Color("Color", Color) = (1, 1, 1, 1)
+							_HeightFog_StartDistance("Distance", Float) = 50
+							_HeightFog_Length("Length", Float) = 10
 		[Space(15)]
 
 		// Fog
 		[Header(Fog)][Space(5)]
-		[Toggle(FOG)]		_OnOff_Fog	("ON/OFF Fog", Float) = 1.0
-							_Fog_Color	("Color", Color)	= (1, 1, 1, 1)
-							_Fog_Near	("Near", Float)		= 0.1
-							_Fog_Far	("Far", Float)		= 10
+		[Toggle(FOG)]		_OnOff_Fog("ON/OFF Fog", Float) = 1.0
+
+							_Fog_Color("Color", Color) = (1, 1, 1, 1)
+							_Fog_Near("Near", Float) = 0.1
+							_Fog_Far("Far", Float) = 10
 		[Space(15)]
 
 		// ShadowColor
 		[Header(ShadowColor)][Space(5)]
 		[Toggle(SHADOW_COLOR)]		_OnOff_ShadowColor("ON/OFF ShadowColor", Float) = 1.0
 		[Toggle(WITHOUT_SHADOW)]	_OnOff_WithoutShadow("ON/OFF WithoutShadow", Float) = 1.0
-							_Shadow_Color	("ShadowColor", Color)	= (1,1,0,1)
-							_Shadow_Strength("Strength", Float)		= 1
-    }
 
-    SubShader
-    {
-        Tags { "RenderType" = "Opaque" }
-        LOD 200
+							_Shadow_Color("ShadowColor", Color) = (1,1,0,1)
+							_Shadow_Strength("Strength", Float) = 1
+	}
 
-        CGPROGRAM
-        #pragma surface surf ColorShadow
-        #pragma target 3.0
+		SubShader
+		{
+			Tags { "RenderType" = "Opaque" }
+			LOD 200
 
-		#pragma shader_feature  _ TEXTURE_MAIN
-		#pragma shader_feature	_ CUBE_COLOR
-		#pragma shader_feature  _ RIM_LIGHT
-		#pragma shader_feature  _ HEIGHT_FOG
-		#pragma shader_feature  _ FOG
-		#pragma shader_feature  _ SHADOW_COLOR
-		#pragma shader_feature  _ WITHOUT_SHADOW
+			CGPROGRAM
+			#pragma surface surf ColorShadow
+			#pragma target 3.0
 
-        struct Input
-        {
-            float2 uv_MainTex;
-			float3 worldNormal;
-			float3 viewDir;
-			float3 worldPos;
-        };
+			#pragma shader_feature  _ TEXTURE_MAIN
+			#pragma shader_feature	_ CUBE_COLOR
+			#pragma shader_feature  _ RIM_LIGHT
+			#pragma shader_feature  _ HEIGHT_FOG
+			#pragma shader_feature  _ FOG
+			#pragma shader_feature  _ SHADOW_COLOR
+			#pragma shader_feature  _ WITHOUT_SHADOW
+
+			struct Input
+			{
+				float2 uv_MainTex;
+				float3 worldNormal;
+				float3 viewDir;
+				float3 worldPos;
+			};
 
 		// MainTexture
 		sampler2D	_MainTex;
 		fixed4		_Color;
 
 		// CubeColor
+		fixed _Ratio_CubeColor;
 		fixed4	_TopColor1;
 		fixed4	_TopColor2;
 		fixed4	_RightColor1;
@@ -155,7 +162,7 @@ Shader "Custom/0_CubeColor"
 		// RimLight
 		fixed4 _RimLight_Color;
 		float _RimLight_Strength;
-		
+
 		// HeightFog
 		fixed4 _HeightFog_Color;
 		float _HeightFog_StartDistance;
@@ -170,11 +177,11 @@ Shader "Custom/0_CubeColor"
 		fixed4 _Shadow_Color;
 		float _Shadow_Strength;
 
-        UNITY_INSTANCING_BUFFER_START(Props)
-        UNITY_INSTANCING_BUFFER_END(Props)
+		UNITY_INSTANCING_BUFFER_START(Props)
+		UNITY_INSTANCING_BUFFER_END(Props)
 
-        void surf (Input IN, inout SurfaceOutput o)
-        {
+		void surf(Input IN, inout SurfaceOutput o)
+		{
 			fixed4 albedo = 1;
 			float distance_pixel;
 			float a, b;
@@ -242,7 +249,7 @@ Shader "Custom/0_CubeColor"
 						+ (color_R * dirRight) + (color_L * dirLeft)
 						+ (color_F * dirFront) + (color_B * dirBack);
 
-			albedo.rgb *= color;
+			albedo.rgb = lerp(albedo.rgb, color, _Ratio_CubeColor);
 #endif
 
 #ifdef RIM_LIGHT
@@ -266,7 +273,7 @@ Shader "Custom/0_CubeColor"
 			// Output
 			o.Albedo = albedo.rgb;
 			o.Alpha = albedo.a;
-        }
+		}
 
 		half4 LightingColorShadow(SurfaceOutput IN, half3 lightDir, half atten)
 		{
@@ -283,12 +290,12 @@ Shader "Custom/0_CubeColor"
 			o.rgb = IN.Albedo * _LightColor0.rgb * (light * min((atten + _Shadow_Color.rgb), 1.5));
 
 #endif
-			
+
 			o.a = IN.Alpha;
 
 			return o;
 		}
-        ENDCG
-    }
-    FallBack "Diffuse"
+		ENDCG
+		}
+			FallBack "Diffuse"
 }
