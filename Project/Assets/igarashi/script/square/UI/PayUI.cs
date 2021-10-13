@@ -7,7 +7,6 @@ public class PayUI : MonoBehaviour
 {
     private bool _selectComplete = false;
 
-    private GameObject _description;
     private GameObject _yes;
     private GameObject _no;
 
@@ -19,7 +18,6 @@ public class PayUI : MonoBehaviour
     {
         _selectComplete = false;
 
-        _description = transform.Find("Description").gameObject;
         _yes = transform.Find("Yes").gameObject;
         _no = transform.Find("No").gameObject;
 
@@ -62,10 +60,6 @@ public class PayUI : MonoBehaviour
         ButtonColorUpdate();
     }
 
-    public void SetDescription(string description)
-    {
-        _description.GetComponent<Text>().text = description;
-    }
 
     public void SetEnable(bool enable)
     {

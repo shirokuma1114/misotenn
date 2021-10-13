@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MyMaterial_2
+  m_Name: MT_VertexMove
   m_Shader: {fileID: 4800000, guid: 8ff5046b73dee1e4b9715c0c4c0deb58, type: 3}
   m_ShaderKeywords: HEIGHT_FOG TEXTURE_MAIN
   m_LightmapFlags: 4
