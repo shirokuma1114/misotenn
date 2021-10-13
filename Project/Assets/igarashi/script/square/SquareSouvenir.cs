@@ -37,7 +37,16 @@ public class SquareSouvenir : SquareBase
     {
         _character = character;
 
-        // インスタンス生成
+        
+        //お金チェック
+        if (_character.CanPay(_cost))
+        {
+            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _state = SquareSouvenirState.END;
+            return;
+        }
+
+
         var message = _cost.ToString() + "円を支払ってお土産を買いますか？";
 
         _messageWindow.SetMessage(message, character.IsAutomatic);

@@ -29,6 +29,16 @@ public class TestGameManager : MonoBehaviour
     private AudioClip _nextClip;
 
 
+    [Header("UI")]
+    [Space(20)]
+    [SerializeField]
+    private SelectUI _selectUI;
+    [SerializeField]
+    private List<string> _elements;
+    [SerializeField]
+    private bool _open = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +70,14 @@ public class TestGameManager : MonoBehaviour
             _bgmManager.GetComponent<BGMManager>().SetNextBGMClip(_nextClip);
 
             _nextClip = null;
+        }
+
+
+        if(_open)
+        {
+            _selectUI.Open(_elements);
+
+            _open = false;
         }
     }
 }
