@@ -6,7 +6,7 @@ public class SquareMoveForward : SquareBase
 {
     public enum SquareMoveForwardState
     {
-        IDEL,
+        IDLE,
         PAY,
         MOVE,
         END,
@@ -40,7 +40,7 @@ public class SquareMoveForward : SquareBase
     {
         switch(_state)
         {
-            case SquareMoveForwardState.IDEL:
+            case SquareMoveForwardState.IDLE:
                 break;
             case SquareMoveForwardState.PAY:
                 PayStateProcess();
@@ -49,6 +49,7 @@ public class SquareMoveForward : SquareBase
                 MoveStateProcess();
                 break;
             case SquareMoveForwardState.END:
+                EndStateProcess();
                 break;
         }
     }
@@ -61,7 +62,7 @@ public class SquareMoveForward : SquareBase
         _moveCount = 0;
 
         var message = _cost.ToString() + "â~Çéxï•Ç¡Çƒ" + _moveNum + "É}ÉXêiÇ›Ç‹Ç∑Ç©ÅH";
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
         _payUI.SetEnable(true);
 
@@ -90,9 +91,6 @@ public class SquareMoveForward : SquareBase
     {
         if (_moveNum == _moveCount && _character.State != CharacterState.MOVE)
         {
-            _statusWindow.SetEnable(false);
-            _character.Stop();
-
             _state = SquareMoveForwardState.END;
             return;
         }
@@ -103,5 +101,14 @@ public class SquareMoveForward : SquareBase
             _character.StartMove(_character.CurrentSquare.OutConnects[0]._square);
             _moveCount++;
         }
+    }
+
+    private void EndStateProcess()
+    {
+        // é~Ç‹ÇÈèàóùèIóπ
+        _character.CompleteStopExec();
+        _statusWindow.SetEnable(false);
+
+        _state = SquareMoveForwardState.IDLE;
     }
 }
