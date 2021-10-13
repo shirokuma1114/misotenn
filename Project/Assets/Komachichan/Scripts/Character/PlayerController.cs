@@ -14,6 +14,7 @@ public class PlayerController : CharacterControllerBase
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
+        _arrowUI = FindObjectOfType<ArrowUI>();
     }
 
     // Update is called once per frame
@@ -35,7 +36,6 @@ public class PlayerController : CharacterControllerBase
         _statusWindow.SetEnable(true);
         _statusWindow.SetMoney(_character.Money);
         _statusWindow.SetName(_character.Name);
-
         _isSelectedCard = true;
     }
 
@@ -48,15 +48,7 @@ public class PlayerController : CharacterControllerBase
         CreateArrow();
     }
 
-    private void CreateArrow()
-    {
-        FindObjectOfType<UIArrow>().Create(_directionRoots);
-    }
 
-    private void DeleteArrow()
-    {
-        FindObjectOfType<UIArrow>().Delete();
-    }
 
     private void UpdateSelect()
     {
@@ -85,6 +77,7 @@ public class PlayerController : CharacterControllerBase
         {
             _movingCount.SetEnable(false);
             _character.Stop();
+            DeleteArrow();
             _isMoved = false;
             return;
         }
