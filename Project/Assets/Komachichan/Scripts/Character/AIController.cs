@@ -18,6 +18,7 @@ public class AIController : CharacterControllerBase
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
+        _arrowUI = FindObjectOfType<ArrowUI>();
     }
 
     // Update is called once per frame
@@ -64,6 +65,7 @@ public class AIController : CharacterControllerBase
         if (_character.MovingCount == 0)
         {
             _movingCount.SetEnable(false);
+            DeleteArrow();
             _character.Stop();
             _isMoved = false;
             return;
@@ -72,15 +74,15 @@ public class AIController : CharacterControllerBase
         StartMove(_root.Pop());
     }
 
+    void DelayStartMove()
+    {
+        StartMove(_root.Pop());
+    }
+
     public override void SetRoot()
     {
         NotifyMovingCount(_character.MovingCount);
 
-    }
-
-    private void CreateArrow()
-    {
-        FindObjectOfType<UIArrow>().Create(_directionRoots);
     }
 
     int CalcRoot()
@@ -112,7 +114,7 @@ public class AIController : CharacterControllerBase
 
         if (index < 0) return -1;
 
-        Debug.Log("‚¦‚ç‚Î‚ê‚½‚Ì‚Í" + squares[index]);
+        //Debug.Log("‚¦‚ç‚Î‚ê‚½‚Ì‚Í" + squares[index]);
 
         for(int i = 0; i < _roots.Count; i++)
         {
@@ -127,12 +129,11 @@ public class AIController : CharacterControllerBase
 
         foreach(var x in _root)
         {
-            Debug.Log(x);
+            //Debug.Log(x);
         }
 
 
         // Å‰‚ÍŽ©•ª‚Ì‚¢‚éƒ}ƒX
-        //_root = new Stack<SquareBase>(_root.Reverse());
         _root.Pop();
 
         return _movingIndies[index];

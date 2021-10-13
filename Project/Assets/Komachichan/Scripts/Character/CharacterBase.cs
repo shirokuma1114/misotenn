@@ -120,7 +120,22 @@ public class CharacterBase : MonoBehaviour
     public void Init()
     {
         _state = CharacterState.WAIT;
+        _currentSquare.RemoveCharacter(this);
         _rootStack.Clear();
+    }
+
+    public void SetWaitEnable(bool enable)
+    {
+        if (enable)
+        {
+            transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+            transform.SetParent(_currentSquare.GetComponent<Transform>());
+        }
+        else
+        {
+            transform.SetParent(null);
+            transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+        }
     }
 
     public void StartMove(SquareBase square)
@@ -139,8 +154,9 @@ public class CharacterBase : MonoBehaviour
             _rootStack.Push(_currentSquare);
             _movingCount--;
         }
+        
         _currentSquare = square;
-
+        
         // ステージ回転
         FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition(), 50.0f);
     }
@@ -159,6 +175,7 @@ public class CharacterBase : MonoBehaviour
     {
         _state = CharacterState.STOP;
         _currentSquare.Stop(this);
+        _currentSquare.AddCharacter(this);
     }
 
     public List<SquareConnect> GetInConnects()
