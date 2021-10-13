@@ -52,6 +52,7 @@ public class SquareWarp : SquareBase
                 WarpStateProcess();
                 break;
             case SquareWarpState.END:
+                EndStateProcess();
                 break;
         }
     }
@@ -115,8 +116,8 @@ public class SquareWarp : SquareBase
 
     private void EndStateProcess()
     {
-        _statusWindow.SetEnable(false);
         _character.CompleteStopExec();
+        _statusWindow.SetEnable(false);
 
         _state = SquareWarpState.IDLE;
     }
