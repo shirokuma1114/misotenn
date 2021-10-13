@@ -84,6 +84,7 @@ public class MyGameManager : MonoBehaviour
     {
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
         //_entryPlugs[_turnIndex].Character.AddMovingCard(5);
+        _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
         _entryPlugs[_turnIndex].Move();
         _phase = Phase.WAIT_TURN_END;
     }
@@ -94,14 +95,7 @@ public class MyGameManager : MonoBehaviour
         {
             _phase = Phase.FADE_OUT;
             _fade.FadeStart(30, true);
-            _turnIndex++;
-            if(_turnIndex >= _entryPlugs.Count)
-            {
-                _turnIndex = 0;
-
-                // 合計ターン加算
-                UpdateTurn();
-            }
+        
         }
     }
 
@@ -110,6 +104,19 @@ public class MyGameManager : MonoBehaviour
         if (!_fade.IsFade)
         {
             _phase = Phase.MOVE_CAMERA;
+
+            // 止まっているキャラクターの整列
+            _entryPlugs[_turnIndex].Character.SetWaitEnable(true);
+            _entryPlugs[_turnIndex].Character.CurrentSquare.AlignmentCharacters();
+
+            _turnIndex++;
+            if (_turnIndex >= _entryPlugs.Count)
+            {
+                _turnIndex = 0;
+
+                // 合計ターン加算
+                UpdateTurn();
+            }
 
             //次の人の止まっているマス座標
             _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
@@ -154,6 +161,8 @@ public class MyGameManager : MonoBehaviour
         }
 
         _turnIndex = 0;
+
+        
     }
 
     int GetRandomRange()

@@ -23,6 +23,8 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected StatusWindow _statusWindow;
 
+    protected ArrowUI _arrowUI;
+
     public CharacterBase Character
     {
         get { return _character; }
@@ -108,5 +110,16 @@ public class CharacterControllerBase : MonoBehaviour
     protected void StartMove(SquareBase square)
     {
         _character.StartMove(square);
+        DeleteArrow();
+    }
+
+    protected void CreateArrow()
+    {
+        _arrowUI.Create(_directionRoots);
+    }
+
+    protected void DeleteArrow()
+    {
+        _arrowUI.Delete();
     }
 }
