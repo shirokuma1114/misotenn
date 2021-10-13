@@ -46,7 +46,7 @@ public class SquareSouvenir : SquareBase
             return;
         }
 
-        // ƒCƒ“ƒXƒ^ƒ“ƒX¶¬
+
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ”ƒ‚¢‚Ü‚·‚©H";
 
         _messageWindow.SetMessage(message, character.IsAutomatic);
