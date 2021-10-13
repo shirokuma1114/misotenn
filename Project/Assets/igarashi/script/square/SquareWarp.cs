@@ -62,6 +62,15 @@ public class SquareWarp : SquareBase
     {
         _character = character;
 
+
+        //お金チェック
+        if(_character.CanPay(_cost))
+        {
+            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _state = SquareWarpState.END;
+            return;
+        }
+
         var message = _cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
         _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
