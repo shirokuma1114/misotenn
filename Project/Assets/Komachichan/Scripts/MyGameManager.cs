@@ -143,7 +143,7 @@ public class MyGameManager : MonoBehaviour
 
     void InitStatus()
     {
-        var startSquare = GameObject.Find("Start").GetComponent<SquareBase>();
+        var startSquare = GameObject.Find("Japan").GetComponent<SquareBase>();
 
         foreach (var p in _entryPlugs)
         {
