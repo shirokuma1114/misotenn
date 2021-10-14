@@ -92,6 +92,7 @@ public class SquareWarp : SquareBase
         {
             if (_payUI.IsSelectYes())
             {
+                _character.SubMoney(_cost);
                 _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
 
                 _state = SquareWarpState.WARP;

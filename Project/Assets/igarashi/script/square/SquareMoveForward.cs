@@ -76,6 +76,8 @@ public class SquareMoveForward : SquareBase
         {
             if (_payUI.IsSelectYes())
             {
+                _character.SubMoney(_cost);
+
                 _state = SquareMoveForwardState.MOVE;
             }
             else
