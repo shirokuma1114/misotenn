@@ -25,8 +25,8 @@ public class MessageWindow : MonoBehaviour
 
     [SerializeField]
     RectTransform _iconTr;
-    
 
+    bool _isAutomatic;
 
     private bool _isDisplayed = false;
     public bool IsDisplayed
@@ -41,7 +41,6 @@ public class MessageWindow : MonoBehaviour
     private int _messageNum;
 
     private bool _isOneMessage;
-    private bool _isEndMessage;
     
     private float _elapsedTime = 0.0f;
 
@@ -52,12 +51,10 @@ public class MessageWindow : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var s = "小町社長は\nプラス駅に　止まった！<>";
         _iconPosY = _iconTr.anchoredPosition.y;
         _iconImage.enabled = false;
         _frameImage.enabled = false;
         _text.enabled = false;
-        //SetMessage(s);
     }
 
     // Update is called once per frame
@@ -78,6 +75,10 @@ public class MessageWindow : MonoBehaviour
                 {
                     _isOneMessage = true;
                     _iconImage.enabled = true;
+                    if (_isAutomatic)
+                    {
+                        Invoke("SetNextMessage", 1.0f);
+                    }
                 }
             }
         }
@@ -87,29 +88,32 @@ public class MessageWindow : MonoBehaviour
             pos.y = _iconPosY + Mathf.Sin(_elapsedTime * 8.0f) * 5.0f;
             _iconTr.anchoredPosition = pos;
 
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (!_isAutomatic && Input.GetKeyDown(KeyCode.Return))
             {
-                _currentTextNum = 0;
-                _messageNum++;
-                _text.text = "";
-                _elapsedTime = 0.0f;
-                _isOneMessage = false;
-                _iconImage.enabled = false;
-                if (_messageNum >= _splitMessage.Length)
-                {
-                    _isOneMessage = true;
-                    _isDisplayed = false;
-                    _iconImage.enabled = false;
-                    _frameImage.enabled = false;
-                    _text.enabled = false;
-                    //transform.GetChild(0).gameObject.SetActive();
-                }
+                SetNextMessage();
             }
         }
     }
 
+    private void SetNextMessage()
+    {
+        _currentTextNum = 0;
+        _messageNum++;
+        _text.text = "";
+        _elapsedTime = 0.0f;
+        _isOneMessage = false;
+        _iconImage.enabled = false;
+        if (_messageNum >= _splitMessage.Length)
+        {
+            _isOneMessage = true;
+            _isDisplayed = false;
+            _frameImage.enabled = false;
+            _text.enabled = false;
+        }
+    }
+
     // 区切り文字を<>とする
-    public void SetMessage(string message, float textSpeed = TEXT_SPEED)
+    public void SetMessage(string message, bool isAutomatic, float textSpeed = TEXT_SPEED)
     {
         _isDisplayed = true;
         _splitMessage = Regex.Split(message, @"\s*" + _splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
@@ -117,10 +121,10 @@ public class MessageWindow : MonoBehaviour
         _messageNum = 0;
         _text.text = "";
         _isOneMessage = false;
-        _isEndMessage = false;
         _elapsedTime = 0.0f;
         _textSpeed = textSpeed;
         _frameImage.enabled = true;
         _text.enabled = true;
+        _isAutomatic = isAutomatic;
     }
 }

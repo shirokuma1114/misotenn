@@ -118,10 +118,15 @@ public class RouletteUI : MonoBehaviour
 
     void UpdatePush()
     {
-        if (!_isPushed && Input.GetKeyDown(KeyCode.Return))
+        if (!_character.IsAutomatic && !_isPushed && Input.GetKeyDown(KeyCode.Return))
         {
-            _isPushed = true;
+            Push();
         }
+    }
+
+    void Push()
+    {
+        _isPushed = true;
     }
 
     public RouletteUI Begin(CharacterBase character)
@@ -135,6 +140,11 @@ public class RouletteUI : MonoBehaviour
         _selectedItem = null;
         CreateTexts();
 
+        if (_character.IsAutomatic)
+        {
+            Invoke("Push", Random.Range(1.0f, 2.5f));
+        }
+
         return this;
     }
 
@@ -147,6 +157,7 @@ public class RouletteUI : MonoBehaviour
         {
             Destroy(_rouletteObjects[i]);
         }
+        _rouletteObjects.Clear();
 
         _frameImage.enabled = false;
         _backImage.enabled = false;

@@ -8,6 +8,15 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     CharacterControllerBase _controller;
 
+    // 名前
+    private string _name;
+
+    public string Name
+    {
+        get { return _name; }
+        set { _name = value; }
+    }
+
     // 所持金
     private int _money;
 
@@ -48,6 +57,12 @@ public class CharacterBase : MonoBehaviour
     public int MovingCount
     {
         get { return _movingCount; }
+    }
+    
+
+    public bool IsAutomatic
+    {
+        get { return _controller.IsAutomatic; }
     }
 
     void Start()
@@ -102,6 +117,27 @@ public class CharacterBase : MonoBehaviour
         _currentSquare = square;
     }
 
+    public void Init()
+    {
+        _state = CharacterState.WAIT;
+        _currentSquare.RemoveCharacter(this);
+        _rootStack.Clear();
+    }
+
+    public void SetWaitEnable(bool enable)
+    {
+        if (enable)
+        {
+            transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+            transform.SetParent(_currentSquare.GetComponent<Transform>());
+        }
+        else
+        {
+            transform.SetParent(null);
+            transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+        }
+    }
+
     public void StartMove(SquareBase square)
     {
         _state = CharacterState.MOVE;
@@ -118,10 +154,11 @@ public class CharacterBase : MonoBehaviour
             _rootStack.Push(_currentSquare);
             _movingCount--;
         }
+        
         _currentSquare = square;
-
+        
         // ステージ回転
-        FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition());
+        FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition(), 50.0f);
     }
 
     private void UpdateMove()
@@ -138,6 +175,7 @@ public class CharacterBase : MonoBehaviour
     {
         _state = CharacterState.STOP;
         _currentSquare.Stop(this);
+        _currentSquare.AddCharacter(this);
     }
 
     public List<SquareConnect> GetInConnects()

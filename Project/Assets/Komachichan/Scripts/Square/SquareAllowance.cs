@@ -36,9 +36,9 @@ public class SquareAllowance : SquareBase
         _character = character;
 
         // インスタンス生成
-        var message = "こまち社長は\nおこづかいマスに　止まった！";
+        var message =  character.Name + "は\nおこづかいマスに　止まった！";
 
-        _messageWindow.SetMessage(message);
+        _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
 
         _phase = Phase.INIT_MESSAGE;
@@ -85,5 +85,10 @@ public class SquareAllowance : SquareBase
         _rouletteUI.AddItem(new RouletteItemAllowance(1000)).AddItem(new RouletteItemAllowance(2000)).AddItem(new RouletteItemAllowance(3000)).AddItem(new RouletteItemAllowance(4000))
             .AddItem(new RouletteItemAllowance(5000)).AddItem(new RouletteItemAllowance(6000)).AddItem(new RouletteItemAllowance(10000))
             .Begin(_character);
+    }
+
+    public override int GetScore(CharacterBase character)
+    {
+        return 2;
     }
 }

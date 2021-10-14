@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class EarthMove : MonoBehaviour
 {
@@ -15,15 +16,15 @@ public class EarthMove : MonoBehaviour
     public EarthMoveState State => _state;
 
 
-    //‡‚í‚¹‚éŽ‹“_
-    [SerializeField]
-    private GameObject _camera = null;
-
     //‰ñ“]
     private Vector3 _targetPosition;
+    private Vector3 _prevTargetPosition;
     private Quaternion _startRot;
     private Quaternion _endRot;
     private float _lerpTime = 0;
+    private float _angle;
+    private float _rotationSpeed = 100.0f;
+    private float _yAngle;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,8 @@ public class EarthMove : MonoBehaviour
         _startRot = transform.rotation;
         _endRot = Quaternion.identity;
         _lerpTime = 0;
+        _prevTargetPosition = -transform.forward * 10.0f;
+        _yAngle = 0.0f;
     }
 
     // Update is called once per frame
@@ -58,11 +61,12 @@ public class EarthMove : MonoBehaviour
     //=================================
     //public
     //=================================
-    public void MoveToPosition(Vector3 position)    //ƒ[ƒ‹ƒhÀ•W
+    public void MoveToPosition(Vector3 target,float rotSpeed = 100.0f)    //ƒ[ƒ‹ƒhÀ•W
     {
         _state = EarthMoveState.MOVE_INIT;
 
-        _targetPosition = position;
+        _targetPosition = target;
+        _rotationSpeed = rotSpeed;
     }
 
     //=================================
@@ -76,13 +80,22 @@ public class EarthMove : MonoBehaviour
 
     private void MoveInitStateProcess()
     {
-        Vector3 refVec = (_camera.transform.position - transform.position).normalized;
-        Vector3 vec = (_targetPosition - transform.position).normalized;
-        _endRot = Quaternion.FromToRotation(vec, refVec);
+        //c‰ñ“]
+        Vector3 xzTargetPos = new Vector3(_targetPosition.x, 0.0f, _targetPosition.z);
+        float angle = Vector3.SignedAngle(xzTargetPos, _targetPosition, Vector3.Cross(_targetPosition,-Vector3.up));
+        _endRot = Quaternion.AngleAxis(angle, Vector3.Cross(_targetPosition, Vector3.up));
+
+        //‰¡‰ñ“]
+        Vector3 xzPrevTarget = new Vector3(_prevTargetPosition.x, 0.0f, _prevTargetPosition.z).normalized;
+        Vector3 xzTarget = new Vector3(_targetPosition.x, 0.0f, _targetPosition.z).normalized;
+        float xzAngle = Vector3.SignedAngle(xzPrevTarget, xzTarget, -transform.up);
+        _yAngle += xzAngle;
+        _endRot = Quaternion.Euler(0.0f,_yAngle,0.0f) * _endRot;
 
         _lerpTime = 0.0f;
-
         _startRot = transform.rotation;
+        _angle = Quaternion.Angle(_endRot,_startRot);
+        _prevTargetPosition = _targetPosition;
 
 
         _state = EarthMoveState.MOVE;
@@ -94,10 +107,13 @@ public class EarthMove : MonoBehaviour
 
 
         if (_lerpTime >= 1.0f)
+        {
             _state = EarthMoveState.END;
+            return;
+        }
 
 
-        _lerpTime += Time.deltaTime;
+        _lerpTime += 1 / _angle * _rotationSpeed * Time.deltaTime;
     }
 
     private void EndStateProcess()

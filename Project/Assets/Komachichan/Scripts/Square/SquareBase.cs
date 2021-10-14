@@ -20,6 +20,9 @@ public class SquareBase : MonoBehaviour
     [SerializeField]
     protected List<SquareConnect> _outConnects = new List<SquareConnect>();
 
+    // マスに止まっているきキャラクター
+    private LinkedList<CharacterBase> _stoppedCharacters = new LinkedList<CharacterBase>();
+
     public List<SquareConnect> OutConnects
     {
         get { return _outConnects; }
@@ -27,6 +30,30 @@ public class SquareBase : MonoBehaviour
 
     public virtual void Stop(CharacterBase character)
     {
+        character.CompleteStopExec();
+    }
+
+    public void AddCharacter(CharacterBase character)
+    {
+        _stoppedCharacters.AddLast(character);
+    }
+
+    public void RemoveCharacter(CharacterBase character)
+    {
+        _stoppedCharacters.Remove(character);
+    }
+
+    public void AlignmentCharacters()
+    {
+        int count = 0;
+
+        foreach(var x in _stoppedCharacters)
+        {
+            var pos = x.transform.position;
+            count++;
+            
+
+        }
 
     }
 
@@ -35,4 +62,10 @@ public class SquareBase : MonoBehaviour
         return GetComponent<Transform>().localPosition;
     }
     
+    //評価を調べる
+    public virtual int GetScore(CharacterBase character)
+    {
+        // 何もないマスなので評価は0
+        return 0;
+    }
 }

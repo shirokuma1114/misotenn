@@ -16,7 +16,7 @@ public class MoveCard : MonoBehaviour
     {
         var rt = GetComponent<RectTransform>();
         _tween = rt.DOMove(_moveTargetPos, 1.0f);
-        rt.DORotate(new Vector3(0, 0, 0), 1.0f);
+        rt.DORotate(new Vector3(0, 0, 0),1.0f);
     }
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class MoveCard : MonoBehaviour
     //=================================
     public void OnClick()
     {
-        transform.parent.gameObject.GetComponent<MoveCardManager>().SelectedCardIndex(_index);
+        transform.parent.gameObject.GetComponent<MoveCardManager>().IndexSelect(_index);
     }
 
     public void SetIndex(int index)

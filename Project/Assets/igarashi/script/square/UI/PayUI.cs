@@ -3,33 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChoiceUI : MonoBehaviour
+public class PayUI : MonoBehaviour
 {
     private bool _selectComplete = false;
 
-    private GameObject _description;
     private GameObject _yes;
     private GameObject _no;
 
     private bool _selectYes;
 
+    private bool _enable;
 
     private void Awake()
     {
         _selectComplete = false;
 
-        _description = transform.Find("Description").gameObject;
         _yes = transform.Find("Yes").gameObject;
         _no = transform.Find("No").gameObject;
 
         _selectYes = false;
         ButtonColorUpdate();
+
+        SetEnable(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -60,9 +60,16 @@ public class ChoiceUI : MonoBehaviour
         ButtonColorUpdate();
     }
 
-    public void SetDescription(string description)
+
+    public void SetEnable(bool enable)
     {
-        _description.GetComponent<Text>().text = description;
+        _enable = enable;
+
+        _yes.GetComponent<Image>().enabled = enable;
+        _yes.GetComponentInChildren<Text>().enabled = enable;
+
+        _no.GetComponent<Image>().enabled = enable;
+        _no.GetComponentInChildren<Text>().enabled = enable;
     }
 
     public bool IsChoiseComplete()
@@ -79,9 +86,12 @@ public class ChoiceUI : MonoBehaviour
 
     private void SelectChoices()
     {
+        if (!_enable)
+            return;
+
         if (_selectYes)
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
             {
                 _selectYes = false;
                 ButtonColorUpdate();
@@ -89,7 +99,7 @@ public class ChoiceUI : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
             {
                 _selectYes = true;
                 ButtonColorUpdate();
