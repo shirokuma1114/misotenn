@@ -15,9 +15,13 @@ public class CameraInterpolation : MonoBehaviour
 	float Distance = 0;
 	float StartTime = 0;
 	float CurrentTime = 0;
-	
+
 
 	// ˆÚ“®æƒJƒƒ‰w’è
+	public void Set_Second(float _second)
+	{
+		Second = _second;
+	}
 	public bool Set_NextCamera(uint _witch)
 	{
 		// ”ÍˆÍŠO
