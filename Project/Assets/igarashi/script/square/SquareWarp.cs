@@ -119,7 +119,12 @@ public class SquareWarp : SquareBase
 
         if (_characters[_moveIndex].State == CharacterState.WAIT)
         {
+            _characters[_moveIndex].SetWaitEnable(true);
+
             _moveIndex++;
+
+            FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
+            _characters[_moveIndex].SetWaitEnable(false);
             _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
         }
     }
@@ -130,6 +135,7 @@ public class SquareWarp : SquareBase
         if (!_messageWindow.IsDisplayed)
         {
             _character.CompleteStopExec();
+            _character.SetWaitEnable(true);
             _statusWindow.SetEnable(false);
 
             _state = SquareWarpState.IDLE;
