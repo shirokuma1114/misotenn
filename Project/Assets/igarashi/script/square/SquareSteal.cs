@@ -23,7 +23,7 @@ public class SquareSteal : SquareBase
     PayUI _payUI;
     SelectUI _selectUI;
 
-    private List<CharacterBase> _charactersOtherThis;
+    private List<CharacterBase> _otherCharacters;
 
     [SerializeField]
     private int _cost;
@@ -75,9 +75,9 @@ public class SquareSteal : SquareBase
         _statusWindow.SetEnable(true);
         _payUI.SetEnable(true);
 
-        _charactersOtherThis = new List<CharacterBase>();
-        _charactersOtherThis.AddRange(FindObjectsOfType<CharacterBase>());
-        _charactersOtherThis.Remove(_character.GetComponent<CharacterBase>());
+        _otherCharacters = new List<CharacterBase>();
+        _otherCharacters.AddRange(FindObjectsOfType<CharacterBase>());
+        _otherCharacters.Remove(_character.GetComponent<CharacterBase>());
 
         _state = SquareStealState.PAY;
     }
@@ -91,8 +91,8 @@ public class SquareSteal : SquareBase
                 _character.SubMoney(_cost);
 
                 List<string> names = new List<string>();
-                for (int i = 0; i < _charactersOtherThis.Count; i++)
-                    names.Add(_charactersOtherThis[i].Name);
+                for (int i = 0; i < _otherCharacters.Count; i++)
+                    names.Add(_otherCharacters[i].Name);
 
                 _selectUI.Open(names);
                 _messageWindow.SetMessage("íNÇ©ÇÁÇ®ìyéYÇíDÇ¢Ç‹Ç∑Ç©ÅH", _character.IsAutomatic);
@@ -112,18 +112,18 @@ public class SquareSteal : SquareBase
     {
         if(_selectUI.IsComplete && !_messageWindow.IsDisplayed)
         {
-            if(_charactersOtherThis[_selectUI.SelectIndex].Souvenirs.Count > 0)
+            if(_otherCharacters[_selectUI.SelectIndex].Souvenirs.Count > 0)
             {
-                var target = _charactersOtherThis[_selectUI.SelectIndex].Souvenirs[0];
+                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[0];
                 _character.AddSouvenir(target);
-                _charactersOtherThis[_selectUI.SelectIndex].RemoveSouvenir(0);
+                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(0);
 
-                var message = _character.Name + "ÇÕ" + _charactersOtherThis[_selectUI.SelectIndex].Name + "ÇÃ" + target.ToString() + "ÇéÊÇ¡ÇΩ";
+                var message = _character.Name + "ÇÕ" + _otherCharacters[_selectUI.SelectIndex].Name + "ÇÃ" + target.ToString() + "ÇéÊÇ¡ÇΩ";
                 _messageWindow.SetMessage(message,_character.IsAutomatic);
             }
             else
             {
-                _messageWindow.SetMessage(_charactersOtherThis[_selectUI.SelectIndex].Name + "ÇÕÇ®ìyéYÇéùÇ¡ÇƒÇ¢Ç»Ç©Ç¡ÇΩ", _character.IsAutomatic);
+                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "ÇÕÇ®ìyéYÇéùÇ¡ÇƒÇ¢Ç»Ç©Ç¡ÇΩ", _character.IsAutomatic);
             }
 
             _state = SquareStealState.END;
