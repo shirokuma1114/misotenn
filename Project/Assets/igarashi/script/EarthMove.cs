@@ -69,6 +69,30 @@ public class EarthMove : MonoBehaviour
         _rotationSpeed = rotSpeed;
     }
 
+    public void MoveToPositionInstant(Vector3 target)
+    {
+        _targetPosition = target;
+
+
+        //ècâÒì]
+        Vector3 xzTargetPos = new Vector3(_targetPosition.x, 0.0f, _targetPosition.z);
+        float angle = Vector3.SignedAngle(xzTargetPos, _targetPosition, Vector3.Cross(_targetPosition, -Vector3.up));
+        _endRot = Quaternion.AngleAxis(angle, Vector3.Cross(_targetPosition, Vector3.up));
+
+        //â°âÒì]
+        Vector3 xzPrevTarget = new Vector3(_prevTargetPosition.x, 0.0f, _prevTargetPosition.z).normalized;
+        Vector3 xzTarget = new Vector3(_targetPosition.x, 0.0f, _targetPosition.z).normalized;
+        float xzAngle = Vector3.SignedAngle(xzPrevTarget, xzTarget, -transform.up);
+        _yAngle += xzAngle;
+        _endRot = Quaternion.Euler(0.0f, _yAngle, 0.0f) * _endRot;
+
+        transform.rotation = _endRot;
+        _prevTargetPosition = _targetPosition;
+
+
+        _state = EarthMoveState.END;
+    }
+
     //=================================
 
 
