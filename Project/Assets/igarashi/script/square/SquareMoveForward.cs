@@ -61,6 +61,13 @@ public class SquareMoveForward : SquareBase
 
         _moveCount = 0;
 
+        if (!_character.CanPay(_cost))
+        {
+            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
+            _state = SquareMoveForwardState.END;
+            return;
+        }
+
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä" + _moveNum + "ƒ}ƒXi‚İ‚Ü‚·‚©H";
         _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
@@ -107,10 +114,13 @@ public class SquareMoveForward : SquareBase
 
     private void EndStateProcess()
     {
-        // ~‚Ü‚éˆ—I—¹
-        _character.CompleteStopExec();
-        _statusWindow.SetEnable(false);
+        if(!_messageWindow.IsDisplayed)
+        {
+            // ~‚Ü‚éˆ—I—¹
+            _character.CompleteStopExec();
+            _statusWindow.SetEnable(false);
 
-        _state = SquareMoveForwardState.IDLE;
+            _state = SquareMoveForwardState.IDLE;
+        }        
     }
 }

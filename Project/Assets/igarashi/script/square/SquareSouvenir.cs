@@ -41,7 +41,7 @@ public class SquareSouvenir : SquareBase
 
         
         //お金チェック
-        if (_character.CanPay(_cost))
+        if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
             _state = SquareSouvenirState.END;
@@ -109,10 +109,15 @@ public class SquareSouvenir : SquareBase
 
     private void EndProcess()
     {
-        // 止まる処理終了
-        _character.CompleteStopExec();
-        _statusWindow.SetEnable(false);
 
-        _state = SquareSouvenirState.IDLE;
+        if(!_messageWindow.IsDisplayed)
+        {
+            // 止まる処理終了
+            _character.CompleteStopExec();
+            _statusWindow.SetEnable(false);
+
+            _state = SquareSouvenirState.IDLE;
+        }
+       
     }
 }

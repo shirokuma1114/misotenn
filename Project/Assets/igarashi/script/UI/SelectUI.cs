@@ -11,7 +11,7 @@ public class SelectUI : MonoBehaviour
     private Color SELECT_COLOR = new Color(1, 0, 0, 1);
     private Color NOT_SELECT_COLOR = new Color(1, 1, 1, 1);
 
-    private List<string> _elements;
+    private List<string> _elements = new List<string>();
     private List<GameObject> _selections = new List<GameObject>();
     private int _selectIndex;
     public int SelectIndex => _selectIndex;

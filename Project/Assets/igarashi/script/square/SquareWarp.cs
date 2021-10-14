@@ -64,7 +64,7 @@ public class SquareWarp : SquareBase
 
 
         //お金チェック
-        if(_character.CanPay(_cost))
+        if(!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
             _state = SquareWarpState.END;
@@ -126,10 +126,14 @@ public class SquareWarp : SquareBase
 
     private void EndStateProcess()
     {
-        _character.CompleteStopExec();
-        _statusWindow.SetEnable(false);
 
-        _state = SquareWarpState.IDLE;
+        if (!_messageWindow.IsDisplayed)
+        {
+            _character.CompleteStopExec();
+            _statusWindow.SetEnable(false);
+
+            _state = SquareWarpState.IDLE;
+        }            
     }
     
 }
