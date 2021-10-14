@@ -18,11 +18,13 @@ public class SquareSouvenir : SquareBase
     StatusWindow _statusWindow;
     PayUI _payUI;
 
+
+    [Header("‚¨“yY")]
+    [Space(20)]
+    [SerializeField]
+    private string _souvenirName;
     [SerializeField]
     private int _cost;
-
-    [SerializeField]
-    private GameObject _souvenir;
 
 
     // Start is called before the first frame update
@@ -39,7 +41,7 @@ public class SquareSouvenir : SquareBase
 
         
         //‚¨‹àƒ`ƒFƒbƒN
-        if (_character.CanPay(_cost))
+        if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
             _state = SquareSouvenirState.END;
@@ -97,27 +99,25 @@ public class SquareSouvenir : SquareBase
 
     private void EventProcess()
     {
-        if (!_character.CanPay(_cost))
-        {
-            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚ç‚È‚©‚Á‚½", _character.IsAutomatic);
-        }
-        else
-        {    
-            _character.SubMoney(_cost);
-            _character.AddSouvenir(_souvenir.GetComponent<Souvenir>());
+        _character.SubMoney(_cost);
+        _character.AddSouvenir(new Souvenir(_cost, _souvenirName));
 
-            _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yY‚ğè‚É“ü‚ê‚½", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"
-        }
-        
+        _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yY‚ğè‚É“ü‚ê‚½", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"
+
         _state = SquareSouvenirState.END;
     }
 
     private void EndProcess()
     {
-        // ~‚Ü‚éˆ—I—¹
-        _character.CompleteStopExec();
-        _statusWindow.SetEnable(false);
 
-        _state = SquareSouvenirState.IDLE;
+        if(!_messageWindow.IsDisplayed)
+        {
+            // ~‚Ü‚éˆ—I—¹
+            _character.CompleteStopExec();
+            _statusWindow.SetEnable(false);
+
+            _state = SquareSouvenirState.IDLE;
+        }
+       
     }
 }
