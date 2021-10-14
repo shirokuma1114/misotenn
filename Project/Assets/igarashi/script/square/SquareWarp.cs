@@ -52,6 +52,7 @@ public class SquareWarp : SquareBase
                 WarpStateProcess();
                 break;
             case SquareWarpState.END:
+                EndStateProcess();
                 break;
         }
     }
@@ -60,6 +61,15 @@ public class SquareWarp : SquareBase
     public override void Stop(CharacterBase character)
     {
         _character = character;
+
+
+        //お金チェック
+        if(!_character.CanPay(_cost))
+        {
+            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _state = SquareWarpState.END;
+            return;
+        }
 
         var message = _cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
         _messageWindow.SetMessage(message,character.IsAutomatic);
@@ -82,6 +92,7 @@ public class SquareWarp : SquareBase
         {
             if (_payUI.IsSelectYes())
             {
+                _character.SubMoney(_cost);
                 _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
 
                 _state = SquareWarpState.WARP;
@@ -108,17 +119,27 @@ public class SquareWarp : SquareBase
 
         if (_characters[_moveIndex].State == CharacterState.WAIT)
         {
+            _characters[_moveIndex].SetWaitEnable(true);
+
             _moveIndex++;
+
+            FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
+            _characters[_moveIndex].SetWaitEnable(false);
             _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
         }
     }
 
     private void EndStateProcess()
     {
-        _statusWindow.SetEnable(false);
-        _character.CompleteStopExec();
 
-        _state = SquareWarpState.IDLE;
+        if (!_messageWindow.IsDisplayed)
+        {
+            _character.CompleteStopExec();
+            _character.SetWaitEnable(true);
+            _statusWindow.SetEnable(false);
+
+            _state = SquareWarpState.IDLE;
+        }            
     }
     
 }
