@@ -29,17 +29,17 @@ public class SelectUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Select();
+        if(!_selectComplete)
+            Select();
     }
 
     
     public void Open(List<string> elements)
     {
-        _elements = elements;
+        _elements = new List<string>(elements);
 
         _selectComplete = false;
         _selectIndex = 0;
-
 
         for (int i = 0; i < _elements.Count; i++)
         {
@@ -54,6 +54,11 @@ public class SelectUI : MonoBehaviour
         }
 
         UpdateSelectionColor();
+    }
+
+    public void ReOpen()
+    {
+        _selectComplete = false;
     }
 
     public void Close()
