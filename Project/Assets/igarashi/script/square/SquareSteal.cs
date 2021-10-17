@@ -88,9 +88,8 @@ public class SquareSteal : SquareBase
         {
             if (_payUI.IsSelectYes())
             {
-                _character.SubMoney(_cost);
-
                 List<string> names = new List<string>();
+                names.Add("‚â‚ß‚é");
                 for (int i = 0; i < _otherCharacters.Count; i++)
                     names.Add(_otherCharacters[i].Name);
 
@@ -112,18 +111,32 @@ public class SquareSteal : SquareBase
     {
         if(_selectUI.IsComplete && !_messageWindow.IsDisplayed)
         {
-            if(_otherCharacters[_selectUI.SelectIndex].Souvenirs.Count > 0)
+            if(_selectUI.SelectIndex == 0)
+            {
+                _state = SquareStealState.END;
+                return;
+            }
+
+            if(_otherCharacters[_selectUI.SelectIndex].gameObject.GetComponent<Protector>().IsProtected)
+            {
+                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
+                return;
+            }
+            else if(_otherCharacters[_selectUI.SelectIndex].Souvenirs.Count == 0)
+            {
+                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚Í‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢I", _character.IsAutomatic);
+                return;
+            }
+            else
             {
                 var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[0];
                 _character.AddSouvenir(target);
                 _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(0);
 
                 var message = _character.Name + "‚Í" + _otherCharacters[_selectUI.SelectIndex].Name + "‚Ì" + target.ToString() + "‚ğæ‚Á‚½";
-                _messageWindow.SetMessage(message,_character.IsAutomatic);
-            }
-            else
-            {
-                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚Í‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚©‚Á‚½", _character.IsAutomatic);
+                _messageWindow.SetMessage(message, _character.IsAutomatic);
+
+                _character.SubMoney(_cost);
             }
 
             _state = SquareStealState.END;
