@@ -52,7 +52,7 @@ public class MoveCardManager : MonoBehaviour
 
         CreateCards();
         SelectCardColorUpdate();
-        _autoSelect = false;
+        _autoSelect = autoSelect;
 
         _selectComplete = false;
     }
