@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 388156673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
+  m_Script: {fileID: 11500000, guid: aa0e83382e7feb24495c11adb88d69ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
@@ -1015,6 +1015,7 @@ MonoBehaviour:
   _outConnects:
   - _square: {fileID: 22413890}
     _directionType: 1
+  _cost: 0
 --- !u!65 &388156675
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1729,6 +1730,7 @@ GameObject:
   - component: {fileID: 589488579}
   - component: {fileID: 589488584}
   - component: {fileID: 589488583}
+  - component: {fileID: 589488585}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1839,6 +1841,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _controller: {fileID: 589488583}
+--- !u!114 &589488585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589488578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72be64c811a2c0d48a5252d7057a2104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &615237091
 GameObject:
   m_ObjectHideFlags: 0
@@ -3246,6 +3260,7 @@ GameObject:
   - component: {fileID: 965856583}
   - component: {fileID: 965856582}
   - component: {fileID: 965856581}
+  - component: {fileID: 965856586}
   - component: {fileID: 965856580}
   m_Layer: 0
   m_Name: Enemy1
@@ -3263,11 +3278,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 965856579}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c801936771e25024ca33a2b5f4a3cbcf, type: 3}
+  m_Script: {fileID: 11500000, guid: a2e4a1b6a45454b4d8f119d71ecf7d65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _character: {fileID: 965856581}
-  _isAutomatic: 1
+  _isAutomatic: 0
 --- !u!114 &965856581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3357,6 +3372,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &965856586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965856579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72be64c811a2c0d48a5252d7057a2104, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1010636247
 GameObject:
   m_ObjectHideFlags: 0
@@ -6163,7 +6190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1830798715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d5e058151b18cc4abb8c9d009e97289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
@@ -6172,6 +6199,8 @@ MonoBehaviour:
   _outConnects:
   - _square: {fileID: 388156674}
     _directionType: 1
+  _cost: 0
+  _protectTurn: 3
 --- !u!65 &1830798717
 BoxCollider:
   m_ObjectHideFlags: 0

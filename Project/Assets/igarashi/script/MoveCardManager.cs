@@ -106,7 +106,8 @@ public class MoveCardManager : MonoBehaviour
             card.transform.Find("Text").GetComponent<Text>().text = _cardNumberLists[i].ToString();
             var mc = card.GetComponent<MoveCard>();
             mc.SetIndex(i);
-            mc.SetMoveTargetPos(new Vector3((rt.rect.width / 2.0f) + (rt.rect.width * i), rt.rect.height / 2.0f, 0.0f));
+
+            mc.SetMoveTargetPos(new Vector3((rt.rect.width / 2.0f) + (rt.rect.width * i), rt.rect.height / 2.0f, 0.0f),i == _cardNumberLists.Count - 1);
 
             _cards.Add(card);
         }
