@@ -6,17 +6,12 @@ using DG.Tweening;
 public class MoveCard : MonoBehaviour
 {
     private int _index;
-
-    private Vector3 _moveTargetPos;
-
     private Tween _tween;
 
     // Start is called before the first frame update
     void Start()
     {
-        var rt = GetComponent<RectTransform>();
-        _tween = rt.DOMove(_moveTargetPos, 1.0f);
-        rt.DORotate(new Vector3(0, 0, 0),1.0f);
+        
     }
 
     // Update is called once per frame
@@ -46,9 +41,25 @@ public class MoveCard : MonoBehaviour
         _index = index;
     }
 
-    public void SetMoveTargetPos(Vector3 targetPos)
+    public void SetMoveTargetPos(Vector3 targetPos,bool last)
     {
-        _moveTargetPos = targetPos;
+        var rt = GetComponent<RectTransform>();
+
+
+        if (!last)
+        {
+            _tween = rt.DOMove(targetPos, 1.0f);
+            rt.DORotate(new Vector3(0, 0, 0), 1.0f);
+        }
+        else
+        {
+            var seq = DOTween.Sequence();
+            seq.AppendInterval(1.0f);
+            seq.Append(_tween = rt.DOMove(targetPos, 1.0f));
+            seq.Join(rt.DORotate(new Vector3(0, 0, -450), 1.0f, RotateMode.WorldAxisAdd));
+
+            seq.Play();
+        }
     }
 
     //=================================
