@@ -40,7 +40,7 @@ public class SelectUI : MonoBehaviour
 
         _selectComplete = false;
         _selectIndex = 0;
-
+        Debug.Log(elements.Count);
         for (int i = 0; i < _elements.Count; i++)
         {
             var obj = Instantiate(_selectionPrefab);
