@@ -120,4 +120,10 @@ public class SquareSouvenir : SquareBase
         }
        
     }
+
+    public override int GetScore(CharacterBase character)
+    {
+        // ‚¨‹à‚ª‘«‚è‚é
+        return _cost <= character.Money ? 100 : 0;
+    }
 }

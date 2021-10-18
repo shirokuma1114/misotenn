@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SquareMoveForward : SquareBase
 {
@@ -107,7 +108,7 @@ public class SquareMoveForward : SquareBase
 
         if (_character.State != CharacterState.MOVE)
         {
-            _character.StartMove(_character.CurrentSquare.OutConnects[0]._square);
+            _character.StartMove(_character.CurrentSquare.OutConnects[0]);
             _moveCount++;
         }
     }
@@ -122,5 +123,20 @@ public class SquareMoveForward : SquareBase
 
             _state = SquareMoveForwardState.IDLE;
         }        
+    }
+
+    public override int GetScore(CharacterBase character)
+    {
+        if (_cost > character.Money) return -1;
+
+        // 移動先のマスの評価
+        SquareBase square = character.CurrentSquare;
+        for(int i = 0; i < _moveNum; i++) square = square.OutConnects.Last();
+
+        // このマス分のお金を引く
+        character.SubMoney(_cost);
+        var score = square.GetScore(character);
+        character.AddMoney(_cost);
+        return score;
     }
 }

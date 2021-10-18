@@ -156,7 +156,7 @@ public class AIController : CharacterControllerBase
         roots.Push(square);
         foreach (var x in square.OutConnects)
         {
-            FindRoot(x._square, count, roots, squares, index);
+            FindRoot(x, count, roots, squares, index);
         }
     }
 
