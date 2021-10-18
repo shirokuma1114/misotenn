@@ -178,14 +178,14 @@ public class CharacterBase : MonoBehaviour
         _currentSquare.AddCharacter(this);
     }
 
-    public List<SquareConnect> GetInConnects()
+    public List<SquareBase> GetInConnects()
     {
-        var outs = new List<SquareConnect>();
+        var outs = new List<SquareBase>();
 
         // スタックにあるマスのみ
         foreach (var s in _currentSquare.InConnects)
         {
-            if (_rootStack.Contains(s._square))
+            if (_rootStack.Contains(s))
             {
                 outs.Add(s);
             }
@@ -194,9 +194,9 @@ public class CharacterBase : MonoBehaviour
         return outs;
     }
 
-    public List<SquareConnect> GetOutConnects()
+    public List<SquareBase> GetOutConnects()
     {
-        return _movingCount > 0 ? _currentSquare.OutConnects : new List<SquareConnect>();
+        return _movingCount > 0 ? _currentSquare.OutConnects : new List<SquareBase>();
     }
 
     public void CompleteStopExec()

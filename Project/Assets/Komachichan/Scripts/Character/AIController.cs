@@ -18,7 +18,6 @@ public class AIController : CharacterControllerBase
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
-        _arrowUI = FindObjectOfType<ArrowUI>();
     }
 
     // Update is called once per frame
@@ -65,7 +64,6 @@ public class AIController : CharacterControllerBase
         if (_character.MovingCount == 0)
         {
             _movingCount.SetEnable(false);
-            DeleteArrow();
             _character.Stop();
             _isMoved = false;
             return;
@@ -158,7 +156,7 @@ public class AIController : CharacterControllerBase
         roots.Push(square);
         foreach (var x in square.OutConnects)
         {
-            FindRoot(x._square, count, roots, squares, index);
+            FindRoot(x, count, roots, squares, index);
         }
     }
 

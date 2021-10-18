@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PlayerController : CharacterControllerBase
 {
     bool _isMoved = false;
     bool _isSelectedCard = false;
+
+    Stack<SquareBase> _root = new Stack<SquareBase>();
 
     // Start is called before the first frame update
     void Awake()
@@ -14,7 +17,6 @@ public class PlayerController : CharacterControllerBase
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
-        _arrowUI = FindObjectOfType<ArrowUI>();
     }
 
     // Update is called once per frame
@@ -44,11 +46,12 @@ public class PlayerController : CharacterControllerBase
         NotifyMovingCount(_character.MovingCount);
 
         // ルート生成
-        SetSquareRoots();
-        CreateArrow();
+        for(int i = 0; i < _character.MovingCount; i++)
+        {
+            var next = _character.CurrentSquare.OutConnects.First();
+            _root.Push(next);
+        }
     }
-
-
 
     private void UpdateSelect()
     {
@@ -69,49 +72,23 @@ public class PlayerController : CharacterControllerBase
     private void UpdateMove()
     {
         if (!_isMoved) return;
-
         if (_character.State != CharacterState.WAIT) return;
 
         // マス目を決定する
         if (_character.MovingCount == 0)
         {
             _movingCount.SetEnable(false);
+
+            // 既に止まっているプレイヤーがいる
+            if (_character.CurrentSquare.AlreadyStopped())
+            {
+
+            }
             _character.Stop();
-            DeleteArrow();
             _isMoved = false;
             return;
         }
 
-        var inputDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        
-        if (inputDir == Vector2.zero) return;
-
-        if(Mathf.Abs(inputDir.x) > Mathf.Abs(inputDir.y))
-        {
-            if (inputDir.x < 0)
-            {
-                if (_directionRoots[0])
-                    StartMove(_directionRoots[0]);
-            }
-            else
-            {
-                if (_directionRoots[2])
-                    StartMove(_directionRoots[2]);
-            }
-        }
-        else
-        {
-            if (inputDir.y < 0)
-            {
-                if (_directionRoots[1])
-                    StartMove(_directionRoots[1]);
-            }
-            else
-            {
-                if (_directionRoots[3])
-                    StartMove(_directionRoots[3]);
-            }
-        }
+        StartMove(_root.Pop());
     }
-
 }

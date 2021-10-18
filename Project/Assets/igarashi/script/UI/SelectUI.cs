@@ -11,7 +11,7 @@ public class SelectUI : MonoBehaviour
     private Color SELECT_COLOR = new Color(1, 0, 0, 1);
     private Color NOT_SELECT_COLOR = new Color(1, 1, 1, 1);
 
-    private List<string> _elements;
+    private List<string> _elements = new List<string>();
     private List<GameObject> _selections = new List<GameObject>();
     private int _selectIndex;
     public int SelectIndex => _selectIndex;
@@ -29,17 +29,17 @@ public class SelectUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Select();
+        if(!_selectComplete)
+            Select();
     }
 
     
     public void Open(List<string> elements)
     {
-        _elements = elements;
+        _elements = new List<string>(elements);
 
         _selectComplete = false;
         _selectIndex = 0;
-
 
         for (int i = 0; i < _elements.Count; i++)
         {
@@ -54,6 +54,11 @@ public class SelectUI : MonoBehaviour
         }
 
         UpdateSelectionColor();
+    }
+
+    public void ReOpen()
+    {
+        _selectComplete = false;
     }
 
     public void Close()

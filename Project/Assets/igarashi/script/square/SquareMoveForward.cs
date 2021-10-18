@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SquareMoveForward : SquareBase
 {
@@ -61,6 +62,13 @@ public class SquareMoveForward : SquareBase
 
         _moveCount = 0;
 
+        if (!_character.CanPay(_cost))
+        {
+            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _state = SquareMoveForwardState.END;
+            return;
+        }
+
         var message = _cost.ToString() + "円を支払って" + _moveNum + "マス進みますか？";
         _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
@@ -76,6 +84,8 @@ public class SquareMoveForward : SquareBase
         {
             if (_payUI.IsSelectYes())
             {
+                _character.SubMoney(_cost);
+
                 _state = SquareMoveForwardState.MOVE;
             }
             else
@@ -98,17 +108,35 @@ public class SquareMoveForward : SquareBase
 
         if (_character.State != CharacterState.MOVE)
         {
-            _character.StartMove(_character.CurrentSquare.OutConnects[0]._square);
+            _character.StartMove(_character.CurrentSquare.OutConnects[0]);
             _moveCount++;
         }
     }
 
     private void EndStateProcess()
     {
-        // 止まる処理終了
-        _character.CompleteStopExec();
-        _statusWindow.SetEnable(false);
+        if(!_messageWindow.IsDisplayed)
+        {
+            // 止まる処理終了
+            _character.CompleteStopExec();
+            _statusWindow.SetEnable(false);
 
-        _state = SquareMoveForwardState.IDLE;
+            _state = SquareMoveForwardState.IDLE;
+        }        
+    }
+
+    public override int GetScore(CharacterBase character)
+    {
+        if (_cost > character.Money) return -1;
+
+        // 移動先のマスの評価
+        SquareBase square = character.CurrentSquare;
+        for(int i = 0; i < _moveNum; i++) square = square.OutConnects.Last();
+
+        // このマス分のお金を引く
+        character.SubMoney(_cost);
+        var score = square.GetScore(character);
+        character.AddMoney(_cost);
+        return score;
     }
 }

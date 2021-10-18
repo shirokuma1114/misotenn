@@ -64,7 +64,7 @@ public class SquareWarp : SquareBase
 
 
         //お金チェック
-        if(_character.CanPay(_cost))
+        if(!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
             _state = SquareWarpState.END;
@@ -92,6 +92,7 @@ public class SquareWarp : SquareBase
         {
             if (_payUI.IsSelectYes())
             {
+                _character.SubMoney(_cost);
                 _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
 
                 _state = SquareWarpState.WARP;
@@ -118,17 +119,31 @@ public class SquareWarp : SquareBase
 
         if (_characters[_moveIndex].State == CharacterState.WAIT)
         {
+            _characters[_moveIndex].SetWaitEnable(true);
+
             _moveIndex++;
+
+            FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
+            _characters[_moveIndex].SetWaitEnable(false);
             _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
         }
     }
 
     private void EndStateProcess()
     {
-        _character.CompleteStopExec();
-        _statusWindow.SetEnable(false);
 
-        _state = SquareWarpState.IDLE;
+        if (!_messageWindow.IsDisplayed)
+        {
+            _character.CompleteStopExec();
+            _character.SetWaitEnable(true);
+            _statusWindow.SetEnable(false);
+
+            _state = SquareWarpState.IDLE;
+        }            
     }
-    
+    public override int GetScore(CharacterBase character)
+    {
+        // お金が足りる
+        return _cost <= character.Money ? 200 : 0;
+    }
 }
