@@ -48,7 +48,7 @@ public class PlayerController : CharacterControllerBase
         // ルート生成
         for(int i = 0; i < _character.MovingCount; i++)
         {
-            var next = _character.CurrentSquare.OutConnects.First()._square;
+            var next = _character.CurrentSquare.OutConnects.First();
             _root.Push(next);
         }
     }
@@ -78,6 +78,12 @@ public class PlayerController : CharacterControllerBase
         if (_character.MovingCount == 0)
         {
             _movingCount.SetEnable(false);
+
+            // 既に止まっているプレイヤーがいる
+            if (_character.CurrentSquare.AlreadyStopped())
+            {
+
+            }
             _character.Stop();
             _isMoved = false;
             return;

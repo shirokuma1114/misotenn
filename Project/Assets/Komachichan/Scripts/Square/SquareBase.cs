@@ -9,23 +9,34 @@ public class SquareBase : MonoBehaviour
 
     // イン
     [SerializeField]
-    protected List<SquareConnect> _inConnects = new List<SquareConnect>();
+    protected List<SquareBase> _inConnects = new List<SquareBase>();
 
-    public List<SquareConnect> InConnects
+    public List<SquareBase> InConnects
     {
         get { return _inConnects; }
     }
 
     // アウト
     [SerializeField]
-    protected List<SquareConnect> _outConnects = new List<SquareConnect>();
+    protected List<SquareBase> _outConnects = new List<SquareBase>();
 
     // マスに止まっているきキャラクター
     private LinkedList<CharacterBase> _stoppedCharacters = new LinkedList<CharacterBase>();
 
-    public List<SquareConnect> OutConnects
+    public List<SquareBase> OutConnects
     {
         get { return _outConnects; }
+    }
+
+    public void JudgeCollision(CharacterBase character)
+    {
+        
+        
+    }
+
+    public bool AlreadyStopped()
+    {
+        return _stoppedCharacters.Count >= 1 ? true : false;
     }
 
     public virtual void Stop(CharacterBase character)

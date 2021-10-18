@@ -29,7 +29,7 @@ public class MyGameManager : MonoBehaviour
 
     private Phase _phase;
 
-    private int _turnIndex;
+    private int _turnIndex = 0;
 
     [SerializeField]
     SimpleFade _fade;
@@ -48,6 +48,7 @@ public class MyGameManager : MonoBehaviour
 
         // お小遣い移動カード初期化
         InitStatus();
+        _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
 
         // 初回ターン
         InitTurn();
@@ -134,6 +135,7 @@ public class MyGameManager : MonoBehaviour
 
     void InitTurn()
     {
+        _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
         //_entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
         _entryPlugs[_turnIndex].Character.AddMovingCard(3);
         _entryPlugs[_turnIndex].Character.Name = "こまち社長";
@@ -158,6 +160,8 @@ public class MyGameManager : MonoBehaviour
             }
             chara.Name = "敵" + Random.Range(1, 100) + "号";
             chara.SetCurrentSquare(startSquare);
+            chara.AddMoney(1000);
+            chara.SetWaitEnable(true);
         }
 
         _turnIndex = 0;
@@ -168,5 +172,11 @@ public class MyGameManager : MonoBehaviour
     int GetRandomRange()
     {
         return Random.Range(_cardMinValue, _cardMaxValue);
+    }
+    
+    public int GetRanking()
+    {
+        return 0;
+        //for(int i )
     }
 }
