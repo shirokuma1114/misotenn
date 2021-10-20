@@ -9,7 +9,6 @@ public class MoveCardManager : MonoBehaviour
     private int _selectedCardIndex = 0;
     private bool _selectComplete;
     public bool IsSelectComplete => _selectComplete;
-
     private bool _autoSelect;
 
     [SerializeField]
@@ -42,13 +41,7 @@ public class MoveCardManager : MonoBehaviour
     {
         _cardNumberLists = cardNumberList;
 
-        if (_cards.Count != 0)
-        {
-            foreach (var card in _cards)
-                Destroy(card);
-
-            _cards.Clear();
-        }
+        DeleteCards();
 
         CreateCards();
         SelectCardColorUpdate();
@@ -88,8 +81,10 @@ public class MoveCardManager : MonoBehaviour
     {
         if (_cards.Count != 0)
         {
-            foreach (var card in _cards)
-                Destroy(card);
+            for (int i = 0; i < _cards.Count; i++)
+            {
+                Destroy(_cards[i]);
+            }
 
             _cards.Clear();
         }
