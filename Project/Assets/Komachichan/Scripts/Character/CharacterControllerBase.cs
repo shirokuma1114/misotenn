@@ -23,6 +23,8 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected StatusWindow _statusWindow;
 
+    protected CollisionEvent _collisionEvent;
+
     public CharacterBase Character
     {
         get { return _character; }
@@ -47,5 +49,21 @@ public class CharacterControllerBase : MonoBehaviour
     protected void StartMove(SquareBase square)
     {
         _character.StartMove(square);
+    }
+
+    protected void Collision(CharacterBase owner, List<CharacterBase> targets)
+    {
+        _collisionEvent = new CollisionEvent(owner, targets);
+    }
+
+    protected void UpdateColliision()
+    {
+        _collisionEvent.Update();
+    }
+
+    protected bool IsFinishedCollision()
+    {
+        if (_collisionEvent == null) return false;
+        return _collisionEvent.IsFinished();
     }
 }
