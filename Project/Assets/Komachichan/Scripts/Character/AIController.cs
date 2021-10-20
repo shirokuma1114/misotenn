@@ -13,6 +13,8 @@ public class AIController : CharacterControllerBase
 
     List<int> _movingIndies = new List<int>();
 
+    bool _collisionMode = false;
+
     void Awake()
     {
         _moveCardManager = FindObjectOfType<MoveCardManager>();
@@ -28,6 +30,7 @@ public class AIController : CharacterControllerBase
 
     public override void Move()
     {
+        
         _character.Init();
 
         _root.Clear();
@@ -61,14 +64,35 @@ public class AIController : CharacterControllerBase
         if (_character.State != CharacterState.WAIT) return;
 
         // マス目を決定する
-        if (_character.MovingCount == 0)
+        if (_character.MovingCount == 0 && !_collisionMode)
         {
             _movingCount.SetEnable(false);
+
+            // 既に止まっているプレイヤーがいる
+            if (_character.CurrentSquare.AlreadyStopped())
+            {
+                Collision(_character, _character.CurrentSquare.StoppedCharacters.ToList());
+                _collisionMode = true;
+                return;
+            }
             _character.Stop();
             _isMoved = false;
             return;
         }
 
+        if (_collisionMode)
+        {
+            UpdateColliision();
+            if (IsFinishedCollision())
+            {
+                _collisionMode = false;
+                _character.Stop();
+                _isMoved = false;
+                return;
+            }
+        }
+
+        if (_root.Count == 0) return;
         StartMove(_root.Pop());
     }
 

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Linq;
 public class CharacterBase : MonoBehaviour
 {
     [SerializeField]
     CharacterControllerBase _controller;
+
 
     // –¼‘O
     private string _name;
@@ -111,6 +112,11 @@ public class CharacterBase : MonoBehaviour
         _souvenirs.RemoveAt(index);
     }
 
+    public void RemoveSouvenir(Souvenir souvenir)
+    {
+        _souvenirs.Remove(souvenir);
+    }
+
     // ƒXƒ^[ƒg‚Ìƒ}ƒX‚ğİ’è
     public void SetCurrentSquare(SquareBase square)
     {
@@ -202,5 +208,18 @@ public class CharacterBase : MonoBehaviour
     public void CompleteStopExec()
     {
         _state = CharacterState.END;
+    }
+
+    // Œ»İ‚Ì‚¨“yYí—ŞŠ”
+    public int GetSouvenirTypeNum()
+    {
+        var typeList = new bool[(int)SouvenirType.MAX_TYPE];
+
+        // ‚¨“yY‚ğ‘Sí—Ş‘µ‚¦‚Ä‚¢‚é
+        foreach (var x in _souvenirs)
+        {
+            typeList[(int)x.Type] = true;
+        }
+        return typeList.Where(x => x == true).Count();
     }
 }
