@@ -161,6 +161,7 @@ MonoBehaviour:
   - {fileID: 566986087}
   _souvenirName: "\u5973\u795E\u50CF"
   _cost: 10000
+  _type: 2
 --- !u!65 &22413891
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1972,6 +1973,7 @@ MonoBehaviour:
   - {fileID: 744038554}
   _souvenirName: "\u73C8\u7432\u8CB4\u65CF"
   _cost: 2000
+  _type: 3
 --- !u!65 &628374108
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3671,6 +3673,7 @@ MonoBehaviour:
   - {fileID: 2055021308}
   _souvenirName: "\u30B5\u30AF\u30B5\u30AF\u30D1\u30F3\u30C0"
   _cost: 1000
+  _type: 0
 --- !u!65 &1120680582
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7062,6 +7065,7 @@ MonoBehaviour:
   - {fileID: 1830798716}
   _souvenirName: "\u30B3\u30A2\u30E9\u306E\u30DE\u30FC\u30C1"
   _cost: 1000
+  _type: 1
 --- !u!65 &2052159049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7302,6 +7306,7 @@ MonoBehaviour:
   - {fileID: 1481445908}
   _souvenirName: "\u30AA\u30E9\u30F3\u30B8\u30FC\u30CA"
   _cost: 3000
+  _type: 4
 --- !u!65 &2120171174
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7416,6 +7421,7 @@ MonoBehaviour:
   - {fileID: 171485193}
   _souvenirName: "\u30E1\u30B8\u30A7\u30C9\u69D8"
   _cost: 20000
+  _type: 5
 --- !u!65 &2139473068
 BoxCollider:
   m_ObjectHideFlags: 0
