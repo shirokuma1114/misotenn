@@ -134,13 +134,13 @@ public class CharacterBase : MonoBehaviour
     {
         if (enable)
         {
-            transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+            transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
             transform.SetParent(_currentSquare.GetComponent<Transform>());
         }
         else
         {
             transform.SetParent(null);
-            transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 

@@ -58,6 +58,11 @@ public class MyGameManager : MonoBehaviour
 
         // ‰‰ñƒ^[ƒ“
         InitTurn();
+
+        foreach(var x in FindObjectsOfType<SquareBase>())
+        {
+            x.SetInOut();
+        }
     }
     
     void UpdateTurn()
