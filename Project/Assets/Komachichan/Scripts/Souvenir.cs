@@ -21,9 +21,10 @@ public class Souvenir
         get { return _type; }
     }
 
-    public Souvenir(int price, string name)
+    public Souvenir(int price, string name, SouvenirType type)
     {
         _price = price;
         _name = name;
+        _type = type;
     }
 }

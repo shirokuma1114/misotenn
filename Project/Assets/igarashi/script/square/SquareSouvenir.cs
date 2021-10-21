@@ -26,6 +26,8 @@ public class SquareSouvenir : SquareBase
     [SerializeField]
     private int _cost;
 
+    [SerializeField]
+    private SouvenirType _type;
 
     // Start is called before the first frame update
     void Start()
@@ -100,7 +102,7 @@ public class SquareSouvenir : SquareBase
     private void EventProcess()
     {
         _character.SubMoney(_cost);
-        _character.AddSouvenir(new Souvenir(_cost, _souvenirName));
+        _character.AddSouvenir(new Souvenir(_cost, _souvenirName, _type));
 
         _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yŽY‚ðŽè‚É“ü‚ê‚½", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ðŽè‚É“ü‚ê‚½"
 
