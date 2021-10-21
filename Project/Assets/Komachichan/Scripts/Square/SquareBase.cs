@@ -33,6 +33,29 @@ public class SquareBase : MonoBehaviour
         get { return _outConnects; }
     }
 
+    public void SetInOut()
+    {
+        // ƒqƒGƒ‰ƒ‹ƒL[‚Ìã‚Æ‰º‚ğInOut‚É“ü‚ê‚é
+
+        var index = transform.GetSiblingIndex();
+
+        if (index == 1)
+        {
+            _inConnects.Add(transform.parent.GetChild(23).GetComponent<SquareBase>());
+            _outConnects.Add(transform.parent.GetChild(2).GetComponent<SquareBase>());
+            return;
+        }
+        if (index == 23)
+        {
+            _inConnects.Add(transform.parent.GetChild(22).GetComponent<SquareBase>());
+            _outConnects.Add(transform.parent.GetChild(1).GetComponent<SquareBase>());
+            return;
+        }
+
+        _inConnects.Add(transform.parent.GetChild(index - 1).GetComponent<SquareBase>());
+        _outConnects.Add(transform.parent.GetChild(index + 1).GetComponent<SquareBase>());
+    }
+
     public void JudgeCollision(CharacterBase character)
     {
         

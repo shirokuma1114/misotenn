@@ -47,7 +47,7 @@ public class CollisionEvent
                 // ‚¨“yY‚ğ‚Á‚Ä‚È‚¢
                 if (_targets[_targetIndex].Souvenirs.Count == 0)
                 {
-                    _messageWindow.SetMessage(_targets[_targetIndex].Name + "@‚Í‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚©‚Á‚½I", _owner.IsAutomatic);
+                    _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Í@‚¨“yY‚ğ@‚Á‚Ä‚¢‚È‚©‚Á‚½I", _owner.IsAutomatic);
                     _phase = Phase.END;
                 }
                 else
