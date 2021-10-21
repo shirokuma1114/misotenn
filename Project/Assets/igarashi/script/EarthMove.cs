@@ -26,13 +26,12 @@ public class EarthMove : MonoBehaviour
     private float _yAngle;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _targetPosition = Vector3.zero;
         _startRot = transform.rotation;
         _endRot = Quaternion.identity;
         _lerpTime = 0;
-        _prevTargetPosition = -transform.forward * 10.0f;
         _yAngle = 0.0f;
     }
 
@@ -62,10 +61,10 @@ public class EarthMove : MonoBehaviour
     //=================================
     public void MoveToPosition(Vector3 target,float rotSpeed = 100.0f)    //ÉèÅ[ÉãÉhç¿ïW
     {
-        _state = EarthMoveState.MOVE_INIT;
-
         _targetPosition = target;
         _rotationSpeed = rotSpeed;
+
+        _state = EarthMoveState.MOVE_INIT;
     }
 
     public void MoveToPositionInstant(Vector3 target)
@@ -107,11 +106,11 @@ public class EarthMove : MonoBehaviour
         Vector3 xzTargetPos = new Vector3(_targetPosition.x, 0.0f, _targetPosition.z);
         float angle = Vector3.SignedAngle(xzTargetPos, _targetPosition, Vector3.Cross(_targetPosition,-Vector3.up));
         _endRot = Quaternion.AngleAxis(angle, Vector3.Cross(_targetPosition, Vector3.up));
-
+        
         //â°âÒì]
-        Vector3 xzPrevTarget = new Vector3(_prevTargetPosition.x, 0.0f, _prevTargetPosition.z).normalized;
-        Vector3 xzTarget = new Vector3(_targetPosition.x, 0.0f, _targetPosition.z).normalized;
-        float xzAngle = Vector3.SignedAngle(xzPrevTarget, xzTarget, -transform.up);
+        Vector3 xzPrevTarget = new Vector3(_prevTargetPosition.x, 0.0f, _prevTargetPosition.z);
+        Vector3 xzTarget = new Vector3(_targetPosition.x, 0.0f, _targetPosition.z);
+        float xzAngle = Vector3.SignedAngle(xzPrevTarget, xzTargetPos, -Vector3.up);
         _yAngle += xzAngle;
         _endRot = Quaternion.Euler(0.0f,_yAngle,0.0f) * _endRot;
 
@@ -119,7 +118,6 @@ public class EarthMove : MonoBehaviour
         _startRot = transform.rotation;
         _angle = Quaternion.Angle(_endRot,_startRot);
         _prevTargetPosition = _targetPosition;
-
 
         _state = EarthMoveState.MOVE;
     }
