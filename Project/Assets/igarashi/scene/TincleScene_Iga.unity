@@ -152,15 +152,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 22413889}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e8722a672f1a964d829467377f610d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 388156674}
-    _directionType: 0
+  - {fileID: 388156674}
   _outConnects:
-  - _square: {fileID: 566986087}
-    _directionType: 1
+  - {fileID: 566986087}
+  _cost: 0
 --- !u!65 &22413891
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -589,11 +588,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 2139473067}
-    _directionType: 0
+  - {fileID: 2139473067}
   _outConnects:
-  - _square: {fileID: 1868382089}
-    _directionType: 1
+  - {fileID: 1868382089}
 --- !u!65 &171485194
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1010,11 +1007,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1830798716}
-    _directionType: 0
+  - {fileID: 1830798716}
   _outConnects:
-  - _square: {fileID: 22413890}
-    _directionType: 1
+  - {fileID: 22413890}
   _cost: 0
 --- !u!65 &388156675
 BoxCollider:
@@ -1346,11 +1341,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1481445908}
-    _directionType: 0
+  - {fileID: 1481445908}
   _outConnects:
-  - _square: {fileID: 1490553738}
-    _directionType: 1
+  - {fileID: 1490553738}
 --- !u!65 &542496525
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1521,11 +1514,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 22413890}
-    _directionType: 0
+  - {fileID: 22413890}
   _outConnects:
-  - _square: {fileID: 1269288062}
-    _directionType: 1
+  - {fileID: 1269288062}
 --- !u!65 &566986088
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1649,11 +1640,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1490553738}
-    _directionType: 0
+  - {fileID: 1490553738}
   _outConnects:
-  - _square: {fileID: 1723758809}
-    _directionType: 1
+  - {fileID: 1723758809}
 --- !u!65 &579409751
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2088,11 +2077,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1269288062}
-    _directionType: 0
+  - {fileID: 1269288062}
   _outConnects:
-  - _square: {fileID: 744038554}
-    _directionType: 1
+  - {fileID: 744038554}
 --- !u!65 &628374108
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2403,27 +2390,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6378fefc3f3a0344085135884627dc8c, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9448313
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6378fefc3f3a0344085135884627dc8c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0.32643867
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6378fefc3f3a0344085135884627dc8c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.025566388
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6378fefc3f3a0344085135884627dc8c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.008833172
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6378fefc3f3a0344085135884627dc8c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -38.12
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6378fefc3f3a0344085135884627dc8c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 3.1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6378fefc3f3a0344085135884627dc8c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -2608,11 +2595,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 628374107}
-    _directionType: 0
+  - {fileID: 628374107}
   _outConnects:
-  - _square: {fileID: 1857215264}
-    _directionType: 1
+  - {fileID: 1857215264}
 --- !u!65 &744038555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3893,11 +3878,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1162413404}
-    _directionType: 0
+  - {fileID: 1162413404}
   _outConnects:
-  - _square: {fileID: 2055021308}
-    _directionType: 1
+  - {fileID: 2055021308}
 --- !u!65 &1120680582
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4052,11 +4035,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1723758809}
-    _directionType: 0
+  - {fileID: 1723758809}
   _outConnects:
-  - _square: {fileID: 1120680581}
-    _directionType: 1
+  - {fileID: 1120680581}
 --- !u!65 &1162413405
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4152,11 +4133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 566986087}
-    _directionType: 0
+  - {fileID: 566986087}
   _outConnects:
-  - _square: {fileID: 628374107}
-    _directionType: 0
+  - {fileID: 628374107}
   _percentage: 50
   _rate: 2
 --- !u!65 &1269288063
@@ -4739,11 +4718,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 2120171173}
-    _directionType: 0
+  - {fileID: 2120171173}
   _outConnects:
-  - _square: {fileID: 542496524}
-    _directionType: 1
+  - {fileID: 542496524}
 --- !u!65 &1481445909
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4853,11 +4830,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 542496524}
-    _directionType: 0
+  - {fileID: 542496524}
   _outConnects:
-  - _square: {fileID: 579409750}
-    _directionType: 1
+  - {fileID: 579409750}
 --- !u!65 &1490553739
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5115,11 +5090,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1694274085}
-    _directionType: 0
+  - {fileID: 1694274085}
   _outConnects:
-  - _square: {fileID: 2139473067}
-    _directionType: 1
+  - {fileID: 2139473067}
 --- !u!65 &1628559722
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5418,11 +5391,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1857215264}
-    _directionType: 0
+  - {fileID: 1857215264}
   _outConnects:
-  - _square: {fileID: 1628559721}
-    _directionType: 1
+  - {fileID: 1628559721}
 --- !u!65 &1694274086
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5625,11 +5596,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 579409750}
-    _directionType: 0
+  - {fileID: 579409750}
   _outConnects:
-  - _square: {fileID: 1162413404}
-    _directionType: 1
+  - {fileID: 1162413404}
 --- !u!65 &1723758810
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6196,11 +6165,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 2052159048}
-    _directionType: 0
+  - {fileID: 2052159048}
   _outConnects:
-  - _square: {fileID: 388156674}
-    _directionType: 1
+  - {fileID: 388156674}
   _cost: 0
   _protectTurn: 3
 --- !u!65 &1830798717
@@ -6312,11 +6279,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 744038554}
-    _directionType: 0
+  - {fileID: 744038554}
   _outConnects:
-  - _square: {fileID: 1694274085}
-    _directionType: 1
+  - {fileID: 1694274085}
 --- !u!65 &1857215265
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6440,11 +6405,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 171485193}
-    _directionType: 0
+  - {fileID: 171485193}
   _outConnects:
-  - _square: {fileID: 2120171173}
-    _directionType: 1
+  - {fileID: 2120171173}
 --- !u!65 &1868382090
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6922,11 +6885,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 2055021308}
-    _directionType: 0
+  - {fileID: 2055021308}
   _outConnects:
-  - _square: {fileID: 1830798716}
-    _directionType: 1
+  - {fileID: 1830798716}
 --- !u!65 &2052159049
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7112,11 +7073,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1120680581}
-    _directionType: 0
+  - {fileID: 1120680581}
   _outConnects:
-  - _square: {fileID: 2052159048}
-    _directionType: 1
+  - {fileID: 2052159048}
 --- !u!1 &2120171171
 GameObject:
   m_ObjectHideFlags: 0
@@ -7164,11 +7123,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1868382089}
-    _directionType: 0
+  - {fileID: 1868382089}
   _outConnects:
-  - _square: {fileID: 1481445908}
-    _directionType: 1
+  - {fileID: 1481445908}
 --- !u!65 &2120171174
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7278,11 +7235,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inConnects:
-  - _square: {fileID: 1628559721}
-    _directionType: 0
+  - {fileID: 1628559721}
   _outConnects:
-  - _square: {fileID: 171485193}
-    _directionType: 1
+  - {fileID: 171485193}
 --- !u!65 &2139473068
 BoxCollider:
   m_ObjectHideFlags: 0
