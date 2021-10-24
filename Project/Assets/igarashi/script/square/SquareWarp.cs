@@ -14,10 +14,11 @@ public class SquareWarp : SquareBase
     private SquareWarpState _state;
     public SquareWarpState State => _state;
 
-    CharacterBase _character;
-    MessageWindow _messageWindow;
-    StatusWindow _statusWindow;
-    PayUI _payUI;
+    private CharacterBase _character;
+    private MessageWindow _messageWindow;
+    private StatusWindow _statusWindow;
+    private PayUI _payUI;
+    private SimpleFade _fade;
 
     private List<SquareBase> _squares;
 
@@ -28,11 +29,12 @@ public class SquareWarp : SquareBase
     private int _cost;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+        _fade = FindObjectOfType<SimpleFade>();
 
         _squares = new List<SquareBase>();
         _squares.AddRange(FindObjectsOfType<SquareBase>());
@@ -123,6 +125,7 @@ public class SquareWarp : SquareBase
 
             _moveIndex++;
 
+            _fade.FadeStart();
             FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
             _characters[_moveIndex].SetWaitEnable(false);
             _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);

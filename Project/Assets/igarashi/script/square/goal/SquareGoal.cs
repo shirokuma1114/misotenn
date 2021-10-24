@@ -60,22 +60,34 @@ public class SquareGoal : SquareBase
     {
         _character = character;
 
-        _messageWindow.SetMessage("“q‚¯‚éŠz‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢", character.IsAutomatic);
         _statusWindow.SetEnable(true);
 
         _state = SquareGoalState.GOAL;
     }
 
+    public void CountUpGoalNum(CharacterBase character)
+    {
+        _characterGoalNums[character]++;
+    }
+
+    public void Goal(CharacterBase character)
+    {
+        int money = _baseMoney + _roundBonus * _characterGoalNums[character];
+        character.AddMoney(money);
+        _characterGoalNums[character]++;
+
+        var message = character.Name + "‚Í" + _characterGoalNums[character].ToString() + "T–Ú\n" + money.ToString() + "‰~‚à‚ç‚Á‚½";
+        _messageWindow.SetMessage(message, character.IsAutomatic);
+    }
+
+
     private void GoalStateProcess()
     {
-        int money = _baseMoney + _roundBonus * _characterGoalNums[_character];
-        _character.AddMoney(money);
-        _characterGoalNums[_character]++;
-
-        var message = _character.Name + "‚Í" + _characterGoalNums[_character].ToString() + "T–Ú\n" + money.ToString() + "‰~‚à‚ç‚Á‚½";
-        _messageWindow.SetMessage(message, _character.IsAutomatic);
-
-        _state = SquareGoalState.END;
+        if(!_messageWindow.IsDisplayed)
+        {
+            Goal(_character);
+            _state = SquareGoalState.END;
+        }       
     }
 
     private void EndStateProcess()

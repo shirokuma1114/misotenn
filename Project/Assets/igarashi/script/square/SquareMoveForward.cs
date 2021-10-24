@@ -15,11 +15,10 @@ public class SquareMoveForward : SquareBase
     private SquareMoveForwardState _state;
     public SquareMoveForwardState State => _state;
 
-
-    CharacterBase _character;
-    MessageWindow _messageWindow;
-    StatusWindow _statusWindow;
-    PayUI _payUI;
+    private CharacterBase _character;
+    private MessageWindow _messageWindow;
+    private StatusWindow _statusWindow;
+    private PayUI _payUI;
 
     [SerializeField]
     private int _cost;
