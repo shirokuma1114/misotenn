@@ -24,9 +24,6 @@ public class SquareGoal : SquareBase
     [SerializeField]
     private int _baseMoney;
 
-    [SerializeField]
-    private int _roundBonus;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -72,9 +69,9 @@ public class SquareGoal : SquareBase
 
     public void Goal(CharacterBase character)
     {
-        int money = _baseMoney + _roundBonus * _characterGoalNums[character];
-        character.AddMoney(money);
         _characterGoalNums[character]++;
+        int money = _baseMoney * _characterGoalNums[character];
+        character.AddMoney(money);
 
         var message = character.Name + "ÇÕ" + _characterGoalNums[character].ToString() + "èTñ⁄\n" + money.ToString() + "â~Ç‡ÇÁÇ¡ÇΩ";
         _messageWindow.SetMessage(message, character.IsAutomatic);
