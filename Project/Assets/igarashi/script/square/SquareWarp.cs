@@ -110,22 +110,17 @@ public class SquareWarp : SquareBase
 
     private void WarpStateProcess()
     {
-        if (_characters[_moveIndex].State == CharacterState.MOVE)
-            return;
-
-        if (_moveIndex == _characters.Count - 1)
-        {         
-            _state = SquareWarpState.END;
-            return;
-        }        
-
-        if (_characters[_moveIndex].State == CharacterState.WAIT)
+        if(_characters[_moveIndex].State == CharacterState.WAIT)
         {
             _characters[_moveIndex].SetWaitEnable(true);
 
             _moveIndex++;
+            if(_moveIndex == _characters.Count)
+            {
+                _state = SquareWarpState.END;
+                return;
+            }
 
-            _fade.FadeStart();
             FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
             _characters[_moveIndex].SetWaitEnable(false);
             _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);

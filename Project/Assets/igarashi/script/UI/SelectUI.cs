@@ -70,6 +70,7 @@ public class SelectUI : MonoBehaviour
         _selections.Clear();
     }
 
+    //AI‘I‘ð—p
     public void IndexSelect(int index)
     {
         _selectIndex = index;
