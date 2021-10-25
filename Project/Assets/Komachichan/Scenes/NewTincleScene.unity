@@ -3507,7 +3507,7 @@ MonoBehaviour:
   _fade: {fileID: 1016877436}
   _statusWindow: {fileID: 1916240663}
   _messageWindow: {fileID: 1980202264}
-  _isFixedMode: 0
+  _isFixedMode: 1
   _cardValues: 03000000030000000300000003000000
 --- !u!4 &1571439333
 Transform:
