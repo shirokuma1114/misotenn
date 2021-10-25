@@ -7,12 +7,24 @@ public class Souvenir
     //’l’i
     private int _price;
 
+    public int Price { get { return _price; } }
+
     //–¼‘O
     private string _name;
 
-    public Souvenir(int price, string name)
+    public string Name { get { return _name; } }
+
+    private SouvenirType _type;
+
+    public SouvenirType Type 
+    {
+        get { return _type; }
+    }
+
+    public Souvenir(int price, string name, SouvenirType type)
     {
         _price = price;
         _name = name;
+        _type = type;
     }
 }

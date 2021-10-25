@@ -6,10 +6,13 @@ public class MyGameManager : MonoBehaviour
 {
     enum Phase
     {
+        NONE,
         INIT,
         WAIT_TURN_END,
         FADE_OUT,
         MOVE_CAMERA,
+        CLEAR,
+        NEXT_SCENE
     }
 
     [SerializeField]
@@ -37,6 +40,9 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     StatusWindow _statusWindow;
 
+    [SerializeField]
+    MessageWindow _messageWindow;
+
     private int _turnCount = 0;
 
     // Start is called before the first frame update
@@ -52,6 +58,11 @@ public class MyGameManager : MonoBehaviour
 
         // 初回ターン
         InitTurn();
+
+        foreach(var x in FindObjectsOfType<SquareBase>())
+        {
+            x.SetInOut();
+        }
     }
     
     void UpdateTurn()
@@ -79,6 +90,10 @@ public class MyGameManager : MonoBehaviour
         {
             PhaseMoveCamera();
         }
+        if(_phase == Phase.CLEAR)
+        {
+            PhaseClear();
+        }
     }
 
     void PhaseInit()
@@ -94,6 +109,16 @@ public class MyGameManager : MonoBehaviour
     {
         if (_entryPlugs[_turnIndex].Character.State == CharacterState.END)
         {
+            // ６種類全て集めた
+            if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() == 6)
+            {
+                _phase = Phase.CLEAR;
+                _messageWindow.SendMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
+                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！");
+
+                return;
+            }
+
             _phase = Phase.FADE_OUT;
             _fade.FadeStart(30, true);
         
@@ -130,6 +155,16 @@ public class MyGameManager : MonoBehaviour
         {
             _phase = Phase.INIT;
             _fade.FadeStart(30);
+        }
+    }
+
+    void PhaseClear()
+    {
+        if (!_messageWindow.IsDisplayed)
+        {
+            // シーン遷移
+            _fade.FadeStart(30, true);
+            _phase = Phase.NONE;
         }
     }
 

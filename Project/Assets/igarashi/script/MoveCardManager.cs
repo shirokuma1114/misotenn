@@ -9,6 +9,7 @@ public class MoveCardManager : MonoBehaviour
     private int _selectedCardIndex = 0;
     private bool _selectComplete;
     public bool IsSelectComplete => _selectComplete;
+    private bool _autoSelect;
 
     [SerializeField]
     private GameObject _cardPrefab;
@@ -36,23 +37,19 @@ public class MoveCardManager : MonoBehaviour
     //=================================
     //public
     //=================================
-    public void SetCardList(List<int> cardNumberList)
+    public void SetCardList(List<int> cardNumberList, bool autoSelect = false)
     {
         _cardNumberLists = cardNumberList;
 
-        if (_cards.Count != 0)
-        {
-            foreach (var card in _cards)
-                Destroy(card);
-
-            _cards.Clear();
-        }
+        DeleteCards();
 
         CreateCards();
         SelectCardColorUpdate();
+        _autoSelect = autoSelect;
 
         _selectComplete = false;
     }
+
 
     public void IndexSelect(int index)
     {
@@ -64,6 +61,7 @@ public class MoveCardManager : MonoBehaviour
 
         _selectedCardIndex = index;
         SelectCardColorUpdate();
+        _autoSelect = true;
 
         _selectComplete = true;
     }
@@ -83,8 +81,10 @@ public class MoveCardManager : MonoBehaviour
     {
         if (_cards.Count != 0)
         {
-            foreach (var card in _cards)
-                Destroy(card);
+            for (int i = 0; i < _cards.Count; i++)
+            {
+                Destroy(_cards[i]);
+            }
 
             _cards.Clear();
         }
@@ -118,6 +118,9 @@ public class MoveCardManager : MonoBehaviour
 
     private void SelectCards()
     {
+        if (_autoSelect)
+            return;
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             _selectedCardIndex--;

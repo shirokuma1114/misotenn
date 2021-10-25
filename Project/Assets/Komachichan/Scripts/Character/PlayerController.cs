@@ -11,6 +11,9 @@ public class PlayerController : CharacterControllerBase
 
     Stack<SquareBase> _root = new Stack<SquareBase>();
 
+    bool _collisionMode = false;
+
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -75,20 +78,34 @@ public class PlayerController : CharacterControllerBase
         if (_character.State != CharacterState.WAIT) return;
 
         // マス目を決定する
-        if (_character.MovingCount == 0)
+        if (_character.MovingCount == 0 && !_collisionMode)
         {
             _movingCount.SetEnable(false);
 
             // 既に止まっているプレイヤーがいる
             if (_character.CurrentSquare.AlreadyStopped())
             {
-
+                Collision(_character, _character.CurrentSquare.StoppedCharacters.ToList());
+                _collisionMode = true;
+                return;
             }
             _character.Stop();
             _isMoved = false;
             return;
         }
 
+        if (_collisionMode)
+        {
+            UpdateColliision();
+            if (IsFinishedCollision())
+            {
+                _character.Stop();
+                _isMoved = false;
+                return;
+            }
+        }
+
+        if (_root.Count == 0) return;
         StartMove(_root.Pop());
     }
 }

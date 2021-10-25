@@ -42,7 +42,7 @@ public class PayUI : MonoBehaviour
     //=================================
     //public
     //=================================
-    public void Yes()
+    public void AISelectYes()
     {
         _selectComplete = true;
 
@@ -51,7 +51,7 @@ public class PayUI : MonoBehaviour
         ButtonColorUpdate();
     }
 
-    public void No()
+    public void AISelectNo()
     {
         _selectComplete = true;
 

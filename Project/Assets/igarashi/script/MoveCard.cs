@@ -6,7 +6,7 @@ using DG.Tweening;
 public class MoveCard : MonoBehaviour
 {
     private int _index;
-    private Tween _tween;
+    private List<Tween> _tweens = new List<Tween>();
 
     // Start is called before the first frame update
     void Start()
@@ -19,14 +19,15 @@ public class MoveCard : MonoBehaviour
     {
         
     }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if (DOTween.instance != null)
+        if (_tweens.Count != 0)
         {
-            _tween.Kill();
+            for (int i = 0; i < _tweens.Count; i++)
+                _tweens[i].Kill();
         }
     }
+
 
     //=================================
     //public
@@ -48,15 +49,15 @@ public class MoveCard : MonoBehaviour
 
         if (!last)
         {
-            _tween = rt.DOMove(targetPos, 1.0f);
-            rt.DORotate(new Vector3(0, 0, 0), 1.0f);
+            _tweens.Add(rt.DOMove(targetPos, 1.0f));
+            _tweens.Add(rt.DORotate(new Vector3(0, 0, 0), 1.0f));
         }
         else
         {
             var seq = DOTween.Sequence();
-            seq.AppendInterval(1.0f);
-            seq.Append(_tween = rt.DOMove(targetPos, 1.0f));
-            seq.Join(rt.DORotate(new Vector3(0, 0, -450), 1.0f, RotateMode.WorldAxisAdd));
+            _tweens.Add(seq.AppendInterval(1.0f));
+            _tweens.Add(seq.Append(rt.DOMove(targetPos, 1.0f)));
+            _tweens.Add(seq.Join(rt.DORotate(new Vector3(0, 0, -450), 1.0f, RotateMode.WorldAxisAdd)));
 
             seq.Play();
         }

@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Linq;
 public class CharacterBase : MonoBehaviour
 {
     [SerializeField]
     CharacterControllerBase _controller;
+
 
     // 名前
     private string _name;
@@ -111,6 +112,11 @@ public class CharacterBase : MonoBehaviour
         _souvenirs.RemoveAt(index);
     }
 
+    public void RemoveSouvenir(Souvenir souvenir)
+    {
+        _souvenirs.Remove(souvenir);
+    }
+
     // スタートのマスを設定
     public void SetCurrentSquare(SquareBase square)
     {
@@ -128,13 +134,13 @@ public class CharacterBase : MonoBehaviour
     {
         if (enable)
         {
-            transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+            transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
             transform.SetParent(_currentSquare.GetComponent<Transform>());
         }
         else
         {
             transform.SetParent(null);
-            transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
+            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         }
     }
 
@@ -202,5 +208,18 @@ public class CharacterBase : MonoBehaviour
     public void CompleteStopExec()
     {
         _state = CharacterState.END;
+    }
+
+    // 現在のお土産種類所持数
+    public int GetSouvenirTypeNum()
+    {
+        var typeList = new bool[(int)SouvenirType.MAX_TYPE];
+
+        // お土産を全種類揃えている
+        foreach (var x in _souvenirs)
+        {
+            typeList[(int)x.Type] = true;
+        }
+        return typeList.Where(x => x == true).Count();
     }
 }

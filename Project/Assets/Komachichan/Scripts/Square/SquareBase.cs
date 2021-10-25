@@ -23,9 +23,37 @@ public class SquareBase : MonoBehaviour
     // マスに止まっているきキャラクター
     private LinkedList<CharacterBase> _stoppedCharacters = new LinkedList<CharacterBase>();
 
+    public LinkedList<CharacterBase> StoppedCharacters
+    {
+        get { return _stoppedCharacters; }
+    }
+
     public List<SquareBase> OutConnects
     {
         get { return _outConnects; }
+    }
+
+    public void SetInOut()
+    {
+        // ヒエラルキーの上と下をInOutに入れる
+
+        var index = transform.GetSiblingIndex();
+
+        if (index == 1)
+        {
+            _inConnects.Add(transform.parent.GetChild(23).GetComponent<SquareBase>());
+            _outConnects.Add(transform.parent.GetChild(2).GetComponent<SquareBase>());
+            return;
+        }
+        if (index == 23)
+        {
+            _inConnects.Add(transform.parent.GetChild(22).GetComponent<SquareBase>());
+            _outConnects.Add(transform.parent.GetChild(1).GetComponent<SquareBase>());
+            return;
+        }
+
+        _inConnects.Add(transform.parent.GetChild(index - 1).GetComponent<SquareBase>());
+        _outConnects.Add(transform.parent.GetChild(index + 1).GetComponent<SquareBase>());
     }
 
     public void JudgeCollision(CharacterBase character)
