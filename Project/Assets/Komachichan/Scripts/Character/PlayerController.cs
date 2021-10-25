@@ -9,7 +9,7 @@ public class PlayerController : CharacterControllerBase
     bool _isMoved = false;
     bool _isSelectedCard = false;
 
-    Stack<SquareBase> _root = new Stack<SquareBase>();
+    Queue<SquareBase> _root = new Queue<SquareBase>();
 
     bool _collisionMode = false;
 
@@ -20,6 +20,7 @@ public class PlayerController : CharacterControllerBase
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
     }
 
     // Update is called once per frame
@@ -35,24 +36,26 @@ public class PlayerController : CharacterControllerBase
     // 移動カードを選ぶ
     public override void Move()
     {
+
         _character.Init();
         _moveCardManager.SetCardList(_character.MovingCards);
 
         _statusWindow.SetEnable(true);
         _statusWindow.SetMoney(_character.Money);
         _statusWindow.SetName(_character.Name);
+        _souvenirWindow.SetEnable(true);
+        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
         _isSelectedCard = true;
     }
 
-    public override void SetRoot()
+    protected override void SetRoot()
     {
-        NotifyMovingCount(_character.MovingCount);
-
         // ルート生成
+        var next = _character.CurrentSquare;
         for(int i = 0; i < _character.MovingCount; i++)
         {
-            var next = _character.CurrentSquare.OutConnects.First();
-            _root.Push(next);
+            next = next.OutConnects.Last();
+            _root.Enqueue(next);
         }
     }
 
@@ -62,6 +65,7 @@ public class PlayerController : CharacterControllerBase
         {
             _statusWindow.SetEnable(false);
             _movingCount.SetEnable(true);
+            _souvenirWindow.SetEnable(false);
             var index = _moveCardManager.GetSelectedCardIndex();
             _character.RemoveMovingCard(index);
             _isSelectedCard = false;
@@ -99,6 +103,7 @@ public class PlayerController : CharacterControllerBase
             UpdateColliision();
             if (IsFinishedCollision())
             {
+                _collisionMode = false;
                 _character.Stop();
                 _isMoved = false;
                 return;
@@ -106,6 +111,7 @@ public class PlayerController : CharacterControllerBase
         }
 
         if (_root.Count == 0) return;
-        StartMove(_root.Pop());
+        NotifyMovingCount(_character.MovingCount);
+        StartMove(_root.Dequeue());
     }
 }

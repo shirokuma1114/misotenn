@@ -45,6 +45,12 @@ public class MyGameManager : MonoBehaviour
 
     private int _turnCount = 0;
 
+    [SerializeField]
+    bool _isFixedMode;
+
+    [SerializeField]
+    List<int> _cardValues = new List<int>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -185,30 +191,40 @@ public class MyGameManager : MonoBehaviour
         foreach (var p in _entryPlugs)
         {
             var chara = p.Character;
-            //chara.AddMovingCard(5);
-            //chara.AddMovingCard(4);
-            //chara.AddMovingCard(3);
-            
-            for (int i = 0; i < _initCardValue; i++)
+            if (_isFixedMode && chara.IsAutomatic)
             {
-                chara.AddMovingCard(GetRandomRange());
+                EditMovingCards(chara);
+            }
+            else
+            {
+                for (int i = 0; i < _initCardValue; i++)
+                {
+                    chara.AddMovingCard(GetRandomRange());
+                }
             }
             chara.Name = "“G" + Random.Range(1, 100) + "†";
             chara.SetCurrentSquare(startSquare);
             chara.AddMoney(1000);
             chara.SetWaitEnable(true);
+
+            
         }
-
         _turnIndex = 0;
+    }
 
-        
+    void EditMovingCards(CharacterBase character)
+    {
+        character.AddMovingCard(_cardValues[0]);
+        character.AddMovingCard(_cardValues[1]);
+        character.AddMovingCard(_cardValues[2]);
+        character.AddMovingCard(_cardValues[3]);
     }
 
     int GetRandomRange()
     {
         return Random.Range(_cardMinValue, _cardMaxValue);
     }
-    
+
     public int GetRanking()
     {
         return 0;
