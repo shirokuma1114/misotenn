@@ -172,7 +172,6 @@ public class CharacterBase : MonoBehaviour
         if (_state != CharacterState.MOVE) return;
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
-            _controller.SetRoot();
             _state = CharacterState.WAIT;
         }
     }

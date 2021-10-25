@@ -104,7 +104,7 @@ public class SquareBase : MonoBehaviour
     //評価を調べる
     public virtual int GetScore(CharacterBase character)
     {
-        // 何もないマスなので評価は0
-        return 0;
+        // マスに乗っている人の数
+        return _stoppedCharacters.Count;
     }
 }

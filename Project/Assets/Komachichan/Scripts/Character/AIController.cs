@@ -7,9 +7,9 @@ public class AIController : CharacterControllerBase
 {
     bool _isMoved = false;
 
-    List<Stack<SquareBase>> _roots = new List<Stack<SquareBase>>();
+    List<Queue<SquareBase>> _roots = new List<Queue<SquareBase>>();
 
-    Stack<SquareBase> _root = new Stack<SquareBase>();
+    Queue<SquareBase> _root = new Queue<SquareBase>();
 
     List<int> _movingIndies = new List<int>();
 
@@ -20,6 +20,7 @@ public class AIController : CharacterControllerBase
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
     }
 
     // Update is called once per frame
@@ -42,6 +43,8 @@ public class AIController : CharacterControllerBase
         _statusWindow.SetEnable(true);
         _statusWindow.SetMoney(_character.Money);
         _statusWindow.SetName(_character.Name);
+        _souvenirWindow.SetEnable(true);
+        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
 
         Invoke("SelectMovingCard", 1.5f);
     }
@@ -52,6 +55,7 @@ public class AIController : CharacterControllerBase
         _moveCardManager.IndexSelect(index);
         _statusWindow.SetEnable(false);
         _movingCount.SetEnable(true);
+        _souvenirWindow.SetEnable(false);
         _character.RemoveMovingCard(index);
         SetRoot();
         _moveCardManager.DeleteCards();
@@ -93,15 +97,16 @@ public class AIController : CharacterControllerBase
         }
 
         if (_root.Count == 0) return;
-        StartMove(_root.Pop());
+        NotifyMovingCount(_character.MovingCount);
+        StartMove(_root.Dequeue());
     }
 
     void DelayStartMove()
     {
-        StartMove(_root.Pop());
+        StartMove(_root.Dequeue());
     }
 
-    public override void SetRoot()
+    protected override void SetRoot()
     {
         NotifyMovingCount(_character.MovingCount);
 
@@ -112,7 +117,7 @@ public class AIController : CharacterControllerBase
         //移動できるマスとルートを取得
         var square = _character.CurrentSquare;
 
-        Stack<SquareBase> roots = new Stack<SquareBase>();
+        Queue<SquareBase> roots = new Queue<SquareBase>();
 
         List<SquareBase> squares = new List<SquareBase>();
 
@@ -147,24 +152,17 @@ public class AIController : CharacterControllerBase
         }
 
         _root = _roots[index];
-        _root = new Stack<SquareBase>(_root);
-
-        foreach(var x in _root)
-        {
-            //Debug.Log(x);
-        }
-
-
+        
         // 最初は自分のいるマス
-        _root.Pop();
+        _root.Dequeue();
 
         return _movingIndies[index];
     }
 
  
-    void FindRoot(SquareBase square, int count, Stack<SquareBase> roots, List<SquareBase> squares, int index)
+    void FindRoot(SquareBase square, int count, Queue<SquareBase> roots, List<SquareBase> squares, int index)
     {
-        roots = new Stack<SquareBase>(roots.Reverse());
+        roots = new Queue<SquareBase>(roots);
 
         foreach(var x in roots)
         {
@@ -177,19 +175,19 @@ public class AIController : CharacterControllerBase
             return;
         }
         count--;
-        roots.Push(square);
+        roots.Enqueue(square);
         foreach (var x in square.OutConnects)
         {
             FindRoot(x, count, roots, squares, index);
         }
     }
 
-    void AddRoot(SquareBase square, Stack<SquareBase> roots, List<SquareBase> squares, int index)
+    void AddRoot(SquareBase square, Queue<SquareBase> roots, List<SquareBase> squares, int index)
     {
         // 既にある
         if (squares.Contains(square)) return;
         squares.Add(square);
-        roots.Push(square);
+        roots.Enqueue(square);
         _roots.Add(roots);
         _movingIndies.Add(index);
     }

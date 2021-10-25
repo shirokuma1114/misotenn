@@ -23,6 +23,8 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected StatusWindow _statusWindow;
 
+    protected SouvenirWindow _souvenirWindow;
+
     protected CollisionEvent _collisionEvent;
 
     public CharacterBase Character
@@ -36,7 +38,7 @@ public class CharacterControllerBase : MonoBehaviour
 
     }
 
-    public virtual void SetRoot()
+    protected virtual void SetRoot()
     {
 
     }
