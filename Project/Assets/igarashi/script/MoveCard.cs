@@ -6,17 +6,12 @@ using DG.Tweening;
 public class MoveCard : MonoBehaviour
 {
     private int _index;
-
-    private Vector3 _moveTargetPos;
-
-    private Tween _tween;
+    private List<Tween> _tweens = new List<Tween>();
 
     // Start is called before the first frame update
     void Start()
     {
-        var rt = GetComponent<RectTransform>();
-        _tween = rt.DOMove(_moveTargetPos, 1.0f);
-        rt.DORotate(new Vector3(0, 0, 0), 1.0f);
+        
     }
 
     // Update is called once per frame
@@ -24,21 +19,22 @@ public class MoveCard : MonoBehaviour
     {
         
     }
-
-    private void OnDestroy()
+    private void OnDisable()
     {
-        if (DOTween.instance != null)
+        if (_tweens.Count != 0)
         {
-            _tween.Kill();
+            for (int i = 0; i < _tweens.Count; i++)
+                _tweens[i].Kill();
         }
     }
+
 
     //=================================
     //public
     //=================================
     public void OnClick()
     {
-        transform.parent.gameObject.GetComponent<MoveCardManager>().SelectedCardIndex(_index);
+        transform.parent.gameObject.GetComponent<MoveCardManager>().IndexSelect(_index);
     }
 
     public void SetIndex(int index)
@@ -46,9 +42,25 @@ public class MoveCard : MonoBehaviour
         _index = index;
     }
 
-    public void SetMoveTargetPos(Vector3 targetPos)
+    public void SetMoveTargetPos(Vector3 targetPos,bool last)
     {
-        _moveTargetPos = targetPos;
+        var rt = GetComponent<RectTransform>();
+
+
+        if (!last)
+        {
+            _tweens.Add(rt.DOMove(targetPos, 1.0f));
+            _tweens.Add(rt.DORotate(new Vector3(0, 0, 0), 1.0f));
+        }
+        else
+        {
+            var seq = DOTween.Sequence();
+            _tweens.Add(seq.AppendInterval(1.0f));
+            _tweens.Add(seq.Append(rt.DOMove(targetPos, 1.0f)));
+            _tweens.Add(seq.Join(rt.DORotate(new Vector3(0, 0, -450), 1.0f, RotateMode.WorldAxisAdd)));
+
+            seq.Play();
+        }
     }
 
     //=================================

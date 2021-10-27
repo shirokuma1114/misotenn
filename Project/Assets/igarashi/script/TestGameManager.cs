@@ -29,10 +29,15 @@ public class TestGameManager : MonoBehaviour
     private AudioClip _nextClip;
 
 
-    [Header("Event")]
+    [Header("UI")]
     [Space(20)]
     [SerializeField]
-    private GameObject _event;
+    private SelectUI _selectUI;
+    [SerializeField]
+    private List<string> _elements;
+    [SerializeField]
+    private bool _open = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -68,11 +73,11 @@ public class TestGameManager : MonoBehaviour
         }
 
 
-        if(_event)
+        if(_open)
         {
-            _event.GetComponent<SquareEvent>().InvokeEvent(null);
+            _selectUI.Open(_elements);
 
-            _event = null;
+            _open = false;
         }
     }
 }
