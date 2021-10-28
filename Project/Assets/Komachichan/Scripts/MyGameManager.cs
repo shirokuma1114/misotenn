@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class MyGameManager : MonoBehaviour
 {
     enum Phase
@@ -13,6 +13,12 @@ public class MyGameManager : MonoBehaviour
         MOVE_CAMERA,
         CLEAR,
         NEXT_SCENE
+    }
+
+    struct CharacterInfo
+    {
+        CharacterBase character;
+        int type;
     }
 
     [SerializeField]
@@ -225,9 +231,36 @@ public class MyGameManager : MonoBehaviour
         return Random.Range(_cardMinValue, _cardMaxValue);
     }
 
-    public int GetRanking()
+    public int GetRanking(CharacterBase character)
     {
-        return 0;
-        //for(int i )
+        var characters = GetCharacters();
+        // 順位はお土産種類＋おこづかい
+        characters = characters.OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
+
+        return characters.IndexOf(character) + 1;
+    }
+
+    // リーチのキャラクターが存在するか
+    public bool ExistsReach()
+    {
+        // プレイヤーの中で5種類お土産を持っていて、持ってないお土産マスに止まれる移動カードを持っているか
+        foreach(var x in _entryPlugs)
+        {
+            if (x.Character.GetSouvenirTypeNum() == 5) return true;
+        }
+
+        return false;
+    }
+
+    public List<CharacterBase> GetCharacters(CharacterBase omitCharacter = null)
+    {
+        var characters = new List<CharacterBase>();
+
+        foreach (var x in _entryPlugs)
+        {
+            if (omitCharacter == x) continue;
+            characters.Add(x.Character);
+        }
+        return characters;
     }
 }

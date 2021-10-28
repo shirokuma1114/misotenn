@@ -63,7 +63,7 @@ public class SouvenirWindow : MonoBehaviour
             float offset = map[typeId] * 2.0f;
 
             //float offset = _images.Where(y => y.GetComponent<Souvenir>().Type == x.Type).Count();
-            obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(0.0f + typeId * 99.0f + offset, -147.0f - offset * 2.0f, 0.0f);
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-47.0f + typeId * 75.0f + offset, -147.0f + offset * 2.0f, 0.0f);
             obj.GetComponent<Image>().sprite = _textures[typeId];
             _images.Add(obj);
         }

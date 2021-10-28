@@ -28,6 +28,8 @@ public class SquareWarp : SquareBase
     [SerializeField]
     private int _cost;
 
+
+    MyGameManager _gameManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,6 +40,8 @@ public class SquareWarp : SquareBase
 
         _squares = new List<SquareBase>();
         _squares.AddRange(FindObjectsOfType<SquareBase>());
+
+        _gameManager = FindObjectOfType<MyGameManager>();
     }
 
     // Update is called once per frame
@@ -141,7 +145,12 @@ public class SquareWarp : SquareBase
     }
     public override int GetScore(CharacterBase character)
     {
-        // ‚¨‹à‚ª‘«‚è‚é
-        return _cost <= character.Money ? 200 : 0;
+        // ‚¨‹à‚ª‘«‚è‚È‚¢
+        if (_cost < character.Money) return base.GetScore(character);
+
+        // Ž©•ª‚ª•s—˜
+        if (_gameManager.GetRanking(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character);
+
+        return (int)SquareScore.WARP + base.GetScore(character);
     }
 }

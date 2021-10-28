@@ -126,7 +126,8 @@ public class SquareMoveForward : SquareBase
 
     public override int GetScore(CharacterBase character)
     {
-        if (_cost > character.Money) return -1;
+        // 支払えるならこのマス＋移動先マスのスコア
+        if (_cost > character.Money) return base.GetScore(character);
 
         // 移動先のマスの評価
         SquareBase square = character.CurrentSquare;
@@ -136,6 +137,7 @@ public class SquareMoveForward : SquareBase
         character.SubMoney(_cost);
         var score = square.GetScore(character);
         character.AddMoney(_cost);
-        return score;
+
+        return score + base.GetScore(character);
     }
 }
