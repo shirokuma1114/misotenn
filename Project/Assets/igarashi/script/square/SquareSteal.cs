@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SquareSteal : SquareBase
 {
@@ -29,6 +30,8 @@ public class SquareSteal : SquareBase
     [SerializeField]
     private int _cost;
 
+    MyGameManager _gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,8 @@ public class SquareSteal : SquareBase
         _payUI = FindObjectOfType<PayUI>();
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
+
+        _gameManager = FindObjectOfType<MyGameManager>();
     }
 
     // Update is called once per frame
@@ -160,5 +165,46 @@ public class SquareSteal : SquareBase
 
             _state = SquareStealState.IDLE;
         }
+    }
+
+    public override int GetScore(CharacterBase character)
+    {
+        // コストが足りない
+        if (_cost < character.Money) return base.GetScore(character);
+
+        // 奪うものが無い
+        if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character);
+
+        // 持ってないお土産を持っているプレイヤーがいる
+        var characters = _gameManager.GetCharacters(character);
+
+        // 持ってないカードリスト
+        var dontHaveTypes = new HashSet<SouvenirType>();
+        for (int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
+        {
+            // カードが無い
+            if (character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() >= 1)
+            {
+                dontHaveTypes.Add((SouvenirType)i);
+            }
+        }
+
+        foreach(var x in characters)
+        {
+            foreach (var y in dontHaveTypes)
+            {
+                // 持っていないお土産を持っている
+                if (x.Souvenirs.Where(z => z.Type == y).Count() > 0)
+                {
+                    // 揃えば勝ち
+                    if(character.GetSouvenirTypeNum() == 5)
+                    {
+                        return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN + base.GetScore(character);
+                    }
+                    return (int)SquareScore.DONT_HAVE_STEAL + base.GetScore(character);
+                }
+            }
+        }
+        return (int)SquareScore.STEAL + base.GetScore(character);
     }
 }

@@ -141,4 +141,11 @@ public class SquareCasino : SquareBase
             _state = SquareCasinoState.IDLE;
         }
     }
+
+    public override int GetScore(CharacterBase character)
+    {
+        if (character.Money == 0) return base.GetScore(character);
+
+        return (int)SquareScore.CASINO + base.GetScore(character);
+    }
 }

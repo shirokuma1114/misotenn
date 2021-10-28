@@ -97,4 +97,9 @@ public class SquareGoal : SquareBase
             _state = SquareGoalState.IDLE;
         }
     }
+
+    public override int GetScore(CharacterBase character)
+    {
+        return (int)SquareScore.GOAL + base.GetScore(character);
+    }
 }
