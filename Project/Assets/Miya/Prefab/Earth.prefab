@@ -2798,7 +2798,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: 86cc4ce637d199345a1dc30c06efbdc9, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 5082537870383742448, guid: c2599ac4b73e7ee4a917ca8d70be44aa, type: 3}
+      objectReference: {fileID: 5082537870383742448, guid: b85551e0c6f21164a8b310e07f776df0, type: 3}
     - target: {fileID: 919132149155446097, guid: 86cc4ce637d199345a1dc30c06efbdc9, type: 3}
       propertyPath: m_Name
       value: Earth
