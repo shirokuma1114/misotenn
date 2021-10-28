@@ -66,9 +66,11 @@ public class CharacterBase : MonoBehaviour
         get { return _controller.IsAutomatic; }
     }
 
+    public CharacterLog Log { get; }
+
     void Start()
     {
-        
+
     }
 
     void Update()

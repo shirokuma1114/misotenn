@@ -113,4 +113,12 @@ public class SquareEnforcedGoal : SquareBase
             _state = SquareEnforcedGoalState.IDLE;
         }
     }
+
+    public override int GetScore(CharacterBase character)
+    {
+        // ƒRƒXƒg‚ª‘«‚è‚È‚¢
+        if (_cost < character.Money) return base.GetScore(character);
+
+        return (int)SquareScore.EGOAL + base.GetScore(character);
+    }
 }
