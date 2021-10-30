@@ -25,40 +25,7 @@ public class EarthMove : MonoBehaviour
     private float _rotationSpeed = 100.0f;
     private float _yAngle;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        _targetPosition = Vector3.zero;
-        _startRot = transform.rotation;
-        _endRot = Quaternion.identity;
-        _lerpTime = 0;
-        _yAngle = 0.0f;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        switch (_state)
-        {
-            case EarthMoveState.IDLE:
-                IdleStateProcess();
-                break;
-            case EarthMoveState.MOVE_INIT:
-                MoveInitStateProcess();
-                break;
-            case EarthMoveState.MOVE:
-                MoveStateProcess();
-                break;
-            case EarthMoveState.END:
-                EndStateProcess();
-                break;
-        }
-    }
-
-
-    //=================================
-    //public
-    //=================================
     /// <summary>
     /// TargetÇVector3(0,0,-1)ï˚å¸Ç÷çáÇÌÇπÇÈÇÊÇ§Ç…ínãÖÇâÒì]Ç≥ÇπÇÈ
     /// </summary>
@@ -100,10 +67,38 @@ public class EarthMove : MonoBehaviour
         _state = EarthMoveState.END;
     }
 
-    //=================================
+
+    //=================================================================
+
+    void Awake()
+    {
+        _targetPosition = Vector3.zero;
+        _startRot = transform.rotation;
+        _endRot = Quaternion.identity;
+        _lerpTime = 0;
+        _yAngle = 0.0f;
+    }
+
+    void Update()
+    {
+        switch (_state)
+        {
+            case EarthMoveState.IDLE:
+                IdleStateProcess();
+                break;
+            case EarthMoveState.MOVE_INIT:
+                MoveInitStateProcess();
+                break;
+            case EarthMoveState.MOVE:
+                MoveStateProcess();
+                break;
+            case EarthMoveState.END:
+                EndStateProcess();
+                break;
+        }
+    }
 
 
-    //private
     private void IdleStateProcess()
     {
 

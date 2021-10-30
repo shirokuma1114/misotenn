@@ -24,9 +24,9 @@ public class SquareCasino : SquareBase
     private int _bet;
 
     [SerializeField]
-    private int _percentage;
+    private int _percentage = 50;
     [SerializeField]
-    private int _rate;
+    private int _rate = 2;
 
     // Start is called before the first frame update
     void Start()

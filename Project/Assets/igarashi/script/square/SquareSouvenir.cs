@@ -85,9 +85,9 @@ public class SquareSouvenir : SquareBase
 
     private void PayWaitProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 _state = SquareSouvenirState.EVENT;
             }

@@ -35,22 +35,8 @@ public class EarthFreeRotation : MonoBehaviour
     [SerializeField]
     private KeyCode _modeChangeKey = KeyCode.E;
     [SerializeField]
-    CharacterBase _debugOperator;
-
-    private void Awake()
-    {
-        _freeRotationMode = false;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        Operation();
-    }
+    private CharacterBase _debugOperator = null;
+    
 
     /// <summary>
     /// フリー回転モードにする関数
@@ -84,6 +70,25 @@ public class EarthFreeRotation : MonoBehaviour
 
         _freeRotationMode = false;
     }
+
+
+    //=================================================================
+
+    private void Awake()
+    {
+        _freeRotationMode = false;
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Operation();
+    }
+
 
     private void DebugTrunOn()
     {

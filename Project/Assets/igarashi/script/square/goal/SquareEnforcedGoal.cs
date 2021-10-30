@@ -76,9 +76,9 @@ public class SquareEnforcedGoal : SquareBase
 
     private void PayStateProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 _character.SubMoney(_cost);
 
