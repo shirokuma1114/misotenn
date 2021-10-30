@@ -93,9 +93,9 @@ public class SquareSteal : SquareBase
 
     private void PayStateProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 for (int i = 0; i < _otherCharacters.Count; i++)
                     _selectElements.Add(_otherCharacters[i].Name);

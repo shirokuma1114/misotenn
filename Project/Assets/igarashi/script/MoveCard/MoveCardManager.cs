@@ -11,32 +11,17 @@ public class MoveCardManager : MonoBehaviour
     public bool IsSelectComplete => _selectComplete;
     private bool _autoSelect;
 
+    [Header("生成するカードのプレハブ")]
     [SerializeField]
-    private GameObject _cardPrefab;
+    private GameObject _cardPrefab = null;
     private List<GameObject> _cards = new List<GameObject>();
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _selectedCardIndex = 0;
-        _selectComplete = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (_cards.Count != 0)
-        {
-            if (!_selectComplete)
-                SelectCards();
-        }
-    }
-
-
-    //=================================
-    //public
-    //=================================
+    /// <summary>
+    /// カード生成
+    /// </summary>
+    /// <param name="cardNumberList">生成するカードのリスト</param>
+    /// <param name="autoSelect">AI判別用</param>
     public void SetCardList(List<int> cardNumberList, bool autoSelect = false)
     {
         _cardNumberLists = cardNumberList;
@@ -50,7 +35,10 @@ public class MoveCardManager : MonoBehaviour
         _selectComplete = false;
     }
 
-
+    /// <summary>
+    /// AI選択用
+    /// </summary>
+    /// <param name="index">生成時のカードリストの選択したいインデックス</param>
     public void IndexSelect(int index)
     {
         if(_cardNumberLists.Count <= index　|| 0 > index)
@@ -66,6 +54,13 @@ public class MoveCardManager : MonoBehaviour
         _selectComplete = true;
     }
 
+    /// <summary>
+    /// 選択されたインデックスを返す
+    /// </summary>
+    /// <returns>
+    /// カードリスト中の選択されたカードのインデックス
+    /// まだ選択途中の場合 -1
+    /// </returns>
     public int GetSelectedCardIndex()
     {
         if (!_selectComplete)
@@ -76,7 +71,9 @@ public class MoveCardManager : MonoBehaviour
         return _selectedCardIndex;
     }
 
-
+    /// <summary>
+    /// 生成されているカードの破棄
+    /// </summary>
     public void DeleteCards()
     {
         if (_cards.Count != 0)
@@ -93,6 +90,20 @@ public class MoveCardManager : MonoBehaviour
     //=================================
 
 
+    void Start()
+    {
+        _selectedCardIndex = 0;
+        _selectComplete = false;
+    }
+
+    void Update()
+    {
+        if (_cards.Count != 0)
+        {
+            if (!_selectComplete)
+                SelectCards();
+        }
+    }
 
     private void CreateCards()
     {
