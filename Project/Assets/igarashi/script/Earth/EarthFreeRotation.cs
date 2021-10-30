@@ -94,9 +94,9 @@ public class EarthFreeRotation : MonoBehaviour
         }
 
 
-        if(_freeRotationMode)
+        if (_freeRotationMode)
         {
-            if(Input.GetKey(_upKey))
+            if (Input.GetKey(_upKey))
             {
                 _xzAngle -= _rotationSpeed * Time.deltaTime;
             }
@@ -114,7 +114,7 @@ public class EarthFreeRotation : MonoBehaviour
                 _yAngle -= _rotationSpeed * Time.deltaTime;
             }
 
-            transform.rotation = _endRot/* * Quaternion.AngleAxis(_xzAngle, Vector3.Cross(transform.position - new Vector3(0,0,-1),Vector3.up))*/ * Quaternion.Euler(0.0f, _yAngle, 0.0f);
+            transform.rotation = _endRot * Quaternion.Euler(0.0f, _yAngle, 0.0f) * Quaternion.AngleAxis(_xzAngle, Vector3.Cross(transform.position - new Vector3(0, 0, -1), Vector3.up));
         }
     }
 }

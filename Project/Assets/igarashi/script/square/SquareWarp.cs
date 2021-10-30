@@ -80,7 +80,7 @@ public class SquareWarp : SquareBase
         var message = _cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
         _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _characters = new List<CharacterBase>();
         _characters.AddRange(FindObjectsOfType<CharacterBase>());
@@ -107,8 +107,6 @@ public class SquareWarp : SquareBase
             {
                 _state = SquareWarpState.END;
             }
-
-            _payUI.SetEnable(false);
         }
     }
 

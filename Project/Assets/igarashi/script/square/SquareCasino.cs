@@ -90,7 +90,7 @@ public class SquareCasino : SquareBase
         _betChoices.Add(_maxBet);
         _selectElements.Add("‚â‚ß‚é");
 
-        _selectUI.Open(_selectElements);
+        _selectUI.Open(_selectElements,character);
 
 
         _state = SquareCasinoState.PAY;

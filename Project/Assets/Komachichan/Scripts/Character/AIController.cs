@@ -36,7 +36,7 @@ public class AIController : CharacterControllerBase
         _roots.Clear();
         _movingIndies.Clear();
 
-        _moveCardManager.SetCardList(_character.MovingCards);
+        _moveCardManager.SetCardList(_character.MovingCards,true);
         
         _statusWindow.SetEnable(true);
         _statusWindow.SetMoney(_character.Money);

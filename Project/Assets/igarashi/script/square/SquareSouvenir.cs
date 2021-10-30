@@ -56,7 +56,7 @@ public class SquareSouvenir : SquareBase
 
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _state = SquareSouvenirState.PAY_WAIT;
     }
@@ -95,8 +95,6 @@ public class SquareSouvenir : SquareBase
             {
                 _state = SquareSouvenirState.END;
             }
-
-            _payUI.SetEnable(false);
         }            
     }
 

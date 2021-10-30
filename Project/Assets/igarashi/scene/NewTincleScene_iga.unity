@@ -300,8 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &102184822
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,8 +704,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &336058016 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1400154581428932915, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -725,8 +721,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa0e83382e7feb24495c11adb88d69ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
   _cost: 0
 --- !u!1 &336174569
 GameObject:
@@ -836,8 +830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &458774185
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,8 +938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &548472667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1177,8 +1167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
   _souvenirName: "\u30E1\u30B8\u30A7\u30C9\u69D8"
   _cost: 20000
   _type: 5
@@ -1509,8 +1497,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &758677476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1628,8 +1614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
   _souvenirName: "\u30AA\u30E9\u30F3\u30B8\u30FC\u30CA"
   _cost: 1000
   _type: 4
@@ -1741,8 +1725,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &792604885 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5502115071272589860, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -1760,8 +1742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d5e058151b18cc4abb8c9d009e97289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
   _cost: 0
   _protectTurn: 3
 --- !u!1 &848566304
@@ -1944,8 +1924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d362a61022ca7ec4ca5dd3021528fe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &884595332 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7977085886156945043, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -1963,8 +1941,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
   _souvenirName: "\u73C8\u7432\u8CB4\u65CF"
   _cost: 2000
   _type: 3
@@ -2151,8 +2127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1000158878 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1391083210004877707, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2170,8 +2144,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
   _souvenirName: "\u5973\u795E\u50CF"
   _cost: 10000
   _type: 2
@@ -2371,8 +2343,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1108901255
 GameObject:
   m_ObjectHideFlags: 0
@@ -2537,14 +2507,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1138401852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
+  m_Script: {fileID: 11500000, guid: 559a25acf4b8f6545875e19901cf0880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
-  _souvenirName: "\u30B3\u30A2\u30E9\u306E\u30DE\u30FC\u30C1"
-  _cost: 1000
-  _type: 1
+  _percentage: 100
+  _rate: 1
 --- !u!1 &1142186618 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5710871575758795486, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2562,8 +2529,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
   _souvenirName: "\u3055\u304F\u3055\u304F\u3071\u3093\u3060"
   _cost: 3000
   _type: 0
@@ -2842,8 +2807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1367901471
 GameObject:
   m_ObjectHideFlags: 0
@@ -3110,8 +3073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1469599417
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,8 +3357,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1571439331
 GameObject:
   m_ObjectHideFlags: 0
@@ -3428,11 +3387,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cardMinValue: 1
-  _cardMaxValue: 5
-  _initCardValue: 3
+  _cardMaxValue: 1
+  _initCardValue: 1
   _entryPlugs:
   - {fileID: 589488583}
-  - {fileID: 2091954121}
+  - {fileID: 2091954122}
   _camera: {fileID: 1694943461}
   _fade: {fileID: 1016877436}
   _statusWindow: {fileID: 1916240663}
@@ -3453,6 +3412,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1621253507 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2199962014978858466, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+  m_PrefabInstance: {fileID: 1694943460}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1636874986 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1153863911970600429, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -3584,8 +3548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1653172805
 GameObject:
   m_ObjectHideFlags: 0
@@ -4153,8 +4115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1773790529
 GameObject:
   m_ObjectHideFlags: 0
@@ -4263,8 +4223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1782825898
 GameObject:
   m_ObjectHideFlags: 0
@@ -4611,8 +4569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1ff601fa3eecd447b73a375970fcde8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inConnects: []
-  _outConnects: []
 --- !u!1 &1916240658
 GameObject:
   m_ObjectHideFlags: 0
@@ -4989,9 +4945,9 @@ GameObject:
   - component: {fileID: 2091954125}
   - component: {fileID: 2091954124}
   - component: {fileID: 2091954123}
+  - component: {fileID: 2091954127}
   - component: {fileID: 2091954122}
   - component: {fileID: 2091954121}
-  - component: {fileID: 2091954127}
   m_Layer: 0
   m_Name: Player (1)
   m_TagString: Untagged
@@ -5008,11 +4964,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2091954120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2e4a1b6a45454b4d8f119d71ecf7d65, type: 3}
+  m_Script: {fileID: 11500000, guid: 3dac2eaee6af7b548929f47ade879235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _character: {fileID: 2091954122}
-  _isAutomatic: 0
+  _controller: {fileID: 2091954122}
 --- !u!114 &2091954122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5022,10 +4977,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2091954120}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c8420dfbf61f54f9ca54cea95dfbac, type: 3}
+  m_Script: {fileID: 11500000, guid: c801936771e25024ca33a2b5f4a3cbcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _controller: {fileID: 2091954121}
+  _character: {fileID: 2091954121}
+  _isAutomatic: 1
 --- !u!135 &2091954123
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5095,12 +5051,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2091954120}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5.24}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0.27857867, y: -0, z: -0, w: 0.96041346}
+  m_LocalPosition: {x: 0, y: -0.09839473, z: -0.98882604}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_Father: {fileID: 1621253507}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2091954127
 MonoBehaviour:
