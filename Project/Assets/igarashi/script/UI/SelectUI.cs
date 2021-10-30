@@ -17,6 +17,10 @@ public class SelectUI : MonoBehaviour
     public int SelectIndex => _selectIndex;
     private bool _selectComplete;
     public bool IsComplete => _selectComplete;
+    private bool _open;
+    public bool IsOpen => _open;
+
+    private CharacterBase _openerCharacter;
 
 
     // Start is called before the first frame update
@@ -29,12 +33,12 @@ public class SelectUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(!_selectComplete)
+        if(_open)
             Select();
     }
 
     
-    public void Open(List<string> elements)
+    public void Open(List<string> elements,CharacterBase character)
     {
         _elements = new List<string>(elements);
 
@@ -54,12 +58,11 @@ public class SelectUI : MonoBehaviour
         }
 
         UpdateSelectionColor();
+
+        _openerCharacter = character;
+        _open = true;
     }
 
-    public void ReOpen()
-    {
-        _selectComplete = false;
-    }
 
     public void Close()
     {
@@ -68,6 +71,9 @@ public class SelectUI : MonoBehaviour
         for (int i = 0; i < _selections.Count; i++)
             Destroy(_selections[i]);
         _selections.Clear();
+
+        _openerCharacter = null;
+        _open = false;
     }
 
     //AI‘I‘ð—p
@@ -75,12 +81,16 @@ public class SelectUI : MonoBehaviour
     {
         _selectIndex = index;
         _selectComplete = true;
+        Close();
     }
 
 
 
     private void Select()
     {
+        if (_openerCharacter.IsAutomatic)
+            return;
+
         if(Input.GetKeyDown(KeyCode.W))
         {
             _selectIndex++;

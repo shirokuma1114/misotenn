@@ -68,7 +68,7 @@ public class SquareEnforcedGoal : SquareBase
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚ÄƒS[ƒ‹‚µ‚Ü‚·‚©?";
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _state = SquareEnforcedGoalState.PAY;
     }
@@ -88,8 +88,6 @@ public class SquareEnforcedGoal : SquareBase
             {
                 _state = SquareEnforcedGoalState.END;
             }
-
-            _payUI.SetEnable(false);
         }
     }
 

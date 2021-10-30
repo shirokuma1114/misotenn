@@ -71,7 +71,7 @@ public class SquareMoveForward : SquareBase
         var message = _cost.ToString() + "円を支払って" + _moveNum + "マス進みますか？";
         _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _state = SquareMoveForwardState.PAY;
     }
@@ -91,8 +91,6 @@ public class SquareMoveForward : SquareBase
             {
                 _state = SquareMoveForwardState.END;
             }
-
-            _payUI.SetEnable(false);
         }
     }
 
