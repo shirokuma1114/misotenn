@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class EarthFreeRotation : MonoBehaviour
 {
-    private List<CharacterBase> _characters = new List<CharacterBase>();
+    private CharacterBase _operator;
 
-    private bool _freeRotationMode;
+    private bool _freeRotationMode = false;
     public bool IsFreeRotationMode => _freeRotationMode;
 
     private Quaternion _startRot;
-    private Quaternion _endRot;
     private float _xzAngle;
-    private float _yAngle;
+
 
     [Header("操作キー")]
     [SerializeField]
@@ -23,12 +22,20 @@ public class EarthFreeRotation : MonoBehaviour
     private KeyCode _rightKey = KeyCode.D;
     [SerializeField]
     private KeyCode _leftKey = KeyCode.A;
-    [SerializeField]
-    private KeyCode _modeChangeKey = KeyCode.E;
 
     [Header("回転速度")]
     [SerializeField]
-    private float _rotationSpeed = 50;
+    private float _freamRotationAngle = 85.0f;
+
+    [Header("上下回転最大角度")]
+    [SerializeField]
+    private float _maxVerticalAngle = 80.0f;
+
+    [Header("Debug")]
+    [SerializeField]
+    private KeyCode _modeChangeKey = KeyCode.E;
+    [SerializeField]
+    CharacterBase _debugOperator;
 
     private void Awake()
     {
@@ -37,7 +44,6 @@ public class EarthFreeRotation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _characters.AddRange(FindObjectsOfType<CharacterBase>());
     }
 
     // Update is called once per frame
@@ -46,75 +52,83 @@ public class EarthFreeRotation : MonoBehaviour
         Operation();
     }
 
-    public void ChangeMode()
+    /// <summary>
+    /// フリー回転モードにする関数
+    /// すべてのキャラクターがWait状態になる
+    /// </summary>
+    /// <param name="character">
+    /// そのターンのキャラクター
+    /// </param>
+    public void TrunOn(CharacterBase character)
     {
-        if (_freeRotationMode)
-        {
-            transform.rotation = _startRot;
+        _startRot = transform.rotation;
 
-            _freeRotationMode = false;
-        }
-        else
-        {
-            _startRot = transform.rotation;
-            _endRot = transform.rotation;
-            _xzAngle = 0;
-            _yAngle = 0;
+        Vector3 localFront = transform.InverseTransformPoint(0, 0, -1.0f);
+        Vector3 xzLocalFront = new Vector3(localFront.x, 0.0f, localFront.z);
+        _xzAngle = Vector3.SignedAngle(localFront, xzLocalFront, Vector3.Cross(xzLocalFront,transform.up));
 
-            foreach (var c in _characters)
-                c.SetWaitEnable(true);
+        foreach (var c in FindObjectsOfType<CharacterBase>())
+            c.SetWaitEnable(true);
+        _operator = character;
 
-            _freeRotationMode = true;
-        }
+        _freeRotationMode = true;
+    }
+    /// <summary>
+    /// フリー回転モードを終える関数
+    /// TrunOnでの引数のキャラクターだけのWait状態を解除
+    /// </summary>
+    public void TrunOff()
+    {
+        transform.rotation = _startRot;
+        _operator.SetWaitEnable(false);
+
+        _freeRotationMode = false;
+    }
+
+    private void DebugTrunOn()
+    {
+        TrunOn(_debugOperator);
     }
 
 
     private void Operation()
     {
+        //Debug
         if(Input.GetKeyDown(_modeChangeKey))
         {
-            if(_freeRotationMode)
-            {
-                transform.rotation = _startRot;
-
-                _freeRotationMode = false;
-            }
+            if (!_freeRotationMode)
+                DebugTrunOn();
             else
-            {
-                _startRot = transform.rotation;
-                _endRot = transform.rotation;
-                _xzAngle = 0;
-                _yAngle = 0;
-
-                foreach (var c in _characters)
-                   c.SetWaitEnable(true);
-
-                _freeRotationMode = true;
-            }
+                TrunOff();
         }
-
 
         if (_freeRotationMode)
         {
             if (Input.GetKey(_upKey))
             {
-                _xzAngle -= _rotationSpeed * Time.deltaTime;
+                if(_xzAngle > -_maxVerticalAngle)
+                {
+                    transform.RotateAround(transform.position,new Vector3(1,0,0), -_freamRotationAngle * Time.deltaTime);
+                    _xzAngle += -_freamRotationAngle * Time.deltaTime;
+                }
             }
             if (Input.GetKey(_downKey))
             {
-                _xzAngle += _rotationSpeed * Time.deltaTime;
+                if (_xzAngle < _maxVerticalAngle)
+                {
+                    transform.RotateAround(transform.position, new Vector3(1, 0, 0), _freamRotationAngle * Time.deltaTime);
+                    _xzAngle += _freamRotationAngle * Time.deltaTime;
+                }
             }
 
             if (Input.GetKey(_rightKey))
             {
-                _yAngle += _rotationSpeed * Time.deltaTime;
+                transform.RotateAround(transform.position, transform.up, _freamRotationAngle * Time.deltaTime);
             }
             if (Input.GetKey(_leftKey))
             {
-                _yAngle -= _rotationSpeed * Time.deltaTime;
+                transform.RotateAround(transform.position, transform.up, -_freamRotationAngle * Time.deltaTime);
             }
-
-            transform.rotation = _endRot * Quaternion.Euler(0.0f, _yAngle, 0.0f) * Quaternion.AngleAxis(_xzAngle, Vector3.Cross(transform.position - new Vector3(0, 0, -1), Vector3.up));
         }
     }
 }
