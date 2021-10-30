@@ -59,6 +59,11 @@ public class EarthMove : MonoBehaviour
     //=================================
     //public
     //=================================
+    /// <summary>
+    /// TargetをVector3(0,0,-1)方向へ合わせるように地球を回転させる
+    /// </summary>
+    /// <param name="target">合わせる方向</param>
+    /// <param name="rotSpeed">回転速度</param>
     public void MoveToPosition(Vector3 target,float rotSpeed = 100.0f)    //ワールド座標
     {
         _targetPosition = target;
@@ -67,6 +72,10 @@ public class EarthMove : MonoBehaviour
         _state = EarthMoveState.MOVE_INIT;
     }
 
+    /// <summary>
+    /// MoveToPositionを一瞬でLerpなしで実行する
+    /// </summary>
+    /// <param name="target"></param>
     public void MoveToPositionInstant(Vector3 target)
     {
         _targetPosition = target;
