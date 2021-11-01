@@ -38,7 +38,7 @@ public class PayUI : MonoBehaviour
 
         ButtonColorUpdate();
 
-        Close();
+        Invoke("Close", 0.5f);
     }
 
     /// <summary>
