@@ -80,7 +80,7 @@ public class SquareSteal : SquareBase
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H";
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _otherCharacters = new List<CharacterBase>();
         _otherCharacters.AddRange(FindObjectsOfType<CharacterBase>());
@@ -93,15 +93,15 @@ public class SquareSteal : SquareBase
 
     private void PayStateProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 for (int i = 0; i < _otherCharacters.Count; i++)
                     _selectElements.Add(_otherCharacters[i].Name);
                 _selectElements.Add("‚â‚ß‚é");
 
-                _selectUI.Open(_selectElements);
+                _selectUI.Open(_selectElements, _character);
                 _messageWindow.SetMessage("’N‚©‚ç‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H", _character.IsAutomatic);
 
                 _state = SquareStealState.SLECT_TARGET;
@@ -110,8 +110,6 @@ public class SquareSteal : SquareBase
             {
                 _state = SquareStealState.END;
             }
-
-            _payUI.SetEnable(false);
         }
     }
 
@@ -129,14 +127,14 @@ public class SquareSteal : SquareBase
             if (_otherCharacters[_selectUI.SelectIndex].gameObject.GetComponent<Protector>().IsProtected)
             {
                 _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
-                _selectUI.Open(_selectElements);
+                _selectUI.Open(_selectElements, _character);
 
                 return;
             }
             else if(_otherCharacters[_selectUI.SelectIndex].Souvenirs.Count == 0)
             {
                 _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character.IsAutomatic);
-                _selectUI.Open(_selectElements);
+                _selectUI.Open(_selectElements, _character);
 
                 return;
             }

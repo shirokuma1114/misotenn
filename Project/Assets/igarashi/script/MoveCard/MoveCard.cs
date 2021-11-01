@@ -8,30 +8,7 @@ public class MoveCard : MonoBehaviour
     private int _index;
     private List<Tween> _tweens = new List<Tween>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    private void OnDisable()
-    {
-        if (_tweens.Count != 0)
-        {
-            for (int i = 0; i < _tweens.Count; i++)
-                _tweens[i].Kill();
-        }
-    }
-
-
-    //=================================
-    //public
-    //=================================
     public void OnClick()
     {
         transform.parent.gameObject.GetComponent<MoveCardManager>().IndexSelect(_index);
@@ -42,7 +19,7 @@ public class MoveCard : MonoBehaviour
         _index = index;
     }
 
-    public void SetMoveTargetPos(Vector3 targetPos,bool last)
+    public void SetMoveTargetPos(Vector3 targetPos, bool last)
     {
         var rt = GetComponent<RectTransform>();
 
@@ -63,6 +40,24 @@ public class MoveCard : MonoBehaviour
         }
     }
 
-    //=================================
-    
+    //================================================
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        
+    }
+
+    private void OnDisable()
+    {
+        if (_tweens.Count != 0)
+        {
+            for (int i = 0; i < _tweens.Count; i++)
+                _tweens[i].Kill();
+        }
+    }   
 }

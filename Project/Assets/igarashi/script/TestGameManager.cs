@@ -75,7 +75,7 @@ public class TestGameManager : MonoBehaviour
 
         if(_open)
         {
-            _selectUI.Open(_elements);
+            //_selectUI.Open(_elements);
 
             _open = false;
         }

@@ -25,40 +25,12 @@ public class EarthMove : MonoBehaviour
     private float _rotationSpeed = 100.0f;
     private float _yAngle;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        _targetPosition = Vector3.zero;
-        _startRot = transform.rotation;
-        _endRot = Quaternion.identity;
-        _lerpTime = 0;
-        _yAngle = 0.0f;
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        switch (_state)
-        {
-            case EarthMoveState.IDLE:
-                IdleStateProcess();
-                break;
-            case EarthMoveState.MOVE_INIT:
-                MoveInitStateProcess();
-                break;
-            case EarthMoveState.MOVE:
-                MoveStateProcess();
-                break;
-            case EarthMoveState.END:
-                EndStateProcess();
-                break;
-        }
-    }
-
-
-    //=================================
-    //public
-    //=================================
+    /// <summary>
+    /// TargetをVector3(0,0,-1)方向へ合わせるように地球を回転させる
+    /// </summary>
+    /// <param name="target">合わせる方向</param>
+    /// <param name="rotSpeed">回転速度</param>
     public void MoveToPosition(Vector3 target,float rotSpeed = 100.0f)    //ワールド座標
     {
         _targetPosition = target;
@@ -67,6 +39,10 @@ public class EarthMove : MonoBehaviour
         _state = EarthMoveState.MOVE_INIT;
     }
 
+    /// <summary>
+    /// MoveToPositionを一瞬でLerpなしで実行する
+    /// </summary>
+    /// <param name="target"></param>
     public void MoveToPositionInstant(Vector3 target)
     {
         _targetPosition = target;
@@ -91,10 +67,38 @@ public class EarthMove : MonoBehaviour
         _state = EarthMoveState.END;
     }
 
-    //=================================
+
+    //=================================================================
+
+    void Awake()
+    {
+        _targetPosition = Vector3.zero;
+        _startRot = transform.rotation;
+        _endRot = Quaternion.identity;
+        _lerpTime = 0;
+        _yAngle = 0.0f;
+    }
+
+    void Update()
+    {
+        switch (_state)
+        {
+            case EarthMoveState.IDLE:
+                IdleStateProcess();
+                break;
+            case EarthMoveState.MOVE_INIT:
+                MoveInitStateProcess();
+                break;
+            case EarthMoveState.MOVE:
+                MoveStateProcess();
+                break;
+            case EarthMoveState.END:
+                EndStateProcess();
+                break;
+        }
+    }
 
 
-    //private
     private void IdleStateProcess()
     {
 
