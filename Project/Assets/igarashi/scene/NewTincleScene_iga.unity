@@ -3648,6 +3648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d7872444e22b241bf2a0277b96d35e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _floatingVolume: 0.3
 --- !u!120 &1636874989
 LineRenderer:
   m_ObjectHideFlags: 0
