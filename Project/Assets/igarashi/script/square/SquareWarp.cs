@@ -28,6 +28,8 @@ public class SquareWarp : SquareBase
     [SerializeField]
     private int _cost;
 
+
+    MyGameManager _gameManager;
     // Start is called before the first frame update
     void Awake()
     {
@@ -38,6 +40,8 @@ public class SquareWarp : SquareBase
 
         _squares = new List<SquareBase>();
         _squares.AddRange(FindObjectsOfType<SquareBase>());
+
+        _gameManager = FindObjectOfType<MyGameManager>();
     }
 
     // Update is called once per frame
@@ -76,7 +80,7 @@ public class SquareWarp : SquareBase
         var message = _cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
         _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _characters = new List<CharacterBase>();
         _characters.AddRange(FindObjectsOfType<CharacterBase>());
@@ -90,9 +94,9 @@ public class SquareWarp : SquareBase
 
     private void PayStateProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 _character.SubMoney(_cost);
                 _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
@@ -103,8 +107,6 @@ public class SquareWarp : SquareBase
             {
                 _state = SquareWarpState.END;
             }
-
-            _payUI.SetEnable(false);
         }
     }
 
@@ -141,7 +143,12 @@ public class SquareWarp : SquareBase
     }
     public override int GetScore(CharacterBase character)
     {
-        // お金が足りる
-        return _cost <= character.Money ? 200 : 0;
+        // お金が足りない
+        if (_cost < character.Money) return base.GetScore(character);
+
+        // 自分が不利
+        if (_gameManager.GetRanking(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character);
+
+        return (int)SquareScore.WARP + base.GetScore(character);
     }
 }

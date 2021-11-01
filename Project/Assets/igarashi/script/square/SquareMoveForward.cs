@@ -71,7 +71,7 @@ public class SquareMoveForward : SquareBase
         var message = _cost.ToString() + "円を支払って" + _moveNum + "マス進みますか？";
         _messageWindow.SetMessage(message,character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _state = SquareMoveForwardState.PAY;
     }
@@ -79,9 +79,9 @@ public class SquareMoveForward : SquareBase
 
     private void PayStateProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 _character.SubMoney(_cost);
 
@@ -91,8 +91,6 @@ public class SquareMoveForward : SquareBase
             {
                 _state = SquareMoveForwardState.END;
             }
-
-            _payUI.SetEnable(false);
         }
     }
 
@@ -126,7 +124,8 @@ public class SquareMoveForward : SquareBase
 
     public override int GetScore(CharacterBase character)
     {
-        if (_cost > character.Money) return -1;
+        // 支払えるならこのマス＋移動先マスのスコア
+        if (_cost > character.Money) return base.GetScore(character);
 
         // 移動先のマスの評価
         SquareBase square = character.CurrentSquare;
@@ -136,6 +135,7 @@ public class SquareMoveForward : SquareBase
         character.SubMoney(_cost);
         var score = square.GetScore(character);
         character.AddMoney(_cost);
-        return score;
+
+        return score + base.GetScore(character);
     }
 }

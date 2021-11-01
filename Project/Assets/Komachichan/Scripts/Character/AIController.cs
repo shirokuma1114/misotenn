@@ -5,15 +5,11 @@ using System.Linq;
 
 public class AIController : CharacterControllerBase
 {
-    bool _isMoved = false;
-
     List<Queue<SquareBase>> _roots = new List<Queue<SquareBase>>();
-
-    Queue<SquareBase> _root = new Queue<SquareBase>();
 
     List<int> _movingIndies = new List<int>();
 
-    bool _collisionMode = false;
+    bool _isSelectedCard = false;
 
     void Awake()
     {
@@ -21,24 +17,26 @@ public class AIController : CharacterControllerBase
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _souvenirWindow = FindObjectOfType<SouvenirWindow>();
+        _eventState = EventState.WAIT;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (_isSelectedCard) return;
         UpdateMove();
     }
 
     public override void Move()
     {
-        
+        base.Move();
         _character.Init();
-
+        _isSelectedCard = true;
         _root.Clear();
         _roots.Clear();
         _movingIndies.Clear();
 
-        _moveCardManager.SetCardList(_character.MovingCards);
+        _moveCardManager.SetCardList(_character.MovingCards,true);
         
         _statusWindow.SetEnable(true);
         _statusWindow.SetMoney(_character.Money);
@@ -59,46 +57,7 @@ public class AIController : CharacterControllerBase
         _character.RemoveMovingCard(index);
         SetRoot();
         _moveCardManager.DeleteCards();
-        _isMoved = true;
-    }
-
-    void UpdateMove()
-    {
-        if (!_isMoved) return;
-        if (_character.State != CharacterState.WAIT) return;
-
-        // マス目を決定する
-        if (_character.MovingCount == 0 && !_collisionMode)
-        {
-            _movingCount.SetEnable(false);
-
-            // 既に止まっているプレイヤーがいる
-            if (_character.CurrentSquare.AlreadyStopped())
-            {
-                Collision(_character, _character.CurrentSquare.StoppedCharacters.ToList());
-                _collisionMode = true;
-                return;
-            }
-            _character.Stop();
-            _isMoved = false;
-            return;
-        }
-
-        if (_collisionMode)
-        {
-            UpdateColliision();
-            if (IsFinishedCollision())
-            {
-                _collisionMode = false;
-                _character.Stop();
-                _isMoved = false;
-                return;
-            }
-        }
-
-        if (_root.Count == 0) return;
-        NotifyMovingCount(_character.MovingCount);
-        StartMove(_root.Dequeue());
+        _isSelectedCard = false;
     }
 
     void DelayStartMove()

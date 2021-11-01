@@ -70,7 +70,7 @@ public class SquareProtect : SquareBase
         var message = _cost.ToString() + "円を支払って" + _protectTurn.ToString() + "ターンの間身を守りますか？";
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _state = SquareProtectState.PAY;
     }
@@ -78,9 +78,9 @@ public class SquareProtect : SquareBase
 
     private void PayStateProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 _character.SubMoney(_cost);
 
@@ -90,8 +90,6 @@ public class SquareProtect : SquareBase
             {
                 _state = SquareProtectState.END;
             }
-
-            _payUI.SetEnable(false);
         }
     }
 

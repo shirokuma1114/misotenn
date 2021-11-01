@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SquareSouvenir : SquareBase
 {
@@ -55,7 +56,7 @@ public class SquareSouvenir : SquareBase
 
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _state = SquareSouvenirState.PAY_WAIT;
     }
@@ -84,9 +85,9 @@ public class SquareSouvenir : SquareBase
 
     private void PayWaitProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 _state = SquareSouvenirState.EVENT;
             }
@@ -94,8 +95,6 @@ public class SquareSouvenir : SquareBase
             {
                 _state = SquareSouvenirState.END;
             }
-
-            _payUI.SetEnable(false);
         }            
     }
 
@@ -125,7 +124,12 @@ public class SquareSouvenir : SquareBase
 
     public override int GetScore(CharacterBase character)
     {
-        // ‚¨‹à‚ª‘«‚è‚é
-        return _cost <= character.Money ? 100 : 0;
+        // ‚¨‹à‚ª‘«‚è‚È‚¢
+        if (_cost < character.Money) return base.GetScore(character);
+
+        // Ž‚Á‚Ä‚¢‚È‚¢‚¨“yŽY‚ª”„‚Á‚Ä‚¢‚é
+        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character);
+
+        return (int)SquareScore.SOUVENIR + base.GetScore(character);
     }
 }
