@@ -136,18 +136,19 @@ public class CharacterBase : MonoBehaviour
     {
         if (enable)
         {
-            transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             transform.SetParent(_currentSquare.GetComponent<Transform>());
         }
         else
         {
             transform.SetParent(null);
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
     }
 
     public void StartMove(SquareBase square)
     {
+
         _state = CharacterState.MOVE;
         
         // 後退
@@ -164,7 +165,10 @@ public class CharacterBase : MonoBehaviour
         }
         
         _currentSquare = square;
-        
+
+        // 向きを移動方向に合わせる
+        SetAngleToSquare();
+
         // ステージ回転
         FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition(), 50.0f);
     }
@@ -222,5 +226,20 @@ public class CharacterBase : MonoBehaviour
             typeList[(int)x.Type] = true;
         }
         return typeList.Where(x => x == true).Count();
+    }
+
+    private void SetAngleToSquare()
+    {
+        Vector3 target = _currentSquare.gameObject.transform.position;
+        Vector3 direction = (target - this.transform.position).normalized;
+        Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
+        Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
+        this.transform.rotation = Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+        transform.Rotate(90.0f, 0, 0);
+    }
+
+    public void SetDefaultAngle()
+    {
+        transform.eulerAngles = new Vector3(0, 0, 0);
     }
 }

@@ -127,7 +127,7 @@ public class SquareSouvenir : SquareBase
     public override int GetScore(CharacterBase character)
     {
         // ‚¨‹à‚ª‘«‚è‚È‚¢
-        if (_cost < character.Money) return base.GetScore(character);
+        if (_cost > character.Money) return base.GetScore(character);
 
         // Ž‚Á‚Ä‚¢‚È‚¢‚¨“yŽY‚ª”„‚Á‚Ä‚¢‚é
         if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character);

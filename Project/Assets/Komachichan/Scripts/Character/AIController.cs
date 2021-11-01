@@ -44,7 +44,7 @@ public class AIController : CharacterControllerBase
         _souvenirWindow.SetEnable(true);
         _souvenirWindow.SetSouvenirs(_character.Souvenirs);
 
-        Invoke("SelectMovingCard", 1.5f);
+        Invoke("SelectMovingCard", 2.5f);
     }
 
     void SelectMovingCard()
@@ -88,9 +88,11 @@ public class AIController : CharacterControllerBase
         // 最も良いマスの選択
         int maxScore = -1;
         int index = -1;
+        Debug.Log(_character.Name + "の移動可能マスのスコア");
         for(int i = 0; i < squares.Count; i++)
         {
             var score = squares[i].GetScore(_character);
+            Debug.Log(squares[i].name + ":" + score);
             if(maxScore < score)
             {
                 maxScore = score;
