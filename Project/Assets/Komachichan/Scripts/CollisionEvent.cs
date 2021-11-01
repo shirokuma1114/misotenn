@@ -77,7 +77,7 @@ public class CollisionEvent
         {
             if (!_messageWindow.IsDisplayed)
             {
-                _phase = Phase.SELECT;
+                _phase = Phase.INIT;
                 _targetIndex++;
                 // I—¹
                 if(_targetIndex >= _targets.Count)
