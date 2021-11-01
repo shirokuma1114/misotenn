@@ -158,7 +158,7 @@ public class CardEfect_Manager_MI : MonoBehaviour
 		// changed by miya
 		if (Input.GetKeyDown(KeyCode.Return))
 		{
-			Start_FinishAnimation = true;
+			//Start_FinishAnimation = true;
 		}
 		if ( Finish_FinishAnimation )
 		{
