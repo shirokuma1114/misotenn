@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MT_CubeColor
+  m_Name: NMT_CubeColorPlayer
   m_Shader: {fileID: 4800000, guid: e9744f878007e1141ae6a79ca8cb8162, type: 3}
   m_ShaderKeywords: CUBE_COLOR FOG HEIGHT_FOG RIM_LIGHT SHADOW_COLOR TEXTURE_MAIN
     WITHOUT_SHADOW
