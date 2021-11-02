@@ -11,10 +11,22 @@ public class MoveCardManager : MonoBehaviour
     public bool IsSelectComplete => _selectComplete;
     private bool _autoSelect;
 
+    // miya
+    bool _finAnimEndFlag = false;
+    public void FinAnimEnd() { _finAnimEndFlag = true; }
+
     [Header("生成するカードのプレハブ")]
     [SerializeField]
     private GameObject _cardPrefab = null;
     private List<GameObject> _cards = new List<GameObject>();
+
+    [Header("操作")]
+    [SerializeField]
+    private KeyCode _selectRightKey = KeyCode.D;
+    [SerializeField]
+    private KeyCode _selectLeftKey = KeyCode.A;
+    [SerializeField]
+    private KeyCode _enterKey = KeyCode.Return;
 
 
     /// <summary>
@@ -51,7 +63,7 @@ public class MoveCardManager : MonoBehaviour
         SelectCardColorUpdate();
         _autoSelect = true;
 
-        _selectComplete = true;
+        _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
     }
 
     /// <summary>
@@ -100,6 +112,11 @@ public class MoveCardManager : MonoBehaviour
     {
         if (_cards.Count != 0)
         {
+            if (_finAnimEndFlag)
+            {
+                _selectComplete = true;
+            }
+
             if (!_selectComplete)
                 SelectCards();
         }
@@ -120,6 +137,8 @@ public class MoveCardManager : MonoBehaviour
 
             mc.SetMoveTargetPos(new Vector3((rt.rect.width / 2.0f) + (rt.rect.width * i), rt.rect.height / 2.0f, 0.0f),i == _cardNumberLists.Count - 1);
 
+            _finAnimEndFlag = false;
+
             _cards.Add(card);
         }
 
@@ -132,7 +151,7 @@ public class MoveCardManager : MonoBehaviour
         if (_autoSelect)
             return;
 
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(_selectLeftKey))
         {
             _selectedCardIndex--;
             if (_selectedCardIndex < 0)
@@ -140,7 +159,7 @@ public class MoveCardManager : MonoBehaviour
 
             SelectCardColorUpdate();
         }
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(_selectRightKey))
         {
             _selectedCardIndex++;
             if (_selectedCardIndex >= _cards.Count)
@@ -149,10 +168,11 @@ public class MoveCardManager : MonoBehaviour
             SelectCardColorUpdate();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        // changed by miya
+        if (Input.GetKeyDown(_enterKey))
         {
-            _selectComplete = true;
-        }
+            _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
+        }        
     }
 
     private void SelectCardColorUpdate()

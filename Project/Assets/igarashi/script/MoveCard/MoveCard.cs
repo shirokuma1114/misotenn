@@ -8,10 +8,12 @@ public class MoveCard : MonoBehaviour
     private int _index;
     private List<Tween> _tweens = new List<Tween>();
 
+    MoveCardManager _manager;
+    private Sequence _finAnimSequence = null;
 
     public void OnClick()
     {
-        transform.parent.gameObject.GetComponent<MoveCardManager>().IndexSelect(_index);
+        //transform.parent.gameObject.GetComponent<MoveCardManager>().IndexSelect(_index);
     }
 
     public void SetIndex(int index)
@@ -40,16 +42,38 @@ public class MoveCard : MonoBehaviour
         }
     }
 
+    public void PlayFinishAnimation()
+    {
+        var rt = GetComponent<RectTransform>();
+
+        _finAnimSequence = DOTween.Sequence();
+
+        _finAnimSequence.Append(rt.DOMove(new Vector3(Screen.width / 2, Screen.height / 2, 0), 1.0f));
+        _finAnimSequence.Append(rt.DORotate(new Vector3(0, 0, -360), 1.0f, RotateMode.WorldAxisAdd));
+        _finAnimSequence.Join(rt.DOScale(new Vector3(0, 0, 0), 2.0f));
+
+        _finAnimSequence.Play();
+        _finAnimSequence.SetAutoKill(false);
+    }
+
     //================================================
 
     void Start()
     {
-        
+        _manager = FindObjectOfType<MoveCardManager>();
     }
 
     void Update()
     {
-        
+        if(_finAnimSequence != null)
+        {
+            if (!_finAnimSequence.IsPlaying())
+            {
+                _manager.FinAnimEnd();
+                _finAnimSequence.Kill();
+                _finAnimSequence = null;
+            }
+        }
     }
 
     private void OnDisable()
@@ -58,6 +82,10 @@ public class MoveCard : MonoBehaviour
         {
             for (int i = 0; i < _tweens.Count; i++)
                 _tweens[i].Kill();
+        }
+        if (_finAnimSequence != null)
+        {
+            _finAnimSequence.Kill();
         }
     }   
 }
