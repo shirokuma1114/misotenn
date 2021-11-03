@@ -141,12 +141,12 @@ public class PayUI : MonoBehaviour
         if (_selectYes)
         {
             _yes.GetComponent<Image>().color = new Color(1, 0, 0, 1);
-            _no.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            _no.GetComponent<Image>().color = new Color(0, 0, 0, 0.137254f);
         }
         else
         {
             _no.GetComponent<Image>().color = new Color(1, 0, 0, 1);
-            _yes.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            _yes.GetComponent<Image>().color = new Color(0, 0, 0, 0.137254f);
         }
     }
 
