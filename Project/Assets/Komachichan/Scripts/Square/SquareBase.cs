@@ -135,6 +135,6 @@ public class SquareBase : MonoBehaviour
         }
 
         // ƒ}ƒX‚Éæ‚Á‚Ä‚¢‚él‚Ì”
-        return _stoppedCharacters.Count + addScore;
+        return _stoppedCharacters.Count * 2 + addScore;
     }
 }

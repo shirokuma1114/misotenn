@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class SouvenirWindow : MonoBehaviour
+public class SouvenirWindow : WindowBase
 {
     [SerializeField]
     Image _frame;
@@ -29,7 +29,7 @@ public class SouvenirWindow : MonoBehaviour
         
     }
 
-    public void SetEnable(bool enable)
+    public override void SetEnable(bool enable)
     {
         _frame.enabled = enable;
 
