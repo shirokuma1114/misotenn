@@ -8,6 +8,7 @@ public class CharacterControllerBase : MonoBehaviour
     protected enum EventState
     {
         WAIT,
+        SELECT,
         MOVE,
         COLLISION,
         GOAL,
@@ -18,6 +19,9 @@ public class CharacterControllerBase : MonoBehaviour
 
     [SerializeField]
     private bool _isAutomatic;
+
+    [SerializeField]
+    protected SelectWindow _selectWindow;
 
     public bool IsAutomatic
     {
@@ -47,6 +51,11 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected SquareBase _startSquare;
 
+    public virtual void InitTurn()
+    {
+        _eventState = EventState.SELECT;
+    }
+
     //移動カードを選び次のマスに止まるまで
     public virtual void Move()
     {
@@ -72,7 +81,7 @@ public class CharacterControllerBase : MonoBehaviour
     protected void UpdateMove()
     {
         if (_character.State != CharacterState.WAIT) return;
-        if (_eventState == EventState.WAIT) return;
+        if (_eventState == EventState.SELECT || _eventState == EventState.WAIT) return;
         
         // マス目を決定する
         if (_character.MovingCount == 0 && _eventState != EventState.COLLISION)

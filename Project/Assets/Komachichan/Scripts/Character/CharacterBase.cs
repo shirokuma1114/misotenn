@@ -66,6 +66,9 @@ public class CharacterBase : MonoBehaviour
         get { return _controller.IsAutomatic; }
     }
 
+    // ラップ数
+    public int LapCount { get; set; }
+
     public CharacterLog Log { get; }
 
     void Start()
@@ -166,9 +169,6 @@ public class CharacterBase : MonoBehaviour
         
         _currentSquare = square;
 
-        // 向きを移動方向に合わせる
-        SetAngleToSquare();
-
         // ステージ回転
         FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition(), 50.0f);
     }
@@ -176,6 +176,7 @@ public class CharacterBase : MonoBehaviour
     private void UpdateMove()
     {
         if (_state != CharacterState.MOVE) return;
+        SetAngleToSquare();
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _state = CharacterState.WAIT;
@@ -230,12 +231,14 @@ public class CharacterBase : MonoBehaviour
 
     private void SetAngleToSquare()
     {
+        var pos = _currentSquare.gameObject.transform.position;
+        if (Vector3.Distance(pos, transform.position) < 0.3f) return;
+
         Vector3 target = _currentSquare.gameObject.transform.position;
         Vector3 direction = (target - this.transform.position).normalized;
         Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
         Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
         this.transform.rotation = Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
-        transform.Rotate(90.0f, 0, 0);
     }
 
     public void SetDefaultAngle()
