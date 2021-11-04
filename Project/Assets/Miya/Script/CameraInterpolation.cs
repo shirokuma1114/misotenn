@@ -62,7 +62,12 @@ public class CameraInterpolation : MonoBehaviour
 			CurrentTime = Time.time;
 
 			float present = (CurrentTime - StartTime) / Second;
-			if (CurrentTime - StartTime > Second) Moving = false;
+            if (CurrentTime - StartTime > Second)
+            {
+                Moving = false;
+                CurrentCamera = NextCamera;
+                return;
+            }
 
 			this.transform.position = Vector3.Lerp
 				(

@@ -56,6 +56,9 @@ public class MyGameManager : MonoBehaviour
 
     [SerializeField]
     List<int> _cardValues = new List<int>();
+    
+    [SerializeField]
+    CameraInterpolation _cameraInterpole;
 
     // Start is called before the first frame update
     void Start()
@@ -111,10 +114,10 @@ public class MyGameManager : MonoBehaviour
     void PhaseInit()
     {
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
-        //_entryPlugs[_turnIndex].Character.AddMovingCard(5);
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
         _entryPlugs[_turnIndex].InitTurn();
         _phase = Phase.WAIT_TURN_END;
+
     }
 
     void PhaseWaitTurnEnd()
@@ -133,7 +136,7 @@ public class MyGameManager : MonoBehaviour
 
             _phase = Phase.FADE_OUT;
             _fade.FadeStart(30, true);
-        
+
         }
     }
 
@@ -158,6 +161,8 @@ public class MyGameManager : MonoBehaviour
 
             //次の人の止まっているマス座標
             _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
+            _cameraInterpole.Set_Second(0.01f);
+            _cameraInterpole.Set_NextCamera(0);
         }
     }
 
