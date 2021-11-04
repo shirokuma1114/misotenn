@@ -34,6 +34,9 @@ public class SquareGoal : SquareBase
         var c = FindObjectsOfType<CharacterBase>();
         for(int i = 0; i < c.Length;i++)
             _characterGoalNums.Add(c[i], 0);
+
+        _squareInfo =
+            "ƒS[ƒ‹ƒ}ƒX\n";
     }
 
     // Update is called once per frame

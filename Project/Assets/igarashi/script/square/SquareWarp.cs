@@ -46,7 +46,7 @@ public class SquareWarp : SquareBase
 
         _squareInfo =
             "ワープマス\n" +
-            "コスト：" + _cost.ToString() + "\n";
+            "コスト：" + _cost.ToString();
     }
 
     // Update is called once per frame

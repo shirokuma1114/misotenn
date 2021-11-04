@@ -42,6 +42,11 @@ public class SquareSteal : SquareBase
         _selectElements = new List<string>();
 
         _gameManager = FindObjectOfType<MyGameManager>();
+
+
+        _squareInfo =
+            "刀狩マス\n" +
+            "コスト：" + _cost.ToString();
     }
 
     // Update is called once per frame

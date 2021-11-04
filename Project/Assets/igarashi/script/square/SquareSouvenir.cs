@@ -36,6 +36,12 @@ public class SquareSouvenir : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+
+        _squareInfo =
+            "お土産マス\n" +
+            "コスト：" + _cost.ToString() + "\n" +
+            "お土産名：" + _souvenirName + "\n" +
+            "お土産タイプ：" + _type.ToString(); 
     }
 
     public override void Stop(CharacterBase character)
