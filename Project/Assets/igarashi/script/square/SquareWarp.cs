@@ -42,6 +42,11 @@ public class SquareWarp : SquareBase
         _squares.AddRange(FindObjectsOfType<SquareBase>());
 
         _gameManager = FindObjectOfType<MyGameManager>();
+
+
+        _squareInfo =
+            "ワープマス\n" +
+            "コスト：" + _cost.ToString() + "\n";
     }
 
     // Update is called once per frame

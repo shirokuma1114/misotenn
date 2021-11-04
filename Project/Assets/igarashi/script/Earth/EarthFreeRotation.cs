@@ -87,6 +87,11 @@ public class EarthFreeRotation : MonoBehaviour
     void Update()
     {
         Operation();
+
+        if(_freeRotationMode)
+        {
+            SquareInfoViewer();
+        }
     }
 
 
@@ -134,6 +139,18 @@ public class EarthFreeRotation : MonoBehaviour
             {
                 transform.RotateAround(transform.position, transform.up, -_freamRotationAngle * Time.deltaTime);
             }
+        }
+    }
+
+    private void SquareInfoViewer()
+    {
+        GameObject camera = Camera.main.gameObject;
+        Ray cameraRay = new Ray(camera.transform.position, camera.transform.forward);
+        RaycastHit hitInfo = new RaycastHit();
+
+        if(Physics.Raycast(cameraRay,out hitInfo))
+        {
+            
         }
     }
 }
