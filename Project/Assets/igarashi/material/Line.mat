@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Line
-  m_Shader: {fileID: 4800000, guid: ba9dc68bf9e16f441b1f383edbc6697a, type: 3}
+  m_Shader: {fileID: 4800000, guid: ae8d9f116b9478040b4d48a5b3b491e0, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
@@ -80,18 +80,23 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _GuidAlpha: 12.1
+    - _GuidLength: 0.883
     - _LightingEnabled: 0
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _Power: 1
     - _RimPower: 2.89
+    - _RoadAlpha: 0.201
     - _SmoothnessTextureChannel: 0
     - _SoftParticlesEnabled: 0
     - _SoftParticlesFarFadeDistance: 1
     - _SoftParticlesNearFadeDistance: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TimeScale: 7.9
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
@@ -99,6 +104,8 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _GuidColor: {r: 1, g: 0, b: 0.19086504, a: 1}
     - _RimColor: {r: 1, g: 0, b: 0, a: 1}
+    - _RoadColor: {r: 1, g: 1, b: 1, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
