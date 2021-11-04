@@ -59,6 +59,11 @@ public class SquareSouvenir : SquareBase
         _payUI.Open(character);
 
         _state = SquareSouvenirState.PAY_WAIT;
+
+        if (character.IsAutomatic)
+        {
+            Invoke("SelectAutomatic", 1.5f);
+        }
     }
 
     // Update is called once per frame
@@ -80,7 +85,10 @@ public class SquareSouvenir : SquareBase
         }
     }
 
-
+    void SelectAutomatic()
+    {
+        _payUI.AISelectYes();
+    }
 
 
     private void PayWaitProcess()

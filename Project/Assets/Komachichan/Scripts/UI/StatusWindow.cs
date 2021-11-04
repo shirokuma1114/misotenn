@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatusWindow : MonoBehaviour
+public class StatusWindow : WindowBase
 {
     [SerializeField]
     Image _frame;
@@ -17,6 +17,9 @@ public class StatusWindow : MonoBehaviour
     [SerializeField]
     Text _turnText;
 
+    [SerializeField]
+    Text _lapText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,12 +32,13 @@ public class StatusWindow : MonoBehaviour
         
     }
 
-    public void SetEnable(bool enable)
+    public override void SetEnable(bool enable)
     {
         _frame.enabled = enable;
         _nameText.enabled = enable;
         _moneyText.enabled = enable;
         _turnText.enabled = enable;
+        _lapText.enabled = enable;
     }
 
     public void SetMoney(int value)
@@ -50,6 +54,11 @@ public class StatusWindow : MonoBehaviour
     public void SetTurn(int turnCount)
     {
         _turnText.text = turnCount + "É^Å[Éìñ⁄";
+    }
+
+    public void SetLapNum(int lapNum)
+    {
+        _lapText.text = "åªç› " + lapNum + "é¸ñ⁄";
     }
 
 }

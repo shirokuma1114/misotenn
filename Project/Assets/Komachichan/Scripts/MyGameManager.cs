@@ -28,7 +28,7 @@ public class MyGameManager : MonoBehaviour
     private int _cardMaxValue;
 
     [SerializeField]
-    private int _initCardValue;
+    private int _initCardNum;
 
     [SerializeField]
     private List<CharacterControllerBase> _entryPlugs;
@@ -113,7 +113,7 @@ public class MyGameManager : MonoBehaviour
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
         //_entryPlugs[_turnIndex].Character.AddMovingCard(5);
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
-        _entryPlugs[_turnIndex].Move();
+        _entryPlugs[_turnIndex].InitTurn();
         _phase = Phase.WAIT_TURN_END;
     }
 
@@ -183,10 +183,9 @@ public class MyGameManager : MonoBehaviour
     void InitTurn()
     {
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
-        //_entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
-        _entryPlugs[_turnIndex].Character.AddMovingCard(3);
+        _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
         _entryPlugs[_turnIndex].Character.Name = "‚±‚Ü‚¿ŽÐ’·";
-        _entryPlugs[_turnIndex].Move();
+        _entryPlugs[_turnIndex].InitTurn();
         _phase = Phase.WAIT_TURN_END;
     }
 
@@ -194,26 +193,26 @@ public class MyGameManager : MonoBehaviour
     {
         var startSquare = GameObject.Find("Japan").GetComponent<SquareBase>();
 
-        foreach (var p in _entryPlugs)
+
+        for(int i = 0; i < _entryPlugs.Count; i++)
         {
-            var chara = p.Character;
+            var chara = _entryPlugs[i].Character;
             if (_isFixedMode && chara.IsAutomatic)
             {
                 EditMovingCards(chara);
             }
             else
             {
-                for (int i = 0; i < _initCardValue; i++)
+                for (int j = 0; j < _initCardNum; j++)
                 {
                     chara.AddMovingCard(GetRandomRange());
                 }
             }
-            chara.Name = "“G" + Random.Range(1, 100) + "†";
+            chara.Name = "“G" + i + "†";
             chara.SetCurrentSquare(startSquare);
             chara.AddMoney(1000);
             chara.SetWaitEnable(true);
-
-            
+            chara.LapCount = 1;
         }
         _turnIndex = 0;
     }
@@ -229,6 +228,11 @@ public class MyGameManager : MonoBehaviour
     int GetRandomRange()
     {
         return Random.Range(_cardMinValue, _cardMaxValue);
+    }
+
+    public void Move()
+    {
+        _entryPlugs[_turnIndex].Move();
     }
 
     public int GetRanking(CharacterBase character)

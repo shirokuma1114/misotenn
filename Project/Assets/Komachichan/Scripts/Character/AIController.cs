@@ -26,24 +26,27 @@ public class AIController : CharacterControllerBase
         if (_isSelectedCard) return;
         UpdateMove();
     }
-
-    public override void Move()
+    public override void InitTurn()
     {
-        base.Move();
+        base.InitTurn();
         _character.Init();
-        _isSelectedCard = true;
         _root.Clear();
         _roots.Clear();
         _movingIndies.Clear();
-
-        _moveCardManager.SetCardList(_character.MovingCards,true);
-        
         _statusWindow.SetEnable(true);
         _statusWindow.SetMoney(_character.Money);
         _statusWindow.SetName(_character.Name);
-        _souvenirWindow.SetEnable(true);
+        _statusWindow.SetLapNum(_character.LapCount);
         _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+        _souvenirWindow.SetEnable(true);
+        _selectWindow.SetIsAutomatic(_character.IsAutomatic);
+        _selectWindow.SetEnable(true);
+    }
 
+    public override void Move()
+    {
+        _moveCardManager.SetCardList(_character.MovingCards,true);
+        _isSelectedCard = true;
         Invoke("SelectMovingCard", 2.5f);
     }
 
@@ -58,6 +61,7 @@ public class AIController : CharacterControllerBase
         SetRoot();
         _moveCardManager.DeleteCards();
         _isSelectedCard = false;
+        base.Move();
     }
 
     void DelayStartMove()

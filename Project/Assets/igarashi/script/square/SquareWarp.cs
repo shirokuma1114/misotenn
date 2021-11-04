@@ -135,7 +135,6 @@ public class SquareWarp : SquareBase
         if (!_messageWindow.IsDisplayed)
         {
             _character.CompleteStopExec();
-            _character.SetWaitEnable(true);
             _statusWindow.SetEnable(false);
 
             _state = SquareWarpState.IDLE;
@@ -144,7 +143,7 @@ public class SquareWarp : SquareBase
     public override int GetScore(CharacterBase character)
     {
         // ‚¨‹à‚ª‘«‚è‚È‚¢
-        if (_cost < character.Money) return base.GetScore(character);
+        if (_cost > character.Money) return base.GetScore(character);
 
         // Ž©•ª‚ª•s—˜
         if (_gameManager.GetRanking(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character);

@@ -28,18 +28,25 @@ public class PlayerController : CharacterControllerBase
         UpdateMove();
     }
 
+    public override void InitTurn()
+    {
+        base.InitTurn();
+        _character.Init();
+        _statusWindow.SetEnable(true);
+        _statusWindow.SetMoney(_character.Money);
+        _statusWindow.SetName(_character.Name);
+        _statusWindow.SetLapNum(_character.LapCount);
+        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+        _souvenirWindow.SetEnable(true);
+        _selectWindow.SetIsAutomatic(_character.IsAutomatic);
+        _selectWindow.SetEnable(true);
+    }
+
     // 移動カードを選ぶ
     public override void Move()
     {
         base.Move();
-        _character.Init();
         _moveCardManager.SetCardList(_character.MovingCards);
-
-        _statusWindow.SetEnable(true);
-        _statusWindow.SetMoney(_character.Money);
-        _statusWindow.SetName(_character.Name);
-        _souvenirWindow.SetEnable(true);
-        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
         _isSelectedCard = true;
     }
 

@@ -91,6 +91,8 @@ public class SquareGoal : SquareBase
     {
         if (!_messageWindow.IsDisplayed)
         {
+            /// ü‰ñ”’Ç‰Á
+            _character.LapCount++;
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
 
