@@ -37,6 +37,11 @@ public class SquareCasino : SquareBase
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
         _betChoices = new List<int>();
+
+        _squareInfo =
+            "カジノマス\n" +
+            "確率：" + _percentage.ToString() + "\n" +
+            "倍率：" + _rate.ToString();
     }
 
     // Update is called once per frame
