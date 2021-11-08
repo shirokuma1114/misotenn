@@ -39,7 +39,7 @@ Material:
     - _GradRotate_L: 0
     - _GradRotate_R: 0
     - _GradRotate_T: 0
-    - _HeightFog_Length: 5.2
+    - _HeightFog_Length: 0.5
     - _HeightFog_StartDistance: 0.2
     - _OnOff_ColorShadow: 1
     - _OnOff_CubeColor: 1
