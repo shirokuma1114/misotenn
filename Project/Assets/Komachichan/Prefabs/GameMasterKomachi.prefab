@@ -58,3 +58,4 @@ MonoBehaviour:
   _isFixedMode: 0
   _cardValues: 09000000090000000900000009000000
   _cameraInterpole: {fileID: 0}
+  _needSouvenirType: 6

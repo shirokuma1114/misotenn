@@ -66,9 +66,8 @@ public class CameraInterpolation : MonoBehaviour
             {
                 Moving = false;
                 CurrentCamera = NextCamera;
-                return;
             }
-
+    
 			this.transform.position = Vector3.Lerp
 				(
 				ObjectArray[CurrentCamera].transform.position, 
@@ -82,6 +81,7 @@ public class CameraInterpolation : MonoBehaviour
 				 ObjectArray[NextCamera].transform.rotation,
 				 present
 				 );
-		}
+ 
+        }
     }
 }

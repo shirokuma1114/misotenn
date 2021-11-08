@@ -7,6 +7,7 @@ public class MyGameManager : MonoBehaviour
     enum Phase
     {
         NONE,
+        AWAKE,
         INIT,
         WAIT_TURN_END,
         FADE_OUT,
@@ -60,19 +61,25 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     CameraInterpolation _cameraInterpole;
 
+    [SerializeField]
+    private int _needSouvenirType;
+
     // Start is called before the first frame update
     void Start()
     {
+
         _fade.FadeStart(30);
 
         UpdateTurn();
 
         // お小遣い移動カード初期化
         InitStatus();
-        _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
+        _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
+
+        _phase = Phase.AWAKE;
 
         // 初回ターン
-        InitTurn();
+  
 
         foreach(var x in FindObjectsOfType<SquareBase>())
         {
@@ -89,6 +96,10 @@ public class MyGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(_phase == Phase.AWAKE)
+        {
+            PhaseAwake();
+        }
         if(_phase == Phase.INIT)
         {
             PhaseInit();
@@ -111,6 +122,14 @@ public class MyGameManager : MonoBehaviour
         }
     }
 
+    void PhaseAwake()
+    {
+        if (_camera.State == EarthMove.EarthMoveState.END)
+        {
+            InitTurn();
+        }
+    }
+
     void PhaseInit()
     {
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
@@ -125,7 +144,7 @@ public class MyGameManager : MonoBehaviour
         if (_entryPlugs[_turnIndex].Character.State == CharacterState.END)
         {
             // ６種類全て集めた
-            if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() == 6)
+            if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() == _needSouvenirType)
             {
                 _phase = Phase.CLEAR;
                 _messageWindow.SendMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
@@ -161,17 +180,17 @@ public class MyGameManager : MonoBehaviour
 
             //次の人の止まっているマス座標
             _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
-            _cameraInterpole.Set_Second(0.01f);
-            _cameraInterpole.Set_NextCamera(0);
         }
     }
 
     void PhaseMoveCamera()
     {
-        if(_camera.State == EarthMove.EarthMoveState.END)
+        if (_camera.State == EarthMove.EarthMoveState.END)
         {
             _phase = Phase.INIT;
             _fade.FadeStart(30);
+            _cameraInterpole.Set_Second(0.01f);
+            _cameraInterpole.Set_NextCamera(0);
         }
     }
 
@@ -187,6 +206,11 @@ public class MyGameManager : MonoBehaviour
 
     void InitTurn()
     {
+        foreach (var x in _entryPlugs)
+        {
+            x.Character.SetWaitEnable(true);
+        }
+
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
         _entryPlugs[_turnIndex].Character.Name = "こまち社長";
@@ -216,7 +240,7 @@ public class MyGameManager : MonoBehaviour
             chara.Name = "敵" + i + "号";
             chara.SetCurrentSquare(startSquare);
             chara.AddMoney(1000);
-            chara.SetWaitEnable(true);
+            //chara.SetWaitEnable(true);
             chara.LapCount = 1;
         }
         _turnIndex = 0;
@@ -255,7 +279,7 @@ public class MyGameManager : MonoBehaviour
         // プレイヤーの中で5種類お土産を持っていて、持ってないお土産マスに止まれる移動カードを持っているか
         foreach(var x in _entryPlugs)
         {
-            if (x.Character.GetSouvenirTypeNum() == 5) return true;
+            if (x.Character.GetSouvenirTypeNum() == _needSouvenirType - 1) return true;
         }
 
         return false;
@@ -271,5 +295,12 @@ public class MyGameManager : MonoBehaviour
             characters.Add(x.Character);
         }
         return characters;
+        
+    }
+
+    // 勝利条件に必要な数
+    public int GetNeedSouvenirType()
+    {
+        return _needSouvenirType;
     }
 }
