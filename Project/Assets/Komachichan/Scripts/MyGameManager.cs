@@ -21,7 +21,6 @@ public class MyGameManager : MonoBehaviour
         CharacterBase character;
         int type;
     }
-
     [SerializeField]
     private int _cardMinValue;
 
@@ -50,19 +49,28 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     MessageWindow _messageWindow;
 
+    [SerializeField]
+    SelectWindow _selectWindow;
+
     private int _turnCount = 0;
 
+    [SerializeField]
+    CameraInterpolation _cameraInterpole;
+
+    [SerializeField]
+    EarthFreeRotation _earthFreeRotation;
+
+    [SerializeField]
+    private int _needSouvenirType;
+
+
+    [Header("相手の初期カードいじれるモード")]
     [SerializeField]
     bool _isFixedMode;
 
     [SerializeField]
     List<int> _cardValues = new List<int>();
     
-    [SerializeField]
-    CameraInterpolation _cameraInterpole;
-
-    [SerializeField]
-    private int _needSouvenirType;
 
     // Start is called before the first frame update
     void Start()
@@ -179,7 +187,7 @@ public class MyGameManager : MonoBehaviour
             }
 
             //次の人の止まっているマス座標
-            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
+            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
         }
     }
 
@@ -302,5 +310,19 @@ public class MyGameManager : MonoBehaviour
     public int GetNeedSouvenirType()
     {
         return _needSouvenirType;
+    }
+
+    public void EnableFreeRotation(bool enable)
+    {
+        if (enable)
+        {
+            _earthFreeRotation.TrunOn(_entryPlugs[_turnIndex].Character);
+        }
+        else
+        {
+            _earthFreeRotation.TrunOff();
+            // 元のカメラ位置に移動
+            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 5.0f);
+        }
     }
 }
