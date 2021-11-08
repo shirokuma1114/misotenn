@@ -141,4 +141,13 @@ public class SquareBase : MonoBehaviour
         // É}ÉXÇ…èÊÇ¡ÇƒÇ¢ÇÈêlÇÃêî
         return _stoppedCharacters.Count * 2 + addScore;
     }
+
+    public Quaternion GetQuaternion()
+    {
+        //Vector3 direction = (_inConnects.First().transform.position - transform.position).normalized;
+        Vector3 direction = (transform.position - _inConnects.First().transform.position).normalized;
+        Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
+        Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
+        return Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+    }
 }

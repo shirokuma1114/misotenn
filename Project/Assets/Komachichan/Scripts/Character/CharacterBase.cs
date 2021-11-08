@@ -71,9 +71,15 @@ public class CharacterBase : MonoBehaviour
 
     public CharacterLog Log { get; }
 
-    void Start()
-    {
+    private float _nextSquareDist;
 
+    private float _amplitude;
+
+    private float _originPosZ;
+
+    protected virtual void Start()
+    {
+        _originPosZ = transform.position.z;
     }
 
     void Update()
@@ -126,6 +132,9 @@ public class CharacterBase : MonoBehaviour
     public void SetCurrentSquare(SquareBase square)
     {
         _currentSquare = square;
+        //transform.parent = square.transform;
+        //transform.position = square.transform.position;
+        //transform.Translate(square.transform.up * 5.0f);
     }
 
     public void Init()
@@ -166,8 +175,11 @@ public class CharacterBase : MonoBehaviour
             _rootStack.Push(_currentSquare);
             _movingCount--;
         }
-        
+
         _currentSquare = square;
+
+        // 距離を計算
+        CalcDistToNextSquare();
 
         // ステージ回転
         FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition(), 50.0f);
@@ -176,7 +188,7 @@ public class CharacterBase : MonoBehaviour
     private void UpdateMove()
     {
         if (_state != CharacterState.MOVE) return;
-        SetAngleToSquare();
+        UpdateAngleToSquare();
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _state = CharacterState.WAIT;
@@ -229,16 +241,28 @@ public class CharacterBase : MonoBehaviour
         return typeList.Where(x => x == true).Count();
     }
 
-    private void SetAngleToSquare()
+    private void UpdateAngleToSquare()
     {
-        var pos = _currentSquare.gameObject.transform.position;
-        if (Vector3.Distance(pos, transform.position) < 0.3f) return;
+        var targetPos = _currentSquare.gameObject.transform.position;
+        var position = transform.position;
+        if (Vector3.Distance(targetPos, position) < 0.7f) return;
 
-        Vector3 target = _currentSquare.gameObject.transform.position;
-        Vector3 direction = (target - this.transform.position).normalized;
+        //var position = new Vector3(transform.position.x, transform.position.y, _originPosZ);
+        
+        Vector3 direction = (targetPos - position).normalized;
         Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
         Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
-        this.transform.rotation = Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+        transform.rotation = Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+
+        // 心がぴょんぴょんしない
+        //float dist = (targetPos - position).magnitude;
+        //transform.position = new Vector3(transform.position.x, transform.position.y, originPosZ - Mathf.Sin(Mathf.PI / _nextSquareDist * (_nextSquareDist - dist)) * _amplitude);
+    }
+
+    private void CalcDistToNextSquare()
+    {
+        _nextSquareDist = (_currentSquare.gameObject.transform.position - transform.position).magnitude;
+        _amplitude = Mathf.Min(_nextSquareDist * 0.1f, 0.5f);
     }
 
     public void SetDefaultAngle()
