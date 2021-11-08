@@ -33,6 +33,11 @@ public class SquareProtect : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+
+        _squareInfo =
+            "プロテクトマス\n" +
+            "コスト：" + _cost.ToString() + "\n" +
+            "守られるターン数：" + _protectTurn.ToString();
     }
 
     // Update is called once per frame
