@@ -38,7 +38,7 @@ public class SquareMoveForward : SquareBase
         _squareInfo =
             "前進マス\n" +
             "コスト：" + _cost.ToString() + "\n" +
-            "進むマス数";
+            "進むマス数：" + _moveNum.ToString();
     }
 
     // Update is called once per frame
