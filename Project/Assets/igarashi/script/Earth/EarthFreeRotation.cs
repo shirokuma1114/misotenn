@@ -9,9 +9,11 @@ public class EarthFreeRotation : MonoBehaviour
     private bool _freeRotationMode = false;
     public bool IsFreeRotationMode => _freeRotationMode;
 
+
     private Quaternion _startRot;
     private float _xzAngle;
 
+    private SquareInfoWindow _infoWindow;
 
     [Header("ëÄçÏÉLÅ[")]
     [SerializeField]
@@ -57,6 +59,9 @@ public class EarthFreeRotation : MonoBehaviour
             c.SetWaitEnable(true);
         _operator = character;
 
+        _infoWindow.SetEnable(true);
+        FindObjectOfType<SelectWindow>().SetEnable(false);
+
         _freeRotationMode = true;
     }
     /// <summary>
@@ -67,6 +72,9 @@ public class EarthFreeRotation : MonoBehaviour
     {
         transform.rotation = _startRot;
         _operator.SetWaitEnable(false);
+
+        _infoWindow.SetEnable(false);
+        FindObjectOfType<SelectWindow>().SetEnable(true);
 
         _freeRotationMode = false;
     }
@@ -81,6 +89,8 @@ public class EarthFreeRotation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _infoWindow = FindObjectOfType<SquareInfoWindow>();
+        _infoWindow.SetEnable(false);
     }
 
     // Update is called once per frame

@@ -13,6 +13,7 @@ public class MoveCardManager : MonoBehaviour
 
     // miya
     bool _finAnimEndFlag = false;
+    bool _finAnimStartFlag = false;
     public void FinAnimEnd() { _finAnimEndFlag = true; }
 
     [Header("生成するカードのプレハブ")]
@@ -138,6 +139,7 @@ public class MoveCardManager : MonoBehaviour
             mc.SetMoveTargetPos(new Vector3((rt.rect.width / 2.0f) + (rt.rect.width * i), rt.rect.height / 2.0f, 0.0f),i == _cardNumberLists.Count - 1);
 
             _finAnimEndFlag = false;
+            _finAnimStartFlag = false;
 
             _cards.Add(card);
         }
@@ -149,6 +151,8 @@ public class MoveCardManager : MonoBehaviour
     private void SelectCards()
     {
         if (_autoSelect)
+            return;
+        if (_finAnimStartFlag)
             return;
 
         if (Input.GetKeyDown(_selectLeftKey))
@@ -172,6 +176,7 @@ public class MoveCardManager : MonoBehaviour
         if (Input.GetKeyDown(_enterKey))
         {
             _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
+            _finAnimStartFlag = true;
         }        
     }
 

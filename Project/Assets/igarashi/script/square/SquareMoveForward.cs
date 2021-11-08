@@ -33,6 +33,12 @@ public class SquareMoveForward : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+
+
+        _squareInfo =
+            "前進マス\n" +
+            "コスト：" + _cost.ToString() + "\n" +
+            "進むマス数";
     }
 
     // Update is called once per frame

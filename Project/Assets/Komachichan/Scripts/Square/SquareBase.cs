@@ -22,6 +22,10 @@ public class SquareBase : MonoBehaviour
     // マスに止まっているきキャラクター
     private LinkedList<CharacterBase> _stoppedCharacters = new LinkedList<CharacterBase>();
 
+    //マス情報
+    protected string _squareInfo;
+    public string SquareInfo => _squareInfo;
+
     public LinkedList<CharacterBase> StoppedCharacters
     {
         get { return _stoppedCharacters; }
