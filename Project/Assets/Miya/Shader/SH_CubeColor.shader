@@ -180,7 +180,7 @@ Shader "Custom/SH_CubeColor"
 			float a, b;
 
 #ifdef TEXTURE_MAIN
-			albedo = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+			albedo = _Color;//tex2D(_MainTex, IN.uv_MainTex) * _Color;
 #endif
 
 #ifdef CUBE_COLOR
