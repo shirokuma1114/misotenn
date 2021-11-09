@@ -31,6 +31,8 @@ public class FollowPositions : MonoBehaviour
         _start = _positions[_index];
         _end = _positions[_index + 1];
         _distance = Vector3.Distance(_start, _end);
+
+        transform.position = _start;
     }
 
     private void Update()
