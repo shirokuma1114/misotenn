@@ -49,7 +49,7 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected Queue<SquareBase> _root = new Queue<SquareBase>();
 
-    protected SquareBase _startSquare;
+    protected int _goalMovingCount = 1;
 
     public virtual void InitTurn()
     {
@@ -60,7 +60,6 @@ public class CharacterControllerBase : MonoBehaviour
     public virtual void Move()
     {
         _eventState = EventState.MOVE;
-        _startSquare = _character.CurrentSquare;
     }
 
     protected virtual void SetRoot()
@@ -103,9 +102,10 @@ public class CharacterControllerBase : MonoBehaviour
 
         // í âﬂÉSÅ[ÉãîªíË
         var goal = _character.CurrentSquare.GetComponent<SquareGoal>();
-        if (goal && _startSquare != goal)
+        if (goal && _goalMovingCount != _character.MovingCount)
         {
-            Debug.Log(_startSquare);
+            _goalMovingCount = _character.MovingCount;
+            Debug.Log("ÉSÅ[ÉãÇ…é~Ç‹Ç¡ÇΩÅI");
             _eventState = EventState.GOAL;
             _character.Stop();
             return;
