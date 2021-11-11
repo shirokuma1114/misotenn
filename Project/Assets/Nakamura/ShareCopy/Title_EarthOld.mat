@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Title_Earth 1
+  m_Shader: {fileID: 4800000, guid: 330a019cc06106f4f81f7d015c1b14a1, type: 3}
+  m_ShaderKeywords: COLOR_SHADOW CUBE_COLOR RIM_LIGHT SHADOW_COLOR WITHOUT_SHADOW
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _BumpScale: 1
+    - _Cutoff: 0.5
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _Fog_Far: 5.06
+    - _Fog_Near: 1.2
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _GradHeight_B: 25
+    - _GradHeight_D: 25
+    - _GradHeight_F: 25
+    - _GradHeight_L: 14.24
+    - _GradHeight_R: 25
+    - _GradHeight_T: 25
+    - _GradRotate_B: 0
+    - _GradRotate_D: 0
+    - _GradRotate_F: 0
+    - _GradRotate_L: 0
+    - _GradRotate_R: 0
+    - _GradRotate_T: 0
+    - _HeightFog_Length: 5.2
+    - _HeightFog_StartDistance: 0.2
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _OnOff_CubeColor: 1
+    - _OnOff_Fog: 0
+    - _OnOff_HeightFog: 0
+    - _OnOff_RimLight: 1
+    - _OnOff_ShadowColor: 1
+    - _OnOff_Texture_Main: 0
+    - _OnOff_WithoutShadow: 1
+    - _Parallax: 0.02
+    - _RimLight_Strength: 5.6
+    - _Shadow_Strength: 0.1
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _UVSec: 0
+    - _ZWrite: 1
+    m_Colors:
+    - _BackColor1: {r: 0.6333704, g: 0.754717, b: 0, a: 1}
+    - _BackColor2: {r: 0.83968794, g: 1, b: 0.42830187, a: 1}
+    - _BottomColor1: {r: 0.08034887, g: 0.28319684, b: 0.3490566, a: 1}
+    - _BottomColor2: {r: 0.82310385, g: 0.73018867, b: 1, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Fog_Color: {r: 1, g: 0.09639593, b: 0, a: 1}
+    - _FrontColor1: {r: 0.09555001, g: 0.39097777, b: 0.41509432, a: 1}
+    - _FrontColor2: {r: 0, g: 0.9245283, b: 0.56958586, a: 1}
+    - _GradOrigin_B: {r: 0, g: 25, b: 0, a: 0}
+    - _GradOrigin_D: {r: 0, g: 0, b: 25, a: 0}
+    - _GradOrigin_F: {r: 0, g: 7.5, b: 0, a: 0}
+    - _GradOrigin_L: {r: -4, g: 20.39, b: 0, a: 0}
+    - _GradOrigin_R: {r: 0, g: 25, b: 0, a: 0}
+    - _GradOrigin_T: {r: 0, g: 0, b: 11, a: 0}
+    - _HeightFog_Color: {r: 0, g: 0.9393883, b: 1, a: 1}
+    - _LeftColor1: {r: 0.9245283, g: 0.91124386, b: 0, a: 1}
+    - _LeftColor2: {r: 0.10435206, g: 0.10883977, b: 0.6320754, a: 1}
+    - _RightColor1: {r: 0.41398156, g: 1, b: 0, a: 1}
+    - _RightColor2: {r: 0.6981132, g: 0.35342726, b: 0.14752577, a: 1}
+    - _RimLight_Color: {r: 1, g: 0, b: 0.8708334, a: 1}
+    - _Shadow_Color: {r: 0.9011033, g: 1, b: 0.29622638, a: 1}
+    - _TopColor1: {r: 0.7121314, g: 0.8113208, b: 0.19441079, a: 1}
+    - _TopColor2: {r: 0.0018689969, g: 0.13599618, b: 0.3962264, a: 1}
+  m_BuildTextureStacks: []
