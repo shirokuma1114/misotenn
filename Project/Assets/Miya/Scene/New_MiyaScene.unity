@@ -135,16 +135,20 @@ PrefabInstance:
       value: Environment
       objectReference: {fileID: 0}
     - target: {fileID: 7559466924128813213, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -11.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559466924128813213, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98609954
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7559466924128813213, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.16615577
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7559466924128813213, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -19.129
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8437509313593247755, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
       propertyPath: m_RootOrder

@@ -179,3 +179,4 @@ MonoBehaviour:
   - {fileID: 5002721107277253433, guid: 2b63b2d0ff143094a982140384d4f61c, type: 3}
   - {fileID: 5014022587634138600, guid: dd70f16d3b8dc7345be6448cb387c2ee, type: 3}
   Second: 1
+  PostEffect: {fileID: 6837414002334855422}
