@@ -21,6 +21,10 @@ public class CameraInterpolation : MonoBehaviour
 	public PostProcessVolume PostEffect;
 	PostProcessProfile PostEffect_Profile;
 	DepthOfField Depth;
+	void OnDestroy()
+	{
+		RuntimeUtilities.DestroyProfile(PostEffect_Profile, true);
+	}
 
 
 	// ˆÚ“®æƒJƒƒ‰w’è
