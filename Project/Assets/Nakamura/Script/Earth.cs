@@ -33,6 +33,6 @@ public class Earth : MonoBehaviour
         }
     
 
-         transform.Rotate(new Vector3(0.01f, -0.1f, 0.01f));
+         transform.Rotate(new Vector3(0.0f, 0.0f, -0.1f));
     }
 }
