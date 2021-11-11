@@ -66,9 +66,20 @@ public class CharacterBase : MonoBehaviour
         get { return _controller.IsAutomatic; }
     }
 
-    void Start()
+    // ラップ数
+    public int LapCount { get; set; }
+
+    public CharacterLog Log { get; }
+
+    private float _nextSquareDist;
+
+    private float _amplitude;
+
+    private float _originPosZ;
+
+    protected virtual void Start()
     {
-        
+        _originPosZ = transform.position.z;
     }
 
     void Update()
@@ -121,6 +132,9 @@ public class CharacterBase : MonoBehaviour
     public void SetCurrentSquare(SquareBase square)
     {
         _currentSquare = square;
+        //transform.parent = square.transform;
+        //transform.position = square.transform.position;
+        //transform.Translate(square.transform.up * 5.0f);
     }
 
     public void Init()
@@ -134,18 +148,19 @@ public class CharacterBase : MonoBehaviour
     {
         if (enable)
         {
-            transform.localScale = new Vector3(0.25f, 0.25f, 0.25f);
+            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             transform.SetParent(_currentSquare.GetComponent<Transform>());
         }
         else
         {
             transform.SetParent(null);
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
         }
     }
 
     public void StartMove(SquareBase square)
     {
+
         _state = CharacterState.MOVE;
         
         // 後退
@@ -160,9 +175,12 @@ public class CharacterBase : MonoBehaviour
             _rootStack.Push(_currentSquare);
             _movingCount--;
         }
-        
+
         _currentSquare = square;
-        
+
+        // 距離を計算
+        CalcDistToNextSquare();
+
         // ステージ回転
         FindObjectOfType<EarthMove>().MoveToPosition(_currentSquare.GetPosition(), 50.0f);
     }
@@ -170,9 +188,9 @@ public class CharacterBase : MonoBehaviour
     private void UpdateMove()
     {
         if (_state != CharacterState.MOVE) return;
+        UpdateAngleToSquare();
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
-            _controller.SetRoot();
             _state = CharacterState.WAIT;
         }
     }
@@ -221,5 +239,34 @@ public class CharacterBase : MonoBehaviour
             typeList[(int)x.Type] = true;
         }
         return typeList.Where(x => x == true).Count();
+    }
+
+    private void UpdateAngleToSquare()
+    {
+        var targetPos = _currentSquare.gameObject.transform.position;
+        var position = transform.position;
+        if (Vector3.Distance(targetPos, position) < 0.7f) return;
+
+        //var position = new Vector3(transform.position.x, transform.position.y, _originPosZ);
+        
+        Vector3 direction = (targetPos - position).normalized;
+        Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
+        Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
+        transform.rotation = Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+
+        // 心がぴょんぴょんしない
+        //float dist = (targetPos - position).magnitude;
+        //transform.position = new Vector3(transform.position.x, transform.position.y, originPosZ - Mathf.Sin(Mathf.PI / _nextSquareDist * (_nextSquareDist - dist)) * _amplitude);
+    }
+
+    private void CalcDistToNextSquare()
+    {
+        _nextSquareDist = (_currentSquare.gameObject.transform.position - transform.position).magnitude;
+        _amplitude = Mathf.Min(_nextSquareDist * 0.1f, 0.5f);
+    }
+
+    public void SetDefaultAngle()
+    {
+        transform.eulerAngles = new Vector3(0, 0, 0);
     }
 }

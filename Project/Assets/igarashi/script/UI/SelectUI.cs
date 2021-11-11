@@ -4,37 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SelectUI : MonoBehaviour
-{
-    [SerializeField]
-    private GameObject _selectionPrefab;
+{    
     private Rect DEFAULT_RECT = new Rect(244.0f,-75.0f,160,30);
-    private Color SELECT_COLOR = new Color(1, 0, 0, 1);
-    private Color NOT_SELECT_COLOR = new Color(1, 1, 1, 1);
 
     private List<string> _elements = new List<string>();
+    public List<string> Elements => _elements;
+
     private List<GameObject> _selections = new List<GameObject>();
     private int _selectIndex;
     public int SelectIndex => _selectIndex;
     private bool _selectComplete;
     public bool IsComplete => _selectComplete;
+    private bool _open;
+    public bool IsOpen => _open;
+
+    private CharacterBase _openerCharacter;   
+
+    [Header("プレハブ")]
+    [SerializeField]
+    private GameObject _selectionPrefab = null;
+
+    [Header("ボタンカラー")]
+    [SerializeField]
+    private Color SELECT_COLOR = new Color(1, 0, 0, 1);
+    [SerializeField]
+    private Color NOT_SELECT_COLOR = new Color(1, 1, 1, 1);
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _selectIndex = 0;
-        _selectComplete = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(!_selectComplete)
-            Select();
-    }
-
-    
-    public void Open(List<string> elements)
+    /// <summary>
+    /// UIを開く
+    /// </summary>
+    /// <param name="elements">選択する要素</param>
+    /// <param name="character">開いたプレイヤー</param>
+    public void Open(List<string> elements,CharacterBase character)
     {
         _elements = new List<string>(elements);
 
@@ -54,13 +56,15 @@ public class SelectUI : MonoBehaviour
         }
 
         UpdateSelectionColor();
+
+        _openerCharacter = character;
+        _open = true;
     }
 
-    public void ReOpen()
-    {
-        _selectComplete = false;
-    }
 
+    /// <summary>
+    /// UIを閉じる
+    /// </summary>
     public void Close()
     {
         _elements.Clear();
@@ -68,18 +72,44 @@ public class SelectUI : MonoBehaviour
         for (int i = 0; i < _selections.Count; i++)
             Destroy(_selections[i]);
         _selections.Clear();
+
+        _openerCharacter = null;
+        _open = false;
     }
 
+
+    /// <summary>
+    /// AI選択用
+    /// </summary>
+    /// <param name="index">選択したいインデックス</param>
     public void IndexSelect(int index)
     {
         _selectIndex = index;
         _selectComplete = true;
+        Close();
     }
 
 
+    //=============================================
 
+    void Start()
+    {
+        _selectIndex = 0;
+        _selectComplete = false;
+    }
+
+    void Update()
+    {
+        if (_open)
+            Select();
+    }
+
+ 
     private void Select()
     {
+        if (_openerCharacter.IsAutomatic)
+            return;
+
         if(Input.GetKeyDown(KeyCode.W))
         {
             _selectIndex++;

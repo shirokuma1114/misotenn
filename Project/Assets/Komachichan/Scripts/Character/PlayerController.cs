@@ -6,13 +6,7 @@ using System.Linq;
 
 public class PlayerController : CharacterControllerBase
 {
-    bool _isMoved = false;
     bool _isSelectedCard = false;
-
-    Stack<SquareBase> _root = new Stack<SquareBase>();
-
-    bool _collisionMode = false;
-
 
     // Start is called before the first frame update
     void Awake()
@@ -20,6 +14,8 @@ public class PlayerController : CharacterControllerBase
         _moveCardManager = FindObjectOfType<MoveCardManager>();
         _movingCount = FindObjectOfType<MovingCountWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
+        _eventState = EventState.WAIT;
     }
 
     // Update is called once per frame
@@ -32,27 +28,36 @@ public class PlayerController : CharacterControllerBase
         UpdateMove();
     }
 
-    // 移動カードを選ぶ
-    public override void Move()
+    public override void InitTurn()
     {
+        base.InitTurn();
         _character.Init();
-        _moveCardManager.SetCardList(_character.MovingCards);
-
         _statusWindow.SetEnable(true);
         _statusWindow.SetMoney(_character.Money);
         _statusWindow.SetName(_character.Name);
+        _statusWindow.SetLapNum(_character.LapCount);
+        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+        _souvenirWindow.SetEnable(true);
+        _selectWindow.SetIsAutomatic(_character.IsAutomatic);
+        _selectWindow.SetEnable(true);
+    }
+
+    // 移動カードを選ぶ
+    public override void Move()
+    {
+        base.Move();
+        _moveCardManager.SetCardList(_character.MovingCards);
         _isSelectedCard = true;
     }
 
-    public override void SetRoot()
+    protected override void SetRoot()
     {
-        NotifyMovingCount(_character.MovingCount);
-
         // ルート生成
+        var next = _character.CurrentSquare;
         for(int i = 0; i < _character.MovingCount; i++)
         {
-            var next = _character.CurrentSquare.OutConnects.First();
-            _root.Push(next);
+            next = next.OutConnects.Last();
+            _root.Enqueue(next);
         }
     }
 
@@ -62,50 +67,13 @@ public class PlayerController : CharacterControllerBase
         {
             _statusWindow.SetEnable(false);
             _movingCount.SetEnable(true);
+            _souvenirWindow.SetEnable(false);
             var index = _moveCardManager.GetSelectedCardIndex();
             _character.RemoveMovingCard(index);
             _isSelectedCard = false;
-            _isMoved = true;
             SetRoot();
             _moveCardManager.DeleteCards();
             
         }
-    }
-
-    private void UpdateMove()
-    {
-        if (!_isMoved) return;
-        if (_character.State != CharacterState.WAIT) return;
-
-        // マス目を決定する
-        if (_character.MovingCount == 0 && !_collisionMode)
-        {
-            _movingCount.SetEnable(false);
-
-            // 既に止まっているプレイヤーがいる
-            if (_character.CurrentSquare.AlreadyStopped())
-            {
-                Collision(_character, _character.CurrentSquare.StoppedCharacters.ToList());
-                _collisionMode = true;
-                return;
-            }
-            _character.Stop();
-            _isMoved = false;
-            return;
-        }
-
-        if (_collisionMode)
-        {
-            UpdateColliision();
-            if (IsFinishedCollision())
-            {
-                _character.Stop();
-                _isMoved = false;
-                return;
-            }
-        }
-
-        if (_root.Count == 0) return;
-        StartMove(_root.Pop());
     }
 }

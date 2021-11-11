@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SquareBase : MonoBehaviour
 {
@@ -8,7 +9,6 @@ public class SquareBase : MonoBehaviour
     private SquareType _squareType;
 
     // イン
-    [SerializeField]
     protected List<SquareBase> _inConnects = new List<SquareBase>();
 
     public List<SquareBase> InConnects
@@ -17,11 +17,14 @@ public class SquareBase : MonoBehaviour
     }
 
     // アウト
-    [SerializeField]
     protected List<SquareBase> _outConnects = new List<SquareBase>();
 
     // マスに止まっているきキャラクター
     private LinkedList<CharacterBase> _stoppedCharacters = new LinkedList<CharacterBase>();
+
+    //マス情報
+    protected string _squareInfo;
+    public string SquareInfo => _squareInfo;
 
     public LinkedList<CharacterBase> StoppedCharacters
     {
@@ -54,12 +57,6 @@ public class SquareBase : MonoBehaviour
 
         _inConnects.Add(transform.parent.GetChild(index - 1).GetComponent<SquareBase>());
         _outConnects.Add(transform.parent.GetChild(index + 1).GetComponent<SquareBase>());
-    }
-
-    public void JudgeCollision(CharacterBase character)
-    {
-        
-        
     }
 
     public bool AlreadyStopped()
@@ -104,7 +101,53 @@ public class SquareBase : MonoBehaviour
     //評価を調べる
     public virtual int GetScore(CharacterBase character)
     {
-        // 何もないマスなので評価は0
-        return 0;
+        int addScore = 0;
+        if (_stoppedCharacters.Count >= 1)
+        {
+
+            // 持ってないカードリスト
+            var dontHaveTypes = new HashSet<SouvenirType>();
+            for(int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
+            {
+                // カードが無い
+                if(character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() >= 1)
+                {
+                    dontHaveTypes.Add((SouvenirType)i);
+                }
+            }
+
+            // 持っていないカードを持っているか
+            foreach (var x in _stoppedCharacters)
+            {
+                foreach(var y in x.Souvenirs)
+                {
+                    //　持っていないカードリストに含まれている
+                    if(dontHaveTypes.Where(z => z == y.Type).Count() >= 1)
+                    {
+                        // 揃ったら勝利の場合
+                        if(dontHaveTypes.Count == 1)
+                        {
+                            // 持っていないお土産マスに止まり勝利するスコアと同じ
+                            return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN;
+                        }
+                        // お土産マスに止まるよりも評価が高い
+                        addScore += (int)SquareScore.DONT_HAVE_SOUVENIR;
+                    }   
+                }
+                
+            }
+        }
+
+        // マスに乗っている人の数
+        return _stoppedCharacters.Count * 2 + addScore;
+    }
+
+    public Quaternion GetQuaternion()
+    {
+        //Vector3 direction = (_inConnects.First().transform.position - transform.position).normalized;
+        Vector3 direction = (transform.position - _inConnects.First().transform.position).normalized;
+        Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
+        Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
+        return Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
     }
 }

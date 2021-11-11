@@ -5,7 +5,6 @@ using UnityEngine;
 public class Protector : MonoBehaviour
 {
     private CharacterBase _character;
-    private CharacterState _characterState;
     private CharacterState _prevCharacterState;
 
     private bool _protected;
@@ -18,7 +17,7 @@ public class Protector : MonoBehaviour
     void Start()
     {
         _character = GetComponent<CharacterBase>();
-        _characterState = _prevCharacterState = _character.State;
+        _prevCharacterState = _character.State;
 
         _protected = false;
 
@@ -28,20 +27,20 @@ public class Protector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _characterState = _character.State;
-
-        if (_protected && _prevCharacterState != CharacterState.END && _character.State == CharacterState.END)
+        if(_protected)
         {
-            _turnEndCount++;
-        }
+            if (_prevCharacterState != CharacterState.END && _character.State == CharacterState.END)
+            {
+                _turnEndCount++;
+            }
 
-        if(_turnEndCount >= _protectTurn)
-        {
-            _protected = false;
-        }
+            if (_turnEndCount >= _protectTurn)
+            {
+                _protected = false;
+            }
 
-
-        _prevCharacterState = _characterState;
+            _prevCharacterState = _character.State;
+        }        
     }
 
 

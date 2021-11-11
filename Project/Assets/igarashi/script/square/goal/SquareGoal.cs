@@ -34,6 +34,9 @@ public class SquareGoal : SquareBase
         var c = FindObjectsOfType<CharacterBase>();
         for(int i = 0; i < c.Length;i++)
             _characterGoalNums.Add(c[i], 0);
+
+        _squareInfo =
+            "ƒS[ƒ‹ƒ}ƒX\n";
     }
 
     // Update is called once per frame
@@ -91,10 +94,17 @@ public class SquareGoal : SquareBase
     {
         if (!_messageWindow.IsDisplayed)
         {
+            /// Žü‰ñ”’Ç‰Á
+            _character.LapCount++;
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
 
             _state = SquareGoalState.IDLE;
         }
+    }
+
+    public override int GetScore(CharacterBase character)
+    {
+        return (int)SquareScore.GOAL + base.GetScore(character);
     }
 }

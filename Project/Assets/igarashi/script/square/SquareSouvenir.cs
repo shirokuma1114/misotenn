@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class SquareSouvenir : SquareBase
 {
@@ -35,6 +36,12 @@ public class SquareSouvenir : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+
+        _squareInfo =
+            "Ç®ìyéYÉ}ÉX\n" +
+            "ÉRÉXÉgÅF" + _cost.ToString() + "\n" +
+            "Ç®ìyéYñºÅF" + _souvenirName + "\n" +
+            "Ç®ìyéYÉ^ÉCÉvÅF" + _type.ToString(); 
     }
 
     public override void Stop(CharacterBase character)
@@ -55,9 +62,14 @@ public class SquareSouvenir : SquareBase
 
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
-        _payUI.SetEnable(true);
+        _payUI.Open(character);
 
         _state = SquareSouvenirState.PAY_WAIT;
+
+        if (character.IsAutomatic)
+        {
+            Invoke("SelectAutomatic", 1.5f);
+        }
     }
 
     // Update is called once per frame
@@ -79,14 +91,17 @@ public class SquareSouvenir : SquareBase
         }
     }
 
-
+    void SelectAutomatic()
+    {
+        _payUI.AISelectYes();
+    }
 
 
     private void PayWaitProcess()
     {
-        if (_payUI.IsChoiseComplete() && !_messageWindow.IsDisplayed)
+        if (_payUI.IsSelectComplete && !_messageWindow.IsDisplayed)
         {
-            if (_payUI.IsSelectYes())
+            if (_payUI.IsSelectYes)
             {
                 _state = SquareSouvenirState.EVENT;
             }
@@ -94,8 +109,6 @@ public class SquareSouvenir : SquareBase
             {
                 _state = SquareSouvenirState.END;
             }
-
-            _payUI.SetEnable(false);
         }            
     }
 
@@ -125,7 +138,12 @@ public class SquareSouvenir : SquareBase
 
     public override int GetScore(CharacterBase character)
     {
-        // Ç®ã‡Ç™ë´ÇËÇÈ
-        return _cost <= character.Money ? 100 : 0;
+        // Ç®ã‡Ç™ë´ÇËÇ»Ç¢
+        if (_cost > character.Money) return base.GetScore(character);
+
+        // éùÇ¡ÇƒÇ¢Ç»Ç¢Ç®ìyéYÇ™îÑÇ¡ÇƒÇ¢ÇÈ
+        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character);
+
+        return (int)SquareScore.SOUVENIR + base.GetScore(character);
     }
 }

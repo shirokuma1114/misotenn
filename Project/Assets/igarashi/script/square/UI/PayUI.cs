@@ -6,13 +6,77 @@ using UnityEngine.UI;
 public class PayUI : MonoBehaviour
 {
     private bool _selectComplete = false;
+    public bool IsSelectComplete => _selectComplete;
+
+    private bool _selectYes;
+    public bool IsSelectYes => _selectYes;
 
     private GameObject _yes;
     private GameObject _no;
 
-    private bool _selectYes;
+    private bool _open;
+    public bool IsOpen => _open;
+    private CharacterBase _openerCharacter;
 
-    private bool _enable;
+
+    [Header("操作キー")]
+    [SerializeField]
+    private KeyCode _moveUp = KeyCode.W;
+    [SerializeField]
+    private KeyCode _moveDown = KeyCode.S;
+    [SerializeField]
+    private KeyCode _enter = KeyCode.Return;
+
+
+    /// <summary>
+    /// AI選択用
+    /// </summary>
+    public void AISelectYes()
+    {
+        _selectComplete = true;
+        _selectYes = true;
+
+        ButtonColorUpdate();
+
+        Invoke("Close", 0.5f);
+    }
+
+    /// <summary>
+    /// AI選択用
+    /// </summary>
+    public void AISelectNo()
+    {
+        _selectComplete = true;
+        _selectYes = false;
+
+        ButtonColorUpdate();
+
+        Close();
+    }
+
+
+    /// <summary>
+    /// UIを開く
+    /// </summary>
+    /// <param name="opener">UIを開いたプレイヤー</param>
+    public void Open(CharacterBase opener)
+    {
+        _openerCharacter = opener;
+
+        _yes.GetComponent<Image>().enabled = true;
+        _yes.GetComponentInChildren<Text>().enabled = true;
+        _no.GetComponent<Image>().enabled = true;
+        _no.GetComponentInChildren<Text>().enabled = true;
+
+        _selectComplete = false;
+        _selectYes = false;
+
+        ButtonColorUpdate();
+
+        _open = true;
+    }
+
+    //===========================================
 
     private void Awake()
     {
@@ -24,7 +88,7 @@ public class PayUI : MonoBehaviour
         _selectYes = false;
         ButtonColorUpdate();
 
-        SetEnable(false);
+        Close();
     }
 
     // Start is called before the first frame update
@@ -35,63 +99,21 @@ public class PayUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SelectChoices();
+        if (_open)
+        {
+            SelectChoices();
+        }
     }
-
-
-    //=================================
-    //public
-    //=================================
-    public void AISelectYes()
-    {
-        _selectComplete = true;
-
-        _selectYes = true;
-
-        ButtonColorUpdate();
-    }
-
-    public void AISelectNo()
-    {
-        _selectComplete = true;
-
-        _selectYes = false;
-
-        ButtonColorUpdate();
-    }
-
-
-    public void SetEnable(bool enable)
-    {
-        _enable = enable;
-
-        _yes.GetComponent<Image>().enabled = enable;
-        _yes.GetComponentInChildren<Text>().enabled = enable;
-
-        _no.GetComponent<Image>().enabled = enable;
-        _no.GetComponentInChildren<Text>().enabled = enable;
-    }
-
-    public bool IsChoiseComplete()
-    {
-        return _selectComplete;
-    }
-
-    public bool IsSelectYes()
-    {
-        return _selectYes;
-    }
-    //=================================
 
 
     private void SelectChoices()
     {
-        if (!_enable)
+        if (_openerCharacter.IsAutomatic)
             return;
 
         if (_selectYes)
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(_moveUp) || Input.GetKeyDown(_moveDown))
             {
                 _selectYes = false;
                 ButtonColorUpdate();
@@ -99,16 +121,17 @@ public class PayUI : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(_moveUp) || Input.GetKeyDown(_moveDown))
             {
                 _selectYes = true;
                 ButtonColorUpdate();
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(_enter))
         {
             _selectComplete = true;
+            Close();
         }
     }
 
@@ -118,12 +141,24 @@ public class PayUI : MonoBehaviour
         if (_selectYes)
         {
             _yes.GetComponent<Image>().color = new Color(1, 0, 0, 1);
-            _no.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            _no.GetComponent<Image>().color = new Color(0, 0, 0, 0.137254f);
         }
         else
         {
             _no.GetComponent<Image>().color = new Color(1, 0, 0, 1);
-            _yes.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            _yes.GetComponent<Image>().color = new Color(0, 0, 0, 0.137254f);
         }
+    }
+
+    private void Close()
+    {
+        _open = false;
+
+        _openerCharacter = null;
+
+        _yes.GetComponent<Image>().enabled = false;
+        _yes.GetComponentInChildren<Text>().enabled = false;
+        _no.GetComponent<Image>().enabled = false;
+        _no.GetComponentInChildren<Text>().enabled = false;
     }
 }

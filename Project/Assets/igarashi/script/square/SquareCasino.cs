@@ -24,9 +24,9 @@ public class SquareCasino : SquareBase
     private int _bet;
 
     [SerializeField]
-    private int _percentage;
+    private int _percentage = 50;
     [SerializeField]
-    private int _rate;
+    private int _rate = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +37,11 @@ public class SquareCasino : SquareBase
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
         _betChoices = new List<int>();
+
+        _squareInfo =
+            "カジノマス\n" +
+            "確率：" + _percentage.ToString() + "\n" +
+            "倍率：" + _rate.ToString();
     }
 
     // Update is called once per frame
@@ -90,7 +95,7 @@ public class SquareCasino : SquareBase
         _betChoices.Add(_maxBet);
         _selectElements.Add("やめる");
 
-        _selectUI.Open(_selectElements);
+        _selectUI.Open(_selectElements,character);
 
 
         _state = SquareCasinoState.PAY;
@@ -140,5 +145,12 @@ public class SquareCasino : SquareBase
 
             _state = SquareCasinoState.IDLE;
         }
+    }
+
+    public override int GetScore(CharacterBase character)
+    {
+        if (character.Money == 0) return base.GetScore(character);
+
+        return (int)SquareScore.CASINO + base.GetScore(character);
     }
 }
