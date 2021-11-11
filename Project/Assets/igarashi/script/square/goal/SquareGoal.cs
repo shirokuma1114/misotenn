@@ -62,6 +62,15 @@ public class SquareGoal : SquareBase
 
         _statusWindow.SetEnable(true);
 
+        _characterGoalNums[character]++;
+        int money = _baseMoney * _characterGoalNums[character];
+        character.AddMoney(money);
+
+        // ü‰ñ”’Ç‰Á
+        _character.LapCount++;
+        _statusWindow.SetMoney(_character.Money);
+        _statusWindow.SetLapNum(_character.LapCount);
+
         _state = SquareGoalState.GOAL;
     }
 
@@ -72,12 +81,11 @@ public class SquareGoal : SquareBase
 
     public void Goal(CharacterBase character)
     {
-        _characterGoalNums[character]++;
         int money = _baseMoney * _characterGoalNums[character];
-        character.AddMoney(money);
 
         var message = character.Name + "‚Í" + _characterGoalNums[character].ToString() + "T–Ú\n" + money.ToString() + "‰~‚à‚ç‚Á‚½";
         _messageWindow.SetMessage(message, character.IsAutomatic);
+
     }
 
 
@@ -94,8 +102,6 @@ public class SquareGoal : SquareBase
     {
         if (!_messageWindow.IsDisplayed)
         {
-            /// ü‰ñ”’Ç‰Á
-            _character.LapCount++;
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
 

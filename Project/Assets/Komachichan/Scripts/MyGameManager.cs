@@ -155,8 +155,8 @@ public class MyGameManager : MonoBehaviour
             if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() == _needSouvenirType)
             {
                 _phase = Phase.CLEAR;
-                _messageWindow.SendMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
-                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！");
+                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
+                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", false);
 
                 return;
             }

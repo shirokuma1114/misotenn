@@ -51,7 +51,7 @@ public class CharacterBase : MonoBehaviour
     }
 
     // ルート保存用
-    private Stack<SquareBase> _rootStack = new Stack<SquareBase>();
+    //private Stack<SquareBase> _rootStack = new Stack<SquareBase>();
 
     private int _movingCount;
 
@@ -132,16 +132,12 @@ public class CharacterBase : MonoBehaviour
     public void SetCurrentSquare(SquareBase square)
     {
         _currentSquare = square;
-        //transform.parent = square.transform;
-        //transform.position = square.transform.position;
-        //transform.Translate(square.transform.up * 5.0f);
     }
 
     public void Init()
     {
         _state = CharacterState.WAIT;
         _currentSquare.RemoveCharacter(this);
-        _rootStack.Clear();
     }
 
     public void SetWaitEnable(bool enable)
@@ -160,21 +156,9 @@ public class CharacterBase : MonoBehaviour
 
     public void StartMove(SquareBase square)
     {
-
         _state = CharacterState.MOVE;
         
-        // 後退
-        if (_rootStack.Contains(square))
-        {
-            _rootStack.Pop();
-            _movingCount++;
-        }
-        // 前進
-        else
-        {
-            _rootStack.Push(_currentSquare);
-            _movingCount--;
-        }
+        _movingCount--;
 
         _currentSquare = square;
 
@@ -199,7 +183,10 @@ public class CharacterBase : MonoBehaviour
     {
         _state = CharacterState.STOP;
         _currentSquare.Stop(this);
-        _currentSquare.AddCharacter(this);
+        if (_movingCount == 0)
+        {
+            _currentSquare.AddCharacter(this);
+        }
     }
 
     public List<SquareBase> GetInConnects()
@@ -209,10 +196,7 @@ public class CharacterBase : MonoBehaviour
         // スタックにあるマスのみ
         foreach (var s in _currentSquare.InConnects)
         {
-            if (_rootStack.Contains(s))
-            {
-                outs.Add(s);
-            }
+            outs.Add(s);
         }
         
         return outs;
@@ -225,6 +209,11 @@ public class CharacterBase : MonoBehaviour
 
     public void CompleteStopExec()
     {
+        if (_movingCount > 0)
+        {
+            _state = CharacterState.WAIT;
+            return;
+        }
         _state = CharacterState.END;
     }
 
