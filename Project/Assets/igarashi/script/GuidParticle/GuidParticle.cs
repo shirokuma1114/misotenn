@@ -55,7 +55,7 @@ public class GuidParticle : MonoBehaviour
 
     void Update()
     {
-        if(_moveCounter > _moveNum)
+        if(_moveCounter >= _moveNum)
         {
             Destroy(gameObject);
         }
