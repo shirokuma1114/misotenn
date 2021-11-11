@@ -23,6 +23,8 @@ public class SquareCasino : SquareBase
     private List<int> _betChoices;
     private int _bet;
 
+    private CasinoGame _casinoGameUI;
+
     [SerializeField]
     private int _percentage = 50;
     [SerializeField]
@@ -37,6 +39,8 @@ public class SquareCasino : SquareBase
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
         _betChoices = new List<int>();
+
+        _casinoGameUI = FindObjectOfType<CasinoGame>();
 
         _squareInfo =
             "カジノマス\n" +
@@ -116,24 +120,33 @@ public class SquareCasino : SquareBase
             _bet = _betChoices[_selectUI.SelectIndex];
             _character.SubMoney(_bet);
 
+
+            _casinoGameUI.Play(_character.IsAutomatic);
+            _messageWindow.SetMessage("上のオープンしているカードより\n高いと思うカードを選択してください", _character.IsAutomatic);
+
             _state = SquareCasinoState.CHALLENGE;
+            return;
         }
     }
     private void ChallengeStateProcess()
     {
-        int rand = Random.Range(1, 100);
-        
-        if(1 <= rand && _percentage >= rand) //当たり
+        if (_messageWindow.IsDisplayed)
+            return;
+        if (!_casinoGameUI.IsComplate)
+            return;
+
+        if(_casinoGameUI.IsCorrectAnswer)
         {
             _messageWindow.SetMessage("当たり!!\n" + (_bet * _rate).ToString() + "円になりました", _character.IsAutomatic);
             _character.AddMoney(_bet * _rate);
         }
         else //はずれ
         {
-            _messageWindow.SetMessage("はずれ\n" + _bet.ToString() + "失いました", _character.IsAutomatic);
+            _messageWindow.SetMessage("はずれ\n" + _bet.ToString() + "円失いました", _character.IsAutomatic);
         }
 
-        _state = SquareCasinoState.END;
+
+       _state = SquareCasinoState.END;
     }
     private void EndStateProcess()
     {
