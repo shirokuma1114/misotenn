@@ -14,6 +14,9 @@ public class FollowPositions : MonoBehaviour
 
     private float _lerpCount;
 
+    [SerializeField]
+    private float _speed = 30.0f;
+
     private void Awake()
     {
         _index = 0;
@@ -28,6 +31,8 @@ public class FollowPositions : MonoBehaviour
         _start = _positions[_index];
         _end = _positions[_index + 1];
         _distance = Vector3.Distance(_start, _end);
+
+        transform.position = _start;
     }
 
     private void Update()
@@ -46,7 +51,7 @@ public class FollowPositions : MonoBehaviour
         else
         {
             transform.position = _earth.transform.TransformPoint(Vector3.Lerp(_start, _end, _lerpCount));
-            _lerpCount += 50.0f * Time.deltaTime;
+            _lerpCount += 1 / _distance * _speed * Time.deltaTime;
         }
     }
 }

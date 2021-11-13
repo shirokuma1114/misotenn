@@ -58,6 +58,7 @@ public class AIController : CharacterControllerBase
         _movingCount.SetEnable(true);
         _souvenirWindow.SetEnable(false);
         _character.RemoveMovingCard(index);
+        _goalMovingCount = _character.MovingCount;
         SetRoot();
         _moveCardManager.DeleteCards();
         _isSelectedCard = false;

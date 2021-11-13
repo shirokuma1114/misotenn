@@ -70,6 +70,7 @@ public class PlayerController : CharacterControllerBase
             _souvenirWindow.SetEnable(false);
             var index = _moveCardManager.GetSelectedCardIndex();
             _character.RemoveMovingCard(index);
+            _goalMovingCount = _character.MovingCount;
             _isSelectedCard = false;
             SetRoot();
             _moveCardManager.DeleteCards();

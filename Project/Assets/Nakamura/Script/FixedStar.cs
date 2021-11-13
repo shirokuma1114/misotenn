@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FixedStar : MonoBehaviour
 {
-    private Transform _target;
+    [SerializeField]private Transform _target;
 
     // Start is called before the first frame update
     void Start()

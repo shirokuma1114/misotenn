@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.Rendering.PostProcessing;
+
 public class CameraInterpolation : MonoBehaviour
 {
 	// 変数
@@ -15,6 +17,14 @@ public class CameraInterpolation : MonoBehaviour
 	float Distance = 0;
 	float StartTime = 0;
 	float CurrentTime = 0;
+	
+	public PostProcessVolume PostEffect;
+	PostProcessProfile PostEffect_Profile;
+	DepthOfField Depth;
+	void OnDestroy()
+	{
+		RuntimeUtilities.DestroyProfile(PostEffect_Profile, true);
+	}
 
 
 	// 移動先カメラ指定
@@ -48,6 +58,11 @@ public class CameraInterpolation : MonoBehaviour
     {
 		this.transform.position = ObjectArray[CurrentCamera].transform.position;
 		this.transform.rotation = ObjectArray[CurrentCamera].transform.rotation;
+
+
+		// ポストエフェクト
+		PostEffect_Profile = PostEffect.profile;
+		Depth = PostEffect_Profile.GetSetting<DepthOfField>();
 	}
 
     // 更新(映像ができるだけなめらかになってほしいためFiexedを使わないで作ってみる)
@@ -66,9 +81,8 @@ public class CameraInterpolation : MonoBehaviour
             {
                 Moving = false;
                 CurrentCamera = NextCamera;
-                return;
             }
-
+    
 			this.transform.position = Vector3.Lerp
 				(
 				ObjectArray[CurrentCamera].transform.position, 
@@ -82,6 +96,10 @@ public class CameraInterpolation : MonoBehaviour
 				 ObjectArray[NextCamera].transform.rotation,
 				 present
 				 );
+
+			// Depth
+			if		(NextCamera == 1) Depth.focusDistance.Override(Mathf.Lerp(1.5f, 1.1f, present));
+			else if (NextCamera == 0) Depth.focusDistance.Override(Mathf.Lerp(1.1f, 1.5f, present));
 		}
     }
 }
