@@ -87,8 +87,8 @@ public class SquareAllowance : SquareBase
             .Begin(_character);
     }
 
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
-        return (int)SquareScore.ALLOWANCE + base.GetScore(character);
+        return (int)SquareScore.ALLOWANCE + base.GetScore(character, characterType);
     }
 }

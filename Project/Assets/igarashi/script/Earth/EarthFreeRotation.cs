@@ -13,7 +13,7 @@ public class EarthFreeRotation : MonoBehaviour
     private Quaternion _startRot;
     private float _xzAngle;
 
-    private SquareInfoWindow _infoWindow;
+    //private SquareInfoWindow _infoWindow;
 
     [Header("ëÄçÏÉLÅ[")]
     [SerializeField]
@@ -55,12 +55,11 @@ public class EarthFreeRotation : MonoBehaviour
         Vector3 xzLocalFront = new Vector3(localFront.x, 0.0f, localFront.z);
         _xzAngle = Vector3.SignedAngle(localFront, xzLocalFront, Vector3.Cross(xzLocalFront,transform.up));
 
-        foreach (var c in FindObjectsOfType<CharacterBase>())
-            c.SetWaitEnable(true);
+        character.SetWaitEnable(true);
         _operator = character;
 
-        _infoWindow.SetEnable(true);
-        FindObjectOfType<SelectWindow>().SetEnable(false);
+        //_infoWindow.SetEnable(true);
+        //FindObjectOfType<SelectWindow>().SetEnable(false);
 
         _freeRotationMode = true;
     }
@@ -70,11 +69,12 @@ public class EarthFreeRotation : MonoBehaviour
     /// </summary>
     public void TrunOff()
     {
+        if (_operator == null) return;
         transform.rotation = _startRot;
         _operator.SetWaitEnable(false);
 
-        _infoWindow.SetEnable(false);
-        FindObjectOfType<SelectWindow>().SetEnable(true);
+        //_infoWindow.SetEnable(false);
+        //FindObjectOfType<SelectWindow>().SetEnable(true);
 
         _freeRotationMode = false;
     }
@@ -89,8 +89,8 @@ public class EarthFreeRotation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _infoWindow = FindObjectOfType<SquareInfoWindow>();
-        _infoWindow.SetEnable(false);
+        //_infoWindow = FindObjectOfType<SquareInfoWindow>();
+        //_infoWindow.SetEnable(false);
     }
 
     // Update is called once per frame
@@ -145,5 +145,6 @@ public class EarthFreeRotation : MonoBehaviour
                 transform.RotateAround(transform.position, transform.up, -_freamRotationAngle * Time.deltaTime);
             }
         }
+
     }
 }

@@ -50,16 +50,15 @@ public class CharacterBase : MonoBehaviour
         get { return _state; }
     }
 
-    // ルート保存用
-    private Stack<SquareBase> _rootStack = new Stack<SquareBase>();
-
+    [SerializeField]
+    private Floating_Local_Miya _floating;
+    
     private int _movingCount;
 
     public int MovingCount
     {
         get { return _movingCount; }
     }
-    
 
     public bool IsAutomatic
     {
@@ -76,6 +75,8 @@ public class CharacterBase : MonoBehaviour
     private float _amplitude;
 
     private float _originPosZ;
+
+    private bool _waitEnable;
 
     protected virtual void Start()
     {
@@ -132,49 +133,68 @@ public class CharacterBase : MonoBehaviour
     public void SetCurrentSquare(SquareBase square)
     {
         _currentSquare = square;
-        //transform.parent = square.transform;
-        //transform.position = square.transform.position;
-        //transform.Translate(square.transform.up * 5.0f);
     }
 
     public void Init()
     {
         _state = CharacterState.WAIT;
         _currentSquare.RemoveCharacter(this);
-        _rootStack.Clear();
     }
 
     public void SetWaitEnable(bool enable)
     {
         if (enable)
         {
-            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            // 縮小
             transform.SetParent(_currentSquare.GetComponent<Transform>());
+            transform.localScale = new Vector3(15.5f, 15.5f, 15.5f);
+
+            // 回転
+            transform.eulerAngles = new Vector3(0.0f, -90.0f, 90.0f);
+
+            _currentSquare.AddCharacter(this);
         }
         else
         {
+            _currentSquare.RemoveCharacter(this);
+
+            // 移動
+            transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            transform.Translate(0, 0.65f, 0);
+
+            // 拡大
             transform.SetParent(null);
-            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
         }
+        _waitEnable = enable;
+    }
+
+    public void InitAlignment(int index)
+    {
+        transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        transform.Translate(0, 0.65f, 0);
+        AlignmentByMove(index);
+    }
+
+    private void AlignmentByMove(int index)
+    {
+        transform.localPosition = new Vector3(0.0f, 1.2f, 0.0f);
+        transform.Translate(-((index / 2) * 0.35f - 0.5f * 0.35f), 0, -((index % 2) * 0.35f - 0.5f * 0.35f));
+    }
+
+    public void Alignment()
+    {
+        if (!_waitEnable) return;
+        //Debug.Log(_currentSquare.GetStoppedCharacterNum());
+
+        AlignmentByMove(_currentSquare.GetAlignmentIndexByCharacter(this));
     }
 
     public void StartMove(SquareBase square)
     {
-
         _state = CharacterState.MOVE;
-        
-        // 後退
-        if (_rootStack.Contains(square))
-        {
-            _rootStack.Pop();
-            _movingCount++;
-        }
-        // 前進
-        else
-        {
-            _rootStack.Push(_currentSquare);
-            _movingCount--;
-        }
+        _floating.Set_Using(false);
+        _movingCount--;
 
         _currentSquare = square;
 
@@ -192,6 +212,7 @@ public class CharacterBase : MonoBehaviour
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _state = CharacterState.WAIT;
+            _floating.Set_Using(true);
         }
     }
 
@@ -199,7 +220,6 @@ public class CharacterBase : MonoBehaviour
     {
         _state = CharacterState.STOP;
         _currentSquare.Stop(this);
-        _currentSquare.AddCharacter(this);
     }
 
     public List<SquareBase> GetInConnects()
@@ -209,10 +229,7 @@ public class CharacterBase : MonoBehaviour
         // スタックにあるマスのみ
         foreach (var s in _currentSquare.InConnects)
         {
-            if (_rootStack.Contains(s))
-            {
-                outs.Add(s);
-            }
+            outs.Add(s);
         }
         
         return outs;
@@ -225,6 +242,11 @@ public class CharacterBase : MonoBehaviour
 
     public void CompleteStopExec()
     {
+        if (_movingCount > 0)
+        {
+            _state = CharacterState.WAIT;
+            return;
+        }
         _state = CharacterState.END;
     }
 
@@ -253,6 +275,7 @@ public class CharacterBase : MonoBehaviour
         Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
         Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
         transform.rotation = Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+        transform.Rotate(0.0f, -90.0f, 180.0f);
 
         // 心がぴょんぴょんしない
         //float dist = (targetPos - position).magnitude;

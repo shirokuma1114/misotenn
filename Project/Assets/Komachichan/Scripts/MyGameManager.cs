@@ -23,6 +23,9 @@ public class MyGameManager : MonoBehaviour
     }
 
     [SerializeField]
+    List<CharacterType> _createCharacterTypes;
+
+    [SerializeField]
     private int _cardMinValue;
 
     [SerializeField]
@@ -30,6 +33,9 @@ public class MyGameManager : MonoBehaviour
 
     [SerializeField]
     private int _initCardNum;
+
+    [SerializeField]
+    private int _initMoney;
 
     [SerializeField]
     private List<CharacterControllerBase> _entryPlugs;
@@ -50,19 +56,28 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     MessageWindow _messageWindow;
 
+    [SerializeField]
+    SelectWindow _selectWindow;
+
     private int _turnCount = 0;
 
+    [SerializeField]
+    CameraInterpolation _cameraInterpole;
+
+    [SerializeField]
+    EarthFreeRotation _earthFreeRotation;
+
+    [SerializeField]
+    private int _needSouvenirType;
+
+
+    [Header("相手の初期カードいじれるモード")]
     [SerializeField]
     bool _isFixedMode;
 
     [SerializeField]
     List<int> _cardValues = new List<int>();
     
-    [SerializeField]
-    CameraInterpolation _cameraInterpole;
-
-    [SerializeField]
-    private int _needSouvenirType;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +101,15 @@ public class MyGameManager : MonoBehaviour
             x.SetInOut();
         }
     }
-    
+
+    void CreateCharacters()
+    {
+        for(int i = 0; i < _createCharacterTypes.Count; i++)
+        {
+
+        }
+    }
+
     void UpdateTurn()
     {
         _turnCount++;
@@ -134,6 +157,8 @@ public class MyGameManager : MonoBehaviour
     {
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
+        // 止まっているキャラクターの整列
+        foreach (var x in _entryPlugs) x.Character.Alignment();
         _entryPlugs[_turnIndex].InitTurn();
         _phase = Phase.WAIT_TURN_END;
 
@@ -147,8 +172,8 @@ public class MyGameManager : MonoBehaviour
             if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() == _needSouvenirType)
             {
                 _phase = Phase.CLEAR;
-                _messageWindow.SendMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
-                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！");
+                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
+                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", false);
 
                 return;
             }
@@ -165,10 +190,10 @@ public class MyGameManager : MonoBehaviour
         {
             _phase = Phase.MOVE_CAMERA;
 
-            // 止まっているキャラクターの整列
+            // 現在のキャラクターを止める
             _entryPlugs[_turnIndex].Character.SetWaitEnable(true);
-            _entryPlugs[_turnIndex].Character.CurrentSquare.AlignmentCharacters();
 
+            
             _turnIndex++;
             if (_turnIndex >= _entryPlugs.Count)
             {
@@ -179,7 +204,7 @@ public class MyGameManager : MonoBehaviour
             }
 
             //次の人の止まっているマス座標
-            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 300);
+            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
         }
     }
 
@@ -206,9 +231,12 @@ public class MyGameManager : MonoBehaviour
 
     void InitTurn()
     {
-        foreach (var x in _entryPlugs)
+
+        for(int i = 0; i < _entryPlugs.Count; i++)
         {
-            x.Character.SetWaitEnable(true);
+            _entryPlugs[i].Character.SetWaitEnable(true);
+            if (i == 0) continue;
+            _entryPlugs[i].Character.InitAlignment(i - 1);
         }
 
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
@@ -221,7 +249,6 @@ public class MyGameManager : MonoBehaviour
     void InitStatus()
     {
         var startSquare = GameObject.Find("Japan").GetComponent<SquareBase>();
-
 
         for(int i = 0; i < _entryPlugs.Count; i++)
         {
@@ -239,7 +266,7 @@ public class MyGameManager : MonoBehaviour
             }
             chara.Name = "敵" + i + "号";
             chara.SetCurrentSquare(startSquare);
-            chara.AddMoney(1000);
+            chara.AddMoney(_initMoney);
             //chara.SetWaitEnable(true);
             chara.LapCount = 1;
         }
@@ -256,7 +283,7 @@ public class MyGameManager : MonoBehaviour
 
     int GetRandomRange()
     {
-        return Random.Range(_cardMinValue, _cardMaxValue);
+        return Random.Range(_cardMinValue, _cardMaxValue + 1);
     }
 
     public void Move()
@@ -302,5 +329,19 @@ public class MyGameManager : MonoBehaviour
     public int GetNeedSouvenirType()
     {
         return _needSouvenirType;
+    }
+
+    public void EnableFreeRotation(bool enable)
+    {
+        if (enable)
+        {
+            _earthFreeRotation.TrunOn(_entryPlugs[_turnIndex].Character);
+        }
+        else
+        {
+            _earthFreeRotation.TrunOff();
+            // 元のカメラ位置に移動
+            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 5.0f);
+        }
     }
 }

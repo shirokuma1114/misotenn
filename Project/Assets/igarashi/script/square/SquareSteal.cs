@@ -170,13 +170,13 @@ public class SquareSteal : SquareBase
         }
     }
 
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // コストが足りない
-        if (_cost < character.Money) return base.GetScore(character);
+        if (_cost < character.Money) return base.GetScore(character, characterType);
 
         // 奪うものが無い
-        if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character);
+        if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);
 
         // 持ってないお土産を持っているプレイヤーがいる
         var characters = _gameManager.GetCharacters(character);
@@ -202,12 +202,12 @@ public class SquareSteal : SquareBase
                     // 揃えば勝ち
                     if(character.GetSouvenirTypeNum() == 5)
                     {
-                        return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN + base.GetScore(character);
+                        return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN + base.GetScore(character, characterType);
                     }
-                    return (int)SquareScore.DONT_HAVE_STEAL + base.GetScore(character);
+                    return (int)SquareScore.DONT_HAVE_STEAL + base.GetScore(character, characterType);
                 }
             }
         }
-        return (int)SquareScore.STEAL + base.GetScore(character);
+        return (int)SquareScore.STEAL + base.GetScore(character, characterType);
     }
 }

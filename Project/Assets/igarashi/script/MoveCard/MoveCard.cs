@@ -49,7 +49,7 @@ public class MoveCard : MonoBehaviour
         _finAnimSequence = DOTween.Sequence();
 
         _finAnimSequence.Append(rt.DOMove(new Vector3(Screen.width / 2, Screen.height / 2, 0), 1.0f));
-        _finAnimSequence.Append(rt.DORotate(new Vector3(0, 0, -360), 1.0f, RotateMode.WorldAxisAdd));
+        _finAnimSequence.Append(rt.DORotate(new Vector3(0, 0, -360 * 2), 2.0f, RotateMode.WorldAxisAdd));
         _finAnimSequence.Join(rt.DOScale(new Vector3(0, 0, 0), 2.0f));
 
         _finAnimSequence.Play();
