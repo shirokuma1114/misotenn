@@ -158,10 +158,10 @@ public class CameraInterpolation : MonoBehaviour
 
 
 		// Debug
-		if (Input.GetKeyUp(KeyCode.A))
-		{
-			if (Event_State == 0) Enter_Event();
-			else if (Event_State == 2) Leave_Event();
-		}
+		//if (Input.GetKeyUp(KeyCode.A))
+		//{
+		//	if (Event_State == 0) Enter_Event();
+		//	else if (Event_State == 2) Leave_Event();
+		//}
 	}
 }
