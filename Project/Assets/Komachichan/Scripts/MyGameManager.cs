@@ -21,6 +21,10 @@ public class MyGameManager : MonoBehaviour
         CharacterBase character;
         int type;
     }
+
+    [SerializeField]
+    List<CharacterType> _createCharacterTypes;
+
     [SerializeField]
     private int _cardMinValue;
 
@@ -29,6 +33,9 @@ public class MyGameManager : MonoBehaviour
 
     [SerializeField]
     private int _initCardNum;
+
+    [SerializeField]
+    private int _initMoney;
 
     [SerializeField]
     private List<CharacterControllerBase> _entryPlugs;
@@ -94,7 +101,15 @@ public class MyGameManager : MonoBehaviour
             x.SetInOut();
         }
     }
-    
+
+    void CreateCharacters()
+    {
+        for(int i = 0; i < _createCharacterTypes.Count; i++)
+        {
+
+        }
+    }
+
     void UpdateTurn()
     {
         _turnCount++;
@@ -142,6 +157,8 @@ public class MyGameManager : MonoBehaviour
     {
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
+        // 止まっているキャラクターの整列
+        foreach (var x in _entryPlugs) x.Character.Alignment();
         _entryPlugs[_turnIndex].InitTurn();
         _phase = Phase.WAIT_TURN_END;
 
@@ -173,10 +190,10 @@ public class MyGameManager : MonoBehaviour
         {
             _phase = Phase.MOVE_CAMERA;
 
-            // 止まっているキャラクターの整列
+            // 現在のキャラクターを止める
             _entryPlugs[_turnIndex].Character.SetWaitEnable(true);
-            _entryPlugs[_turnIndex].Character.CurrentSquare.AlignmentCharacters();
 
+            
             _turnIndex++;
             if (_turnIndex >= _entryPlugs.Count)
             {
@@ -214,9 +231,12 @@ public class MyGameManager : MonoBehaviour
 
     void InitTurn()
     {
-        foreach (var x in _entryPlugs)
+
+        for(int i = 0; i < _entryPlugs.Count; i++)
         {
-            x.Character.SetWaitEnable(true);
+            _entryPlugs[i].Character.SetWaitEnable(true);
+            if (i == 0) continue;
+            _entryPlugs[i].Character.InitAlignment(i - 1);
         }
 
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
@@ -229,7 +249,6 @@ public class MyGameManager : MonoBehaviour
     void InitStatus()
     {
         var startSquare = GameObject.Find("Japan").GetComponent<SquareBase>();
-
 
         for(int i = 0; i < _entryPlugs.Count; i++)
         {
@@ -247,7 +266,7 @@ public class MyGameManager : MonoBehaviour
             }
             chara.Name = "敵" + i + "号";
             chara.SetCurrentSquare(startSquare);
-            chara.AddMoney(1000);
+            chara.AddMoney(_initMoney);
             //chara.SetWaitEnable(true);
             chara.LapCount = 1;
         }
@@ -264,7 +283,7 @@ public class MyGameManager : MonoBehaviour
 
     int GetRandomRange()
     {
-        return Random.Range(_cardMinValue, _cardMaxValue);
+        return Random.Range(_cardMinValue, _cardMaxValue + 1);
     }
 
     public void Move()

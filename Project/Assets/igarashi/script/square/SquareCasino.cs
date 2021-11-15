@@ -147,10 +147,10 @@ public class SquareCasino : SquareBase
         }
     }
 
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
-        if (character.Money == 0) return base.GetScore(character);
+        if (character.Money == 0) return base.GetScore(character, characterType);
 
-        return (int)SquareScore.CASINO + base.GetScore(character);
+        return (int)SquareScore.CASINO + base.GetScore(character, characterType);
     }
 }
