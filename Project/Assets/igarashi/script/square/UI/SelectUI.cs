@@ -41,18 +41,21 @@ public class SelectUI : MonoBehaviour
         _elements = new List<string>(elements);
 
         _selectComplete = false;
-        _selectIndex = 0;
+        _selectIndex = _elements.Count - 1;
 
-        for (int i = 0; i < _elements.Count; i++)
+        int elementNumber = 0;
+        for (int ri = _elements.Count - 1; ri >= 0 ; ri--)
         {
             var obj = Instantiate(_selectionPrefab);
             var rt = obj.GetComponent<RectTransform>();
 
             rt.SetParent(transform);
-            rt.localPosition = new Vector3(DEFAULT_RECT.x, DEFAULT_RECT.y + DEFAULT_RECT.height * i ,0.0f);
-            obj.GetComponentInChildren<Text>().text = _elements[i];
+            rt.localPosition = new Vector3(DEFAULT_RECT.x, DEFAULT_RECT.y + DEFAULT_RECT.height * elementNumber ,0.0f);
+            obj.GetComponentInChildren<Text>().text = _elements[ri];
 
             _selections.Add(obj);
+
+            elementNumber++;
         }
 
         UpdateSelectionColor();

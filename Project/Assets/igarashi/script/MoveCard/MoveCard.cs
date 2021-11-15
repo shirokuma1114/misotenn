@@ -11,6 +11,9 @@ public class MoveCard : MonoBehaviour
     MoveCardManager _manager;
     private Sequence _finAnimSequence = null;
 
+    private bool _startAnimComplete = false;
+    public bool IsStartAnimComplete => _startAnimComplete;
+
     public void OnClick()
     {
         //transform.parent.gameObject.GetComponent<MoveCardManager>().IndexSelect(_index);
@@ -73,6 +76,21 @@ public class MoveCard : MonoBehaviour
                 _finAnimSequence.Kill();
                 _finAnimSequence = null;
             }
+        }
+
+
+        if (_tweens.Count != 0)
+        {
+            int comleteCount = 0;
+            for (int i = 0; i < _tweens.Count; i++)
+            {
+                if (_tweens[i].IsComplete())
+                {
+                    comleteCount++;
+                }
+            }
+            if (comleteCount == _tweens.Count)
+                _startAnimComplete = true;
         }
     }
 
