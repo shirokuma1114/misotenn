@@ -109,8 +109,8 @@ public class SquareGoal : SquareBase
         }
     }
 
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
-        return (int)SquareScore.GOAL + base.GetScore(character);
+        return (int)SquareScore.GOAL + base.GetScore(character, characterType);
     }
 }

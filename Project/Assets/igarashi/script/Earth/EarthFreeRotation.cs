@@ -55,8 +55,7 @@ public class EarthFreeRotation : MonoBehaviour
         Vector3 xzLocalFront = new Vector3(localFront.x, 0.0f, localFront.z);
         _xzAngle = Vector3.SignedAngle(localFront, xzLocalFront, Vector3.Cross(xzLocalFront,transform.up));
 
-        foreach (var c in FindObjectsOfType<CharacterBase>())
-            c.SetWaitEnable(true);
+        character.SetWaitEnable(true);
         _operator = character;
 
         //_infoWindow.SetEnable(true);

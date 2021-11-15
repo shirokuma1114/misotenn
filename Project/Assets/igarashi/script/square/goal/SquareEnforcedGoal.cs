@@ -112,11 +112,11 @@ public class SquareEnforcedGoal : SquareBase
         }
     }
 
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // ƒRƒXƒg‚ª‘«‚è‚È‚¢
-        if (_cost < character.Money) return base.GetScore(character);
+        if (_cost < character.Money) return base.GetScore(character, characterType);
 
-        return (int)SquareScore.EGOAL + base.GetScore(character);
+        return (int)SquareScore.EGOAL + base.GetScore(character, characterType);
     }
 }

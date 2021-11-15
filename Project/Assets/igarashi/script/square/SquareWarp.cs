@@ -145,14 +145,14 @@ public class SquareWarp : SquareBase
             _state = SquareWarpState.IDLE;
         }            
     }
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // ‚¨‹à‚ª‘«‚è‚È‚¢
-        if (_cost > character.Money) return base.GetScore(character);
+        if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // Ž©•ª‚ª•s—˜
-        if (_gameManager.GetRanking(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character);
+        if (_gameManager.GetRanking(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character, characterType);
 
-        return (int)SquareScore.WARP + base.GetScore(character);
+        return (int)SquareScore.WARP + base.GetScore(character, characterType);
     }
 }
