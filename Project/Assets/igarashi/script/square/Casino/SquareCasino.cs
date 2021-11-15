@@ -90,6 +90,7 @@ public class SquareCasino : SquareBase
         int _minBet = _character.Money / 2 / 2;
         _bet = 0;
         _selectElements.Clear();
+        _betChoices.Clear();
 
         _selectElements.Add(_minBet.ToString());
         _betChoices.Add(_minBet);
@@ -123,6 +124,8 @@ public class SquareCasino : SquareBase
 
             _casinoGameUI.Play(_character.IsAutomatic);
             _messageWindow.SetMessage("上のオープンしているカードより\n高いと思うカードを選択してください", _character.IsAutomatic);
+
+            _statusWindow.SetEnable(false);
 
             _state = SquareCasinoState.CHALLENGE;
             return;
