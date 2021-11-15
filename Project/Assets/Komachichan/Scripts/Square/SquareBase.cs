@@ -64,6 +64,27 @@ public class SquareBase : MonoBehaviour
         return _stoppedCharacters.Count >= 1 ? true : false;
     }
 
+    public int GetStoppedCharacterNum()
+    {
+        return _stoppedCharacters.Count;
+    }
+
+    public int GetAlignmentIndexByCharacter(CharacterBase character)
+    {
+        //Debug.Log(character);
+
+        int index = 0;
+        foreach(var x in _stoppedCharacters)
+        {
+            if (x == character) {
+                //Debug.Log(index);
+                return index; }
+            index++;
+        }
+        Debug.Assert(false);
+        return -1;
+    }
+
     public virtual void Stop(CharacterBase character)
     {
         character.CompleteStopExec();
@@ -79,27 +100,13 @@ public class SquareBase : MonoBehaviour
         _stoppedCharacters.Remove(character);
     }
 
-    public void AlignmentCharacters()
-    {
-        int count = 0;
-
-        foreach(var x in _stoppedCharacters)
-        {
-            var pos = x.transform.position;
-            count++;
-            
-
-        }
-
-    }
-
     public Vector3 GetPosition()
     {
         return GetComponent<Transform>().localPosition;
     }
     
     //•]‰¿‚ð’²‚×‚é
-    public virtual int GetScore(CharacterBase character)
+    public virtual int GetScore(CharacterBase character, CharacterType characterType)
     {
         int addScore = 0;
         if (_stoppedCharacters.Count >= 1)
@@ -149,5 +156,10 @@ public class SquareBase : MonoBehaviour
         Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
         Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
         return Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+    }
+
+    public Vector3 GetUpVector()
+    {
+        return transform.up;
     }
 }
