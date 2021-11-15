@@ -25,6 +25,8 @@ public class CasinoGame : MonoBehaviour
     private bool _complate = false;
     public bool IsComplate => _complate;
 
+    private bool _autoPlay;
+
     [SerializeField]
     private KeyCode _right = KeyCode.D;
     [SerializeField]
@@ -44,7 +46,7 @@ public class CasinoGame : MonoBehaviour
         {
             if(i == _answerIndex)
             {
-                _selectCards[i].InitDisplay(Random.Range(_originCardNumber + 1, CARD_NUMBER_MAX));
+                _selectCards[i].InitDisplay(Random.Range(_originCardNumber + 1, CARD_NUMBER_MAX),true);
             }
             else
             {
@@ -61,6 +63,7 @@ public class CasinoGame : MonoBehaviour
         _complate = false;
         _selectEnd = false;
 
+        _autoPlay = autoPlay;
         if (autoPlay)
         {
             _selectIndex = Random.Range(0, 3);
@@ -123,6 +126,8 @@ public class CasinoGame : MonoBehaviour
     private void Operation()
     {
         if (_selectEnd)
+            return;
+        if (_autoPlay)
             return;
 
         if(Input.GetKeyDown(_right))

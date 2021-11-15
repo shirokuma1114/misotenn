@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class SquareWarp : SquareBase
 {
@@ -9,6 +10,7 @@ public class SquareWarp : SquareBase
         IDLE,
         PAY,
         WARP,
+        WARP_END,
         END,
     }
     private SquareWarpState _state;
@@ -25,8 +27,13 @@ public class SquareWarp : SquareBase
     private List<CharacterBase> _characters;
     private int _moveIndex;
 
+    private Tween _inholeTween;
+    private Tween _outholeTween;
+
     [SerializeField]
     private int _cost;
+    [SerializeField]
+    private Vector3 _warpholePosition;
 
 
     MyGameManager _gameManager;
@@ -37,6 +44,9 @@ public class SquareWarp : SquareBase
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
         _fade = FindObjectOfType<SimpleFade>();
+
+        _characters = new List<CharacterBase>();
+        _characters.AddRange(FindObjectsOfType<CharacterBase>());
 
         _squares = new List<SquareBase>();
         _squares.AddRange(FindObjectsOfType<SquareBase>());
@@ -62,6 +72,10 @@ public class SquareWarp : SquareBase
             case SquareWarpState.WARP:
                 WarpStateProcess();
                 break;
+            case SquareWarpState.WARP_END:
+                WarpEndStateProcess();
+                break;
+
             case SquareWarpState.END:
                 EndStateProcess();
                 break;
@@ -87,8 +101,7 @@ public class SquareWarp : SquareBase
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
-        _characters = new List<CharacterBase>();
-        _characters.AddRange(FindObjectsOfType<CharacterBase>());
+        
         _moveIndex = 0;
 
 
@@ -104,7 +117,12 @@ public class SquareWarp : SquareBase
             if (_payUI.IsSelectYes)
             {
                 _character.SubMoney(_cost);
-                _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
+                //_characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
+                foreach (var chara in _characters)
+                {
+                    chara.SetWaitEnable(false);
+                    _inholeTween = chara.transform.DOMove(_warpholePosition, 5.0f);
+                }
 
                 _state = SquareWarpState.WARP;
             }
@@ -117,21 +135,51 @@ public class SquareWarp : SquareBase
 
     private void WarpStateProcess()
     {
-        if(_characters[_moveIndex].State == CharacterState.WAIT)
+        //if(_characters[_moveIndex].State == CharacterState.WAIT)
+        //{
+        //    _characters[_moveIndex].SetWaitEnable(true);
+
+        //    _moveIndex++;
+        //    if(_moveIndex == _characters.Count)
+        //    {
+        //        _state = SquareWarpState.END;
+        //        return;
+        //    }
+
+        //    FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
+        //    _characters[_moveIndex].SetWaitEnable(false);
+        //    _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
+        //}
+
+        if (_inholeTween.IsPlaying())
+            return;
+
+        _inholeTween.Kill();
+
+        foreach (var chara in _characters)
         {
-            _characters[_moveIndex].SetWaitEnable(true);
-
-            _moveIndex++;
-            if(_moveIndex == _characters.Count)
-            {
-                _state = SquareWarpState.END;
-                return;
-            }
-
-            FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
-            _characters[_moveIndex].SetWaitEnable(false);
-            _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
+            SquareBase randomSquare = _squares[Random.Range(0, _squares.Count)];
+            _outholeTween = chara.transform.DOMove(randomSquare.transform.position, 5.0f);
+            chara.SetCurrentSquare(randomSquare);
         }
+
+        _state = SquareWarpState.WARP_END;
+    }
+
+    private void WarpEndStateProcess()
+    {
+        if (_outholeTween.IsPlaying())
+            return;
+
+        foreach (var chara in _characters)
+        {
+            chara.SetWaitEnable(true);
+
+            chara.transform.up = chara.CurrentSquare.transform.up;
+            chara.Alignment();
+        }
+
+        _state = SquareWarpState.END;
     }
 
     private void EndStateProcess()
