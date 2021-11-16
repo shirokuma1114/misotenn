@@ -141,10 +141,12 @@ public class SquareConnectionLine : MonoBehaviour
             GameObject virtualEarth = new GameObject();
 
             var lerpRot = Quaternion.Lerp(startRot, endRot, (float)t / _curvePointNum);
-            gameObject.transform.rotation = lerpRot;
+            virtualEarth.transform.rotation = lerpRot;
 
-            var p = gameObject.transform.InverseTransformPoint(new Vector3(0, 0, -_floatingVolume));
+            var p = virtualEarth.transform.InverseTransformPoint(new Vector3(0, 0, -_floatingVolume));
             _positions.Add(p);
+
+            Destroy(virtualEarth);
         }
 
         _startRot = endRot;
