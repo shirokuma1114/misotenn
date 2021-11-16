@@ -25,7 +25,6 @@ public class SquareWarp : SquareBase
     private List<SquareBase> _squares;
 
     private List<CharacterBase> _characters;
-    private int _moveIndex;
 
     private Tween _inholeTween;
     private Tween _outholeTween;
@@ -101,10 +100,6 @@ public class SquareWarp : SquareBase
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
-        
-        _moveIndex = 0;
-
-
         _state = SquareWarpState.PAY;
     }
 
@@ -117,7 +112,6 @@ public class SquareWarp : SquareBase
             if (_payUI.IsSelectYes)
             {
                 _character.SubMoney(_cost);
-                //_characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
                 foreach (var chara in _characters)
                 {
                     chara.SetWaitEnable(false);
@@ -135,22 +129,6 @@ public class SquareWarp : SquareBase
 
     private void WarpStateProcess()
     {
-        //if(_characters[_moveIndex].State == CharacterState.WAIT)
-        //{
-        //    _characters[_moveIndex].SetWaitEnable(true);
-
-        //    _moveIndex++;
-        //    if(_moveIndex == _characters.Count)
-        //    {
-        //        _state = SquareWarpState.END;
-        //        return;
-        //    }
-
-        //    FindObjectOfType<EarthMove>().MoveToPositionInstant(_characters[_moveIndex].CurrentSquare.GetPosition());
-        //    _characters[_moveIndex].SetWaitEnable(false);
-        //    _characters[_moveIndex].StartMove(_squares[Random.Range(0, _squares.Count)]);
-        //}
-
         if (_inholeTween.IsPlaying())
             return;
 
@@ -199,7 +177,7 @@ public class SquareWarp : SquareBase
         if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // Ž©•ª‚ª•s—˜
-        if (_gameManager.GetRanking(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character, characterType);
+        if (_gameManager.GetRank(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character, characterType);
 
         return (int)SquareScore.WARP + base.GetScore(character, characterType);
     }
