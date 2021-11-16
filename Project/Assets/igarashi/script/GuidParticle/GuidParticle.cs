@@ -6,34 +6,30 @@ using UnityEngine.ParticleSystemJobs;
 public class GuidParticle : MonoBehaviour
 {
     private EarthMove _earth;
+    private SquareConnectionLine _line;
 
-    private SquareBase _startSquare;
-    private Vector3 _startSquarePos;
-    private SquareBase _nextSquare;
-    private Vector3 _nextSquarePos;
+    private int _startIndex;
+    private int _moveIndex;
+
+    private Vector3 _start;
+    private Vector3 _end;
+    private float _distance;
+
     private float _lerpCounter;
-    private float _angle;
     private int _moveCounter;
 
     [SerializeField]
     private float _speed;
     [SerializeField]
     private int _moveNum;
-    [SerializeField]
-    private float _floatingVolume = 0.3f;
 
 
-    public void InitStartSquare(SquareBase square)
+    public void InitStartSquare(SquareBase square,EarthMove earth)
     {
-        _startSquare = square;
-        _nextSquare = _startSquare.OutConnects[0];
+        _earth = earth;
+        _line = _earth.GetComponent<SquareConnectionLine>();
 
-        _startSquarePos = _startSquare.transform.localPosition;
-        _nextSquarePos = _nextSquare.transform.localPosition;
-
-        _startSquarePos += _startSquarePos.normalized * _floatingVolume;
-        _nextSquarePos += _nextSquarePos.normalized * _floatingVolume;
-        _angle = Vector3.Angle(_startSquarePos, _nextSquarePos);
+        _moveIndex = _startIndex = _line.GetSquareStartIndex[square.gameObject];
     }
 
     //============================-
@@ -46,8 +42,6 @@ public class GuidParticle : MonoBehaviour
 
     void Start()
     {
-        _earth = FindObjectOfType<EarthMove>();
-
         var psMain = GetComponent<ParticleSystem>().main;
         psMain.simulationSpace = ParticleSystemSimulationSpace.Custom;
         psMain.customSimulationSpace = _earth.transform;
@@ -55,30 +49,28 @@ public class GuidParticle : MonoBehaviour
 
     void Update()
     {
-        if(_moveCounter >= _moveNum)
+        if(_moveCounter >= _moveNum * _line.CurvePointNum)
         {
-            Destroy(gameObject);
+            var ps = GetComponent<ParticleSystem>();
+            ps.Stop();
         }
         else if (_lerpCounter >= 1.0f)
         {
             _lerpCounter = 0.0f;
 
-            _startSquare = _nextSquare;
-            _nextSquare = _startSquare.OutConnects[0];
+            _moveIndex++;
+            _moveIndex %= _line.GetPositions.Count;
 
-            _startSquarePos = _startSquare.transform.localPosition;
-            _nextSquarePos = _nextSquare.transform.localPosition;
-
-            _startSquarePos += _startSquarePos.normalized * _floatingVolume;
-            _nextSquarePos += _nextSquarePos.normalized * _floatingVolume;
-            _angle = Vector3.Angle(_startSquarePos, _nextSquarePos);
+            _start = _line.GetPositions[_moveIndex];
+            _end = _line.GetPositions[_moveIndex % _line.GetPositions.Count];
+            _distance = Vector3.Distance(_start, _end);
 
             _moveCounter++;
         }
         else
         {
-            transform.position = _earth.transform.TransformPoint(Vector3.Slerp(_startSquarePos, _nextSquarePos, _lerpCounter));
-            _lerpCounter += 1 / _angle * _speed * Time.deltaTime;
+            transform.position = _earth.transform.TransformPoint(Vector3.Lerp(_start, _end, _lerpCounter));
+            _lerpCounter += 1 / _distance * _speed * Time.deltaTime;
         }
     }
 }
