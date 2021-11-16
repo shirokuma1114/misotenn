@@ -88,7 +88,7 @@ public class SquareConnectionLine : MonoBehaviour
 
         var japan = GameObject.Find("Japan");
         Vector3 start = transform.InverseTransformPoint(japan.transform.position).normalized;
-        _positions.Add(start);
+        _positions.Add(start * _floatingVolume);
         _squareStartIndex.Add(japan, 0);
 
         GameObject endSquare = japan.GetComponent<SquareBase>().OutConnects[0].gameObject;

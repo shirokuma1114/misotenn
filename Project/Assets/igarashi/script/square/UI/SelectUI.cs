@@ -115,7 +115,7 @@ public class SelectUI : MonoBehaviour
     {
         if (_openerCharacter.IsAutomatic)
             return;
-        Debug.Log(_selectIndex);
+
         if(Input.GetKeyDown(KeyCode.W))
         {
 
