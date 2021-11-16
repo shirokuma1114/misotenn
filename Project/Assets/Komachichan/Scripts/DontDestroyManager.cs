@@ -17,7 +17,7 @@ public class DontDestroyManager : MonoBehaviour
         public int _souvenirNum;
         public int _money;
         public int[] _useEventNumByType;
-        public List<int> _addMoneyByTurn;
+        public List<int> _moneyByTurn;
     }
 
     private List<CharacterInfo> _characters;
@@ -47,7 +47,7 @@ public class DontDestroyManager : MonoBehaviour
             var charaInfo = _characters.Last();
             charaInfo._character = x.Character;
             charaInfo._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
-            charaInfo._addMoneyByTurn = new List<int>();
+            charaInfo._moneyByTurn = new List<int>();
         }
     }
 
@@ -72,14 +72,17 @@ public class DontDestroyManager : MonoBehaviour
             x._characterName = x._character.Name;
             x._souvenirNum = x._character.Souvenirs.Count;
             Array.Copy(x._character.Log.GetUseEventNum(), x._useEventNumByType, x._useEventNumByType.Length);
-
+            foreach(var y in x._character.Log.GetMoneyByTurn())
+            {
+                x._moneyByTurn.Add(y);
+            }
         }
 
     }
 
-    public void SetAddMoenyByTurn(CharacterBase character)
+    public List<int> GetAddMoenyByTurn(CharacterBase character)
     {
-
+        return _characters.Find(x => x._character == character)._moneyByTurn;
     }
 
     public int GetRank(CharacterBase character)

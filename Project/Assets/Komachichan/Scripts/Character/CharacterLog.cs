@@ -6,7 +6,7 @@ public class CharacterLog : MonoBehaviour
 {
     private int[] _useEventNumByType;
 
-    private List<int> _addMoneyByTurn;
+    private List<int> _moneyByTurn;
 
 
     public CharacterLog()
@@ -24,8 +24,13 @@ public class CharacterLog : MonoBehaviour
         return _useEventNumByType;
     }
 
-    public void SetAddMoenyByTurn()
+    public void SetMoenyByTurn(int money)
     {
+        _moneyByTurn.Add(money);
+    }
 
+    public List<int> GetMoneyByTurn()
+    {
+        return _moneyByTurn;
     }
 }

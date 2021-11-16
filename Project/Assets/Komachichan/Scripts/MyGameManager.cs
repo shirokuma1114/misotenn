@@ -179,6 +179,9 @@ public class MyGameManager : MonoBehaviour
                 _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
                     + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", false);
 
+                // このターンのおこづかい
+                _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
+
                 // ログを設定
                 SetCharacterLogToInfo();
                 return;
@@ -198,7 +201,9 @@ public class MyGameManager : MonoBehaviour
 
             // 現在のキャラクターを止める
             _entryPlugs[_turnIndex].Character.SetWaitEnable(true);
-
+            
+            // このターンのおこづかい
+            _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
             
             _turnIndex++;
             if (_turnIndex >= _entryPlugs.Count)
