@@ -17,7 +17,7 @@ public class OmiyageEnshutsu : MonoBehaviour
 				if (CountryNames[i] == _country_name)
 				{
 					ImageComponent.sprite = OmiyageSprites[i];
-					Set_AnimationSequence();
+					Set_sequence();
 					break;
 				}
 			}
@@ -37,6 +37,8 @@ public class OmiyageEnshutsu : MonoBehaviour
 	Image ImageComponent;
 
 	// Animation
+	Sequence Animation_Sequence;
+	Sequence Initial_Sequence;
 	RectTransform Rect;
 
 	// Start
@@ -48,9 +50,9 @@ public class OmiyageEnshutsu : MonoBehaviour
 		// Animation
 		Rect = this.GetComponent<RectTransform>();
 		// Initialize
-		Sequence AnimationSequence = DOTween.Sequence();
-		AnimationSequence.Append(Rect.DOLocalMove(new Vector3(50, -120, 0), 0));
-		AnimationSequence.Join(Rect.DOScale(new Vector3(0, 0, 0), 0));
+		Initial_Sequence = DOTween.Sequence();
+		Initial_Sequence.Append(Rect.DOLocalMove(new Vector3(50, -120, 0), 0));
+		Initial_Sequence.Join(Rect.DOScale(new Vector3(0, 0, 0), 0));
 	}
 
     // Update
@@ -61,14 +63,14 @@ public class OmiyageEnshutsu : MonoBehaviour
 	}
 
 	// Animation Sequence
-	void Set_AnimationSequence()
+	void Set_sequence()
 	{
-		Sequence AnimationSequence = DOTween.Sequence();
+		Animation_Sequence = DOTween.Sequence();
 
-		// à⁄ìÆÅEägëÂ
-		AnimationSequence.Append(Rect.DOLocalMove(new Vector3(160, 10, 0), 1));
-		AnimationSequence.Join(Rect.DOScale(new Vector3(1.25f, 1.25f, 1.25f), 1));
-		AnimationSequence.Join(Rect.DORotate(new Vector3(0, 0, -15), 1));
+		// à⁄ìÆÅEägëÂAnimationSequence
+		Animation_Sequence.Append(Rect.DOLocalMove(new Vector3(160, 10, 0), 1));
+		Animation_Sequence.Join(Rect.DOScale(new Vector3(1.25f, 1.25f, 1.25f), 1));
+		Animation_Sequence.Join(Rect.DORotate(new Vector3(0, 0, -15), 1));
 
 		// Ç⁄ÇÊÇÊÇÒ
 		float difference = 0.2f;
@@ -76,22 +78,22 @@ public class OmiyageEnshutsu : MonoBehaviour
 		for (int i = 0; i < 3; i++)
 		{
 			duration = duration + i * 0.1f;
-			AnimationSequence.Append(Rect.DOScaleY(1.25f - difference, duration));
-			AnimationSequence.Join(Rect.DOScaleX(1.25f + difference, duration));
-			AnimationSequence.Append(Rect.DOScaleY(1.25f + difference, duration));
-			AnimationSequence.Join(Rect.DOScaleX(1.25f - difference, duration));
+			Animation_Sequence.Append(Rect.DOScaleY(1.25f - difference, duration));
+			Animation_Sequence.Join(Rect.DOScaleX(1.25f + difference, duration));
+			Animation_Sequence.Append(Rect.DOScaleY(1.25f + difference, duration));
+			Animation_Sequence.Join(Rect.DOScaleX(1.25f - difference, duration));
 		}
-		AnimationSequence.Append(Rect.DOScale(new Vector3(1.25f, 1.25f, 1.25f), duration));
-		AnimationSequence.AppendInterval(Second_Display);
+		Animation_Sequence.Append(Rect.DOScale(new Vector3(1.25f, 1.25f, 1.25f), duration));
+		Animation_Sequence.AppendInterval(Second_Display);
 
 		// à⁄ìÆÅEèkè¨
-		AnimationSequence.Append(Rect.DOLocalMove(new Vector3(20, 0, 0), 1));
-		AnimationSequence.Join(Rect.DOScale(new Vector3(0, 0, 0), 1));
-		AnimationSequence.Join(Rect.DORotate(new Vector3(0, 0, -360), 1));
+		Animation_Sequence.Append(Rect.DOLocalMove(new Vector3(20, 0, 0), 1));
+		Animation_Sequence.Join(Rect.DOScale(new Vector3(0, 0, 0), 1));
+		Animation_Sequence.Join(Rect.DORotate(new Vector3(0, 0, -360), 1));
 
 		// èâä˙âª
-		AnimationSequence.Append(Rect.DOLocalMove(new Vector3(50, -120, 0), 0));
-		AnimationSequence.Join(Rect.DORotate(new Vector3(0, 0, 0), 0)
+		Animation_Sequence.Append(Rect.DOLocalMove(new Vector3(50, -120, 0), 0));
+		Animation_Sequence.Join(Rect.DORotate(new Vector3(0, 0, 0), 0)
 			.OnComplete(Completed));
 	}
 	
@@ -103,6 +105,7 @@ public class OmiyageEnshutsu : MonoBehaviour
 	// OnDisable
 	private void OnDisable()
 	{
-		//if (AnimationSequence != null) AnimationSequence.Kill();
+		if (Initial_Sequence != null) Initial_Sequence.Kill();
+		if (Animation_Sequence != null) Animation_Sequence.Kill();
 	}
 }
