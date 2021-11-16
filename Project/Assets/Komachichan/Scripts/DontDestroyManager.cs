@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class DontDestroyManager : MonoBehaviour
 {
     private static DontDestroyManager instance = null;
 
-    public struct CharacterInfo
+    public class CharacterInfo
     {
+        public CharacterBase _character;
+        public string _characterName;
+        public int _rank;
+        public int _lapCount;
+        public int _souvenirNum;
         public int _money;
         public int[] _useEventNumByType;
         public List<int> _addMoneyByTurn;
@@ -31,15 +37,15 @@ public class DontDestroyManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void Init(List<CharacterBase> characters)
+    public void Init(List<CharacterControllerBase> characters)
     {
-        _characters.Clear();
-
+        _characters = new List<CharacterInfo>();
+        
         foreach(var x in characters)
         {
             _characters.Add(new CharacterInfo());
             var charaInfo = _characters.Last();
-            charaInfo._money = x.Money;
+            charaInfo._character = x.Character;
             charaInfo._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
             charaInfo._addMoneyByTurn = new List<int>();
         }
@@ -51,66 +57,58 @@ public class DontDestroyManager : MonoBehaviour
         
     }
 
-    public int GetRank(int index)
+    public void SetRank(CharacterBase character, int rank)
     {
-        return 0;
+        _characters.Find(x => x._character == character)._rank = rank;
     }
 
-    public void SetUseEventNum(int index, int num)
+    public void SetLogByCharacter()
     {
+        // キャラクターから情報を取得する
+        foreach(var x in _characters)
+        {
+            x._money = x._character.Money;
+            x._lapCount = x._character.LapCount;
+            x._characterName = x._character.Name;
+            x._souvenirNum = x._character.Souvenirs.Count;
+            Array.Copy(x._character.Log.GetUseEventNum(), x._useEventNumByType, x._useEventNumByType.Length);
+
+        }
 
     }
 
-    public int GetUseEventNum(int index)
-    {
-        return 0;
-    }
-
-    public void SetLapCount(int index, int lapCount)
-    {
-        
-    }
-
-    public int GetLaoCount(int index)
-    {
-        return 0;
-    }
-
-    public void SetSouvenirNum(int index, int souvenirNum)
+    public void SetAddMoenyByTurn(CharacterBase character)
     {
 
     }
 
-    public int GetSouvenirNum(int index)
+    public int GetRank(CharacterBase character)
     {
-        return 0;
+        return _characters.Find(x => x._character == character)._rank;
+    }
+
+    public int GetUseEventNum(CharacterBase character)
+    {
+        return _characters.Find(x => x._character == character)._useEventNumByType.Sum();
+    }
+
+    public int GetUseEventNumByType(CharacterBase character, SquareEventType eventType)
+    {
+        return _characters.Find(x => x._character == character)._useEventNumByType[(int)eventType];
+    }
+
+    public int GetLapCount(CharacterBase character)
+    {
+        return _characters.Find(x => x._character == character)._lapCount;
+    }
+
+    public int GetSouvenirNum(CharacterBase character)
+    {
+        return _characters.Find(x => x._character == character)._souvenirNum;
     }
     
-    public void SetMoeny(int index, int money)
+    public int GetMoney(CharacterBase character, int money)
     {
-
+        return _characters.Find(x => x._character == character)._money;
     }
-
-    public int GetMoney(int index, int money)
-    {
-        return 0;
-    }
-
-    public void SetUseEventNumByType(int index)
-    {
-
-    }
-
-    public int GetUseEventNumByType(int index)
-    {
-        return 0;
-    }
-
-    public void SetAddMoenyByTurn(int index)
-    {
-
-    }
-
-
-
 }

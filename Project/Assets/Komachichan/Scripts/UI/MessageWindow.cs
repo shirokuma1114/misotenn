@@ -88,10 +88,10 @@ public class MessageWindow : MonoBehaviour
             pos.y = _iconPosY + Mathf.Sin(_elapsedTime * 8.0f) * 5.0f;
             _iconTr.anchoredPosition = pos;
 
-            if (!_isAutomatic && Input.GetKeyDown(KeyCode.Return))
-            {
-                SetNextMessage();
-            }
+        }
+        if (!_isAutomatic && Input.GetKeyDown(KeyCode.Return))
+        {
+            SetNextMessage();
         }
     }
 

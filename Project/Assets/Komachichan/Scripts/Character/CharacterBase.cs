@@ -50,8 +50,8 @@ public class CharacterBase : MonoBehaviour
         get { return _state; }
     }
 
-    [SerializeField]
-    private Floating_Local_Miya _floating;
+    //[SerializeField]
+    //private Floating_Local_Miya _floating;
     
     private int _movingCount;
 
@@ -193,7 +193,7 @@ public class CharacterBase : MonoBehaviour
     public void StartMove(SquareBase square)
     {
         _state = CharacterState.MOVE;
-        _floating.Set_Using(false);
+        //_floating.Set_Using(false);
         _movingCount--;
 
         _currentSquare = square;
@@ -212,7 +212,7 @@ public class CharacterBase : MonoBehaviour
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _state = CharacterState.WAIT;
-            _floating.Set_Using(true);
+            //_floating.Set_Using(true);
         }
     }
 
@@ -291,5 +291,10 @@ public class CharacterBase : MonoBehaviour
     public void SetDefaultAngle()
     {
         transform.eulerAngles = new Vector3(0, 0, 0);
+    }
+
+    public void SetLogToInfo(DontDestroyManager info)
+    {
+
     }
 }

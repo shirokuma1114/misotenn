@@ -89,6 +89,10 @@ public class MyGameManager : MonoBehaviour
 
         // お小遣い移動カード初期化
         InitStatus();
+
+        // ログ初期化
+        FindObjectOfType<DontDestroyManager>().Init(_entryPlugs);
+
         _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
 
         _phase = Phase.AWAKE;
@@ -175,6 +179,8 @@ public class MyGameManager : MonoBehaviour
                 _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
                     + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", false);
 
+                // ログを設定
+                SetCharacterLogToInfo();
                 return;
             }
 
@@ -291,13 +297,24 @@ public class MyGameManager : MonoBehaviour
         _entryPlugs[_turnIndex].Move();
     }
 
-    public int GetRanking(CharacterBase character)
+    public int GetRank(CharacterBase character)
     {
         var characters = GetCharacters();
         // 順位はお土産種類＋おこづかい
         characters = characters.OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
 
         return characters.IndexOf(character) + 1;
+    }
+
+    private void SetCharacterLogToInfo()
+    {
+        var info = FindObjectOfType<DontDestroyManager>();
+        
+        foreach(var x in _entryPlugs)
+        {
+            info.SetRank(x.Character, GetRank(x.Character));
+            x.Character.SetLogToInfo(info);
+        }
     }
 
     // リーチのキャラクターが存在するか
