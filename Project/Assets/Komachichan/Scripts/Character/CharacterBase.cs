@@ -68,7 +68,8 @@ public class CharacterBase : MonoBehaviour
     // ÉâÉbÉvêî
     public int LapCount { get; set; }
 
-    public CharacterLog Log { get; }
+    private CharacterLog _log;
+    public CharacterLog Log { get { return _log; } }
 
     private float _nextSquareDist;
 
@@ -81,6 +82,7 @@ public class CharacterBase : MonoBehaviour
     protected virtual void Start()
     {
         _originPosZ = transform.position.z;
+        _log = new CharacterLog();
     }
 
     void Update()
