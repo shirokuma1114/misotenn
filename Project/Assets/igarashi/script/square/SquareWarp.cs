@@ -177,7 +177,7 @@ public class SquareWarp : SquareBase
         if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // Ž©•ª‚ª•s—˜
-        if (_gameManager.GetRanking(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character, characterType);
+        if (_gameManager.GetRank(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character, characterType);
 
         return (int)SquareScore.WARP + base.GetScore(character, characterType);
     }

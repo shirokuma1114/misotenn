@@ -94,6 +94,17 @@ public class SquareSteal : SquareBase
         _selectElements.Clear();
 
         _state = SquareStealState.PAY;
+
+        // ‚Á‚Ä‚é‚©‚Á‚Ä‚È‚¢‚©”»’f
+        if (character.IsAutomatic)
+        {
+            //Invoke("SelectAutomatic", 1.5f);
+        }
+    }
+
+    void SelectAutomatic()
+    {
+        _payUI.AISelectYes();
     }
 
     private void PayStateProcess()
@@ -110,6 +121,12 @@ public class SquareSteal : SquareBase
                 _messageWindow.SetMessage("’N‚©‚ç‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H", _character.IsAutomatic);
 
                 _state = SquareStealState.SLECT_TARGET;
+
+                //AI‚Ì‘I‘ğ
+                if (_character.IsAutomatic)
+                {
+                    //Invoke("SelectAutomatic", 1.5f);
+                }
             }
             else
             {
