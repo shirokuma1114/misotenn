@@ -44,14 +44,14 @@ public class SelectUI : MonoBehaviour
         _selectIndex = _elements.Count - 1;
 
         int elementNumber = 0;
-        for (int ri = _elements.Count - 1; ri >= 0 ; ri--)
+        for (int i = 0; i < _elements.Count ; i++)
         {
             var obj = Instantiate(_selectionPrefab);
             var rt = obj.GetComponent<RectTransform>();
 
             rt.SetParent(transform);
-            rt.localPosition = new Vector3(DEFAULT_RECT.x, DEFAULT_RECT.y + DEFAULT_RECT.height * elementNumber ,0.0f);
-            obj.GetComponentInChildren<Text>().text = _elements[ri];
+            rt.localPosition = new Vector3(DEFAULT_RECT.x, DEFAULT_RECT.y + DEFAULT_RECT.height * (_elements.Count - 1 - i) ,0.0f);
+            obj.GetComponentInChildren<Text>().text = _elements[i];
 
             _selections.Add(obj);
 
@@ -115,20 +115,21 @@ public class SelectUI : MonoBehaviour
     {
         if (_openerCharacter.IsAutomatic)
             return;
-
+        Debug.Log(_selectIndex);
         if(Input.GetKeyDown(KeyCode.W))
         {
-            _selectIndex++;
-            if (_selectIndex >= _selections.Count)
-                _selectIndex = 0;
+
+            _selectIndex--;
+            if (_selectIndex < 0)
+                _selectIndex = _selections.Count - 1;
 
             UpdateSelectionColor();
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            _selectIndex--;
-            if (_selectIndex < 0)
-                _selectIndex = _selections.Count - 1;
+            _selectIndex++;
+            if (_selectIndex >= _selections.Count)
+                _selectIndex = 0;
 
             UpdateSelectionColor();
         }
