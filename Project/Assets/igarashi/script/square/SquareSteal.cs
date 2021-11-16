@@ -81,6 +81,14 @@ public class SquareSteal : SquareBase
             return;
         }
 
+        // ’N‚à‚¨“yY‚ğ‚à‚Á‚Ä‚¢‚È‚¢
+        if(!_gameManager.HasSouvenirByCharacters(character))
+        {
+            //_messageWindow.SetMessage("’N‚à‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚©‚Á‚½I", character.IsAutomatic);
+            //_state = SquareStealState.END;
+            //return;
+        }
+
 
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H";
         _messageWindow.SetMessage(message, character.IsAutomatic);
@@ -95,14 +103,14 @@ public class SquareSteal : SquareBase
 
         _state = SquareStealState.PAY;
 
-        // ‚Á‚Ä‚é‚©‚Á‚Ä‚È‚¢‚©”»’f
+        // ’D‚¤‚©”»’f
         if (character.IsAutomatic)
         {
-            //Invoke("SelectAutomatic", 1.5f);
+            Invoke("AISelectAutomatic", 1.5f);
         }
     }
 
-    void SelectAutomatic()
+    void AISelectAutomatic()
     {
         _payUI.AISelectYes();
     }
@@ -125,13 +133,23 @@ public class SquareSteal : SquareBase
                 //AI‚Ì‘I‘ğ
                 if (_character.IsAutomatic)
                 {
-                    //Invoke("SelectAutomatic", 1.5f);
+                    Invoke("AISelectStealCharacter", 1.5f);
                 }
             }
             else
             {
                 _state = SquareStealState.END;
             }
+        }
+    }
+
+    private void AISelectStealCharacter()
+    {
+        for(int i = 0; i < _otherCharacters.Count; i++)
+        {
+            if (_otherCharacters[i].Souvenirs.Count == 0) continue;
+            _selectUI.IndexSelect(i);
+            return;
         }
     }
 
@@ -166,7 +184,7 @@ public class SquareSteal : SquareBase
                 _character.AddSouvenir(target);
                 _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(0);
 
-                var message = _character.Name + "‚Í" + _otherCharacters[_selectUI.SelectIndex].Name + "‚Ì" + target.ToString() + "‚ğæ‚Á‚½";
+                var message = _character.Name + "‚Í" + _otherCharacters[_selectUI.SelectIndex].Name + "‚Ì" + target.Name + "‚ğæ‚Á‚½";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
 
                 _character.SubMoney(_cost);

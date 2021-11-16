@@ -58,7 +58,7 @@ public class SquareSouvenir : SquareBase
         }
 
 
-        var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ”ƒ‚¢‚Ü‚·‚©H";
+        var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä\n‚¨“yY@" + _souvenirName + "‚ğ@”ƒ‚¢‚Ü‚·‚©H";
 
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
@@ -117,7 +117,7 @@ public class SquareSouvenir : SquareBase
         _character.SubMoney(_cost);
         _character.AddSouvenir(new Souvenir(_cost, _souvenirName, _type));
 
-        _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yY‚ğè‚É“ü‚ê‚½", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"
+        _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yY@" + _souvenirName + "‚ğ@è‚É“ü‚ê‚½I", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"
 
         _state = SquareSouvenirState.END;
     }

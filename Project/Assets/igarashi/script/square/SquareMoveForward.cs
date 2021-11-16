@@ -133,6 +133,11 @@ public class SquareMoveForward : SquareBase
 
     void SelectAutomatic()
     {
+        if(_character.Money < _cost)
+        {
+            _payUI.AISelectNo();
+            return;
+        }
         _payUI.AISelectYes();
     }
 

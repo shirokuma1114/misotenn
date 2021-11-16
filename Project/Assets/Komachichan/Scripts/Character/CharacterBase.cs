@@ -8,7 +8,6 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     CharacterControllerBase _controller;
 
-
     // –¼‘O
     private string _name;
 
@@ -119,6 +118,7 @@ public class CharacterBase : MonoBehaviour
     public void AddSouvenir(Souvenir souvenir)
     {
         _souvenirs.Add(souvenir);
+        _souvenirs.Sort((a, b) => b.Type - a.Type);
     }
 
     public void RemoveSouvenir(int index)
@@ -298,5 +298,10 @@ public class CharacterBase : MonoBehaviour
     public void SetLogToInfo(DontDestroyManager info)
     {
 
+    }
+
+    public void ReStartMove(int moveCount)
+    {
+        _controller.ReStartMove(moveCount);
     }
 }

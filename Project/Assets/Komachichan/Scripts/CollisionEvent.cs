@@ -63,10 +63,10 @@ public class CollisionEvent
             if (_targetIndex >= _targets.Count) return;
             if (true /* 選択 or ランダムでお土産が選択された */)
             {
-                _souvenirIndex = Random.Range(0, _targets.Count);
+                _souvenirIndex = Random.Range(0, _targets[_targetIndex].Souvenirs.Count);
 
                 var souvenir = _targets[_targetIndex].Souvenirs[_souvenirIndex];
-                _messageWindow.SetMessage(_targets[_targetIndex].Name + "　のお土産カード　" + souvenir.Name + "\nを　いただいた！", _owner.IsAutomatic);
+                _messageWindow.SetMessage(_targets[_targetIndex].Name + "の\nお土産　" + souvenir.Name + "を　いただいた！", _owner.IsAutomatic);
 
                 _owner.AddSouvenir(souvenir);
                 _targets[_targetIndex].RemoveSouvenir(_souvenirIndex);

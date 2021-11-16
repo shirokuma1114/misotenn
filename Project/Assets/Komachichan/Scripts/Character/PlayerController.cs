@@ -50,31 +50,25 @@ public class PlayerController : CharacterControllerBase
         _isSelectedCard = true;
     }
 
-    protected override void SetRoot()
+    public override void SetRoot()
     {
+        var index = _moveCardManager.GetSelectedCardIndex();
+        _character.RemoveMovingCard(index);
+        _goalMovingCount = _character.MovingCount;
+        _moveCardManager.DeleteCards();
+        _isSelectedCard = false;
         // ÉãÅ[Égê∂ê¨
-        var next = _character.CurrentSquare;
-        for(int i = 0; i < _character.MovingCount; i++)
-        {
-            next = next.OutConnects.Last();
-            _root.Enqueue(next);
-        }
+        DefaultGenerateRoot();
     }
 
     private void UpdateSelect()
     {
         if (_moveCardManager.GetSelectedCardIndex() != -1)
         {
+            SetRoot();
             _statusWindow.SetEnable(false);
             _movingCount.SetEnable(true);
             _souvenirWindow.SetEnable(false);
-            var index = _moveCardManager.GetSelectedCardIndex();
-            _character.RemoveMovingCard(index);
-            _goalMovingCount = _character.MovingCount;
-            _isSelectedCard = false;
-            SetRoot();
-            _moveCardManager.DeleteCards();
-            
         }
     }
 }
