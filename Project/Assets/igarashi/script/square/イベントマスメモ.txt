@@ -4,6 +4,8 @@
 ◇Cost:発動するために必要な金額
 
 お土産マス(SquareSouvenir)
+	・OmiyageEnshutsu(Miya/prefab/OmiyageEnshutsu.prefab)をシーンに配置
+
 	◇SouvenirName	:お土産の名前
 
 前進マス(SquareMoveForward)
