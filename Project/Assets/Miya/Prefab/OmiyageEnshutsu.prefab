@@ -103,7 +103,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 29d264c4befdf314aaa6cf9a70de7775, type: 3}
   - {fileID: 21300000, guid: f8b011d1d6390b24884793b5ab42e8e6, type: 3}
   Second_Display: 1.5
-  Particle_Keep: {fileID: 6612544329883472772, guid: 40595cb801a67ee4c8d91caecf7a4526, type: 3}
+  Particle: {fileID: 6612544329883472772, guid: 40595cb801a67ee4c8d91caecf7a4526, type: 3}
 --- !u!1 &2402492813489198191
 GameObject:
   m_ObjectHideFlags: 0

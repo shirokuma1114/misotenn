@@ -18,6 +18,7 @@ public class OmiyageEnshutsu : MonoBehaviour
 				{
 					ImageComponent.sprite = OmiyageSprites[i];
 					Set_sequence();
+                    _animComplete = false;
 					break;
 				}
 			}
@@ -40,6 +41,10 @@ public class OmiyageEnshutsu : MonoBehaviour
 	Sequence Animation_Sequence;
 	Sequence Initial_Sequence;
 	RectTransform Rect;
+
+    //
+    bool _animComplete = false;
+    public bool IsAnimComplete => _animComplete;
 
 	// Start
 	void Start()
@@ -101,6 +106,7 @@ public class OmiyageEnshutsu : MonoBehaviour
 	private void Completed()
 	{
 		Instantiate(Particle);
+        _animComplete = true;
 	}
 	// OnDisable
 	private void OnDisable()

@@ -19,6 +19,8 @@ public class SquareSouvenir : SquareBase
     StatusWindow _statusWindow;
     PayUI _payUI;
 
+    private OmiyageEnshutsu _effect;
+
 
     [Header("‚¨“yY")]
     [Space(20)]
@@ -36,6 +38,8 @@ public class SquareSouvenir : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+
+        _effect = FindObjectOfType<OmiyageEnshutsu>();
 
         _squareInfo =
             "‚¨“yYƒ}ƒX\n" +
@@ -120,13 +124,16 @@ public class SquareSouvenir : SquareBase
 
         _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yY@" + _souvenirName + "‚ğ@è‚É“ü‚ê‚½I", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"
 
+        //‰‰o
+        _effect.Use_OmiyageEnshutsu(gameObject.name);
+
         _state = SquareSouvenirState.END;
     }
 
     private void EndProcess()
     {
 
-        if(!_messageWindow.IsDisplayed)
+        if(!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
         {
             // ~‚Ü‚éˆ—I—¹
             _character.CompleteStopExec();
