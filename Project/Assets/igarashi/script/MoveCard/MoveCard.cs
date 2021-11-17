@@ -6,10 +6,13 @@ using DG.Tweening;
 public class MoveCard : MonoBehaviour
 {
     private int _index;
-    private List<Tween> _tweens = new List<Tween>();
+    private Sequence _startAnimSequence;
 
     MoveCardManager _manager;
     private Sequence _finAnimSequence = null;
+
+    private bool _startAnimComplete = false;
+    public bool IsStartAnimComplete => _startAnimComplete;
 
     public void OnClick()
     {
@@ -24,22 +27,21 @@ public class MoveCard : MonoBehaviour
     public void SetMoveTargetPos(Vector3 targetPos, bool last)
     {
         var rt = GetComponent<RectTransform>();
-
+        _startAnimSequence = DOTween.Sequence();
 
         if (!last)
         {
-            _tweens.Add(rt.DOMove(targetPos, 1.0f));
-            _tweens.Add(rt.DORotate(new Vector3(0, 0, 0), 1.0f));
+            _startAnimSequence.Join(rt.DOMove(targetPos, 1.0f));
+            _startAnimSequence.Join(rt.DORotate(new Vector3(0, 0, 0), 1.0f));          
         }
         else
         {
-            var seq = DOTween.Sequence();
-            _tweens.Add(seq.AppendInterval(1.0f));
-            _tweens.Add(seq.Append(rt.DOMove(targetPos, 1.0f)));
-            _tweens.Add(seq.Join(rt.DORotate(new Vector3(0, 0, -450), 1.0f, RotateMode.WorldAxisAdd)));
-
-            seq.Play();
+            _startAnimSequence.AppendInterval(1.0f);
+            _startAnimSequence.Append(rt.DOMove(targetPos, 1.0f));
+            _startAnimSequence.Join(rt.DORotate(new Vector3(0, 0, -450), 1.0f, RotateMode.WorldAxisAdd));
         }
+        _startAnimSequence.Play();
+        _startAnimSequence.SetAutoKill(false);
     }
 
     public void PlayFinishAnimation()
@@ -67,21 +69,33 @@ public class MoveCard : MonoBehaviour
     {
         if(_finAnimSequence != null)
         {
-            if (!_finAnimSequence.IsPlaying())
+            if (_finAnimSequence.IsComplete())
             {
                 _manager.FinAnimEnd();
+
                 _finAnimSequence.Kill();
                 _finAnimSequence = null;
+            }
+        }
+
+
+        if (_startAnimSequence != null)
+        {
+            if(_startAnimSequence.IsComplete())
+            {
+                _startAnimComplete = true;
+
+                _startAnimSequence.Kill();
+                _startAnimSequence = null;
             }
         }
     }
 
     private void OnDisable()
     {
-        if (_tweens.Count != 0)
+        if (_startAnimSequence != null)
         {
-            for (int i = 0; i < _tweens.Count; i++)
-                _tweens[i].Kill();
+            _startAnimSequence.Kill();
         }
         if (_finAnimSequence != null)
         {

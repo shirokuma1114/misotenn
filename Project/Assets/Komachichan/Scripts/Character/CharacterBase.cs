@@ -8,7 +8,6 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     CharacterControllerBase _controller;
 
-
     // 名前
     private string _name;
 
@@ -50,16 +49,21 @@ public class CharacterBase : MonoBehaviour
         get { return _state; }
     }
 
-    // ルート保存用
-    //private Stack<SquareBase> _rootStack = new Stack<SquareBase>();
+    // 後でManager側で設定する
+    [SerializeField]
+    private CharacterType _characterType;
 
+    public CharacterType CharacterType { get { return _characterType; } }
+
+    //[SerializeField]
+    //private Floating_Local_Miya _floating;
+    
     private int _movingCount;
 
     public int MovingCount
     {
         get { return _movingCount; }
     }
-    
 
     public bool IsAutomatic
     {
@@ -69,7 +73,8 @@ public class CharacterBase : MonoBehaviour
     // ラップ数
     public int LapCount { get; set; }
 
-    public CharacterLog Log { get; }
+    private CharacterLog _log;
+    public CharacterLog Log { get { return _log; } }
 
     private float _nextSquareDist;
 
@@ -77,9 +82,12 @@ public class CharacterBase : MonoBehaviour
 
     private float _originPosZ;
 
+    private bool _waitEnable;
+
     protected virtual void Start()
     {
         _originPosZ = transform.position.z;
+        _log = new CharacterLog();
     }
 
     void Update()
@@ -116,6 +124,7 @@ public class CharacterBase : MonoBehaviour
     public void AddSouvenir(Souvenir souvenir)
     {
         _souvenirs.Add(souvenir);
+        _souvenirs.Sort((a, b) => b.Type - a.Type);
     }
 
     public void RemoveSouvenir(int index)
@@ -144,20 +153,55 @@ public class CharacterBase : MonoBehaviour
     {
         if (enable)
         {
-            transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            // 縮小
             transform.SetParent(_currentSquare.GetComponent<Transform>());
+            transform.localScale = new Vector3(15.5f, 15.5f, 15.5f);
+
+            // 回転
+            transform.eulerAngles = new Vector3(0.0f, -90.0f, 90.0f);
+
+            _currentSquare.AddCharacter(this);
         }
         else
         {
+            _currentSquare.RemoveCharacter(this);
+
+            // 移動
+            transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            transform.Translate(0, 0.65f, 0);
+
+            // 拡大
             transform.SetParent(null);
-            transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
+            transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
         }
+        _waitEnable = enable;
+    }
+
+    public void InitAlignment(int index)
+    {
+        transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        transform.Translate(0, 0.65f, 0);
+        AlignmentByMove(index);
+    }
+
+    private void AlignmentByMove(int index)
+    {
+        transform.localPosition = new Vector3(0.0f, 1.2f, 0.0f);
+        transform.Translate(-((index / 2) * 0.35f - 0.5f * 0.35f), 0, -((index % 2) * 0.35f - 0.5f * 0.35f));
+    }
+
+    public void Alignment()
+    {
+        if (!_waitEnable) return;
+        //Debug.Log(_currentSquare.GetStoppedCharacterNum());
+
+        AlignmentByMove(_currentSquare.GetAlignmentIndexByCharacter(this));
     }
 
     public void StartMove(SquareBase square)
     {
         _state = CharacterState.MOVE;
-        
+        //_floating.Set_Using(false);
         _movingCount--;
 
         _currentSquare = square;
@@ -176,6 +220,7 @@ public class CharacterBase : MonoBehaviour
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _state = CharacterState.WAIT;
+            //_floating.Set_Using(true);
         }
     }
 
@@ -183,10 +228,6 @@ public class CharacterBase : MonoBehaviour
     {
         _state = CharacterState.STOP;
         _currentSquare.Stop(this);
-        if (_movingCount == 0)
-        {
-            _currentSquare.AddCharacter(this);
-        }
     }
 
     public List<SquareBase> GetInConnects()
@@ -242,6 +283,7 @@ public class CharacterBase : MonoBehaviour
         Vector3 xAxis = Vector3.Cross(new Vector3(0, 0, 1), direction).normalized;
         Vector3 zAxis = Vector3.Cross(xAxis, new Vector3(0, 0, 1)).normalized;
         transform.rotation = Quaternion.LookRotation(zAxis, new Vector3(0, 0, 1));
+        transform.Rotate(0.0f, -90.0f, 180.0f);
 
         // 心がぴょんぴょんしない
         //float dist = (targetPos - position).magnitude;
@@ -257,5 +299,15 @@ public class CharacterBase : MonoBehaviour
     public void SetDefaultAngle()
     {
         transform.eulerAngles = new Vector3(0, 0, 0);
+    }
+
+    public void SetLogToInfo(DontDestroyManager info)
+    {
+
+    }
+
+    public void ReStartMove(int moveCount)
+    {
+        _controller.ReStartMove(moveCount);
     }
 }

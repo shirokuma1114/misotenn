@@ -81,6 +81,14 @@ public class SquareSteal : SquareBase
             return;
         }
 
+        // ’N‚à‚¨“yY‚ğ‚à‚Á‚Ä‚¢‚È‚¢
+        if(!_gameManager.HasSouvenirByCharacters(character))
+        {
+            //_messageWindow.SetMessage("’N‚à‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚©‚Á‚½I", character.IsAutomatic);
+            //_state = SquareStealState.END;
+            //return;
+        }
+
 
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H";
         _messageWindow.SetMessage(message, character.IsAutomatic);
@@ -94,6 +102,17 @@ public class SquareSteal : SquareBase
         _selectElements.Clear();
 
         _state = SquareStealState.PAY;
+
+        // ’D‚¤‚©”»’f
+        if (character.IsAutomatic)
+        {
+            Invoke("AISelectAutomatic", 1.5f);
+        }
+    }
+
+    void AISelectAutomatic()
+    {
+        _payUI.AISelectYes();
     }
 
     private void PayStateProcess()
@@ -110,11 +129,38 @@ public class SquareSteal : SquareBase
                 _messageWindow.SetMessage("’N‚©‚ç‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H", _character.IsAutomatic);
 
                 _state = SquareStealState.SLECT_TARGET;
+
+                //AI‚Ì‘I‘ğ
+                if (_character.IsAutomatic)
+                {
+                    Invoke("AISelectStealCharacter", 1.5f);
+                }
             }
             else
             {
                 _state = SquareStealState.END;
             }
+        }
+    }
+
+    private void AISelectStealCharacter()
+    {
+        // ƒ^ƒCƒv‚É‚æ‚Á‚Äæ‚éˆ—‚ğ•Ï‚¦‚é
+        //_character.CharacterType
+        //var hasSouvenirCharacters = _otherCharacters.Where(x => x.Souvenirs.Count > 0).ToList();
+        //if (hasSouvenirCharacters.Count == 0) return;
+
+        // ŒŸõ‚ÌÅ‰‚ÌˆÊ’u
+        var item = Random.Range(0, _otherCharacters.Count);
+
+        for(int i = 0; i < _otherCharacters.Count; i++)
+        {
+            if (_otherCharacters[item].Souvenirs.Count > 0)
+            {
+                _selectUI.IndexSelect(item);
+                return;
+            }
+            item = MathUtils.Wrap(++item, 0, _otherCharacters.Count);
         }
     }
 
@@ -145,11 +191,12 @@ public class SquareSteal : SquareBase
             }
             else
             {
-                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[0];
+                var targetSouvenirIndex = Random.Range(0, _otherCharacters[_selectUI.SelectIndex].Souvenirs.Count);
+                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[targetSouvenirIndex];
                 _character.AddSouvenir(target);
-                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(0);
+                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(targetSouvenirIndex);
 
-                var message = _character.Name + "‚Í" + _otherCharacters[_selectUI.SelectIndex].Name + "‚Ì" + target.ToString() + "‚ğæ‚Á‚½";
+                var message = _character.Name + "‚Í" + _otherCharacters[_selectUI.SelectIndex].Name + "‚Ì" + target.Name + "‚ğ’D‚Á‚½I";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
 
                 _character.SubMoney(_cost);
@@ -170,13 +217,13 @@ public class SquareSteal : SquareBase
         }
     }
 
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // ƒRƒXƒg‚ª‘«‚è‚È‚¢
-        if (_cost < character.Money) return base.GetScore(character);
+        if (_cost < character.Money) return base.GetScore(character, characterType);
 
         // ’D‚¤‚à‚Ì‚ª–³‚¢
-        if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character);
+        if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);
 
         // ‚Á‚Ä‚È‚¢‚¨“yY‚ğ‚Á‚Ä‚¢‚éƒvƒŒƒCƒ„[‚ª‚¢‚é
         var characters = _gameManager.GetCharacters(character);
@@ -202,12 +249,12 @@ public class SquareSteal : SquareBase
                     // ‘µ‚¦‚ÎŸ‚¿
                     if(character.GetSouvenirTypeNum() == 5)
                     {
-                        return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN + base.GetScore(character);
+                        return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN + base.GetScore(character, characterType);
                     }
-                    return (int)SquareScore.DONT_HAVE_STEAL + base.GetScore(character);
+                    return (int)SquareScore.DONT_HAVE_STEAL + base.GetScore(character, characterType);
                 }
             }
         }
-        return (int)SquareScore.STEAL + base.GetScore(character);
+        return (int)SquareScore.STEAL + base.GetScore(character, characterType);
     }
 }

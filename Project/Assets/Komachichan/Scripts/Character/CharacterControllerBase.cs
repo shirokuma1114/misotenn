@@ -62,7 +62,7 @@ public class CharacterControllerBase : MonoBehaviour
         _eventState = EventState.MOVE;
     }
 
-    protected virtual void SetRoot()
+    public virtual void SetRoot()
     {
 
     }
@@ -147,5 +147,25 @@ public class CharacterControllerBase : MonoBehaviour
     public virtual bool IsTurnFinished()
     {
         return _character.State == CharacterState.END && _eventState == EventState.WAIT;
+    }
+
+    protected void DefaultGenerateRoot()
+    {
+        // ÉãÅ[Égê∂ê¨
+        var next = _character.CurrentSquare;
+        for (int i = 0; i < _character.MovingCount; i++)
+        {
+            next = next.OutConnects.Last();
+            _root.Enqueue(next);
+        }
+    }
+
+    public virtual void ReStartMove(int moveCount)
+    {
+        _movingCount.SetEnable(true);
+        _character.AddMovingCard(moveCount);
+        _character.RemoveMovingCard(_character.MovingCards.Count - 1);
+        DefaultGenerateRoot();
+        _eventState = EventState.MOVE;
     }
 }

@@ -74,6 +74,9 @@ public class PayUI : MonoBehaviour
         ButtonColorUpdate();
 
         _open = true;
+
+        //if (_openerCharacter.IsAutomatic)
+          //  AISelectYes();
     }
 
     //===========================================

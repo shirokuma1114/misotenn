@@ -19,6 +19,8 @@ public class SquareSouvenir : SquareBase
     StatusWindow _statusWindow;
     PayUI _payUI;
 
+    private OmiyageEnshutsu _effect;
+
 
     [Header("‚¨“yŽY")]
     [Space(20)]
@@ -36,6 +38,8 @@ public class SquareSouvenir : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+
+        _effect = FindObjectOfType<OmiyageEnshutsu>();
 
         _squareInfo =
             "‚¨“yŽYƒ}ƒX\n" +
@@ -58,7 +62,7 @@ public class SquareSouvenir : SquareBase
         }
 
 
-        var message = _cost.ToString() + "‰~‚ðŽx•¥‚Á‚Ä‚¨“yŽY‚ð”ƒ‚¢‚Ü‚·‚©H";
+        var message = _cost.ToString() + "‰~‚ðŽx•¥‚Á‚Ä\n‚¨“yŽY@" + _souvenirName + "‚ð@”ƒ‚¢‚Ü‚·‚©H";
 
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
@@ -68,7 +72,7 @@ public class SquareSouvenir : SquareBase
 
         if (character.IsAutomatic)
         {
-            Invoke("SelectAutomatic", 1.5f);
+            Invoke("SelectAutomatic", 2.0f);
         }
     }
 
@@ -115,9 +119,13 @@ public class SquareSouvenir : SquareBase
     private void EventProcess()
     {
         _character.SubMoney(_cost);
+        _statusWindow.SetMoney(_character.Money);
         _character.AddSouvenir(new Souvenir(_cost, _souvenirName, _type));
 
-        _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yŽY‚ðŽè‚É“ü‚ê‚½", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ðŽè‚É“ü‚ê‚½"
+        _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yŽY@" + _souvenirName + "‚ð@Žè‚É“ü‚ê‚½I", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ðŽè‚É“ü‚ê‚½"
+
+        //‰‰o
+        _effect.Use_OmiyageEnshutsu(gameObject.name);
 
         _state = SquareSouvenirState.END;
     }
@@ -125,7 +133,7 @@ public class SquareSouvenir : SquareBase
     private void EndProcess()
     {
 
-        if(!_messageWindow.IsDisplayed)
+        if(!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
         {
             // Ž~‚Ü‚éˆ—I—¹
             _character.CompleteStopExec();
@@ -136,14 +144,14 @@ public class SquareSouvenir : SquareBase
        
     }
 
-    public override int GetScore(CharacterBase character)
+    public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // ‚¨‹à‚ª‘«‚è‚È‚¢
-        if (_cost > character.Money) return base.GetScore(character);
+        if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // Ž‚Á‚Ä‚¢‚È‚¢‚¨“yŽY‚ª”„‚Á‚Ä‚¢‚é
-        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character);
+        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
 
-        return (int)SquareScore.SOUVENIR + base.GetScore(character);
+        return (int)SquareScore.SOUVENIR + base.GetScore(character, characterType);
     }
 }

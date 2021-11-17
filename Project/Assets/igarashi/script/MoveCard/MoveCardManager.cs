@@ -64,7 +64,7 @@ public class MoveCardManager : MonoBehaviour
         SelectCardColorUpdate();
         _autoSelect = true;
 
-        _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
+        _selectComplete = true;
     }
 
     /// <summary>
@@ -154,6 +154,11 @@ public class MoveCardManager : MonoBehaviour
             return;
         if (_finAnimStartFlag)
             return;
+        foreach(var card in _cards)
+        {
+            if (!card.GetComponent<MoveCard>().IsStartAnimComplete)
+                return;
+        }
 
         if (Input.GetKeyDown(_selectLeftKey))
         {

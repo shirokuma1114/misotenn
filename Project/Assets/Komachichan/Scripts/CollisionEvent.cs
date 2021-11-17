@@ -44,6 +44,7 @@ public class CollisionEvent
         {
             if (!_messageWindow.IsDisplayed)
             {
+                if (_targetIndex >= _targets.Count) return;
                 // ‚¨“yY‚ğ‚Á‚Ä‚È‚¢
                 if (_targets[_targetIndex].Souvenirs.Count == 0)
                 {
@@ -59,12 +60,13 @@ public class CollisionEvent
 
         if(_phase == Phase.SELECT)
         {
+            if (_targetIndex >= _targets.Count) return;
             if (true /* ‘I‘ğ or ƒ‰ƒ“ƒ_ƒ€‚Å‚¨“yY‚ª‘I‘ğ‚³‚ê‚½ */)
             {
-                _souvenirIndex = Random.Range(0, _targets.Count);
+                _souvenirIndex = Random.Range(0, _targets[_targetIndex].Souvenirs.Count);
 
                 var souvenir = _targets[_targetIndex].Souvenirs[_souvenirIndex];
-                _messageWindow.SetMessage(_targets[_targetIndex].Name + "@‚Ì‚¨“yYƒJ[ƒh@" + souvenir.Name + "\n‚ğ@‚¢‚½‚¾‚¢‚½I", _owner.IsAutomatic);
+                _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Ì\n‚¨“yY@" + souvenir.Name + "‚ğ@‚¢‚½‚¾‚¢‚½I", _owner.IsAutomatic);
 
                 _owner.AddSouvenir(souvenir);
                 _targets[_targetIndex].RemoveSouvenir(_souvenirIndex);
@@ -77,6 +79,7 @@ public class CollisionEvent
         {
             if (!_messageWindow.IsDisplayed)
             {
+                if (_targetIndex >= _targets.Count) return;
                 _phase = Phase.INIT;
                 _targetIndex++;
                 // I—¹
