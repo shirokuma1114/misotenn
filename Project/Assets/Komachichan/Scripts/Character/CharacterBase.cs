@@ -8,7 +8,6 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     CharacterControllerBase _controller;
 
-
     // –¼‘O
     private string _name;
 
@@ -50,6 +49,12 @@ public class CharacterBase : MonoBehaviour
         get { return _state; }
     }
 
+    // Œã‚ÅManager‘¤‚ÅÝ’è‚·‚é
+    [SerializeField]
+    private CharacterType _characterType;
+
+    public CharacterType CharacterType { get { return _characterType; } }
+
     //[SerializeField]
     //private Floating_Local_Miya _floating;
     
@@ -68,7 +73,8 @@ public class CharacterBase : MonoBehaviour
     // ƒ‰ƒbƒv”
     public int LapCount { get; set; }
 
-    public CharacterLog Log { get; }
+    private CharacterLog _log;
+    public CharacterLog Log { get { return _log; } }
 
     private float _nextSquareDist;
 
@@ -81,6 +87,7 @@ public class CharacterBase : MonoBehaviour
     protected virtual void Start()
     {
         _originPosZ = transform.position.z;
+        _log = new CharacterLog();
     }
 
     void Update()
@@ -117,6 +124,7 @@ public class CharacterBase : MonoBehaviour
     public void AddSouvenir(Souvenir souvenir)
     {
         _souvenirs.Add(souvenir);
+        _souvenirs.Sort((a, b) => b.Type - a.Type);
     }
 
     public void RemoveSouvenir(int index)
@@ -296,5 +304,10 @@ public class CharacterBase : MonoBehaviour
     public void SetLogToInfo(DontDestroyManager info)
     {
 
+    }
+
+    public void ReStartMove(int moveCount)
+    {
+        _controller.ReStartMove(moveCount);
     }
 }

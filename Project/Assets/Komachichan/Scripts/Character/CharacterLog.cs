@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterLog : MonoBehaviour
+public class CharacterLog
 {
     private int[] _useEventNumByType;
 
@@ -12,6 +12,7 @@ public class CharacterLog : MonoBehaviour
     public CharacterLog()
     {
         _useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
+        _moneyByTurn = new List<int>();
     }
 
     public void AddUseEventNum(SquareEventType eventType)

@@ -81,6 +81,14 @@ public class SquareSteal : SquareBase
             return;
         }
 
+        // íNÇ‡Ç®ìyéYÇÇ‡Ç¡ÇƒÇ¢Ç»Ç¢
+        if(!_gameManager.HasSouvenirByCharacters(character))
+        {
+            //_messageWindow.SetMessage("íNÇ‡Ç®ìyéYÇéùÇ¡ÇƒÇ¢Ç»Ç©Ç¡ÇΩÅI", character.IsAutomatic);
+            //_state = SquareStealState.END;
+            //return;
+        }
+
 
         var message = _cost.ToString() + "â~Çéxï•Ç¡ÇƒÇ®ìyéYÇíDÇ¢Ç‹Ç∑Ç©ÅH";
         _messageWindow.SetMessage(message, character.IsAutomatic);
@@ -95,14 +103,14 @@ public class SquareSteal : SquareBase
 
         _state = SquareStealState.PAY;
 
-        // éùÇ¡ÇƒÇÈÇ©éùÇ¡ÇƒÇ»Ç¢Ç©îªíf
+        // íDÇ§Ç©îªíf
         if (character.IsAutomatic)
         {
-            //Invoke("SelectAutomatic", 1.5f);
+            Invoke("AISelectAutomatic", 1.5f);
         }
     }
 
-    void SelectAutomatic()
+    void AISelectAutomatic()
     {
         _payUI.AISelectYes();
     }
@@ -125,13 +133,34 @@ public class SquareSteal : SquareBase
                 //AIÇÃëIë
                 if (_character.IsAutomatic)
                 {
-                    //Invoke("SelectAutomatic", 1.5f);
+                    Invoke("AISelectStealCharacter", 1.5f);
                 }
             }
             else
             {
                 _state = SquareStealState.END;
             }
+        }
+    }
+
+    private void AISelectStealCharacter()
+    {
+        // É^ÉCÉvÇ…ÇÊÇ¡ÇƒéÊÇÈèàóùÇïœÇ¶ÇÈ
+        //_character.CharacterType
+        //var hasSouvenirCharacters = _otherCharacters.Where(x => x.Souvenirs.Count > 0).ToList();
+        //if (hasSouvenirCharacters.Count == 0) return;
+
+        // åüçıÇÃç≈èâÇÃà íu
+        var item = Random.Range(0, _otherCharacters.Count);
+
+        for(int i = 0; i < _otherCharacters.Count; i++)
+        {
+            if (_otherCharacters[item].Souvenirs.Count > 0)
+            {
+                _selectUI.IndexSelect(item);
+                return;
+            }
+            item = MathUtils.Wrap(++item, 0, _otherCharacters.Count);
         }
     }
 
@@ -162,11 +191,12 @@ public class SquareSteal : SquareBase
             }
             else
             {
-                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[0];
+                var targetSouvenirIndex = Random.Range(0, _otherCharacters[_selectUI.SelectIndex].Souvenirs.Count);
+                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[targetSouvenirIndex];
                 _character.AddSouvenir(target);
-                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(0);
+                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(targetSouvenirIndex);
 
-                var message = _character.Name + "ÇÕ" + _otherCharacters[_selectUI.SelectIndex].Name + "ÇÃ" + target.ToString() + "ÇéÊÇ¡ÇΩ";
+                var message = _character.Name + "ÇÕ" + _otherCharacters[_selectUI.SelectIndex].Name + "ÇÃ" + target.Name + "ÇíDÇ¡ÇΩÅI";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
 
                 _character.SubMoney(_cost);
