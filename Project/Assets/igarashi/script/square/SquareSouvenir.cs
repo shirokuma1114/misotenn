@@ -68,7 +68,7 @@ public class SquareSouvenir : SquareBase
 
         if (character.IsAutomatic)
         {
-            Invoke("SelectAutomatic", 1.5f);
+            Invoke("SelectAutomatic", 2.0f);
         }
     }
 
@@ -115,6 +115,7 @@ public class SquareSouvenir : SquareBase
     private void EventProcess()
     {
         _character.SubMoney(_cost);
+        _statusWindow.SetMoney(_character.Money);
         _character.AddSouvenir(new Souvenir(_cost, _souvenirName, _type));
 
         _messageWindow.SetMessage(_character.Name + "‚Í\n‚¨“yY@" + _souvenirName + "‚ğ@è‚É“ü‚ê‚½I", _character.IsAutomatic); //_character.name + "‚Í" + _souvenir.name + "‚ğè‚É“ü‚ê‚½"

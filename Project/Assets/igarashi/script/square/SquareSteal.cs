@@ -145,11 +145,22 @@ public class SquareSteal : SquareBase
 
     private void AISelectStealCharacter()
     {
+        // タイプによって取る処理を変える
+        //_character.CharacterType
+        //var hasSouvenirCharacters = _otherCharacters.Where(x => x.Souvenirs.Count > 0).ToList();
+        //if (hasSouvenirCharacters.Count == 0) return;
+
+        // 検索の最初の位置
+        var item = Random.Range(0, _otherCharacters.Count);
+
         for(int i = 0; i < _otherCharacters.Count; i++)
         {
-            if (_otherCharacters[i].Souvenirs.Count == 0) continue;
-            _selectUI.IndexSelect(i);
-            return;
+            if (_otherCharacters[item].Souvenirs.Count > 0)
+            {
+                _selectUI.IndexSelect(item);
+                return;
+            }
+            item = MathUtils.Wrap(++item, 0, _otherCharacters.Count);
         }
     }
 
@@ -180,11 +191,12 @@ public class SquareSteal : SquareBase
             }
             else
             {
-                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[0];
+                var targetSouvenirIndex = Random.Range(0, _otherCharacters[_selectUI.SelectIndex].Souvenirs.Count);
+                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[targetSouvenirIndex];
                 _character.AddSouvenir(target);
-                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(0);
+                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(targetSouvenirIndex);
 
-                var message = _character.Name + "は" + _otherCharacters[_selectUI.SelectIndex].Name + "の" + target.Name + "を取った";
+                var message = _character.Name + "は" + _otherCharacters[_selectUI.SelectIndex].Name + "の" + target.Name + "を奪った！";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
 
                 _character.SubMoney(_cost);

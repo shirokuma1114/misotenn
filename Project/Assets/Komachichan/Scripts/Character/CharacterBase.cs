@@ -49,6 +49,12 @@ public class CharacterBase : MonoBehaviour
         get { return _state; }
     }
 
+    // å„Ç≈Managerë§Ç≈ê›íËÇ∑ÇÈ
+    [SerializeField]
+    private CharacterType _characterType;
+
+    public CharacterType CharacterType { get { return _characterType; } }
+
     //[SerializeField]
     //private Floating_Local_Miya _floating;
     
