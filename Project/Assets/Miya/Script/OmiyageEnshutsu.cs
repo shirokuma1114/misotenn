@@ -64,7 +64,7 @@ public class OmiyageEnshutsu : MonoBehaviour
     void Update()
     {
 		// Debug
-		if (Input.GetKeyUp(KeyCode.A)) Use_OmiyageEnshutsu("Australia");
+		//if (Input.GetKeyUp(KeyCode.A)) Use_OmiyageEnshutsu("Australia");
 	}
 
 	// Animation Sequence
