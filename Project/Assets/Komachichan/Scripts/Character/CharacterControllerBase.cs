@@ -51,6 +51,9 @@ public class CharacterControllerBase : MonoBehaviour
 
     protected int _goalMovingCount = 1;
 
+    [SerializeField]
+    CakeAnimation _animation;
+
     public virtual void InitTurn()
     {
         _eventState = EventState.SELECT;
@@ -64,7 +67,7 @@ public class CharacterControllerBase : MonoBehaviour
 
     public virtual void SetRoot()
     {
-
+        _animation.StartMove();
     }
 
     protected void NotifyMovingCount(int count)
@@ -81,7 +84,8 @@ public class CharacterControllerBase : MonoBehaviour
     {
         if (_character.State != CharacterState.WAIT) return;
         if (_eventState == EventState.SELECT || _eventState == EventState.WAIT) return;
-        
+        if (!_animation.CanMove()) return;
+
         // ƒ}ƒX–Ú‚ðŒˆ’è‚·‚é
         if (_character.MovingCount == 0 && _eventState != EventState.COLLISION)
         {
@@ -97,6 +101,7 @@ public class CharacterControllerBase : MonoBehaviour
             //Debug.Log(_startSquare + _character.Name);
             _eventState = EventState.WAIT;
             _character.Stop();
+            _animation.EndMove();
             return;
         }
 
@@ -118,6 +123,7 @@ public class CharacterControllerBase : MonoBehaviour
             {
                 _eventState = EventState.WAIT;
                 _character.Stop();
+                _animation.EndMove();
                 return;
             }
         }
@@ -166,6 +172,7 @@ public class CharacterControllerBase : MonoBehaviour
         _character.AddMovingCard(moveCount);
         _character.RemoveMovingCard(_character.MovingCards.Count - 1);
         DefaultGenerateRoot();
+        _animation.StartMove();
         _eventState = EventState.MOVE;
     }
 }
