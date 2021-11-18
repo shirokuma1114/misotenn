@@ -57,7 +57,7 @@ Material:
     - _BottomColor2: {r: 0.82310385, g: 0.73018867, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Fog_Color: {r: 0, g: 0.5789256, b: 1, a: 1}
-    - _FrontColor1: {r: 0.09411765, g: 0.41568628, b: 0.20427084, a: 1}
+    - _FrontColor1: {r: 0.17878246, g: 0.5849056, b: 0.31745863, a: 1}
     - _FrontColor2: {r: 0.9089246, g: 1, b: 0.48627448, a: 1}
     - _GradOrigin_B: {r: 0, g: 25, b: 0, a: 0}
     - _GradOrigin_D: {r: 0, g: 0, b: 25, a: 0}
@@ -67,9 +67,9 @@ Material:
     - _GradOrigin_T: {r: 0, g: 0, b: 11, a: 0}
     - _HeightFog_Color: {r: 0, g: 0.38473803, b: 0.6981132, a: 1}
     - _LeftColor1: {r: 0.9245283, g: 0.91124386, b: 0, a: 1}
-    - _LeftColor2: {r: 0.98039216, g: 0.3098039, b: 0.47817874, a: 1}
+    - _LeftColor2: {r: 0.7830189, g: 0.17632073, b: 0.025115648, a: 1}
     - _RightColor1: {r: 0, g: 0.31081533, b: 1, a: 1}
-    - _RightColor2: {r: 0.14901961, g: 0.20318222, b: 0.69803923, a: 1}
+    - _RightColor2: {r: 0.16707012, g: 0.18621215, b: 0.3584906, a: 1}
     - _RimLight_Color: {r: 1, g: 0.0603773, b: 0.8800462, a: 1}
     - _ShadowColor: {r: 0.022797465, g: 1, b: 0, a: 1}
     - _Shadow_Color: {r: 0.9011033, g: 1, b: 0.29622638, a: 1}
