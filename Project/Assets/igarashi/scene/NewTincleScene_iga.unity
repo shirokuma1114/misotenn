@@ -6505,7 +6505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cost: 0
-  _warpHolePrefab: {fileID: 561844647204337154, guid: 2621acc36f3c61947a71c3cf745dd05a, type: 3}
+  _warpHolePrefab: {fileID: 92367833789280284, guid: 13ef361d71bbc304ab04e2f51651e6bb, type: 3}
   _warpHolePosition: {x: 0, y: 10, z: 0}
 --- !u!114 &1916240663 stripped
 MonoBehaviour:
