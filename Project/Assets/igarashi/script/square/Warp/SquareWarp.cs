@@ -67,6 +67,7 @@ public class SquareWarp : SquareBase
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(_characters[2].name + _characters[0].transform.position);
         switch (_state)
         {
             case SquareWarpState.IDLE:
@@ -119,10 +120,19 @@ public class SquareWarp : SquareBase
             {
                 _character.SubMoney(_cost);
 
+                //ワープホールに飛んでく
                 foreach (var chara in _characters)
                 {
-                    chara.SetWaitEnable(false);
-                    _inholeTween = chara.transform.DOMove(_warpHolePosition, 5.0f);
+                    if (chara != _character)
+                        chara.SetWaitEnable(false);
+
+                    Vector3[] path =
+                    {
+                        chara.transform.position,
+                        chara.transform.position + new Vector3(3.0f,5.0f,1.0f),
+                        _warpHolePosition
+                    };
+                    _inholeTween = chara.transform.DOPath(path,3.0f,PathType.CatmullRom).SetEase(Ease.Linear);
                     _inholeTween.SetAutoKill(false);
                 }
 
@@ -146,14 +156,35 @@ public class SquareWarp : SquareBase
     {
         if (_inholeTween.IsPlaying())
             return;
+        if (_warpHole.State != WarpHole.WarpHoleState.WHITE_OPEN)
+            return;
 
         _inholeTween.Kill();
 
+        int flyCount = 0;
+        Vector3[] flyAngle =
+        {
+            new Vector3(1.0f,0.0f,0.0f),
+            new Vector3(0.0f,0.0f,1.0f),
+            new Vector3(0.0f,0.0f,-1.0f),
+            new Vector3(-1.0f,0.0f,0.0f),
+        };
         foreach (var chara in _characters)
         {
-            SquareBase randomSquare = _squares[Random.Range(0, _squares.Count)];
-            _outholeTween = chara.transform.DOMove(randomSquare.transform.position, 5.0f);
+            SquareBase randomSquare = _squares[Random.Range(0, _squares.Count)];           
+
+            Vector3[] path =
+            {
+                chara.transform.position,
+                chara.transform.position + flyAngle[flyCount] * 3.0f,
+                randomSquare.transform.position
+            };
+            _outholeTween = chara.transform.DOPath(path, 3.0f, PathType.CatmullRom).SetEase(Ease.Linear);
+            _outholeTween.SetAutoKill(false);
+            
             chara.SetCurrentSquare(randomSquare);
+
+            flyCount++;
         }
 
         _state = SquareWarpState.WARP_END;
@@ -163,6 +194,8 @@ public class SquareWarp : SquareBase
     {
         if (_outholeTween.IsPlaying())
             return;
+
+        _outholeTween.Kill();
 
         foreach (var chara in _characters)
         {
