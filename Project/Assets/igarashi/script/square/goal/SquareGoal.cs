@@ -18,22 +18,15 @@ public class SquareGoal : SquareBase
     private MessageWindow _messageWindow;
     private StatusWindow _statusWindow;
     
-    //<ƒLƒƒƒ‰ƒNƒ^[,Žü‰ñ”>
-    private Dictionary<CharacterBase,int> _characterGoalNums = new Dictionary<CharacterBase, int>();
-
     [SerializeField]
     private int _baseMoney;
+    public int BaseMoney => _baseMoney;
 
     // Start is called before the first frame update
     void Start()
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
-
-
-        var c = FindObjectsOfType<CharacterBase>();
-        for(int i = 0; i < c.Length;i++)
-            _characterGoalNums.Add(c[i], 0);
 
         _squareInfo =
             "ƒS[ƒ‹ƒ}ƒX\n";
@@ -46,9 +39,6 @@ public class SquareGoal : SquareBase
         {
             case SquareGoalState.IDLE:
                 break;
-            case SquareGoalState.GOAL:
-                GoalStateProcess();
-                break;
             case SquareGoalState.END:
                 EndStateProcess();
                 break;
@@ -60,32 +50,25 @@ public class SquareGoal : SquareBase
     {
         _character = character;
 
-        _statusWindow.SetEnable(true);
+        Goal(character);
 
-        _characterGoalNums[character]++;
-        int money = _baseMoney * _characterGoalNums[character];
-        character.AddMoney(money);
-
-        // Žü‰ñ”’Ç‰Á
-        _character.LapCount++;
-        _statusWindow.SetMoney(_character.Money);
-        _statusWindow.SetLapNum(_character.LapCount);
-
-        _state = SquareGoalState.GOAL;
-    }
-
-    public void CountUpGoalNum(CharacterBase character)
-    {
-        _characterGoalNums[character]++;
+        _state = SquareGoalState.END;
     }
 
     public void Goal(CharacterBase character)
     {
-        int money = _baseMoney * _characterGoalNums[character];
+        _statusWindow.SetEnable(true);
 
-        var message = character.Name + "‚Í" + _characterGoalNums[character].ToString() + "T–Ú\n" + money.ToString() + "‰~‚à‚ç‚Á‚½";
+        // Žü‰ñ”’Ç‰Á
+        _character.LapCount++;
+        _statusWindow.SetLapNum(_character.LapCount);
+
+        int money = _baseMoney * character.LapCount;
+        character.AddMoney(money);
+        _statusWindow.SetMoney(_character.Money);
+
+        var message = character.Name + "‚Í" + character.LapCount.ToString() + "T–Ú\n" + money.ToString() + "‰~‚à‚ç‚Á‚½";
         _messageWindow.SetMessage(message, character.IsAutomatic);
-
     }
 
 
@@ -93,7 +76,6 @@ public class SquareGoal : SquareBase
     {
         if(!_messageWindow.IsDisplayed)
         {
-            Goal(_character);
             _state = SquareGoalState.END;
         }       
     }

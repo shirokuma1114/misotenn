@@ -26,7 +26,7 @@ public class FollowPositions : MonoBehaviour
     void Start()
     {
         _earth = FindObjectOfType<SquareConnectionLine>().gameObject;
-        _positions = _earth.GetComponent<SquareConnectionLine>().GetPositions();
+        //_positions = _earth.GetComponent<SquareConnectionLine>().GetPositions();
 
         _start = _positions[_index];
         _end = _positions[_index + 1];

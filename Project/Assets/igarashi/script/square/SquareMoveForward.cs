@@ -104,7 +104,7 @@ public class SquareMoveForward : SquareBase
             }
             else
             {
-                _state = SquareMoveForwardState.END;
+                _state = SquareMoveForwardState.IDLE;
                 _character.CompleteStopExec();
             }
             _statusWindow.SetEnable(false);
@@ -116,7 +116,7 @@ public class SquareMoveForward : SquareBase
     {
         if (_moveNum == _moveCount && _character.State != CharacterState.MOVE)
         {
-            _state = SquareMoveForwardState.END;
+            _state = SquareMoveForwardState.IDLE;
             _countWindow.SetEnable(false);
             _character.Stop();
             return;
@@ -133,6 +133,11 @@ public class SquareMoveForward : SquareBase
 
     void SelectAutomatic()
     {
+        if(_character.Money < _cost)
+        {
+            _payUI.AISelectNo();
+            return;
+        }
         _payUI.AISelectYes();
     }
 
@@ -141,7 +146,7 @@ public class SquareMoveForward : SquareBase
         if(!_messageWindow.IsDisplayed)
         {
             // Ž~‚Ü‚éˆ—I—¹
-            //_character.CompleteStopExec();
+            _character.CompleteStopExec();
 
             _state = SquareMoveForwardState.IDLE;
         }        

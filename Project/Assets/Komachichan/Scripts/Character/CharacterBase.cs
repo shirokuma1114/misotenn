@@ -8,7 +8,6 @@ public class CharacterBase : MonoBehaviour
     [SerializeField]
     CharacterControllerBase _controller;
 
-
     // –¼‘O
     private string _name;
 
@@ -50,8 +49,14 @@ public class CharacterBase : MonoBehaviour
         get { return _state; }
     }
 
+    // Œã‚ÅManager‘¤‚ÅÝ’è‚·‚é
     [SerializeField]
-    private Floating_Local_Miya _floating;
+    private CharacterType _characterType;
+
+    public CharacterType CharacterType { get { return _characterType; } }
+
+    //[SerializeField]
+    //private Floating_Local_Miya _floating;
     
     private int _movingCount;
 
@@ -68,7 +73,8 @@ public class CharacterBase : MonoBehaviour
     // ƒ‰ƒbƒv”
     public int LapCount { get; set; }
 
-    public CharacterLog Log { get; }
+    private CharacterLog _log;
+    public CharacterLog Log { get { return _log; } }
 
     private float _nextSquareDist;
 
@@ -81,6 +87,7 @@ public class CharacterBase : MonoBehaviour
     protected virtual void Start()
     {
         _originPosZ = transform.position.z;
+        _log = new CharacterLog();
     }
 
     void Update()
@@ -117,6 +124,7 @@ public class CharacterBase : MonoBehaviour
     public void AddSouvenir(Souvenir souvenir)
     {
         _souvenirs.Add(souvenir);
+        _souvenirs.Sort((a, b) => b.Type - a.Type);
     }
 
     public void RemoveSouvenir(int index)
@@ -193,7 +201,7 @@ public class CharacterBase : MonoBehaviour
     public void StartMove(SquareBase square)
     {
         _state = CharacterState.MOVE;
-        _floating.Set_Using(false);
+        //_floating.Set_Using(false);
         _movingCount--;
 
         _currentSquare = square;
@@ -212,7 +220,7 @@ public class CharacterBase : MonoBehaviour
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _state = CharacterState.WAIT;
-            _floating.Set_Using(true);
+            //_floating.Set_Using(true);
         }
     }
 
@@ -291,5 +299,15 @@ public class CharacterBase : MonoBehaviour
     public void SetDefaultAngle()
     {
         transform.eulerAngles = new Vector3(0, 0, 0);
+    }
+
+    public void SetLogToInfo(DontDestroyManager info)
+    {
+
+    }
+
+    public void ReStartMove(int moveCount)
+    {
+        _controller.ReStartMove(moveCount);
     }
 }

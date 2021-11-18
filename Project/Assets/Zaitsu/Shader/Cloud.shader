@@ -114,26 +114,26 @@ Shader "Custom/Cloud"
 			{
 				fixed4 col = _Color;
 
-				/*half rim = 1.0 - abs(dot(i.viewDir, i.normalDir));
-				fixed4 emission = _RimColor * pow(rim, _RimPower) * _RimPower;
-				emission = saturate(emission);
-				col += emission;*/
-
-				/*half alpha = 1 - (dot(i.viewDir, i.normalDir));
+				half alpha = 1 - (dot(i.viewDir, i.normalDir));
 				alpha = clamp(alpha * _Alpha, 0.1, 1.0);
 
-				col = fixed4(col.rgb, alpha);*/
+				col = fixed4(col.rgb, alpha);
+
+				half rim = 1.0 - abs(dot(i.viewDir, i.normalDir));
+				if (rim > 0.6)
+				{
+					fixed4 emission = _RimColor * pow(rim, _RimPower) * _RimPower;
+					emission = saturate(emission);
+					col += emission;
+					return col;
+				}
 
 				half dir =dot(i.viewDir, i.normalDir);
 				if (dir > 0)dir = 1;
 				else dir = -1;
 
-				col.a *= fbm3(i.vertex.xyz*_Roughness, _Octave, dir*_Time.y*_Flow);
-				col.rgb *= 1.25f*tex2D(_MainTex, float2(1 - col.a, 0));
-
-				col = pow(col, 2);
-				col.a *= 2.0f;
-
+				col.a *= fbm3(i.vertex.xyz*_Roughness, _Octave, dir*_Time.y*_Flow)*1.5;
+				
 				return col;
 			}
             ENDCG
