@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Environment
       objectReference: {fileID: 0}
+    - target: {fileID: 7559466924128813210, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7559466924128813213, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.98609954
@@ -146,6 +150,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -19.129
       objectReference: {fileID: 0}
+    - target: {fileID: 7860726421492892941, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: ObjectArray.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7860726421492892941, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: ObjectArray.Array.data[2]
+      value: 
+      objectReference: {fileID: 2706277809339453112, guid: a8b55cffd8e23dd419663b8d98634109, type: 3}
     - target: {fileID: 8437509313593247755, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -909,7 +921,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cost: 200000
-  _warpholePosition: {x: 0, y: 0, z: 0}
+  _warpHolePrefab: {fileID: 0}
+  _warpHolePosition: {x: 0, y: 0, z: 0}
 --- !u!1 &1105678839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7884660915506345465, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -1087,7 +1100,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1471461030
 PrefabInstance:
@@ -1110,7 +1123,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2402492813489198195, guid: 268b816d6402cf341a6f9787010cf4ad, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2402492813489198195, guid: 268b816d6402cf341a6f9787010cf4ad, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1648,7 +1661,7 @@ PrefabInstance:
       objectReference: {fileID: 992217419}
     - target: {fileID: 6019594197992506162, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: _floatingVolume
-      value: 5.7
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: 8132428973927792562, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_Positions.Array.size
@@ -6367,7 +6380,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1805297549
 PrefabInstance:
@@ -6479,7 +6492,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5502115071272589860, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
   m_PrefabInstance: {fileID: 1740068890}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1913559949
+--- !u!114 &1913559948
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6488,11 +6501,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1913559947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 559a25acf4b8f6545875e19901cf0880, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e8722a672f1a964d829467377f610d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _percentage: 50
-  _rate: 2
+  _cost: 0
+  _warpHolePrefab: {fileID: 561844647204337154, guid: 2621acc36f3c61947a71c3cf745dd05a, type: 3}
+  _warpHolePosition: {x: 0, y: 10, z: 0}
 --- !u!114 &1916240663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3190993506664380838, guid: 6bc9cadc1de682844bb27ecae543dc71, type: 3}
@@ -7370,7 +7384,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5998749721470583818, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583818, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7430,11 +7444,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
-      value: 1
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _selectWindow

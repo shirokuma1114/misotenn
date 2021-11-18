@@ -26,13 +26,17 @@ public class SquareWarp : SquareBase
 
     private List<CharacterBase> _characters;
 
+    private WarpHole _warpHole;
     private Tween _inholeTween;
     private Tween _outholeTween;
+    private CameraInterpolation _camera;
 
     [SerializeField]
     private int _cost;
     [SerializeField]
-    private Vector3 _warpholePosition;
+    private GameObject _warpHolePrefab;
+    [SerializeField]
+    private Vector3 _warpHolePosition;
 
 
     MyGameManager _gameManager;
@@ -51,6 +55,8 @@ public class SquareWarp : SquareBase
         _squares.AddRange(FindObjectsOfType<SquareBase>());
 
         _gameManager = FindObjectOfType<MyGameManager>();
+
+        _camera = Camera.main.GetComponent<CameraInterpolation>();
 
 
         _squareInfo =
@@ -112,11 +118,20 @@ public class SquareWarp : SquareBase
             if (_payUI.IsSelectYes)
             {
                 _character.SubMoney(_cost);
+
                 foreach (var chara in _characters)
                 {
                     chara.SetWaitEnable(false);
-                    _inholeTween = chara.transform.DOMove(_warpholePosition, 5.0f);
+                    _inholeTween = chara.transform.DOMove(_warpHolePosition, 5.0f);
+                    _inholeTween.SetAutoKill(false);
                 }
+
+                //エフェクト
+                _warpHole = Instantiate(_warpHolePrefab, _warpHolePosition, new Quaternion(0, 0, 0, 0)).GetComponent<WarpHole>();
+
+                //カメラ
+                _camera.Enter_Event();
+                _camera.Set_NextCamera(2);
 
                 _state = SquareWarpState.WARP;
             }
@@ -157,6 +172,8 @@ public class SquareWarp : SquareBase
             chara.Alignment();
         }
 
+        _warpHole.Close();
+
         _state = SquareWarpState.END;
     }
 
@@ -167,6 +184,7 @@ public class SquareWarp : SquareBase
         {
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
+            _camera.Leave_Event();
 
             _state = SquareWarpState.IDLE;
         }            
