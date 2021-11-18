@@ -135,19 +135,16 @@ public class SquareConnectionLine : MonoBehaviour
         float xzAngle = Vector3.SignedAngle(xzPrevTarget, xzTargetPos, -Vector3.up);
         endRot = Quaternion.Euler(0.0f, xzAngle, 0.0f) * endRot;
 
-
+        GameObject virtualEarth = new GameObject();
         for (int t = 1; t <= _curvePointNum; t++)
         {
-            GameObject virtualEarth = new GameObject();
-
             var lerpRot = Quaternion.Lerp(startRot, endRot, (float)t / _curvePointNum);
             virtualEarth.transform.rotation = lerpRot;
 
             var p = virtualEarth.transform.InverseTransformPoint(new Vector3(0, 0, -_floatingVolume));
-            _positions.Add(p);
-
-            Destroy(virtualEarth);
+            _positions.Add(p);            
         }
+        Destroy(virtualEarth);
 
         _startRot = endRot;
     }
