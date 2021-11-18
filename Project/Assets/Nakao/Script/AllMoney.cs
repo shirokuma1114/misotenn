@@ -7,6 +7,12 @@ public class AllMoney : MonoBehaviour
 {
     public Image Ex1n2out;
     public Image Ex1n2in;
+    public Image ExScroll;
+    public Image ExScOut;
+    // public Image ExScIn;
+    public Image ExBar;
+    public Image ExBarIn;
+    //public Image ExBarOut;
     //public Text Ex1n2text;
 
     public bool mn;
@@ -14,16 +20,25 @@ public class AllMoney : MonoBehaviour
 
     private GameObject m_rtObj;
     private RectTransform m_rtView; //グラフ作成用
+    //private RectTransform m_rtView2;
+    //private RectTransform m_templateLabelX;
+    //private RectTransform m_templateLabelY;
 
     //とりあえずリスト
     List<int> testData = new List<int> {
-            10,15,20,90,70,50,40,45,60,55,50,45,30};
+            10,15,20,90,70,50,40,45,60,55,50,45,30,40,50,20,15,45,30,70,90,15};
 
     private void Awake()
     {
         m_rtObj = GameObject.Find("EX1-2");
-        m_rtView = m_rtObj.transform.Find("Ex1n2MainOutFrame/Ex1n2MainInFrame").GetComponent<RectTransform>();
+        //m_rtView = m_rtObj.transform.Find("Ex1n2MainOutFrame/Ex1n2MainInFrame").GetComponent<RectTransform>();
+        m_rtView = m_rtObj.transform.Find("Scroll_View/Viewport/Content").GetComponent<RectTransform>();
         //m_rtView = transform.Find("view").GetComponent<RectTransform>();
+        
+        //m_rtView2 = m_rtObj.transform.Find("Ex1n2MainOutFrame/Ex1n2el").GetComponent<RectTransform>();
+        //m_templateLabelX = m_rtObj.transform.Find("Ex1n2MainOutFrame/Ex1n2MainInFrame/1n2Text").GetComponent<RectTransform>();
+        //m_templateLabelY = m_rtObj.transform.Find("Ex1n2MainOutFrame/Ex1n2MainInFrame/1n2Text2").GetComponent<RectTransform>();
+
         //CreateDot(new Vector2(200.0f, 200.0f));
     }
 
@@ -41,9 +56,15 @@ public class AllMoney : MonoBehaviour
         {
             Ex1n2out.enabled = false;
             Ex1n2in.enabled = false;
+            ExScroll.enabled = false;
+            ExScOut.enabled = false;
+            //ExScIn.enabled = false;
+            ExBar.enabled = false;
+            ExBarIn.enabled = false;
+            //ExBarOut.enabled = false;
             //Ex1n2text.enabled = false;
-           
-            if(inb)
+
+            if (inb)
             {
                 inb = false;
                 DeleteGraph();
@@ -54,10 +75,16 @@ public class AllMoney : MonoBehaviour
         {
             Ex1n2out.enabled = true;
             Ex1n2in.enabled = true;
+            ExScroll.enabled = true;
+            ExScOut.enabled = true;
+            //ExScIn.enabled = true;
+            ExBar.enabled = true;
+            ExBarIn.enabled = true;
+            //ExBarOut.enabled = true;
             //Ex1n2text.enabled = true;
             //Ex1n2text.text = " ";
 
-            if(!inb)
+            if (!inb)
             {
                 inb = true;
                 ShowGraph(testData);  //グラフ表示
@@ -105,6 +132,10 @@ public class AllMoney : MonoBehaviour
                            );
             }
             objLast = objDot;
+
+            //軸作成
+            //RectTransform rtLabelX = Instantiate(m_templateLabelX, m_rtView2);
+            //rtLabelX.anchoredPosition = new Vector2(fPosX, 0.0f);
         }
     }
 
@@ -132,7 +163,8 @@ public class AllMoney : MonoBehaviour
 
     private void DeleteGraph()
     {
-        GameObject obj = GameObject.Find("Ex1n2MainInFrame");
+        //GameObject obj = GameObject.Find("Ex1n2MainInFrame");
+        GameObject obj = GameObject.Find("Content");
 
         // 子オブジェクトをループして取得
         foreach (Transform child in obj.transform)
