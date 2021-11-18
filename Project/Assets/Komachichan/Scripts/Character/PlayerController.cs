@@ -52,6 +52,7 @@ public class PlayerController : CharacterControllerBase
 
     public override void SetRoot()
     {
+        base.SetRoot();
         var index = _moveCardManager.GetSelectedCardIndex();
         _character.RemoveMovingCard(index);
         _goalMovingCount = _character.MovingCount;

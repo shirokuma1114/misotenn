@@ -76,6 +76,7 @@ public class AIController : CharacterControllerBase
 
     public override void SetRoot()
     {
+        base.SetRoot();
         // 思考＆ルート作成
         var index = _aiLevel.CalcRoot(_character, ref _root);
         _moveCardManager.IndexSelect(index);
