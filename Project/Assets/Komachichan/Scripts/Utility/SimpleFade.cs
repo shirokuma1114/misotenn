@@ -22,12 +22,22 @@ public class SimpleFade : MonoBehaviour
     string _nextScene; //  次のシーン名
     string _additionScene;//　次の加算シーン名
 
+    bool _isSceneFade;
+
+    [SerializeField]
+    bool _awakeFadeIn = false;
+
     void Awake()
     {
         _isFade = false;
         _isFadeOut = false;
         _frameCnt = 0;
         _fadeFrame = 0;
+
+        if (_awakeFadeIn)
+        {
+            FadeStart(30);
+        }
     }
 
     // Update is called once per frame
@@ -52,11 +62,12 @@ public class SimpleFade : MonoBehaviour
             e = 1.0f;
             if (_isFadeOut)
             {
-                /*
-                SceneManager.LoadScene(_nextScene);
-                if (_additionScene != "NONE")
-                    SceneManager.LoadScene(_additionScene, LoadSceneMode.Additive);
-                    */
+                if (_isSceneFade)
+                {
+                    SceneManager.LoadScene(_nextScene);
+                    if (_additionScene != "NONE")
+                        SceneManager.LoadScene(_additionScene, LoadSceneMode.Additive);
+                }
             }
         }
         if (_isFadeOut)
@@ -71,12 +82,13 @@ public class SimpleFade : MonoBehaviour
         this.gameObject.GetComponent<Image>().color = color;
     }
 
-    public void FadeStart(int fadeFrame = 20, bool fadeOut = false, string nextScene = "NONE", string additionScene = "NONE")
+    public void FadeStart(int fadeFrame = 20, bool fadeOut = false, bool isSceneFade = false, string nextScene = "NONE", string additionScene = "NONE")
     {
         if (_isFade) return;
 
         //Debug.Log("フェードスタート");
         _isFade = true;
+        _isSceneFade = isSceneFade;
         _isFadeOut = fadeOut;
         _fadeFrame = fadeFrame;
         _nextScene = nextScene;

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Linq;
+
 
 public class ChangeText : MonoBehaviour
 {
@@ -11,10 +14,25 @@ public class ChangeText : MonoBehaviour
     public Image image2;
     public Image image3;
     public Image image4;
-    public Text P1text;
-    public Text P2text;
-    public Text P3text;
-    public Text P4text;
+
+    [SerializeField]
+    private Text _p1ItemText;
+    [SerializeField]
+    private Text _p2ItemText;
+    [SerializeField]
+    private Text _p3ItemText;
+    [SerializeField]
+    private Text _p4ItemText;
+
+    [SerializeField]
+    private Text _p1NumText;
+    [SerializeField]
+    private Text _p2NumText;
+    [SerializeField]
+    private Text _p3NumText;
+    [SerializeField]
+    private Text _p4NumText;
+
     public Image Top1;
     public Image Top2;
     public Image Back;
@@ -30,33 +48,46 @@ public class ChangeText : MonoBehaviour
     public Image Sideout;
     public Image Sidein;
 
+    [SerializeField]
+    private List<Text> _selectTexts;
+
+
     //決定Key用
     int Choice = 0;
+
+    int _selectIndex;
+
+    CharacterData[] _characters;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        var manager = FindObjectOfType<DontDestroyManager>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))         //P1
+        _characters = new CharacterData[4];
+
+        var charaOriginData = manager.GetCharacterData();
+        for(int i = 0; i < 4; i++)
         {
-            //text.text = "Player1";
-            //image1.enabled = false;
-            //image2.enabled = false;
-            //image3.enabled = false;
-            //image4.enabled = false;
-            //P1text.text = "総資産                                ＄";
-            //P2text.text = "周回数                                回";
-            //P3text.text = "イベント踏んだ数               回";
-            //P4text.text = "お土産数                             個";
-            //Top1.GetComponent<Image>().color = new Color32(101, 21, 21, 255);
-            //Top2.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
-            //Back.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
+            _characters[i] = new CharacterData();
+            _characters[i]._characterName = charaOriginData[i]._characterName;
+            _characters[i]._lapCount = charaOriginData[i]._lapCount;
+            _characters[i]._money = charaOriginData[i]._money;
+            _characters[i]._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
+            Array.Copy(charaOriginData[i]._character.Log.GetUseEventNum(), _characters[i]._useEventNumByType, _characters[i]._useEventNumByType.Length);
+            _characters[i]._moneyByTurn = new List<int>();
+            foreach (var x in charaOriginData[i]._character.Log.GetMoneyByTurn())
+            {
+                _characters[i]._moneyByTurn.Add(x);
+            }
+            _characters[i]._rank = charaOriginData[i]._rank;
+            _characters[i]._souvenirNum = charaOriginData[i]._souvenirNum;
+            _selectTexts[i].text = _characters[i]._characterName;
+        }
 
+        ShowRank();
+
+        {
             P1out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             P1in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -68,94 +99,105 @@ public class ChangeText : MonoBehaviour
             ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Choice = 1;
-
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))    //P2
+    }
+
+    void ShowRank()
+    {
+        for (int i = 0; i < _characters.Count(); i++)
         {
-            //text.text = "Player2";
-            //image1.enabled = false;
-            //image2.enabled = false;
-            //image3.enabled = false;
-            //image4.enabled = false;
-            //P1text.text = "総資産                                ＄";
-            //P2text.text = "周回数                                回";
-            //P3text.text = "イベント踏んだ数               回";
-            //P4text.text = "お土産数                             個";
-            //Top1.GetComponent<Image>().color = new Color32(21, 21, 101, 255);
-            //Top2.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
-            //Back.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
-
-            P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P2out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            P2in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Choice = 2;
+            
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))    //P3
+
+        _p1ItemText.text = "総資産";
+        _p2ItemText.text = "周回数";
+        _p3ItemText.text = "イベントマス使用回数";
+        _p4ItemText.text = "お土産数";
+
+        _p1NumText.text = _characters[_selectIndex]._money + "＄";
+        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        bool isMove = false;
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            //text.text = "Player3";
-            //image1.enabled = false;
-            //image2.enabled = false;
-            //image3.enabled = false;
-            //image4.enabled = false;
-            //P1text.text = "総資産                                ＄";
-            //P2text.text = "周回数                                回";
-            //P3text.text = "イベント踏んだ数               回";
-            //P4text.text = "お土産数                             個";
-            //Top1.GetComponent<Image>().color = new Color32(11, 60, 11, 255);
-            //Top2.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
-            //Back.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
-
-            P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            P3in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Choice = 3;
+            _selectIndex = Mathf.Max(--_selectIndex, 0);
+            isMove = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))    //P4
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            //text.text = "Player4";
-            //image1.enabled = false;
-            //image2.enabled = false;
-            //image3.enabled = false;
-            //image4.enabled = false;
-            //P1text.text = "総資産                                ＄";
-            //P2text.text = "周回数                                回";
-            //P3text.text = "イベント踏んだ数               回";
-            //P4text.text = "お土産数                             個";
-            //Top1.GetComponent<Image>().color = new Color32(101, 71, 21, 255);
-            //Top2.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
-            //Back.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
-
-            P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P4out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            P4in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            Choice = 4;
+            _selectIndex = Mathf.Min(++_selectIndex, _characters.Length);
+            isMove = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))    //戻るキー
+
+        if (isMove)
+        {
+            if(_selectIndex == 0)
+            {
+                P1out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P1in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            if(_selectIndex == 1)
+            {
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P2in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            if(_selectIndex == 2)
+            {
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P3in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            if(_selectIndex == 3)
+            {
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P4in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))    //戻るキー
         {
             //text.text = "結果発表";
             //image1.enabled = true;
@@ -183,7 +225,7 @@ public class ChangeText : MonoBehaviour
             Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Choice = 5;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))    //タイトルキー
+        if (Input.GetKeyDown(KeyCode.Alpha6))    //タイトルキー
         {
             P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -198,19 +240,26 @@ public class ChangeText : MonoBehaviour
             Sidein.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             Choice = 6;
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))    //決定キー
+        if (Input.GetKeyDown(KeyCode.Return))    //決定キー
         {
-            if (Choice == 1)
+            if (_selectIndex == 0)
             {
-                text.text = "Player1";
+                text.text = _characters[_selectIndex]._characterName;
                 image1.enabled = false;
                 image2.enabled = false;
                 image3.enabled = false;
                 image4.enabled = false;
-                P1text.text = "総資産                                ＄";
-                P2text.text = "周回数                                回";
-                P3text.text = "イベント踏んだ数               回";
-                P4text.text = "お土産数                             個";
+
+                _p1ItemText.text = "総資産";
+                _p2ItemText.text = "周回数";
+                _p3ItemText.text = "イベントマス使用回数";
+                _p4ItemText.text = "お土産数";
+
+                _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+                
                 Top1.GetComponent<Image>().color = new Color32(101, 21, 21, 255);
                 Top2.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
                 Back.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
@@ -218,17 +267,23 @@ public class ChangeText : MonoBehaviour
                 P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 //Choice = 0;
             }
-            else if(Choice == 2)
+            if(_selectIndex == 1)
             {
-                text.text = "Player2";
+                text.text = _characters[_selectIndex]._characterName;
                 image1.enabled = false;
                 image2.enabled = false;
                 image3.enabled = false;
                 image4.enabled = false;
-                P1text.text = "総資産                                ＄";
-                P2text.text = "周回数                                回";
-                P3text.text = "イベント踏んだ数               回";
-                P4text.text = "お土産数                             個";
+                _p1ItemText.text = "総資産";
+                _p2ItemText.text = "周回数";
+                _p3ItemText.text = "イベントマス使用回数";
+                _p4ItemText.text = "お土産数";
+
+                _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
                 Top1.GetComponent<Image>().color = new Color32(21, 21, 101, 255);
                 Top2.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
                 Back.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
@@ -236,17 +291,23 @@ public class ChangeText : MonoBehaviour
                 P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 //Choice = 0;
             }
-            else if (Choice == 3)
+            if (_selectIndex == 2)
             {
-                text.text = "Player3";
+                text.text = _characters[_selectIndex]._characterName;
                 image1.enabled = false;
                 image2.enabled = false;
                 image3.enabled = false;
                 image4.enabled = false;
-                P1text.text = "総資産                                ＄";
-                P2text.text = "周回数                                回";
-                P3text.text = "イベント踏んだ数               回";
-                P4text.text = "お土産数                             個";
+                _p1ItemText.text = "総資産";
+                _p2ItemText.text = "周回数";
+                _p3ItemText.text = "イベントマス使用回数";
+                _p4ItemText.text = "お土産数";
+
+                _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
                 Top1.GetComponent<Image>().color = new Color32(11, 60, 11, 255);
                 Top2.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
                 Back.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
@@ -254,17 +315,23 @@ public class ChangeText : MonoBehaviour
                 P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 //Choice = 0;
             }
-            else if (Choice == 4)
+            if (_selectIndex == 3)
             {
-                text.text = "Player4";
+                text.text = _characters[_selectIndex]._characterName;
                 image1.enabled = false;
                 image2.enabled = false;
                 image3.enabled = false;
                 image4.enabled = false;
-                P1text.text = "総資産                                ＄";
-                P2text.text = "周回数                                回";
-                P3text.text = "イベント踏んだ数               回";
-                P4text.text = "お土産数                             個";
+                _p1ItemText.text = "総資産";
+                _p2ItemText.text = "周回数";
+                _p3ItemText.text = "イベントマス使用回数";
+                _p4ItemText.text = "お土産数";
+
+                _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
                 Top1.GetComponent<Image>().color = new Color32(101, 71, 21, 255);
                 Top2.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
                 Back.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
@@ -272,17 +339,17 @@ public class ChangeText : MonoBehaviour
                 P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 //Choice = 0;
             }
-            else if (Choice == 5)
+            if (Choice == 5)
             {
                 text.text = "結果発表";
                 image1.enabled = true;
                 image2.enabled = true;
                 image3.enabled = true;
                 image4.enabled = true;
-                P1text.text = "Player1                                順位条件";
-                P2text.text = "Player2                                順位条件";
-                P3text.text = "Player3                                順位条件";
-                P4text.text = "Player4                                順位条件";
+                //P1text.text = "Player1                                順位条件";
+                //P2text.text = "Player2                                順位条件";
+                //P3text.text = "Player3                                順位条件";
+                //P4text.text = "Player4                                順位条件";
                 Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
                 Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
                 Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
