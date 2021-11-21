@@ -13,6 +13,7 @@
 
 保護マス(SquareProtect）
 	・キャラクターにProtecter.csを付ける
+	・_protectEffectPrefabにProtectEffect(Igrashi/Prefab/Effect.prefab)を設定する
 	
 	◇ProtectTurn	：保護するターン数
 
