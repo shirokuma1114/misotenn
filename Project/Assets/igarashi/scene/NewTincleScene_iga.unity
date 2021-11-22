@@ -451,6 +451,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _percentage: 50
   _rate: 2
+--- !u!1001 &405528784
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540921, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4232709059206540927, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
+      propertyPath: m_Name
+      value: OkozukaiEnshutsu
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a69b600cdc249eb4f8507cbe330f0e54, type: 3}
 --- !u!1 &492139932 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6915180449312059025, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -980,7 +1037,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1262190112 stripped
 GameObject:
@@ -6457,6 +6514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d362a61022ca7ec4ca5dd3021528fe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rouletteValues: e8030000d0070000b80b0000a00f0000881300007017000010270000
 --- !u!114 &1936241131 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1439123331609803503, guid: ab9b005b05776944fbc32435ba33dfbd, type: 3}
@@ -7339,11 +7397,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _selectWindow

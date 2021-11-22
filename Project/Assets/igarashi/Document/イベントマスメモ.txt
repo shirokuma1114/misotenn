@@ -5,8 +5,10 @@
 
 お土産マス(SquareSouvenir)
 	・OmiyageEnshutsu(Miya/prefab/OmiyageEnshutsu.prefab)をシーンに配置
+	・SouvenirFactory(Igarashi/Prefab/SouvenirFactory.prefab)をシーンに配置
 
 	◇SouvenirName	:お土産の名前
+	◇stock : お土産の在庫
 
 前進マス(SquareMoveForward)
 	◇MoveNum	：進むマス数
@@ -36,3 +38,8 @@
 	・_WarpHolePrefabにWarpHole.prefab(Igarashi/Prefab/Warp/WarpHole.prefab)を追加する
 	・MainCameraのCameraInterpolation.ObjectArrayにCamera_warpView.prefab(Igarashi/Prefab/Warp/Camera_warpView.prefab)を追加
 			(※ObjectArrayの3番目じゃないとダメだと思う)
+
+お小遣いマス(SquareAllowance)
+	・OkozukaiEnshutsu(Miya/Prefab/OkozukaiEnshutsu.prefab)をシーンに配置
+
+	◇RouletteValues:ルーレットに追加するお小遣いのリスト
