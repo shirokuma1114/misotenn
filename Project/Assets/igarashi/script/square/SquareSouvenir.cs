@@ -21,6 +21,8 @@ public class SquareSouvenir : SquareBase
 
     private OmiyageEnshutsu _effect;
 
+    private int _nowStock;
+
 
     [Header("お土産")]
     [Space(20)]
@@ -32,7 +34,15 @@ public class SquareSouvenir : SquareBase
     [SerializeField]
     private SouvenirType _type;
 
-    // Start is called before the first frame update
+    [SerializeField]
+    private int _startStock = 3;
+
+
+    private void Awake()
+    {
+        _nowStock = _startStock;
+    }
+
     void Start()
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
@@ -42,10 +52,11 @@ public class SquareSouvenir : SquareBase
         _effect = FindObjectOfType<OmiyageEnshutsu>();
 
         _squareInfo =
-            "お土産マス\n" +
-            "コスト：" + _cost.ToString() + "\n" +
-            "お土産名：" + _souvenirName + "\n" +
-            "お土産タイプ：" + _type.ToString(); 
+            "お土産マス\n"   +
+            "コスト："       + _cost.ToString()  + "\n" +
+            "お土産名："     + _souvenirName     + "\n" +
+            "お土産タイプ：" + _type.ToString()  + "\n" +
+            "在庫数："       + _nowStock.ToString();
     }
 
     public override void Stop(CharacterBase character)
@@ -57,6 +68,14 @@ public class SquareSouvenir : SquareBase
         if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _state = SquareSouvenirState.END;
+            return;
+        }
+
+        //在庫チェック
+        if(_nowStock <= 0)
+        {
+            _messageWindow.SetMessage("在庫がありません", character.IsAutomatic);
             _state = SquareSouvenirState.END;
             return;
         }
@@ -121,12 +140,26 @@ public class SquareSouvenir : SquareBase
     {
         _character.SubMoney(_cost);
         _statusWindow.SetMoney(_character.Money);
-        _character.AddSouvenir(new Souvenir(_cost, _souvenirName, _type));
+        _character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(_type));
 
-        _messageWindow.SetMessage(_character.Name + "は\nお土産　" + _souvenirName + "を　手に入れた！", _character.IsAutomatic); //_character.name + "は" + _souvenir.name + "を手に入れた"
+        var buyMessage =
+            _character.Name + "は\n" + 
+            "お土産  " + _souvenirName + "を　手に入れた！\n" +
+            "在庫は  " + _nowStock.ToString() + "個";
+
+        _messageWindow.SetMessage(buyMessage, _character.IsAutomatic);
 
         //演出
         _effect.Use_OmiyageEnshutsu(gameObject.name);
+
+        //在庫更新
+        _nowStock--;
+        _squareInfo =
+            "お土産マス\n" +
+            "コスト：" + _cost.ToString() + "\n" +
+            "お土産名：" + _souvenirName + "\n" +
+            "お土産タイプ：" + _type.ToString() + "\n" +
+            "在庫数：" + _nowStock.ToString();
 
         _state = SquareSouvenirState.END;
     }
