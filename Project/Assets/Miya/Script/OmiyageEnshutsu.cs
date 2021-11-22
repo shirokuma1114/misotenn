@@ -46,6 +46,7 @@ public class OmiyageEnshutsu : MonoBehaviour
     bool _animComplete = false;
     public bool IsAnimComplete => _animComplete;
 
+
 	// Start
 	void Start()
     {
@@ -86,7 +87,7 @@ public class OmiyageEnshutsu : MonoBehaviour
 			Animation_Sequence.Append(Rect.DOScaleY(1.25f - difference, duration));
 			Animation_Sequence.Join(Rect.DOScaleX(1.25f + difference, duration));
 			Animation_Sequence.Append(Rect.DOScaleY(1.25f + difference, duration));
-			Animation_Sequence.Join(Rect.DOScaleX(1.25f - difference, duration));
+			NewMethod(difference, duration);
 		}
 		Animation_Sequence.Append(Rect.DOScale(new Vector3(1.25f, 1.25f, 1.25f), duration));
 		Animation_Sequence.AppendInterval(Second_Display);
@@ -101,7 +102,12 @@ public class OmiyageEnshutsu : MonoBehaviour
 		Animation_Sequence.Join(Rect.DORotate(new Vector3(0, 0, 0), 0)
 			.OnComplete(Completed));
 	}
-	
+
+	private void NewMethod(float difference, float duration)
+	{
+		Animation_Sequence.Join(Rect.DOScaleX(1.25f - difference, duration));
+	}
+
 	// OnComplete
 	private void Completed()
 	{

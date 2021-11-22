@@ -32,6 +32,8 @@ public class SquareSouvenir : SquareBase
     [SerializeField]
     private SouvenirType _type;
 
+    bool _isEffectUsed = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -126,22 +128,35 @@ public class SquareSouvenir : SquareBase
 
         //‰‰o
         _effect.Use_OmiyageEnshutsu(gameObject.name);
-
+        _isEffectUsed = true;
         _state = SquareSouvenirState.END;
     }
 
     private void EndProcess()
     {
-
-        if(!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
+        if (_isEffectUsed)
         {
-            // ~‚Ü‚éˆ—I—¹
-            _character.CompleteStopExec();
-            _statusWindow.SetEnable(false);
+            if (!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
+            {
+                // ~‚Ü‚éˆ—I—¹
+                _character.CompleteStopExec();
+                _statusWindow.SetEnable(false);
 
-            _state = SquareSouvenirState.IDLE;
+                _state = SquareSouvenirState.IDLE;
+                _isEffectUsed = false;
+            }
         }
-       
+        else
+        {
+            if (!_messageWindow.IsDisplayed)
+            {
+                // ~‚Ü‚éˆ—I—¹
+                _character.CompleteStopExec();
+                _statusWindow.SetEnable(false);
+
+                _state = SquareSouvenirState.IDLE;
+            }
+        }
     }
 
     public override int GetScore(CharacterBase character, CharacterType characterType)

@@ -58,6 +58,7 @@ public class StatusWindow : WindowBase
 
     public void SetLapNum(int lapNum)
     {
+        lapNum++;
         _lapText.text = "Œ»İ " + lapNum + "ü–Ú";
     }
 

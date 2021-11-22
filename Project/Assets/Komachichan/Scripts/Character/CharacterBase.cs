@@ -84,10 +84,12 @@ public class CharacterBase : MonoBehaviour
 
     private bool _waitEnable;
 
+
     protected virtual void Start()
     {
         _originPosZ = transform.position.z;
         _log = new CharacterLog();
+        
     }
 
     void Update()
@@ -170,9 +172,11 @@ public class CharacterBase : MonoBehaviour
             transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
             transform.Translate(0, 0.65f, 0);
 
+            var scale = 11.0f;
+
             // КgСе
             transform.SetParent(null);
-            transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
+            transform.localScale = new Vector3(scale, scale, scale);
         }
         _waitEnable = enable;
     }

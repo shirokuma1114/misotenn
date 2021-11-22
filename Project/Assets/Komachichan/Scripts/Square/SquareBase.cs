@@ -118,7 +118,7 @@ public class SquareBase : MonoBehaviour
             for(int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
             {
                 // ƒJ[ƒh‚ª–³‚¢
-                if(character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() >= 1)
+                if(character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() == 0)
                 {
                     dontHaveTypes.Add((SouvenirType)i);
                 }

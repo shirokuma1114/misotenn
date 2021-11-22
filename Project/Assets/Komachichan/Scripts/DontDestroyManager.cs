@@ -8,19 +8,7 @@ public class DontDestroyManager : MonoBehaviour
 {
     private static DontDestroyManager instance = null;
 
-    public class CharacterInfo
-    {
-        public CharacterBase _character;
-        public string _characterName;
-        public int _rank;
-        public int _lapCount;
-        public int _souvenirNum;
-        public int _money;
-        public int[] _useEventNumByType;
-        public List<int> _moneyByTurn;
-    }
-
-    private List<CharacterInfo> _characters;
+    private List<CharacterData> _characters;
 
     // Start is called before the first frame update
     void Start()
@@ -39,11 +27,11 @@ public class DontDestroyManager : MonoBehaviour
 
     public void Init(List<CharacterControllerBase> characters)
     {
-        _characters = new List<CharacterInfo>();
+        _characters = new List<CharacterData>();
         
         foreach(var x in characters)
         {
-            _characters.Add(new CharacterInfo());
+            _characters.Add(new CharacterData());
             var charaInfo = _characters.Last();
             charaInfo._character = x.Character;
             charaInfo._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
@@ -80,38 +68,8 @@ public class DontDestroyManager : MonoBehaviour
 
     }
 
-    public List<int> GetAddMoenyByTurn(CharacterBase character)
+    public CharacterData[] GetCharacterData()
     {
-        return _characters.Find(x => x._character == character)._moneyByTurn;
-    }
-
-    public int GetRank(CharacterBase character)
-    {
-        return _characters.Find(x => x._character == character)._rank;
-    }
-
-    public int GetUseEventNum(CharacterBase character)
-    {
-        return _characters.Find(x => x._character == character)._useEventNumByType.Sum();
-    }
-
-    public int GetUseEventNumByType(CharacterBase character, SquareEventType eventType)
-    {
-        return _characters.Find(x => x._character == character)._useEventNumByType[(int)eventType];
-    }
-
-    public int GetLapCount(CharacterBase character)
-    {
-        return _characters.Find(x => x._character == character)._lapCount;
-    }
-
-    public int GetSouvenirNum(CharacterBase character)
-    {
-        return _characters.Find(x => x._character == character)._souvenirNum;
-    }
-    
-    public int GetMoney(CharacterBase character, int money)
-    {
-        return _characters.Find(x => x._character == character)._money;
+        return _characters.ToArray();
     }
 }

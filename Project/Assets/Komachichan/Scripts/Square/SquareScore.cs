@@ -16,7 +16,7 @@ public enum SquareScore : int
     B = 16,
     C = 9,
     ALLOWANCE = 2,
-    GOAL = 1,
+    GOAL = 30,
     EGOAL = 1,
     CASINO = 1,
     WARP = 1,
