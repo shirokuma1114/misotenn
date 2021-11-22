@@ -121,6 +121,8 @@ public class SquareSteal : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.STEAL);
+
                 for (int i = 0; i < _otherCharacters.Count; i++)
                     _selectElements.Add(_otherCharacters[i].Name);
                 _selectElements.Add("‚â‚ß‚é");

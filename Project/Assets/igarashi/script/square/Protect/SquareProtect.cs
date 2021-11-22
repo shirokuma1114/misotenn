@@ -94,6 +94,7 @@ public class SquareProtect : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.PROTECT);
                 _character.SubMoney(_cost);
 
                 _protectEffect = Instantiate(_protectEffectPrefab, _character.transform.position, _character.transform.rotation).GetComponent<ProtectEffect>();

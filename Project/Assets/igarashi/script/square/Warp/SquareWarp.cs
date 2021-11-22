@@ -118,6 +118,9 @@ public class SquareWarp : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.WARP);
+
+
                 _character.SubMoney(_cost);
 
                 //ワープホールに飛んでく
