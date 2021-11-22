@@ -19,7 +19,9 @@ public class OmiyageEnshutsu : MonoBehaviour
 					ImageComponent.sprite = OmiyageSprites[i];
 					Set_sequence();
                     _animComplete = false;
-					break;
+                    _particlePlaying = false;
+
+                    break;
 				}
 			}
 		}
@@ -46,6 +48,9 @@ public class OmiyageEnshutsu : MonoBehaviour
     bool _animComplete = false;
     public bool IsAnimComplete => _animComplete;
 
+    GameObject _particle;
+    bool _particlePlaying;
+
 
 	// Start
 	void Start()
@@ -64,8 +69,14 @@ public class OmiyageEnshutsu : MonoBehaviour
     // Update
     void Update()
     {
-		// Debug
-		//if (Input.GetKeyUp(KeyCode.A)) Use_OmiyageEnshutsu("Australia");
+        // Debug
+        //if (Input.GetKeyUp(KeyCode.A)) Use_OmiyageEnshutsu("Australia");
+
+        if(_particlePlaying)
+        {
+            if (_particle == null)
+                _animComplete = true;
+        }
 	}
 
 	// Animation Sequence
@@ -111,8 +122,8 @@ public class OmiyageEnshutsu : MonoBehaviour
 	// OnComplete
 	private void Completed()
 	{
-		Instantiate(Particle);
-        _animComplete = true;
+		_particle = Instantiate(Particle);
+        _particlePlaying = true;
 	}
 	// OnDisable
 	private void OnDisable()
