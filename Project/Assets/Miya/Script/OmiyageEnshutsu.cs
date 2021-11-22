@@ -10,6 +10,7 @@ public class OmiyageEnshutsu : MonoBehaviour
 	// ŠO•”‚Å“Ç‚İ‚ŞŠÖ”
 	public void Use_OmiyageEnshutsu(string _country_name)
 	{
+        _isUsed = true;
 		if (CountryNames.Length == OmiyageSprites.Length)
 		{
 			for (int i = 0; i < CountryNames.Length; i++)
@@ -45,6 +46,10 @@ public class OmiyageEnshutsu : MonoBehaviour
     //
     bool _animComplete = false;
     public bool IsAnimComplete => _animComplete;
+
+
+    bool _isUsed = false;
+    public bool IsUsed => _isUsed;
 
 	// Start
 	void Start()
@@ -112,6 +117,7 @@ public class OmiyageEnshutsu : MonoBehaviour
 	{
 		Instantiate(Particle);
         _animComplete = true;
+        _isUsed = false;
 	}
 	// OnDisable
 	private void OnDisable()

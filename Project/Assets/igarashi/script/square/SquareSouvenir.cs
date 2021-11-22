@@ -57,10 +57,7 @@ public class SquareSouvenir : SquareBase
         if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
-            _state = SquareSouvenirState.IDLE;
-            // ~‚Ü‚éˆ—I—¹
-            _character.CompleteStopExec();
-            _statusWindow.SetEnable(false);
+            _state = SquareSouvenirState.END;
             return;
         }
 
@@ -135,16 +132,28 @@ public class SquareSouvenir : SquareBase
 
     private void EndProcess()
     {
-
-        if(!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
+        if (_effect.IsUsed)
         {
-            // ~‚Ü‚éˆ—I—¹
-            _character.CompleteStopExec();
-            _statusWindow.SetEnable(false);
+            if (!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
+            {
+                // ~‚Ü‚éˆ—I—¹
+                _character.CompleteStopExec();
+                _statusWindow.SetEnable(false);
 
-            _state = SquareSouvenirState.IDLE;
+                _state = SquareSouvenirState.IDLE;
+            }
         }
-       
+        else
+        {
+            if (!_messageWindow.IsDisplayed)
+            {
+                // ~‚Ü‚éˆ—I—¹
+                _character.CompleteStopExec();
+                _statusWindow.SetEnable(false);
+
+                _state = SquareSouvenirState.IDLE;
+            }
+        }
     }
 
     public override int GetScore(CharacterBase character, CharacterType characterType)
