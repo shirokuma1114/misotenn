@@ -96,6 +96,8 @@ public class SquareMoveForward : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.MOVE_FORWARD);
+
                 _character.SubMoney(_cost);
 
                 _state = SquareMoveForwardState.MOVE;

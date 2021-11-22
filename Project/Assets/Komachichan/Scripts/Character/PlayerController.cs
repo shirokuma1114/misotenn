@@ -56,6 +56,7 @@ public class PlayerController : CharacterControllerBase
         var index = _moveCardManager.GetSelectedCardIndex();
         _character.RemoveMovingCard(index);
         _goalMovingCount = _character.MovingCount;
+        NotifyMovingCount(_character.MovingCount);
         _moveCardManager.DeleteCards();
         _isSelectedCard = false;
         // ÉãÅ[Égê∂ê¨
