@@ -14,14 +14,11 @@ public class CharacterControllerBase : MonoBehaviour
         COLLISION,
         GOAL,
     }
-
-    [SerializeField]
+    
     protected CharacterBase _character;
+    
+    protected bool _isAutomatic;
 
-    [SerializeField]
-    private bool _isAutomatic;
-
-    [SerializeField]
     protected SelectWindow _selectWindow;
 
     public bool IsAutomatic
@@ -51,13 +48,23 @@ public class CharacterControllerBase : MonoBehaviour
     protected Queue<SquareBase> _root = new Queue<SquareBase>();
 
     protected int _goalMovingCount = 1;
-
-    [SerializeField]
-    CakeAnimation _animation;
+    
+    protected CakeAnimation _animation;
 
     public virtual void InitTurn()
     {
         _eventState = EventState.SELECT;
+    }
+
+    public void SetCharacter(CharacterBase character)
+    {
+        _character = character;
+        _character.SetController(this);
+    }
+
+    public void SetSelectWindow(SelectWindow selectWindow)
+    {
+        _selectWindow = selectWindow;
     }
 
     //移動カードを選び次のマスに止まるまで
@@ -84,13 +91,15 @@ public class CharacterControllerBase : MonoBehaviour
     protected void UpdateMove()
     {
         if (_character.State != CharacterState.WAIT) return;
+
         if(_eventState == EventState.DEFORM_FLY)
         {
             if (_animation.CanMove()) _eventState = EventState.MOVE;
             return;
         }
-
+     
         if (_eventState == EventState.SELECT || _eventState == EventState.WAIT) return;
+
 
         // マス目を決定する
         if (_character.MovingCount == 0 && _eventState != EventState.COLLISION)
@@ -178,6 +187,7 @@ public class CharacterControllerBase : MonoBehaviour
         _movingCount.SetEnable(true);
         _character.AddMovingCard(moveCount);
         _character.RemoveMovingCard(_character.MovingCards.Count - 1);
+        NotifyMovingCount(_character.MovingCount);
         DefaultGenerateRoot();
         _animation.StartMove();
         _eventState = EventState.DEFORM_FLY;
