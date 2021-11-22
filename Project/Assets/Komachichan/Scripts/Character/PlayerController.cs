@@ -16,6 +16,8 @@ public class PlayerController : CharacterControllerBase
         _statusWindow = FindObjectOfType<StatusWindow>();
         _souvenirWindow = FindObjectOfType<SouvenirWindow>();
         _eventState = EventState.WAIT;
+        _animation = GetComponent<CakeAnimation>();
+        _isAutomatic = false;
     }
 
     // Update is called once per frame

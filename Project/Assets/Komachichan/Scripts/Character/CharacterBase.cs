@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 public class CharacterBase : MonoBehaviour
 {
-    [SerializeField]
+    //[SerializeField]
     CharacterControllerBase _controller;
 
     // –¼‘O
@@ -84,12 +84,16 @@ public class CharacterBase : MonoBehaviour
 
     private bool _waitEnable;
 
-
     protected virtual void Start()
     {
         _originPosZ = transform.position.z;
         _log = new CharacterLog();
         
+    }
+
+    public void SetController(CharacterControllerBase characterController)
+    {
+        _controller = characterController;
     }
 
     void Update()

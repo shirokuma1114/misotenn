@@ -21,6 +21,8 @@ public class AIController : CharacterControllerBase
         _souvenirWindow = FindObjectOfType<SouvenirWindow>();
         _eventState = EventState.WAIT;
         _aiLevel = new AILevelHard();
+        _animation = GetComponent<CakeAnimation>();
+        _isAutomatic = true;
     }
 
     // Update is called once per frame

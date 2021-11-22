@@ -347,6 +347,9 @@ public class MyGameManager : MonoBehaviour
 
         for(int i = 0; i < _entryPlugs.Count; i++)
         {
+            _entryPlugs[i].SetSelectWindow(_selectWindow);
+            _entryPlugs[i].SetCharacter(_entryPlugs[i].GetComponent<CharacterBase>());
+
             var chara = _entryPlugs[i].Character;
             if (_isFixedMode && chara.IsAutomatic)
             {
@@ -362,7 +365,6 @@ public class MyGameManager : MonoBehaviour
             chara.Name = "ìG" + i + "çÜ";
             chara.SetCurrentSquare(startSquare);
             chara.AddMoney(_initMoney);
-            //chara.SetWaitEnable(true);
             chara.LapCount = 0;
         }
         _turnIndex = 0;

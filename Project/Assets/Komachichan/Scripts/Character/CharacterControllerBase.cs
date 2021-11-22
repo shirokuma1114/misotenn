@@ -15,13 +15,12 @@ public class CharacterControllerBase : MonoBehaviour
         GOAL,
     }
 
-    [SerializeField]
+    //[SerializeField]
     protected CharacterBase _character;
+    
+    protected bool _isAutomatic;
 
-    [SerializeField]
-    private bool _isAutomatic;
-
-    [SerializeField]
+    //[SerializeField]
     protected SelectWindow _selectWindow;
 
     public bool IsAutomatic
@@ -51,13 +50,23 @@ public class CharacterControllerBase : MonoBehaviour
     protected Queue<SquareBase> _root = new Queue<SquareBase>();
 
     protected int _goalMovingCount = 1;
-
-    [SerializeField]
-    CakeAnimation _animation;
+    
+    protected CakeAnimation _animation;
 
     public virtual void InitTurn()
     {
         _eventState = EventState.SELECT;
+    }
+
+    public void SetCharacter(CharacterBase character)
+    {
+        _character = character;
+        _character.SetController(this);
+    }
+
+    public void SetSelectWindow(SelectWindow selectWindow)
+    {
+        _selectWindow = selectWindow;
     }
 
     //移動カードを選び次のマスに止まるまで
