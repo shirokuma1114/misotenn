@@ -6,23 +6,6 @@ using UnityEngine.UI;
 
 public class Setting_SoundUI : MonoBehaviour
 {
-	// égÇ¢ï˚
-	/*
-	 * AudioSource Sound;
-	 * float Initial_SoundVolume;
-	 * 
-	 * void Start()
-	 * {
-	 *		Sound = this.GetComponent<AudioSource>();
-	 *		Initial_SoundVolume = Sound.volume;
-	 * }
-	 * 
-	 * // îCà”ÇÃèÍèä
-	 * Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_BGM;
-	 * Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
-	 */
-
-
 	// static
 	static public float Magnification_BGM = 0.5f;
 	static public float Magnification_SE  = 0.5f;
@@ -33,6 +16,7 @@ public class Setting_SoundUI : MonoBehaviour
 	public Slider	Slider_BGM;
 	public Slider	Slider_SE;
 	public Text		Image_BACK;
+	public AudioSource SE_Test;
 
 	// enum
 	enum SELECT
@@ -46,6 +30,10 @@ public class Setting_SoundUI : MonoBehaviour
 
 	// Grid
 	float GridValue = 0.1f;
+
+	// Event
+	public delegate void EventHandler_Sound(bool changed);
+	public event EventHandler_Sound Event_Sound;
 
 	// Start
 	void Start()
@@ -63,7 +51,7 @@ public class Setting_SoundUI : MonoBehaviour
 	// Input
 	void Update()
     {
-		if ( Window.active )
+		if ( Window.activeSelf )
 		{
 			// Select
 			if (Input.GetKeyUp(KeyCode.W))
@@ -94,8 +82,10 @@ public class Setting_SoundUI : MonoBehaviour
 						Slider_SE.value -= GridValue;
 						if (Slider_SE.value < 0) Slider_SE.value = 0;
 						Magnification_SE = Slider_SE.value;
+						SE_Test.Play();
 						break;
 				}
+				Event_Sound(true);
 			}
 			if (Input.GetKeyUp(KeyCode.D))
 			{
@@ -111,8 +101,10 @@ public class Setting_SoundUI : MonoBehaviour
 						Slider_SE.value += GridValue;
 						if (Slider_SE.value > 1) Slider_SE.value = 1;
 						Magnification_SE = Slider_SE.value;
+						SE_Test.Play();
 						break;
 				}
+				Event_Sound(true);
 			}
 
 			// BACK
@@ -124,7 +116,7 @@ public class Setting_SoundUI : MonoBehaviour
 		}
 
 		// Debug
-		else if (Input.GetKeyUp(KeyCode.Return) && !Window.active)
+		else if (Input.GetKeyUp(KeyCode.Return) && !Window.activeSelf)
 		{
 			//Window.SetActive(true);
 		}
