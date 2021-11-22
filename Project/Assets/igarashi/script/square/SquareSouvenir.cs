@@ -57,7 +57,10 @@ public class SquareSouvenir : SquareBase
         if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
-            _state = SquareSouvenirState.END;
+            _state = SquareSouvenirState.IDLE;
+            // ~‚Ü‚éˆ—I—¹
+            _character.CompleteStopExec();
+            _statusWindow.SetEnable(false);
             return;
         }
 
