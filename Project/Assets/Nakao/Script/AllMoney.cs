@@ -24,6 +24,22 @@ public class AllMoney : MonoBehaviour
     //private RectTransform m_templateLabelX;
     //private RectTransform m_templateLabelY;
 
+    //キーボード用
+    GameObject obj5;
+    ButtonChangeP1Text script3;
+
+    GameObject obj6;
+    ButtonChangeP2Text script4;
+
+    GameObject obj7;
+    ButtonChangeP3Text script5;
+
+    GameObject obj8;
+    ButtonChangeP4Text script6;
+
+    GameObject obj9;
+    ButtonChangeBackText script7;
+
     //とりあえずリスト
     List<int> testData = new List<int> {
             10,15,20,90,70,50,40,45,60,55,50,45,30,40,50,20,15,45,30,70,90,15};
@@ -47,11 +63,83 @@ public class AllMoney : MonoBehaviour
     {
         mn = false;
         inb = false;
+
+        //KeyBord
+        obj5 = GameObject.Find("1SelectInFrame");
+        script3 = obj5.GetComponent<ButtonChangeP1Text>();
+        if (script3 == null)
+        {
+            script3 = obj5.GetComponent<ButtonChangeP1Text>();
+        }
+
+        obj6 = GameObject.Find("2SelectInFrame");
+        script4 = obj6.GetComponent<ButtonChangeP2Text>();
+        if (script4 == null)
+        {
+            script4 = obj6.GetComponent<ButtonChangeP2Text>();
+        }
+
+        obj7 = GameObject.Find("3SelectInFrame");
+        script5 = obj7.GetComponent<ButtonChangeP3Text>();
+        if (script5 == null)
+        {
+            script5 = obj7.GetComponent<ButtonChangeP3Text>();
+        }
+
+        obj8 = GameObject.Find("4SelectInFrame");
+        script6 = obj8.GetComponent<ButtonChangeP4Text>();
+        if (script6 == null)
+        {
+            script6 = obj8.GetComponent<ButtonChangeP4Text>();
+        }
+
+        obj9 = GameObject.Find("BackKey");
+        script7 = obj9.GetComponent<ButtonChangeBackText>();
+        if (script7 == null)
+        {
+            script7 = obj9.GetComponent<ButtonChangeBackText>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        if(!script7.TriggerButton)
+        {
+            if (script3.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    OnClick();
+                }
+            }
+
+            if (script4.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    OnClick();
+                }
+            }
+
+            if (script5.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    OnClick();
+                }
+            }
+
+            if (script6.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    OnClick();
+                }
+            }
+        }
+       
         if (!mn)
         {
             Ex1n2out.enabled = false;

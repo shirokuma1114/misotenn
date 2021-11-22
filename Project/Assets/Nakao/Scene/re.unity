@@ -348,7 +348,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43222767}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82bb6e6f30019e14fbf859ee7194c042, type: 3}
   m_Name: 
@@ -663,6 +663,7 @@ MonoBehaviour:
   P2in: {fileID: 1621567856}
   P3in: {fileID: 322501770}
   P4in: {fileID: 1361153012}
+  TriggerButton: 0
 --- !u!1 &97420061
 GameObject:
   m_ObjectHideFlags: 0
@@ -4372,6 +4373,7 @@ MonoBehaviour:
   P2in: {fileID: 1621567856}
   P3in: {fileID: 322501770}
   P4in: {fileID: 1361153012}
+  TriggerButton: 0
 --- !u!1 &1134532625
 GameObject:
   m_ObjectHideFlags: 0
@@ -5999,6 +6001,7 @@ MonoBehaviour:
   P2in: {fileID: 1621567856}
   P3in: {fileID: 322501770}
   P4in: {fileID: 1361153012}
+  TriggerButton: 0
 --- !u!1 &1519570744
 GameObject:
   m_ObjectHideFlags: 0
@@ -6410,6 +6413,7 @@ MonoBehaviour:
   P2in: {fileID: 1621567856}
   P3in: {fileID: 322501770}
   P4in: {fileID: 1361153012}
+  TriggerButton: 0
 --- !u!1 &1621567854
 GameObject:
   m_ObjectHideFlags: 0
@@ -6859,6 +6863,7 @@ MonoBehaviour:
   P2in: {fileID: 1621567856}
   P3in: {fileID: 322501770}
   P4in: {fileID: 1361153012}
+  TriggerButton: 0
 --- !u!1 &1696907372
 GameObject:
   m_ObjectHideFlags: 0
