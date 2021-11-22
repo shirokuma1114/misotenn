@@ -7,6 +7,7 @@ public class CharacterControllerBase : MonoBehaviour
 {
     protected enum EventState
     {
+        DEFORM_FLY,
         WAIT,
         SELECT,
         MOVE,
@@ -62,7 +63,7 @@ public class CharacterControllerBase : MonoBehaviour
     //移動カードを選び次のマスに止まるまで
     public virtual void Move()
     {
-        _eventState = EventState.MOVE;
+        _eventState = EventState.DEFORM_FLY;
     }
 
     public virtual void SetRoot()
@@ -83,8 +84,13 @@ public class CharacterControllerBase : MonoBehaviour
     protected void UpdateMove()
     {
         if (_character.State != CharacterState.WAIT) return;
+        if(_eventState == EventState.DEFORM_FLY)
+        {
+            if (_animation.CanMove()) _eventState = EventState.MOVE;
+            return;
+        }
+
         if (_eventState == EventState.SELECT || _eventState == EventState.WAIT) return;
-        if (!_animation.CanMove()) return;
 
         // マス目を決定する
         if (_character.MovingCount == 0 && _eventState != EventState.COLLISION)
@@ -96,6 +102,7 @@ public class CharacterControllerBase : MonoBehaviour
             {
                 Collision(_character, _character.CurrentSquare.StoppedCharacters.ToList());
                 _eventState = EventState.COLLISION;
+                _animation.EndMove();
                 return;
             }
             //Debug.Log(_startSquare + _character.Name);
@@ -173,6 +180,6 @@ public class CharacterControllerBase : MonoBehaviour
         _character.RemoveMovingCard(_character.MovingCards.Count - 1);
         DefaultGenerateRoot();
         _animation.StartMove();
-        _eventState = EventState.MOVE;
+        _eventState = EventState.DEFORM_FLY;
     }
 }

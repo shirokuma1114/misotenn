@@ -492,7 +492,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _souvenirName: "\u30B3\u30A2\u30E9\u306E\u30DE\u30FC\u30C1"
-  _cost: 1000
+  _cost: 2000
   _type: 1
 --- !u!1 &910710178 stripped
 GameObject:
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _souvenirName: "\u73C8\u7432\u8CB4\u65CF"
-  _cost: 2000
+  _cost: 1000
   _type: 3
 --- !u!1 &1063325853 stripped
 GameObject:
@@ -2674,7 +2674,7 @@ PrefabInstance:
       objectReference: {fileID: 1740068893}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _initMoney
-      value: 1000000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _isFixedMode
@@ -2682,7 +2682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
@@ -2706,7 +2706,7 @@ PrefabInstance:
       objectReference: {fileID: 712244019}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _needSouvenirType
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _earthFreeRotation

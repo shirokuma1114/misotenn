@@ -46,6 +46,7 @@ public class OmiyageEnshutsu : MonoBehaviour
     bool _animComplete = false;
     public bool IsAnimComplete => _animComplete;
 
+
 	// Start
 	void Start()
     {
