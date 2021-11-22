@@ -107,6 +107,7 @@ public class SquareSouvenir : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                
                 _state = SquareSouvenirState.EVENT;
             }
             else

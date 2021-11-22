@@ -104,20 +104,32 @@ public class ChangeText : MonoBehaviour
 
     void ShowRank()
     {
-        for (int i = 0; i < _characters.Count(); i++)
+        var rankSortedCharacters = _characters;
+        rankSortedCharacters = _characters.OrderByDescending(x => x._souvenirNum).ThenByDescending(x => x._money).ToArray();
+        
+        for(int i = 0; i < rankSortedCharacters.Count(); i++)
         {
-            
+            if(i == 0)
+            {
+                _p1ItemText.text = rankSortedCharacters[i]._characterName;
+                _p1NumText.text = "";
+            }
+            if(i == 1)
+            {
+                _p2ItemText.text = rankSortedCharacters[i]._characterName;
+                _p2NumText.text = "";
+            }
+            if (i == 2)
+            {
+                _p3ItemText.text = rankSortedCharacters[i]._characterName;
+                _p3NumText.text = "";
+            }
+            if (i == 3)
+            {
+                _p4ItemText.text = rankSortedCharacters[i]._characterName;
+                _p4NumText.text = "";
+            }
         }
-
-        _p1ItemText.text = "総資産";
-        _p2ItemText.text = "周回数";
-        _p3ItemText.text = "イベントマス使用回数";
-        _p4ItemText.text = "お土産数";
-
-        _p1NumText.text = _characters[_selectIndex]._money + "＄";
-        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
     }
 
     // Update is called once per frame

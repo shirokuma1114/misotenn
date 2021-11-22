@@ -404,8 +404,27 @@ public class MyGameManager : MonoBehaviour
 
         // 2位からの同列を考慮したランキング 起こり得るパターンは
         // 1222 1224 1233 1234
+        int addRank = 0;
+        if (characters[2].Souvenirs.Count == characters[1].Souvenirs.Count &&
+            characters[2].Money == characters[1].Money)
+        {
+            addRank += 2;
+        }
+        else
+        {
+            rank++;
+        }
 
-        return characters.IndexOf(character) + 1;
+        if (characters[2] == character) return rank;
+
+        if (!(characters[3].Souvenirs.Count == characters[2].Souvenirs.Count &&
+            characters[3].Money == characters[2].Money))
+        {
+            rank++;
+        }
+
+
+        return rank + addRank;
     }
 
     private void SetCharacterLogToInfo()
