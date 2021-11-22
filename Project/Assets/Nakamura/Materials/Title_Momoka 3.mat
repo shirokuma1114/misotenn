@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Title_Momoka 2
+  m_Name: Title_Momoka 3
   m_Shader: {fileID: 4800000, guid: 330a019cc06106f4f81f7d015c1b14a1, type: 3}
   m_ShaderKeywords: COLOR_SHADOW CUBE_COLOR RIM_LIGHT SHADOW_COLOR WITHOUT_SHADOW
   m_LightmapFlags: 4
@@ -98,28 +98,28 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BackColor1: {r: 0.8198703, g: 0.9716981, b: 0, a: 1}
-    - _BackColor2: {r: 0.8949355, g: 1, b: 0, a: 1}
-    - _BottomColor1: {r: 1, g: 1, b: 1, a: 1}
-    - _BottomColor2: {r: 1, g: 1, b: 1, a: 1}
+    - _BackColor1: {r: 0, g: 0.5764706, b: 0.003921569, a: 1}
+    - _BackColor2: {r: 0, g: 0.5754717, b: 0.003723419, a: 1}
+    - _BottomColor1: {r: 0.49411765, g: 1, b: 0.5764706, a: 1}
+    - _BottomColor2: {r: 0.49411765, g: 1, b: 0.5764706, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Fog_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FrontColor1: {r: 1, g: 0.1689291, b: 0, a: 1}
-    - _FrontColor2: {r: 1, g: 0.97674227, b: 0, a: 1}
+    - _Fog_Color: {r: 0.49411765, g: 1, b: 0.5764706, a: 1}
+    - _FrontColor1: {r: 1, g: 0.42834565, b: 0, a: 1}
+    - _FrontColor2: {r: 0.49724102, g: 0.6981132, b: 0.52994114, a: 1}
     - _GradOrigin_B: {r: 0, g: 25, b: 0, a: 0}
     - _GradOrigin_D: {r: 0, g: 0, b: 25, a: 0}
     - _GradOrigin_F: {r: 0, g: 7.5, b: 0, a: 0}
     - _GradOrigin_L: {r: -4, g: 20.39, b: 0, a: 0}
     - _GradOrigin_R: {r: 0, g: 25, b: 0, a: 0}
     - _GradOrigin_T: {r: 0, g: 0, b: 11, a: 0}
-    - _HeightFog_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _LeftColor1: {r: 0.69803923, g: 0.5803922, b: 0.39215687, a: 1}
-    - _LeftColor2: {r: 0.6981132, g: 0.58157736, b: 0.39186543, a: 1}
-    - _RightColor1: {r: 0.5764706, g: 0.57254905, b: 1, a: 1}
-    - _RightColor2: {r: 0.5758046, g: 0.5707547, b: 1, a: 1}
-    - _RimLight_Color: {r: 0.28114986, g: 0.70135844, b: 0.735849, a: 1}
-    - _Shadow_Color: {r: 1, g: 0.7225332, b: 0.3915094, a: 1}
-    - _TopColor1: {r: 0.38906574, g: 0.36320752, b: 1, a: 1}
-    - _TopColor2: {r: 0.8490566, g: 0.7470255, b: 0.43654326, a: 1}
+    - _HeightFog_Color: {r: 0.97264934, g: 1, b: 0, a: 1}
+    - _LeftColor1: {r: 0.7019608, g: 1, b: 0.7490196, a: 1}
+    - _LeftColor2: {r: 0.35506406, g: 0.745283, b: 0.43716004, a: 1}
+    - _RightColor1: {r: 0.39021894, g: 0.745283, b: 0.4480201, a: 1}
+    - _RightColor2: {r: 0.19357423, g: 0.5471698, b: 0.25113633, a: 1}
+    - _RimLight_Color: {r: 1, g: 0.8013298, b: 0.49411762, a: 1}
+    - _Shadow_Color: {r: 0.7640858, g: 0.5330188, b: 1, a: 1}
+    - _TopColor1: {r: 0.46444464, g: 0.6698113, b: 0.48330483, a: 1}
+    - _TopColor2: {r: 0.5528231, g: 0.6698113, b: 0.48340157, a: 1}
   m_BuildTextureStacks: []
