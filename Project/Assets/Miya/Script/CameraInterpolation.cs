@@ -128,7 +128,7 @@ public class CameraInterpolation : MonoBehaviour
 		}
 		
 		// Move
-		if ( Moving && (Event_State == 0 || Event_State == 2))
+		if ( Moving/* && (Event_State == 0 || Event_State == 2)*/)
 		{
 			//CurrentTime = Time.time;
 			Timer_Move += Time.deltaTime;
