@@ -86,6 +86,8 @@ public class SquareEnforcedGoal : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.ENFORCED_GOAL);
+
                 _character.SubMoney(_cost);
 
                 _state = SquareEnforcedGoalState.GOAL;

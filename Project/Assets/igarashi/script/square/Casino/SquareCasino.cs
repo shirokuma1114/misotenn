@@ -117,6 +117,7 @@ public class SquareCasino : SquareBase
                 return;
             }
 
+            _character.Log.AddUseEventNum(SquareEventType.CASINO);
 
             _bet = _betChoices[_selectUI.SelectIndex];
             _character.SubMoney(_bet);
