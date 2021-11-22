@@ -117,7 +117,6 @@ public class OmiyageEnshutsu : MonoBehaviour
 	{
 		Instantiate(Particle);
         _animComplete = true;
-        _isUsed = false;
 	}
 	// OnDisable
 	private void OnDisable()

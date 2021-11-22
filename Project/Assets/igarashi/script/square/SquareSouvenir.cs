@@ -32,6 +32,8 @@ public class SquareSouvenir : SquareBase
     [SerializeField]
     private SouvenirType _type;
 
+    bool _isEffectUsed = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -126,13 +128,13 @@ public class SquareSouvenir : SquareBase
 
         //ââèo
         _effect.Use_OmiyageEnshutsu(gameObject.name);
-
+        _isEffectUsed = true;
         _state = SquareSouvenirState.END;
     }
 
     private void EndProcess()
     {
-        if (_effect.IsUsed)
+        if (_isEffectUsed)
         {
             if (!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
             {
@@ -141,6 +143,7 @@ public class SquareSouvenir : SquareBase
                 _statusWindow.SetEnable(false);
 
                 _state = SquareSouvenirState.IDLE;
+                _isEffectUsed = false;
             }
         }
         else
