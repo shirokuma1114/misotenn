@@ -63,7 +63,7 @@ public class Setting_SoundUI : MonoBehaviour
 	// Input
 	void Update()
     {
-		if ( Window.active )
+		if ( Window.activeSelf )
 		{
 			// Select
 			if (Input.GetKeyUp(KeyCode.W))
@@ -124,7 +124,7 @@ public class Setting_SoundUI : MonoBehaviour
 		}
 
 		// Debug
-		else if (Input.GetKeyUp(KeyCode.Return) && !Window.active)
+		else if (Input.GetKeyUp(KeyCode.Return) && !Window.activeSelf)
 		{
 			//Window.SetActive(true);
 		}
