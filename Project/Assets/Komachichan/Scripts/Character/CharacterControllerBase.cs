@@ -14,13 +14,11 @@ public class CharacterControllerBase : MonoBehaviour
         COLLISION,
         GOAL,
     }
-
-    //[SerializeField]
+    
     protected CharacterBase _character;
     
     protected bool _isAutomatic;
 
-    //[SerializeField]
     protected SelectWindow _selectWindow;
 
     public bool IsAutomatic
@@ -93,13 +91,15 @@ public class CharacterControllerBase : MonoBehaviour
     protected void UpdateMove()
     {
         if (_character.State != CharacterState.WAIT) return;
+
         if(_eventState == EventState.DEFORM_FLY)
         {
             if (_animation.CanMove()) _eventState = EventState.MOVE;
             return;
         }
-
+     
         if (_eventState == EventState.SELECT || _eventState == EventState.WAIT) return;
+
 
         // ƒ}ƒX–Ú‚ðŒˆ’è‚·‚é
         if (_character.MovingCount == 0 && _eventState != EventState.COLLISION)
@@ -187,6 +187,7 @@ public class CharacterControllerBase : MonoBehaviour
         _movingCount.SetEnable(true);
         _character.AddMovingCard(moveCount);
         _character.RemoveMovingCard(_character.MovingCards.Count - 1);
+        NotifyMovingCount(_character.MovingCount);
         DefaultGenerateRoot();
         _animation.StartMove();
         _eventState = EventState.DEFORM_FLY;

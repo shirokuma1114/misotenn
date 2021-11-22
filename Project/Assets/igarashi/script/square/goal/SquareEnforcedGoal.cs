@@ -95,6 +95,7 @@ public class SquareEnforcedGoal : SquareBase
             else
             {
                 _state = SquareEnforcedGoalState.END;
+
             }
         }
     }

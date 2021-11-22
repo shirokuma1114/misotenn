@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System.Linq;
 public class CharacterBase : MonoBehaviour
 {
-    //[SerializeField]
     CharacterControllerBase _controller;
 
     // –¼‘O
@@ -316,6 +315,7 @@ public class CharacterBase : MonoBehaviour
 
     public void ReStartMove(int moveCount)
     {
+        _state = CharacterState.WAIT;
         _controller.ReStartMove(moveCount);
     }
 }
