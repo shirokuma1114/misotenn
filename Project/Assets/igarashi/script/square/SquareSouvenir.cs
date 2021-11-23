@@ -14,10 +14,11 @@ public class SquareSouvenir : SquareBase
     }
     protected SquareSouvenirState _state = SquareSouvenirState.IDLE;
 
-    CharacterBase _character;
-    MessageWindow _messageWindow;
-    StatusWindow _statusWindow;
-    PayUI _payUI;
+    private CharacterBase _character;
+    private MessageWindow _messageWindow;
+    private StatusWindow _statusWindow;
+    private PayUI _payUI;
+    private SouvenirWindow _souvenirWindow;
 
     private OmiyageEnshutsu _effect;
 
@@ -51,6 +52,7 @@ public class SquareSouvenir : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
 
         _effect = FindObjectOfType<OmiyageEnshutsu>();
 
@@ -135,7 +137,7 @@ public class SquareSouvenir : SquareBase
             {
                 _state = SquareSouvenirState.END;
             }
-        }            
+        }
     }
 
     private void EventProcess()
@@ -158,6 +160,9 @@ public class SquareSouvenir : SquareBase
         }
 
         _messageWindow.SetMessage(buyMessage, _character.IsAutomatic);
+
+        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+        _souvenirWindow.SetEnable(true);
 
         //ââèo
         _effect.Use_OmiyageEnshutsu(gameObject.name);
@@ -182,6 +187,7 @@ public class SquareSouvenir : SquareBase
                 // é~Ç‹ÇÈèàóùèIóπ
                 _character.CompleteStopExec();
                 _statusWindow.SetEnable(false);
+                _souvenirWindow.SetEnable(false);
 
                 _state = SquareSouvenirState.IDLE;
                 _isEffectUsed = false;

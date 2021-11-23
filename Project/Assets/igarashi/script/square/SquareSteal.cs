@@ -22,6 +22,8 @@ public class SquareSteal : SquareBase
     MessageWindow _messageWindow;
     StatusWindow _statusWindow;
     PayUI _payUI;
+    private SouvenirWindow _souvenirWindow;
+
     SelectUI _selectUI;
     List<string> _selectElements;
 
@@ -38,6 +40,8 @@ public class SquareSteal : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
+
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
 
@@ -211,6 +215,9 @@ public class SquareSteal : SquareBase
 
                 var message = _character.Name + "ÇÕ" + _otherCharacters[_selectUI.SelectIndex].Name + "ÇÃ" + target.Name + "ÇíDÇ¡ÇΩÅI";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
+
+                _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+                _souvenirWindow.SetEnable(true);
 
                 _character.SubMoney(_cost);
             }
