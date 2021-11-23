@@ -152,6 +152,17 @@ public class SquareSteal : SquareBase
         //var hasSouvenirCharacters = _otherCharacters.Where(x => x.Souvenirs.Count > 0).ToList();
         //if (hasSouvenirCharacters.Count == 0) return;
 
+        // 相手がリーチの場合阻止する方を選ぶ 該当しない場合ランダム
+        for(int i = 0; i < _otherCharacters.Count; i++)
+        {
+            if (_otherCharacters[i].GetSouvenirTypeNum() + 1 == _gameManager.GetNeedSouvenirType())
+            {
+                _selectUI.IndexSelect(i);
+                return;
+            }
+        }
+
+
         // 検索の最初の位置
         var item = Random.Range(0, _otherCharacters.Count);
 
@@ -222,7 +233,7 @@ public class SquareSteal : SquareBase
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // コストが足りない
-        if (_cost < character.Money) return base.GetScore(character, characterType);
+        if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // 奪うものが無い
         if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);

@@ -123,8 +123,9 @@ public class CharacterControllerBase : MonoBehaviour
 
         // í âﬂÉSÅ[ÉãîªíË
         var goal = _character.CurrentSquare.GetComponent<SquareGoal>();
-        if (goal && _goalMovingCount != _character.MovingCount)
+        if (goal && _goalMovingCount != _character.MovingCount && _eventState != EventState.COLLISION)
         {
+            if (_root.Count == 0) return;
             _goalMovingCount = _character.MovingCount;
             Debug.Log("ÉSÅ[ÉãÇ…é~Ç‹Ç¡ÇΩÅI");
             _eventState = EventState.GOAL;

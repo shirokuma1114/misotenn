@@ -24,8 +24,7 @@ public class SquareMoveForward : SquareBase
     private int _cost;
 
     [SerializeField]
-    private int _moveNum; 
-    private int _moveCount; 
+    private int _moveNum;
 
     // Start is called before the first frame update
     void Start()
@@ -64,8 +63,6 @@ public class SquareMoveForward : SquareBase
     public override void Stop(CharacterBase character)
     {
         _character = character;
-
-        _moveCount = 0;
 
         if (!_character.CanPay(_cost))
         {
