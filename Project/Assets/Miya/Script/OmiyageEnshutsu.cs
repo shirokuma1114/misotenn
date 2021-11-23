@@ -28,8 +28,16 @@ public class OmiyageEnshutsu : MonoBehaviour
 		else Debug.Log("Error : OmiyageEnshutsu.cs, ListLength");
 	}
 
-	// List
-	public string[] CountryNames;
+    public void Use_OmiyageEnshutsu(Sprite souvenirSprite)
+    {
+        ImageComponent.sprite = souvenirSprite;
+        Set_sequence();
+        _animComplete = false;
+        _particlePlaying = false;
+    }
+
+    // List
+    public string[] CountryNames;
 	public Sprite[] OmiyageSprites;
 
 	public float Second_Display = 1.5f;
