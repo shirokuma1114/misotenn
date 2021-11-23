@@ -14,7 +14,6 @@ public class CakeAnimation : MonoBehaviour
     public void StartMove()
     {
         _animator.SetBool("Idle", false);
-        Debug.Log("H‚Á‚Ä‚İ‚ÈA”ò‚Ô‚¼");
     }
 
     public void EndMove()
