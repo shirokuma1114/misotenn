@@ -144,10 +144,18 @@ public class SquareSouvenir : SquareBase
         _statusWindow.SetMoney(_character.Money);
         _character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(_type));
 
-        var buyMessage =
-                    _character.Name + "は\n" +
-                    "お土産  " + _souvenirName + "を　手に入れた！\n" +
-                    "在庫は  " + _nowStock.ToString() + "個";
+        //在庫更新
+        _nowStock--;
+
+        var buyMessage = _character.Name + "は\n" + "お土産  " + _souvenirName + "を　手に入れた！\n";
+        if (_nowStock > 0)
+        {
+            buyMessage += "残りの在庫は  " + _nowStock.ToString() + "個";
+        }
+        else
+        {
+            buyMessage += "在庫が　なくなった！";
+        }
 
         _messageWindow.SetMessage(buyMessage, _character.IsAutomatic);
 
@@ -155,8 +163,6 @@ public class SquareSouvenir : SquareBase
         _effect.Use_OmiyageEnshutsu(gameObject.name);
         _isEffectUsed = true;
 
-        //在庫更新
-        _nowStock--;
         _squareInfo =
             "お土産マス\n" +
             "コスト：" + _cost.ToString() + "\n" +
@@ -199,8 +205,11 @@ public class SquareSouvenir : SquareBase
         // お金が足りない
         if (_cost > character.Money) return base.GetScore(character, characterType);
 
+        // 在庫がない
+        if (_nowStock <= 0) return base.GetScore(character, characterType);
+
         // 持っていないお土産が売っている
-        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
+        if (character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
 
         return (int)SquareScore.SOUVENIR + base.GetScore(character, characterType);
     }
