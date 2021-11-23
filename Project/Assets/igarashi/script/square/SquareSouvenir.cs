@@ -144,7 +144,9 @@ public class SquareSouvenir : SquareBase
     {
         _character.SubMoney(_cost);
         _statusWindow.SetMoney(_character.Money);
-        _character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(_type));
+
+        Souvenir souvenir = SouvenirCreater.Instance.CreateSouvenir(_type);
+        _character.AddSouvenir(souvenir);
 
         //İŒÉXV
         _nowStock--;
@@ -165,7 +167,7 @@ public class SquareSouvenir : SquareBase
         _souvenirWindow.SetEnable(true);
 
         //‰‰o
-        _effect.Use_OmiyageEnshutsu(gameObject.name);
+        _effect.Use_OmiyageEnshutsu(souvenir.Sprite);
         _isEffectUsed = true;
 
         _squareInfo =
