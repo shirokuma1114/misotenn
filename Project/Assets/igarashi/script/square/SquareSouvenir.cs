@@ -22,19 +22,17 @@ public class SquareSouvenir : SquareBase
 
     private OmiyageEnshutsu _effect;
 
-    private int _nowStock;
-
-
-    [Header("Ç®ìyéY")]
-    [Space(20)]
-    [SerializeField]
     private string _souvenirName;
-    [SerializeField]
     private int _cost;
 
+    private int _nowStock;
+
+    [Header("Ç®ìyéYÇÃÉ^ÉCÉv")]
+    [Space(20)]
     [SerializeField]
     private SouvenirType _type;
 
+    [Header("ç›å…êî")]
     [SerializeField]
     private int _startStock = 3;
 
@@ -56,6 +54,10 @@ public class SquareSouvenir : SquareBase
 
         _effect = FindObjectOfType<OmiyageEnshutsu>();
 
+        var souve = SouvenirCreater.Instance.ReferenceSouvenirParameter(_type);
+        _cost = souve.Price;
+        _souvenirName = souve.Name;
+        
         _squareInfo =
             "Ç®ìyéYÉ}ÉX\n" +
             "ÉRÉXÉgÅF" + _cost.ToString() + "\n" +
