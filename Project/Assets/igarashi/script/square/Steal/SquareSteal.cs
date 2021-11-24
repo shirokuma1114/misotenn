@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[RequireComponent(typeof(StealEffectManager))]
 public class SquareSteal : SquareBase
 {
     public enum SquareStealState
@@ -29,6 +30,9 @@ public class SquareSteal : SquareBase
 
     private List<CharacterBase> _otherCharacters;
 
+    private StealEffectManager _effect;
+    private CameraInterpolation _camera;
+
     [SerializeField]
     private int _cost;
 
@@ -44,6 +48,10 @@ public class SquareSteal : SquareBase
 
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
+
+        _effect = GetComponent<StealEffectManager>();
+
+        _camera = Camera.main.GetComponent<CameraInterpolation>();
 
         _gameManager = FindObjectOfType<MyGameManager>();
 
@@ -192,34 +200,43 @@ public class SquareSteal : SquareBase
                 return;
             }
 
-            if (_otherCharacters[_selectUI.SelectIndex].gameObject.GetComponent<Protector>().IsProtected)
+            CharacterBase targetCharacter = _otherCharacters[_selectUI.SelectIndex];
+
+            if (targetCharacter.gameObject.GetComponent<Protector>().IsProtected)
             {
-                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
             }
-            else if(_otherCharacters[_selectUI.SelectIndex].Souvenirs.Count == 0)
+            else if(targetCharacter.Souvenirs.Count == 0)
             {
-                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character.IsAutomatic);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
             }
             else
             {
-                var targetSouvenirIndex = Random.Range(0, _otherCharacters[_selectUI.SelectIndex].Souvenirs.Count);
-                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[targetSouvenirIndex];
-                _character.AddSouvenir(target);
-                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(targetSouvenirIndex);
+                var targetSouvenirIndex = Random.Range(0, targetCharacter.Souvenirs.Count);
+                var targetSouvenir = targetCharacter.Souvenirs[targetSouvenirIndex];
 
-                var message = _character.Name + "‚Í" + _otherCharacters[_selectUI.SelectIndex].Name + "‚Ì" + target.Name + "‚ğ’D‚Á‚½I";
+                _character.AddSouvenir(targetSouvenir);
+                targetCharacter.RemoveSouvenir(targetSouvenirIndex);
+
+                var message = _character.Name + "‚Í" + targetCharacter.Name + "‚Ì" + targetSouvenir.Name + "‚ğ’D‚Á‚½I";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
 
                 _souvenirWindow.SetSouvenirs(_character.Souvenirs);
                 _souvenirWindow.SetEnable(true);
 
                 _character.SubMoney(_cost);
+
+                //‰‰o
+                _effect.EffectStart(targetCharacter, _character,targetSouvenir.Sprite);
+                _camera.Enter_Event();
+                _camera.Set_NextCamera(0);
+
             }
 
             _state = SquareStealState.END;
@@ -228,10 +245,11 @@ public class SquareSteal : SquareBase
 
     private void EndStateProcess()
     {
-        if (!_messageWindow.IsDisplayed)
+        if (!_messageWindow.IsDisplayed && !_effect.IsEffectPlaying)
         {
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
+            _camera.Leave_Event();
 
             _state = SquareStealState.IDLE;
         }
