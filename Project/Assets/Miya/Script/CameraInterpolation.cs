@@ -15,8 +15,9 @@ public class CameraInterpolation : MonoBehaviour
 	bool Moving			= false;        // ˆÚ“®’†”»’è
 
 	float Distance = 0;
-	float StartTime = 0;
-	float CurrentTime = 0;
+	//float StartTime = 0;
+	//float CurrentTime = 0;
+	float Timer_Move = 0;
 	
 	public PostProcessVolume PostEffect;
 	PostProcessProfile PostEffect_Profile;
@@ -69,7 +70,8 @@ public class CameraInterpolation : MonoBehaviour
 			ObjectArray[CurrentCamera].transform.position,
 			ObjectArray[NextCamera].transform.position
 			);
-		StartTime = Time.time;
+		//StartTime = Time.time;
+		Timer_Move = 0;
 		Moving = true;
 
 		return true;
@@ -126,12 +128,13 @@ public class CameraInterpolation : MonoBehaviour
 		}
 		
 		// Move
-		if ( Moving && (Event_State == 0))
+		if ( Moving/* && (Event_State == 0 || Event_State == 2)*/)
 		{
-			CurrentTime = Time.time;
+			//CurrentTime = Time.time;
+			Timer_Move += Time.deltaTime;
 
-			present = (CurrentTime - StartTime) / Second;
-			if (CurrentTime - StartTime > Second)
+			present = Timer_Move / Second;
+			if (Timer_Move > Second)
 			{
 				Moving = false;
 				CurrentCamera = NextCamera;

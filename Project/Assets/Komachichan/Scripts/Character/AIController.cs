@@ -21,6 +21,8 @@ public class AIController : CharacterControllerBase
         _souvenirWindow = FindObjectOfType<SouvenirWindow>();
         _eventState = EventState.WAIT;
         _aiLevel = new AILevelHard();
+        _animation = GetComponent<CakeAnimation>();
+        _isAutomatic = true;
     }
 
     // Update is called once per frame
@@ -76,10 +78,12 @@ public class AIController : CharacterControllerBase
 
     public override void SetRoot()
     {
+        base.SetRoot();
         // 思考＆ルート作成
         var index = _aiLevel.CalcRoot(_character, ref _root);
         _moveCardManager.IndexSelect(index);
         _character.RemoveMovingCard(index);
+        NotifyMovingCount(_character.MovingCount);
         _goalMovingCount = _character.MovingCount;
         _moveCardManager.DeleteCards();
     }

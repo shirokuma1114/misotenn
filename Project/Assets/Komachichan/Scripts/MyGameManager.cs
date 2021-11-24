@@ -237,7 +237,7 @@ public class MyGameManager : MonoBehaviour
         if (!_messageWindow.IsDisplayed)
         {
             // シーン遷移
-            _fade.FadeStart(30, true);
+            _fade.FadeStart(30, true, true, "re_copy");
             _phase = Phase.NONE;
         }
     }
@@ -347,6 +347,9 @@ public class MyGameManager : MonoBehaviour
 
         for(int i = 0; i < _entryPlugs.Count; i++)
         {
+            _entryPlugs[i].SetSelectWindow(_selectWindow);
+            _entryPlugs[i].SetCharacter(_entryPlugs[i].GetComponent<CharacterBase>());
+
             var chara = _entryPlugs[i].Character;
             if (_isFixedMode && chara.IsAutomatic)
             {
@@ -362,8 +365,7 @@ public class MyGameManager : MonoBehaviour
             chara.Name = "敵" + i + "号";
             chara.SetCurrentSquare(startSquare);
             chara.AddMoney(_initMoney);
-            //chara.SetWaitEnable(true);
-            chara.LapCount = 1;
+            chara.LapCount = 0;
         }
         _turnIndex = 0;
     }
@@ -389,10 +391,42 @@ public class MyGameManager : MonoBehaviour
     public int GetRank(CharacterBase character)
     {
         var characters = GetCharacters();
+        Debug.Assert(characters.Count() == 4);
+
         // 順位はお土産種類＋おこづかい
         characters = characters.OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
 
-        return characters.IndexOf(character) + 1;
+        int rank = 0;
+
+        // 一位は1人だけ
+        if (characters.First() == character) return rank;
+
+        rank++;
+        if (characters[1] == character) return rank;
+
+        // 2位からの同列を考慮したランキング 起こり得るパターンは
+        // 1222 1224 1233 1234
+        int addRank = 0;
+        if (characters[2].Souvenirs.Count == characters[1].Souvenirs.Count &&
+            characters[2].Money == characters[1].Money)
+        {
+            addRank += 2;
+        }
+        else
+        {
+            rank++;
+        }
+
+        if (characters[2] == character) return rank;
+
+        if (!(characters[3].Souvenirs.Count == characters[2].Souvenirs.Count &&
+            characters[3].Money == characters[2].Money))
+        {
+            rank++;
+        }
+
+
+        return rank + addRank;
     }
 
     private void SetCharacterLogToInfo()
@@ -402,8 +436,9 @@ public class MyGameManager : MonoBehaviour
         foreach(var x in _entryPlugs)
         {
             info.SetRank(x.Character, GetRank(x.Character));
-            x.Character.SetLogToInfo(info);
+            //x.Character.SetLogToInfo(info);
         }
+        info.SetLogByCharacter();
     }
 
     public bool HasSouvenirByCharacters(CharacterBase omitCharacter = null)

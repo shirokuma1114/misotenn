@@ -11,11 +11,11 @@ public class AILevelHard : AILevelBase
         // 最も良いマスの選択
         int maxScore = -1;
         int index = -1;
-        //Debug.Log(_character.Name + "の移動可能マスのスコア");
+        Debug.Log(character.Name + "の移動可能マスのスコア");
         for (int i = 0; i < squares.Count; i++)
         {
             var score = squares[i].GetScore(character, CharacterType.AI_HARD);
-            //Debug.Log(squares[i].name + ":" + score);
+            Debug.Log(squares[i].name + ":" + score);
             if (maxScore < score)
             {
                 maxScore = score;

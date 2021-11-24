@@ -5,6 +5,7 @@ using UnityEngine;
 public class RouletteItemAllowance : RouletteItemBase
 {
     private int _addValue;
+    public int GetValue => _addValue;
 
     MessageWindow _messageWindow;
 

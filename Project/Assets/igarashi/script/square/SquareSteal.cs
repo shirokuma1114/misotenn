@@ -22,6 +22,8 @@ public class SquareSteal : SquareBase
     MessageWindow _messageWindow;
     StatusWindow _statusWindow;
     PayUI _payUI;
+    private SouvenirWindow _souvenirWindow;
+
     SelectUI _selectUI;
     List<string> _selectElements;
 
@@ -38,6 +40,8 @@ public class SquareSteal : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
+
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
 
@@ -121,6 +125,8 @@ public class SquareSteal : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.STEAL);
+
                 for (int i = 0; i < _otherCharacters.Count; i++)
                     _selectElements.Add(_otherCharacters[i].Name);
                 _selectElements.Add("やめる");
@@ -149,6 +155,17 @@ public class SquareSteal : SquareBase
         //_character.CharacterType
         //var hasSouvenirCharacters = _otherCharacters.Where(x => x.Souvenirs.Count > 0).ToList();
         //if (hasSouvenirCharacters.Count == 0) return;
+
+        // 相手がリーチの場合阻止する方を選ぶ 該当しない場合ランダム
+        for(int i = 0; i < _otherCharacters.Count; i++)
+        {
+            if (_otherCharacters[i].GetSouvenirTypeNum() + 1 == _gameManager.GetNeedSouvenirType())
+            {
+                _selectUI.IndexSelect(i);
+                return;
+            }
+        }
+
 
         // 検索の最初の位置
         var item = Random.Range(0, _otherCharacters.Count);
@@ -199,6 +216,9 @@ public class SquareSteal : SquareBase
                 var message = _character.Name + "は" + _otherCharacters[_selectUI.SelectIndex].Name + "の" + target.Name + "を奪った！";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
 
+                _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+                _souvenirWindow.SetEnable(true);
+
                 _character.SubMoney(_cost);
             }
 
@@ -220,7 +240,7 @@ public class SquareSteal : SquareBase
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // コストが足りない
-        if (_cost < character.Money) return base.GetScore(character, characterType);
+        if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // 奪うものが無い
         if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);

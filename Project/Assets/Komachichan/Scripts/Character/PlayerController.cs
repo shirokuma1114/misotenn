@@ -16,6 +16,8 @@ public class PlayerController : CharacterControllerBase
         _statusWindow = FindObjectOfType<StatusWindow>();
         _souvenirWindow = FindObjectOfType<SouvenirWindow>();
         _eventState = EventState.WAIT;
+        _animation = GetComponent<CakeAnimation>();
+        _isAutomatic = false;
     }
 
     // Update is called once per frame
@@ -52,9 +54,11 @@ public class PlayerController : CharacterControllerBase
 
     public override void SetRoot()
     {
+        base.SetRoot();
         var index = _moveCardManager.GetSelectedCardIndex();
         _character.RemoveMovingCard(index);
         _goalMovingCount = _character.MovingCount;
+        NotifyMovingCount(_character.MovingCount);
         _moveCardManager.DeleteCards();
         _isSelectedCard = false;
         // ÉãÅ[Égê∂ê¨
