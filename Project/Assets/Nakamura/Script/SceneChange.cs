@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
+    [SerializeField] private Animator fadeAnimater;
+    [SerializeField] private bool isFadeIn;
+
+    private bool isFadeOutStart;
+
     public enum SceneName
     {
         Title,
@@ -21,18 +26,12 @@ public class SceneChange : MonoBehaviour
         {SceneName.Result, "Result"},
     };
 
-    // Ç±ÇÍÇåƒÇÒÇ≈ÉVÅ[ÉìëJà⁄ÇçsÇ§
-    public void LoadSceneEX(SceneName sceneName)
-    {
-        SceneManager.LoadScene(m_sceneNameDictionary[sceneName]);
-    }
-
     [SerializeField] SceneName sceneName;
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        if (isFadeIn == true) fadeAnimater.Play("FadeIn");
     }
 
     // Update is called once per frame
@@ -40,7 +39,13 @@ public class SceneChange : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            LoadSceneEX(sceneName);
+            fadeAnimater.Play("FadeOut");
+            isFadeOutStart = true;
         }
+
+        //if (isFadeOutStart == true)
+        //{
+        //    SceneManager.LoadScene(m_sceneNameDictionary[sceneName]);
+        //}
     }
 }
