@@ -139,8 +139,14 @@ public class MoveCardManager : MonoBehaviour
             var mc = card.GetComponent<MoveCard>();
             mc.SetIndex(i);
 
-            mc.SetMoveTargetPos(new Vector3((rt.rect.width * rt.localScale.x) + (rt.rect.width * rt.localScale.x * 2 * i), rt.rect.height * rt.localScale.y, 0.0f),i == _cardNumberLists.Count - 1);
-
+            Vector3 cardPos = new Vector3();
+            cardPos.x = rt.rect.width * rt.lossyScale.x / 2 + rt.rect.width * rt.lossyScale.x * i;
+            cardPos.y = rt.rect.height * rt.lossyScale.y / 2;
+            cardPos.z = 0.0f;
+            mc.SetMoveTargetPos(cardPos,i == _cardNumberLists.Count - 1);
+            //mc.SetMoveTargetPos(new Vector3((rt.rect.width * rt.localScale.x) + (rt.rect.width * rt.localScale.x * i), rt.rect.height * rt.localScale.y, 0.0f),i == _cardNumberLists.Count - 1);
+            //mc.SetMoveTargetPos(new Vector3(0, 0, 0.0f),i == _cardNumberLists.Count - 1);
+           
             _finAnimEndFlag = false;
             _finAnimStartFlag = false;
 
