@@ -44,7 +44,7 @@ public class OkozukaiEnshutsu : MonoBehaviour
 	void Update()
     {
 		// Debug
-		if (Input.GetKeyUp(KeyCode.A)) Start_OkozukaiEnshutsu(Level + 1);
+		//if (Input.GetKeyUp(KeyCode.A)) Start_OkozukaiEnshutsu(Level + 1);
 	}
 	
 	// Update
