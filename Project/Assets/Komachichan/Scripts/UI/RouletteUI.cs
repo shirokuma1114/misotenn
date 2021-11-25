@@ -11,6 +11,13 @@ public class RouletteUI : MonoBehaviour
     [SerializeField]
     float _moveSpeed;
 
+    float _attenuationAmount;
+
+    float _currentMoveSpeed;
+
+    static readonly float MOVE_SPEED_MIN = 25.0f;
+    static readonly float CAN_STOP_SPEED = 40.0f;
+
     private CharacterBase _character;
 
     [SerializeField]
@@ -65,7 +72,7 @@ public class RouletteUI : MonoBehaviour
         foreach(var i in _rouletteObjects)
         {
             var pos = i.GetComponent<RectTransform>().anchoredPosition;
-            pos.y -= Time.deltaTime * _moveSpeed;
+            pos.y -= Time.deltaTime * _currentMoveSpeed;
             if(pos.y - _offsetY <= -74.0f)
             {
                 target = i;
@@ -89,6 +96,11 @@ public class RouletteUI : MonoBehaviour
         }
 
         if (_isPushed)
+        {
+            _currentMoveSpeed = Mathf.Max(_currentMoveSpeed * _attenuationAmount, MOVE_SPEED_MIN);
+        }
+
+        if (_currentMoveSpeed <= CAN_STOP_SPEED)
         {
             var pos = _rouletteObjects[0].GetComponent<RectTransform>().anchoredPosition;
             if (Mathf.Abs((pos.y - _offsetY) % 32.0f) <= 0.8f)
@@ -129,8 +141,15 @@ public class RouletteUI : MonoBehaviour
         _isPushed = true;
     }
 
+    private void DelayPush()
+    {
+
+    }
+
     public RouletteUI Begin(CharacterBase character)
     {
+        _attenuationAmount = Random.Range(0.98f, 0.99f);
+        _currentMoveSpeed = _moveSpeed;
         _isDisplayed = true;
         _isPushed = false;
         _isStopped = false;
