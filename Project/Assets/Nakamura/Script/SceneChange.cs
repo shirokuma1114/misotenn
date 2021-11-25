@@ -22,16 +22,18 @@ public class SceneChange : MonoBehaviour
     private Dictionary<SceneName, string> m_sceneNameDictionary = new Dictionary<SceneName, string> {
         {SceneName.Title, "Title"},
         {SceneName.Select, "Select"},
-        {SceneName.Game, "Game"},
+        {SceneName.Game, "NewTincleScene"},
         {SceneName.Result, "Result"},
     };
 
     [SerializeField] SceneName sceneName;
 
+    private int cou = 0;
+
     // Start is called before the first frame update
     void Start()
     {
-        if (isFadeIn == true) fadeAnimater.Play("FadeIn");
+        if (isFadeIn) fadeAnimater.Play("FadeIn");
     }
 
     // Update is called once per frame
@@ -43,9 +45,12 @@ public class SceneChange : MonoBehaviour
             isFadeOutStart = true;
         }
 
-        //if (isFadeOutStart == true)
-        //{
-        //    SceneManager.LoadScene(m_sceneNameDictionary[sceneName]);
-        //}
+        if (isFadeOutStart) cou++;
+
+        if (cou > 120 && isFadeOutStart)
+        {
+            cou = 0;
+            SceneManager.LoadScene(m_sceneNameDictionary[sceneName]);
+        }
     }
 }
