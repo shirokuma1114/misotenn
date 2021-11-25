@@ -198,6 +198,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8556650745023077986, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556650745023077987, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: ShapeModule.type
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556650745023077987, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: ShapeModule.radius.value
+      value: 22.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556650745023077987, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556650745023077987, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8556650745023077987, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
 --- !u!224 &13173339 stripped
@@ -383,6 +407,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _souvenirName: "\u3055\u304F\u3055\u304F\u3071\u3093\u3060"
+  _cost: 1000
   _type: 0
   _startStock: 3
 --- !u!114 &712244019 stripped
@@ -533,6 +559,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _souvenirName: "\u30AA\u30E9\u30F3\u30B8\u30FC\u30CA"
+  _cost: 2000
   _type: 4
   _startStock: 3
 --- !u!1 &906176756 stripped
@@ -552,6 +580,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _souvenirName: "\u30B3\u30A2\u30E9\u306E\u30DE\u30FC\u30C1"
+  _cost: 2000
   _type: 1
   _startStock: 3
 --- !u!1 &910710178 stripped
@@ -572,19 +602,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cost: 40000
---- !u!114 &910710181
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 910710178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ffd7a09028fa1148baa8658a6da320e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _stealEffectPrefab: {fileID: 2910864685895576018, guid: 4420a79d39939ab41bccc444df991970, type: 3}
 --- !u!1001 &974197065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -670,6 +687,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _souvenirName: "\u73C8\u7432\u8CB4\u65CF"
+  _cost: 1000
   _type: 3
   _startStock: 3
 --- !u!1 &1063325853 stripped
@@ -804,6 +823,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _souvenirName: "\u30E1\u30B8\u30A7\u30C9\u69D8"
+  _cost: 20000
   _type: 5
   _startStock: 3
 --- !u!1001 &1125033380
@@ -1466,6 +1487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _souvenirName: "\u81EA\u7531\u306E\u5973\u795E\u50CF"
+  _cost: 10000
   _type: 2
   _startStock: 3
 --- !u!1001 &1740068890
@@ -1578,14 +1601,6 @@ PrefabInstance:
     - target: {fileID: 5334304092328648293, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -1.642
-      objectReference: {fileID: 0}
-    - target: {fileID: 6019594197992506162, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
-      propertyPath: _floatingVolume
-      value: 5.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8132428973927792562, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
-      propertyPath: m_Positions.Array.size
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8132428973927792562, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
@@ -1810,6 +1825,87 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47fc5a9df19b1534b9217d95cfeaec22, type: 3}
+--- !u!1 &1823480148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1823480151}
+  - component: {fileID: 1823480150}
+  - component: {fileID: 1823480149}
+  m_Layer: 0
+  m_Name: Cloud
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1823480149
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823480148}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ac8d2a1c72f6ef241baf50fe90d01e25, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1823480150
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823480148}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1823480151
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823480148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 15, y: 15, z: 15}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1916240663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3190993506664380838, guid: 6bc9cadc1de682844bb27ecae543dc71, type: 3}
@@ -2699,10 +2795,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5998318687276456074, guid: c65024fbd1d15d14fb86d0db638dd989, type: 3}
-      propertyPath: _moveSpeed
-      value: 800
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65024fbd1d15d14fb86d0db638dd989, type: 3}
 --- !u!1001 &5998749720738006767
@@ -2774,11 +2866,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _selectWindow
