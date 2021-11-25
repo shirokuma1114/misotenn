@@ -131,12 +131,15 @@ public class MoveCardManager : MonoBehaviour
             var rt = card.GetComponent<RectTransform>();
 
             rt.position = new Vector3(0.0f, -50.0f, 0.0f);
-            card.transform.SetParent(transform);
-            card.transform.Find("Text").GetComponent<Text>().text = _cardNumberLists[i].ToString();
+            rt.SetParent(transform);
+            rt.localScale = _cardPrefab.transform.localScale;
+
+            rt.Find("Text").GetComponent<Text>().text = _cardNumberLists[i].ToString();
+
             var mc = card.GetComponent<MoveCard>();
             mc.SetIndex(i);
 
-            mc.SetMoveTargetPos(new Vector3((rt.rect.width / 2.0f) + (rt.rect.width * i), rt.rect.height / 2.0f, 0.0f),i == _cardNumberLists.Count - 1);
+            mc.SetMoveTargetPos(new Vector3((rt.rect.width * rt.localScale.x) + (rt.rect.width * rt.localScale.x * 2 * i), rt.rect.height * rt.localScale.y, 0.0f),i == _cardNumberLists.Count - 1);
 
             _finAnimEndFlag = false;
             _finAnimStartFlag = false;
