@@ -13,9 +13,12 @@ public class OkozukaiEnshutsu : MonoBehaviour
 
 		var emission = ParticleSystem_m.emission;
 		emission.rateOverTime = BaseNumber + Level * Level * Auxiliary;
-		
-		Instantiate(Particle);
-	}
+
+        Particle_Instance = Instantiate(Particle);
+
+        Completed_Enshutsu = false;
+
+    }
 	public bool Get_Completed()
 	{
 		return Completed_Enshutsu;
@@ -23,6 +26,7 @@ public class OkozukaiEnshutsu : MonoBehaviour
 	
 	// Variable------------------------------------------------------------------------------------
 	public GameObject Particle;
+	GameObject Particle_Instance;
 	ParticleSystem ParticleSystem_m;
 	
 	bool Completed_Enshutsu = false;
@@ -50,7 +54,13 @@ public class OkozukaiEnshutsu : MonoBehaviour
 	// Update
 	void FixedUpdate()
 	{
-		Timer_ParticleFinish -= Time.deltaTime;
-		if (Timer_ParticleFinish < 0) Completed_Enshutsu = true;
+        //Timer_ParticleFinish -= Time.deltaTime;
+        //if (Timer_ParticleFinish < 0) Completed_Enshutsu = true;
+
+        if (Completed_Enshutsu)
+            return;
+
+        if (!Particle_Instance)
+            Completed_Enshutsu = true;
 	}
 }
