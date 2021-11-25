@@ -20,12 +20,13 @@ public class StealEffect : MonoBehaviour
         transform.forward = new Vector3(0,0,1);
 
 
-        Vector3[] path = new Vector3[4];
+        Vector3[] path = new Vector3[5];
 
         path[0] = startPos;
-        path[1] = startPos + startUp * 0.5f;
-        path[2] = endPos + endUp * 0.5f;
-        path[3] = endPos;
+        path[1] = Vector3.Slerp(startPos,endPos,0.25f);
+        path[2] = Vector3.Slerp(startPos,endPos,0.5f);
+        path[3] = Vector3.Slerp(startPos,endPos,0.75f);
+        path[4] = endPos;
 
 
         _sequence = DOTween.Sequence();
