@@ -8,11 +8,8 @@ public class Control_SE : MonoBehaviour
 	public void Play_SE(string _name)
 	{
 		Sound_List content = Sound_Contents.Find(l => l.Name == _name);
-		if (content != 0)
-		{
-			Sound.clip = content.Audio;
-			Sound.Play();
-		}
+		Sound.clip = content.Audio;
+		Sound.Play();
 	}
 
 	// Setting
