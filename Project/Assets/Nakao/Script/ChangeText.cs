@@ -52,6 +52,9 @@ public class ChangeText : MonoBehaviour
     private List<Text> _selectTexts;
 
 
+    [SerializeField]
+    Animator _fadeAnimation;
+
     //Œˆ’èKey—p
     int Choice = 0;
 
@@ -62,6 +65,8 @@ public class ChangeText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _fadeAnimation.Play("FadeIn");
+
         InitCharacterInfo();
     
         ShowRank();
