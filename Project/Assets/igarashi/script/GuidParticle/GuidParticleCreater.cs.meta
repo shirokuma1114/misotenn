@@ -3,7 +3,8 @@ guid: b70cd9355a32a0e4ebc09f5403fd9f78
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - _guidParticlePrefab: {fileID: 9022166939630177057, guid: c67d40648f9532b44b42e824e15dbba2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
