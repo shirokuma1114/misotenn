@@ -109,13 +109,13 @@ public class EarthFreeRotation : MonoBehaviour
     private void Operation()
     {
         //Debug
-        if(Input.GetKeyDown(_modeChangeKey))
-        {
-            if (!_freeRotationMode)
-                DebugTrunOn();
-            else
-                TrunOff();
-        }
+        //if(Input.GetKeyDown(_modeChangeKey))
+        //{
+        //    if (!_freeRotationMode)
+        //        DebugTrunOn();
+        //    else
+        //        TrunOff();
+        //}
 
         if (_freeRotationMode)
         {
