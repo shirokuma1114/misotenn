@@ -46,6 +46,8 @@ public class RouletteUI : MonoBehaviour
 
     RouletteItemBase _selectedItem;
 
+    float _time;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +100,7 @@ public class RouletteUI : MonoBehaviour
         if (_isPushed)
         {
             _currentMoveSpeed = Mathf.Max(_currentMoveSpeed * _attenuationAmount, MOVE_SPEED_MIN);
+            
         }
 
         if (_currentMoveSpeed <= CAN_STOP_SPEED)
@@ -139,6 +142,7 @@ public class RouletteUI : MonoBehaviour
     void Push()
     {
         _isPushed = true;
+        _time = 0.0f;
     }
 
     private void DelayPush()
