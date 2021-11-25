@@ -383,8 +383,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _souvenirName: "\u3055\u304F\u3055\u304F\u3071\u3093\u3060"
-  _cost: 1000
   _type: 0
   _startStock: 3
 --- !u!114 &712244019 stripped
@@ -535,8 +533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _souvenirName: "\u30AA\u30E9\u30F3\u30B8\u30FC\u30CA"
-  _cost: 2000
   _type: 4
   _startStock: 3
 --- !u!1 &906176756 stripped
@@ -556,8 +552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _souvenirName: "\u30B3\u30A2\u30E9\u306E\u30DE\u30FC\u30C1"
-  _cost: 2000
   _type: 1
   _startStock: 3
 --- !u!1 &910710178 stripped
@@ -578,6 +572,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cost: 40000
+--- !u!114 &910710181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910710178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ffd7a09028fa1148baa8658a6da320e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stealEffectPrefab: {fileID: 2910864685895576018, guid: 4420a79d39939ab41bccc444df991970, type: 3}
 --- !u!1001 &974197065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -663,8 +670,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _souvenirName: "\u73C8\u7432\u8CB4\u65CF"
-  _cost: 1000
   _type: 3
   _startStock: 3
 --- !u!1 &1063325853 stripped
@@ -799,8 +804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _souvenirName: "\u30E1\u30B8\u30A7\u30C9\u69D8"
-  _cost: 20000
   _type: 5
   _startStock: 3
 --- !u!1001 &1125033380
@@ -1463,8 +1466,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11c7197a82536bd4ea53d4c884afa11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _souvenirName: "\u81EA\u7531\u306E\u5973\u795E\u50CF"
-  _cost: 10000
   _type: 2
   _startStock: 3
 --- !u!1001 &1740068890
@@ -2698,6 +2699,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5998318687276456074, guid: c65024fbd1d15d14fb86d0db638dd989, type: 3}
+      propertyPath: _moveSpeed
+      value: 800
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c65024fbd1d15d14fb86d0db638dd989, type: 3}
 --- !u!1001 &5998749720738006767
@@ -2769,11 +2774,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _selectWindow
