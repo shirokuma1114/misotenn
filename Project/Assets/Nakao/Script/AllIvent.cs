@@ -33,16 +33,103 @@ public class AllIvent : MonoBehaviour
 
     public bool mn;
 
+    //キーボード用
+    GameObject obj5;
+    ButtonChangeP1Text script3;
+
+    GameObject obj6;
+    ButtonChangeP2Text script4;
+
+    GameObject obj7;
+    ButtonChangeP3Text script5;
+
+    GameObject obj8;
+    ButtonChangeP4Text script6;
+
+    GameObject obj9;
+    ButtonChangeBackText script7;
+
     // Start is called before the first frame update
     void Start()
     {
         mn = false;
+
+        //KeyBord
+        obj5 = GameObject.Find("1SelectInFrame");
+        script3 = obj5.GetComponent<ButtonChangeP1Text>();
+        if (script3 == null)
+        {
+            script3 = obj5.GetComponent<ButtonChangeP1Text>();
+        }
+
+        obj6 = GameObject.Find("2SelectInFrame");
+        script4 = obj6.GetComponent<ButtonChangeP2Text>();
+        if (script4 == null)
+        {
+            script4 = obj6.GetComponent<ButtonChangeP2Text>();
+        }
+
+        obj7 = GameObject.Find("3SelectInFrame");
+        script5 = obj7.GetComponent<ButtonChangeP3Text>();
+        if (script5 == null)
+        {
+            script5 = obj7.GetComponent<ButtonChangeP3Text>();
+        }
+
+        obj8 = GameObject.Find("4SelectInFrame");
+        script6 = obj8.GetComponent<ButtonChangeP4Text>();
+        if (script6 == null)
+        {
+            script6 = obj8.GetComponent<ButtonChangeP4Text>();
+        }
+
+        obj9 = GameObject.Find("BackKey");
+        script7 = obj9.GetComponent<ButtonChangeBackText>();
+        if (script7 == null)
+        {
+            script7 = obj9.GetComponent<ButtonChangeBackText>();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!mn)
+        if (!script7.TriggerButton)
+        {
+            if (script3.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    OnClick();
+                }
+            }
+
+            if (script4.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    OnClick();
+                }
+            }
+
+            if (script5.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    OnClick();
+                }
+            }
+
+            if (script6.TriggerButton)
+            {
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    OnClick();
+                }
+            }
+        }
+
+        if (!mn)
         {
             Ex1out.enabled = false;
             Ex2out.enabled = false;
@@ -101,5 +188,14 @@ public class AllIvent : MonoBehaviour
     public void OnClick()
     {
         mn = true;
+
+        Ex1text.text = "a";
+        Ex2text.text = "a";
+        Ex3text.text = "a";
+        Ex4text.text = "a";
+        Ex5text.text = "a";
+        Ex6text.text = "a";
+        Ex7text.text = "a";
+        Ex8text.text = "a";
     }
 }

@@ -30,6 +30,13 @@ public class ButtonChangeP3Text : MonoBehaviour
     public Image P3in;
     public Image P4in;
 
+    public bool TriggerButton;
+
+    //private float Timer;
+    //private float StopTimer = 0.01f;
+
+   // public int Number = 3;
+
     GameObject obj;
     AllIvent script;
     GameObject obj2;
@@ -37,6 +44,19 @@ public class ButtonChangeP3Text : MonoBehaviour
     GameObject obj3;
     AllMoney script2;
     GameObject obj4;
+
+    //キーボード用
+    GameObject obj5;
+    ButtonChangeP1Text script3;
+
+    GameObject obj6;
+    ButtonChangeP2Text script4;
+
+    GameObject obj7;
+    ButtonChangeP4Text script5;
+
+    GameObject obj8;
+    ButtonChangeBackText script6;
 
     // Start is called before the first frame update
     void Start()
@@ -54,11 +74,88 @@ public class ButtonChangeP3Text : MonoBehaviour
             script2 = obj3.GetComponent<AllMoney>();
         }
         obj4 = GameObject.Find("3MainOutFrame");
+
+        //KeyBord
+        obj5 = GameObject.Find("1SelectInFrame");
+        script3 = obj5.GetComponent<ButtonChangeP1Text>();
+        if (script3 == null)
+        {
+            script3 = obj5.GetComponent<ButtonChangeP1Text>();
+        }
+
+        obj6 = GameObject.Find("2SelectInFrame");
+        script4 = obj6.GetComponent<ButtonChangeP2Text>();
+        if (script4 == null)
+        {
+            script4 = obj6.GetComponent<ButtonChangeP2Text>();
+        }
+
+        obj7 = GameObject.Find("4SelectInFrame");
+        script5 = obj7.GetComponent<ButtonChangeP4Text>();
+        if (script5 == null)
+        {
+            script5 = obj7.GetComponent<ButtonChangeP4Text>();
+        }
+
+        obj8 = GameObject.Find("BackKey");
+        script6 = obj8.GetComponent<ButtonChangeBackText>();
+        if (script6 == null)
+        {
+            script6 = obj8.GetComponent<ButtonChangeBackText>();
+        }
+
+        TriggerButton = false;
+        //Timer = 0.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if (TriggerButton)
+        //{
+        //    OnClick();
+        //    //TriggerButton = false;
+        //}
+
+        //if (TriggerButton && !script5.TriggerButton)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.D))
+        //    {
+        //        script5.TriggerButton = true;
+        //        TriggerButton = false;
+        //    }
+        //}
+
+        //if (TriggerButton && !script4.TriggerButton)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.A))
+        //    {
+        //        script4.TriggerButton = true;
+        //        TriggerButton = false;
+        //    }
+        //}
+       
+        //if (script4.TriggerButton && !script5.TriggerButton)
+        //{
+        //    Timer += Time.deltaTime;
+        //    if (Timer < StopTimer) return;
+        //    if (Input.GetKeyDown(KeyCode.D))
+        //    {
+        //        Timer = 0;
+        //        OnClick();
+        //    }
+        //}
+        //if (script5.TriggerButton)
+        //{
+        //    Timer += Time.deltaTime;
+        //    if (Timer < StopTimer) return;
+        //    if (Input.GetKeyDown(KeyCode.A))
+        //    {
+        //        Timer = 0;
+        //        OnClick();
+        //    }
+        //}
+
         //フレーム全消し
         if (script.mn)
         {
@@ -130,5 +227,12 @@ public class ButtonChangeP3Text : MonoBehaviour
         script2.mn = false;
         obj3.GetComponent<Button>().interactable = true;
         obj4.GetComponent<Button>().interactable = true;
+
+        //1が押された
+        TriggerButton = true;
+        script3.TriggerButton = false;
+        script4.TriggerButton = false;
+        script5.TriggerButton = false;
+        script6.TriggerButton = false;
     }
 }
