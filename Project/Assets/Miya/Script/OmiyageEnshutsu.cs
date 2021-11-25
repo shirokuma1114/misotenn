@@ -19,15 +19,25 @@ public class OmiyageEnshutsu : MonoBehaviour
 					ImageComponent.sprite = OmiyageSprites[i];
 					Set_sequence();
                     _animComplete = false;
-					break;
+                    _particlePlaying = false;
+
+                    break;
 				}
 			}
 		}
 		else Debug.Log("Error : OmiyageEnshutsu.cs, ListLength");
 	}
 
-	// List
-	public string[] CountryNames;
+    public void Use_OmiyageEnshutsu(Sprite souvenirSprite)
+    {
+        ImageComponent.sprite = souvenirSprite;
+        Set_sequence();
+        _animComplete = false;
+        _particlePlaying = false;
+    }
+
+    // List
+    public string[] CountryNames;
 	public Sprite[] OmiyageSprites;
 
 	public float Second_Display = 1.5f;
@@ -45,6 +55,9 @@ public class OmiyageEnshutsu : MonoBehaviour
     //
     bool _animComplete = false;
     public bool IsAnimComplete => _animComplete;
+
+    GameObject _particle;
+    bool _particlePlaying;
 
 
 	// Start
@@ -64,8 +77,14 @@ public class OmiyageEnshutsu : MonoBehaviour
     // Update
     void Update()
     {
-		// Debug
-		//if (Input.GetKeyUp(KeyCode.A)) Use_OmiyageEnshutsu("Australia");
+        // Debug
+        //if (Input.GetKeyUp(KeyCode.A)) Use_OmiyageEnshutsu("Australia");
+
+        if(_particlePlaying)
+        {
+            if (_particle == null)
+                _animComplete = true;
+        }
 	}
 
 	// Animation Sequence
@@ -111,8 +130,8 @@ public class OmiyageEnshutsu : MonoBehaviour
 	// OnComplete
 	private void Completed()
 	{
-		Instantiate(Particle);
-        _animComplete = true;
+		_particle = Instantiate(Particle);
+        _particlePlaying = true;
 	}
 	// OnDisable
 	private void OnDisable()

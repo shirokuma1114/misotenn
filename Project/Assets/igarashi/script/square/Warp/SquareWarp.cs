@@ -108,9 +108,16 @@ public class SquareWarp : SquareBase
         _payUI.Open(character);
 
         _state = SquareWarpState.PAY;
+        if (character.IsAutomatic)
+        {
+            Invoke("SelectAutomatic", 1.5f);
+        }
     }
 
-
+    void SelectAutomatic()
+    {
+        _payUI.AISelectYes();
+    }
 
     private void PayStateProcess()
     {

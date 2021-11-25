@@ -112,6 +112,10 @@ public class SquareAllowance : SquareBase
 
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
-        return (int)SquareScore.ALLOWANCE + base.GetScore(character, characterType);
+        if(character.Money < 50000)
+        {
+            return (int)SquareScore.ALLOWANCE_50000_OR_LESS + base.GetScore(character, characterType);
+        }
+        return (int)SquareScore.ALLOWANCE_50000_OR_MORE + base.GetScore(character, characterType);
     }
 }

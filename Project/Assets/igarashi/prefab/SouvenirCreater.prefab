@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &9097744183813453403
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9097744183813453397}
+  - component: {fileID: 9097744183813453396}
+  m_Layer: 0
+  m_Name: SouvenirCreater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9097744183813453397
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097744183813453403}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.9525841, y: 3.8106284, z: -1.8393332}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9097744183813453396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097744183813453403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51011a931ef2a7b45a4bc22b58a7c0a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _souvenirs:
+  - _price: 1000
+    _name: "\u3055\u304F\u3055\u304F\u3071\u3093\u3060"
+    _type: 0
+    _sprite: {fileID: 21300000, guid: f8b011d1d6390b24884793b5ab42e8e6, type: 3}
+  - _price: 2000
+    _name: "\u30AA\u30E9\u30F3\u30B8\u30FC\u30CA"
+    _type: 4
+    _sprite: {fileID: 21300000, guid: 29d264c4befdf314aaa6cf9a70de7775, type: 3}
+  - _price: 20000
+    _name: "\u30E1\u30B8\u30A7\u30C9\u69D8"
+    _type: 5
+    _sprite: {fileID: 21300000, guid: ea73e276732eac248b9c189e3ff16898, type: 3}
+  - _price: 2000
+    _name: "\u73C8\u7432\u8CB4\u65CF"
+    _type: 3
+    _sprite: {fileID: 21300000, guid: c660e8b526d90074abb0fae22eaa2d04, type: 3}
+  - _price: 10000
+    _name: "\u81EA\u7531\u306E\u5973\u795E\u50CF"
+    _type: 2
+    _sprite: {fileID: 21300000, guid: dda8cd9884f1aab43b8fd59170f20c0b, type: 3}
+  - _price: 1000
+    _name: "\u30B3\u30A2\u30E9\u306E\u30DE\u30FC\u30C1"
+    _type: 1
+    _sprite: {fileID: 21300000, guid: d66ef0b12e636dc488a61f27195d4436, type: 3}

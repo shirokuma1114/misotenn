@@ -14,40 +14,56 @@ public class SquareSouvenir : SquareBase
     }
     protected SquareSouvenirState _state = SquareSouvenirState.IDLE;
 
-    CharacterBase _character;
-    MessageWindow _messageWindow;
-    StatusWindow _statusWindow;
-    PayUI _payUI;
+    private CharacterBase _character;
+    private MessageWindow _messageWindow;
+    private StatusWindow _statusWindow;
+    private PayUI _payUI;
+    private SouvenirWindow _souvenirWindow;
 
     private OmiyageEnshutsu _effect;
 
-
-    [Header("お土産")]
-    [Space(20)]
-    [SerializeField]
     private string _souvenirName;
-    [SerializeField]
     private int _cost;
 
+    private int _nowStock;
+
+    [Header("お土産のタイプ")]
+    [Space(20)]
     [SerializeField]
     private SouvenirType _type;
 
-    bool _isEffectUsed = false;
-    
+    [Header("在庫数")]
+    [SerializeField]
+    private int _startStock = 3;
+
+    bool _isEffectUsed = false;    
+
+
+    private void Awake()
+    {
+        _nowStock = _startStock;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
 
         _effect = FindObjectOfType<OmiyageEnshutsu>();
 
+        var souve = SouvenirCreater.Instance.ReferenceSouvenirParameter(_type);
+        _cost = souve.Price;
+        _souvenirName = souve.Name;
+        
         _squareInfo =
             "お土産マス\n" +
             "コスト：" + _cost.ToString() + "\n" +
             "お土産名：" + _souvenirName + "\n" +
-            "お土産タイプ：" + _type.ToString(); 
+            "お土産タイプ：" + _type.ToString() + "\n" +
+            "在庫数：" + _nowStock.ToString();
     }
 
     public override void Stop(CharacterBase character)
@@ -59,6 +75,14 @@ public class SquareSouvenir : SquareBase
         if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _state = SquareSouvenirState.END;
+            return;
+        }
+
+        //在庫チェック
+        if (_nowStock <= 0)
+        {
+            _messageWindow.SetMessage("在庫がありません", character.IsAutomatic);
             _state = SquareSouvenirState.END;
             return;
         }
@@ -115,20 +139,46 @@ public class SquareSouvenir : SquareBase
             {
                 _state = SquareSouvenirState.END;
             }
-        }            
+        }
     }
 
     private void EventProcess()
     {
         _character.SubMoney(_cost);
         _statusWindow.SetMoney(_character.Money);
-        _character.AddSouvenir(new Souvenir(_cost, _souvenirName, _type));
 
-        _messageWindow.SetMessage(_character.Name + "は\nお土産　" + _souvenirName + "を　手に入れた！", _character.IsAutomatic); //_character.name + "は" + _souvenir.name + "を手に入れた"
+        Souvenir souvenir = SouvenirCreater.Instance.CreateSouvenir(_type);
+        _character.AddSouvenir(souvenir);
+
+        //在庫更新
+        _nowStock--;
+
+        var buyMessage = _character.Name + "は\n" + "お土産  " + _souvenirName + "を　手に入れた！\n";
+        if (_nowStock > 0)
+        {
+            buyMessage += "残りの在庫は  " + _nowStock.ToString() + "個";
+        }
+        else
+        {
+            buyMessage += "在庫が　なくなった！";
+        }
+
+        _messageWindow.SetMessage(buyMessage, _character.IsAutomatic);
+
+        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+        _souvenirWindow.SetEnable(true);
 
         //演出
-        _effect.Use_OmiyageEnshutsu(gameObject.name);
+        _effect.Use_OmiyageEnshutsu(souvenir.Sprite);
         _isEffectUsed = true;
+
+        _squareInfo =
+            "お土産マス\n" +
+            "コスト：" + _cost.ToString() + "\n" +
+            "お土産名：" + _souvenirName + "\n" +
+            "お土産タイプ：" + _type.ToString() + "\n" +
+            "在庫数：" + _nowStock.ToString();
+
         _state = SquareSouvenirState.END;
     }
 
@@ -141,6 +191,7 @@ public class SquareSouvenir : SquareBase
                 // 止まる処理終了
                 _character.CompleteStopExec();
                 _statusWindow.SetEnable(false);
+                _souvenirWindow.SetEnable(false);
 
                 _state = SquareSouvenirState.IDLE;
                 _isEffectUsed = false;
@@ -164,8 +215,11 @@ public class SquareSouvenir : SquareBase
         // お金が足りない
         if (_cost > character.Money) return base.GetScore(character, characterType);
 
+        // 在庫がない
+        if (_nowStock <= 0) return base.GetScore(character, characterType);
+
         // 持っていないお土産が売っている
-        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
+        if (character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
 
         return (int)SquareScore.SOUVENIR + base.GetScore(character, characterType);
     }

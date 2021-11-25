@@ -64,7 +64,15 @@ public class SquareProtect : SquareBase
         }
     }
 
-
+    private void SelectAutomatic()
+    {
+        if (_character.Souvenirs.Count == 0)
+        {
+            _payUI.AISelectNo();
+            return;
+        }
+        _payUI.AISelectYes();
+    }
 
     public override void Stop(CharacterBase character)
     {
@@ -85,6 +93,11 @@ public class SquareProtect : SquareBase
         Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
 
         _state = SquareProtectState.PAY;
+
+        if (character.IsAutomatic)
+        {
+            Invoke("SelectAutomatic", 1.5f);
+        }
     }
 
 

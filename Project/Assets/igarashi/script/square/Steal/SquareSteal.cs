@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+[RequireComponent(typeof(StealEffectManager))]
 public class SquareSteal : SquareBase
 {
     public enum SquareStealState
@@ -22,10 +23,15 @@ public class SquareSteal : SquareBase
     MessageWindow _messageWindow;
     StatusWindow _statusWindow;
     PayUI _payUI;
+    private SouvenirWindow _souvenirWindow;
+
     SelectUI _selectUI;
     List<string> _selectElements;
 
     private List<CharacterBase> _otherCharacters;
+
+    private StealEffectManager _effect;
+    private CameraInterpolation _camera;
 
     [SerializeField]
     private int _cost;
@@ -38,8 +44,14 @@ public class SquareSteal : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
+
         _selectUI = FindObjectOfType<SelectUI>();
         _selectElements = new List<string>();
+
+        _effect = GetComponent<StealEffectManager>();
+
+        _camera = Camera.main.GetComponent<CameraInterpolation>();
 
         _gameManager = FindObjectOfType<MyGameManager>();
 
@@ -152,6 +164,17 @@ public class SquareSteal : SquareBase
         //var hasSouvenirCharacters = _otherCharacters.Where(x => x.Souvenirs.Count > 0).ToList();
         //if (hasSouvenirCharacters.Count == 0) return;
 
+        // ‘Šè‚ªƒŠ[ƒ`‚Ìê‡‘j~‚·‚é•û‚ğ‘I‚Ô ŠY“–‚µ‚È‚¢ê‡ƒ‰ƒ“ƒ_ƒ€
+        for(int i = 0; i < _otherCharacters.Count; i++)
+        {
+            if (_otherCharacters[i].GetSouvenirTypeNum() + 1 == _gameManager.GetNeedSouvenirType())
+            {
+                _selectUI.IndexSelect(i);
+                return;
+            }
+        }
+
+
         // ŒŸõ‚ÌÅ‰‚ÌˆÊ’u
         var item = Random.Range(0, _otherCharacters.Count);
 
@@ -177,31 +200,43 @@ public class SquareSteal : SquareBase
                 return;
             }
 
-            if (_otherCharacters[_selectUI.SelectIndex].gameObject.GetComponent<Protector>().IsProtected)
+            CharacterBase targetCharacter = _otherCharacters[_selectUI.SelectIndex];
+
+            if (targetCharacter.gameObject.GetComponent<Protector>().IsProtected)
             {
-                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
             }
-            else if(_otherCharacters[_selectUI.SelectIndex].Souvenirs.Count == 0)
+            else if(targetCharacter.Souvenirs.Count == 0)
             {
-                _messageWindow.SetMessage(_otherCharacters[_selectUI.SelectIndex].Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character.IsAutomatic);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
             }
             else
             {
-                var targetSouvenirIndex = Random.Range(0, _otherCharacters[_selectUI.SelectIndex].Souvenirs.Count);
-                var target = _otherCharacters[_selectUI.SelectIndex].Souvenirs[targetSouvenirIndex];
-                _character.AddSouvenir(target);
-                _otherCharacters[_selectUI.SelectIndex].RemoveSouvenir(targetSouvenirIndex);
+                var targetSouvenirIndex = Random.Range(0, targetCharacter.Souvenirs.Count);
+                var targetSouvenir = targetCharacter.Souvenirs[targetSouvenirIndex];
 
-                var message = _character.Name + "‚Í" + _otherCharacters[_selectUI.SelectIndex].Name + "‚Ì" + target.Name + "‚ğ’D‚Á‚½I";
+                _character.AddSouvenir(targetSouvenir);
+                targetCharacter.RemoveSouvenir(targetSouvenirIndex);
+
+                var message = _character.Name + "‚Í" + targetCharacter.Name + "‚Ì" + targetSouvenir.Name + "‚ğ’D‚Á‚½I";
                 _messageWindow.SetMessage(message, _character.IsAutomatic);
 
+                _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+                _souvenirWindow.SetEnable(true);
+
                 _character.SubMoney(_cost);
+
+                //‰‰o
+                _effect.EffectStart(targetCharacter, _character,targetSouvenir.Sprite);
+                _camera.Enter_Event();
+                _camera.Set_NextCamera(0);
+
             }
 
             _state = SquareStealState.END;
@@ -210,10 +245,11 @@ public class SquareSteal : SquareBase
 
     private void EndStateProcess()
     {
-        if (!_messageWindow.IsDisplayed)
+        if (!_messageWindow.IsDisplayed && !_effect.IsEffectPlaying)
         {
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
+            _camera.Leave_Event();
 
             _state = SquareStealState.IDLE;
         }
@@ -222,7 +258,7 @@ public class SquareSteal : SquareBase
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // ƒRƒXƒg‚ª‘«‚è‚È‚¢
-        if (_cost < character.Money) return base.GetScore(character, characterType);
+        if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // ’D‚¤‚à‚Ì‚ª–³‚¢
         if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);
