@@ -27,18 +27,23 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     List<CharacterType> _createCharacterTypes;
 
+    [Header("移動カード最小値")]
     [SerializeField]
     private int _cardMinValue;
 
+    [Header("移動カード最大値")]
     [SerializeField]
     private int _cardMaxValue;
 
+    [Header("移動カード初期手札枚数")]
     [SerializeField]
     private int _initCardNum;
 
+    [Header("初期所持金")]
     [SerializeField]
     private int _initMoney;
 
+    [Header("登場キャラクターリスト")]
     [SerializeField]
     private List<CharacterControllerBase> _entryPlugs;
 
@@ -69,6 +74,7 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     EarthFreeRotation _earthFreeRotation;
 
+    [Header("勝利に必要なお土産の数")]
     [SerializeField]
     private int _needSouvenirType;
 
@@ -80,6 +86,7 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     List<int> _cardValues = new List<int>();
 
+    [Header("大量のお土産を抱えてスタート")]
     [SerializeField]
     bool _isManyManySouvenirs;
 
