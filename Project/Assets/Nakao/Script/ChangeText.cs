@@ -62,31 +62,9 @@ public class ChangeText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        var manager = FindObjectOfType<DontDestroyManager>();
-
-        _characters = new CharacterData[4];
-
-        var charaOriginData = manager.GetCharacterData();
-        for(int i = 0; i < 4; i++)
-        {
-            _characters[i] = new CharacterData();
-            _characters[i]._characterName = charaOriginData[i]._characterName;
-            _characters[i]._lapCount = charaOriginData[i]._lapCount;
-            _characters[i]._money = charaOriginData[i]._money;
-            _characters[i]._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
-            Array.Copy(charaOriginData[i]._character.Log.GetUseEventNum(), _characters[i]._useEventNumByType, _characters[i]._useEventNumByType.Length);
-            _characters[i]._moneyByTurn = new List<int>();
-            foreach (var x in charaOriginData[i]._character.Log.GetMoneyByTurn())
-            {
-                _characters[i]._moneyByTurn.Add(x);
-            }
-            _characters[i]._rank = charaOriginData[i]._rank;
-            _characters[i]._souvenirNum = charaOriginData[i]._souvenirNum;
-            _selectTexts[i].text = _characters[i]._characterName;
-        }
-
+        InitCharacterInfo();
+    
         ShowRank();
-
         {
             P1out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             P1in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
@@ -99,6 +77,53 @@ public class ChangeText : MonoBehaviour
             ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        }
+    }
+
+    private void InitCharacterInfo()
+    {
+        
+
+        var manager = FindObjectOfType<DontDestroyManager>();
+        _characters = new CharacterData[4];
+
+
+        if (manager)
+        {
+            var charaOriginData = manager.GetCharacterData();
+            for (int i = 0; i < 4; i++)
+            {
+                _characters[i] = new CharacterData();
+                _characters[i]._characterName = charaOriginData[i]._characterName;
+                _characters[i]._lapCount = charaOriginData[i]._lapCount;
+                _characters[i]._money = charaOriginData[i]._money;
+                _characters[i]._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
+                Array.Copy(charaOriginData[i]._character.Log.GetUseEventNum(), _characters[i]._useEventNumByType, _characters[i]._useEventNumByType.Length);
+                _characters[i]._moneyByTurn = new List<int>();
+                foreach (var x in charaOriginData[i]._character.Log.GetMoneyByTurn())
+                {
+                    _characters[i]._moneyByTurn.Add(x);
+                }
+                _characters[i]._rank = charaOriginData[i]._rank;
+                _characters[i]._souvenirNum = charaOriginData[i]._souvenirNum;
+                _selectTexts[i].text = _characters[i]._characterName;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                _characters[i] = new CharacterData();
+                _characters[i]._characterName = "‚ ‚ " + i;
+                _characters[i]._lapCount = 0;
+                _characters[i]._money = 999;
+                _characters[i]._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
+                _characters[i]._moneyByTurn = new List<int>();
+                _characters[i]._moneyByTurn.Add(999);
+                _characters[i]._rank = i;
+                _characters[i]._souvenirNum = 0;
+                _selectTexts[i].text = _characters[i]._characterName;
+            }
         }
     }
 
