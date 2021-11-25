@@ -22,19 +22,17 @@ public class SquareSouvenir : SquareBase
 
     private OmiyageEnshutsu _effect;
 
-    private int _nowStock;
-
-
-    [Header("お土産")]
-    [Space(20)]
-    [SerializeField]
     private string _souvenirName;
-    [SerializeField]
     private int _cost;
 
+    private int _nowStock;
+
+    [Header("お土産のタイプ")]
+    [Space(20)]
     [SerializeField]
     private SouvenirType _type;
 
+    [Header("在庫数")]
     [SerializeField]
     private int _startStock = 3;
 
@@ -56,6 +54,10 @@ public class SquareSouvenir : SquareBase
 
         _effect = FindObjectOfType<OmiyageEnshutsu>();
 
+        var souve = SouvenirCreater.Instance.ReferenceSouvenirParameter(_type);
+        _cost = souve.Price;
+        _souvenirName = souve.Name;
+        
         _squareInfo =
             "お土産マス\n" +
             "コスト：" + _cost.ToString() + "\n" +
@@ -144,7 +146,9 @@ public class SquareSouvenir : SquareBase
     {
         _character.SubMoney(_cost);
         _statusWindow.SetMoney(_character.Money);
-        _character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(_type));
+
+        Souvenir souvenir = SouvenirCreater.Instance.CreateSouvenir(_type);
+        _character.AddSouvenir(souvenir);
 
         //在庫更新
         _nowStock--;
@@ -165,7 +169,7 @@ public class SquareSouvenir : SquareBase
         _souvenirWindow.SetEnable(true);
 
         //演出
-        _effect.Use_OmiyageEnshutsu(gameObject.name);
+        _effect.Use_OmiyageEnshutsu(souvenir.Sprite);
         _isEffectUsed = true;
 
         _squareInfo =

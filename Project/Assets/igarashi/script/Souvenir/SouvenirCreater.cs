@@ -17,6 +17,11 @@ public class SouvenirCreater : MonoBehaviour
         return new Souvenir(_souvenirs.Find(t => t.Type == type));
     }
 
+    public Souvenir ReferenceSouvenirParameter(SouvenirType type)
+    {
+        return _souvenirs.Find(t => t.Type == type);
+    }
+
 
     private void Awake()
     {

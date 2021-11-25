@@ -33,6 +33,7 @@
 	・お金払うこと以外ゴールマスと全く同じ
 
 刀狩マス(SquareSteal)
+	・StealEffectManagerを追加する
 
 ワープマス(SquareWarp)
 	・_WarpHolePrefabにWarpHole.prefab(Igarashi/Prefab/Warp/WarpHole.prefab)を追加する
