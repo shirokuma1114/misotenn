@@ -35,7 +35,7 @@ public class ButtonChangeP4Text : MonoBehaviour
     //private float Timer;
     //private float StopTimer = 0.5f;
 
-    public int Number = 4;
+    //public int Number = 4;
 
     GameObject obj;
     AllIvent script;
@@ -111,11 +111,11 @@ public class ButtonChangeP4Text : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TriggerButton)
-        {
-            OnClick();
-            //TriggerButton = false;
-        }
+        //if (TriggerButton)
+        //{
+        //    OnClick();
+        //    //TriggerButton = false;
+        //}
 
         //if (TriggerButton && !script6.TriggerButton)
         //{
@@ -219,10 +219,10 @@ public class ButtonChangeP4Text : MonoBehaviour
         obj4.GetComponent<Button>().interactable = true;
 
         //1‚ª‰Ÿ‚³‚ê‚½
-        //TriggerButton = true;
-        //script3.TriggerButton = false;
-        //script4.TriggerButton = false;
-        //script5.TriggerButton = false;
-        //script6.TriggerButton = false;
+        TriggerButton = true;
+        script3.TriggerButton = false;
+        script4.TriggerButton = false;
+        script5.TriggerButton = false;
+        script6.TriggerButton = false;
     }
 }

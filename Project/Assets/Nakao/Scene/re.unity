@@ -358,10 +358,14 @@ MonoBehaviour:
   image2: {fileID: 1134532627}
   image3: {fileID: 2010722393}
   image4: {fileID: 2093283177}
-  P1text: {fileID: 262944202}
-  P2text: {fileID: 1402431975}
-  P3text: {fileID: 163964100}
-  P4text: {fileID: 215753166}
+  _p1ItemText: {fileID: 0}
+  _p2ItemText: {fileID: 0}
+  _p3ItemText: {fileID: 0}
+  _p4ItemText: {fileID: 0}
+  _p1NumText: {fileID: 0}
+  _p2NumText: {fileID: 0}
+  _p3NumText: {fileID: 0}
+  _p4NumText: {fileID: 0}
   Top1: {fileID: 1966767363}
   Top2: {fileID: 1449303756}
   Back: {fileID: 159542552}
@@ -376,6 +380,7 @@ MonoBehaviour:
   ReturnImg: {fileID: 1647730872}
   Sideout: {fileID: 1360365571}
   Sidein: {fileID: 1519570748}
+  _selectTexts: []
 --- !u!4 &43222769
 Transform:
   m_ObjectHideFlags: 0

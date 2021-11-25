@@ -35,7 +35,7 @@ public class ButtonChangeP1Text : MonoBehaviour
     //private float Timer;
     //private float StopTimer = 0.01f;
 
-    public int Number = 1;
+   // public int Number = 1;
 
     //マウス用
     GameObject obj;
@@ -116,29 +116,29 @@ public class ButtonChangeP1Text : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(TriggerButton)
-        {
-            OnClick();
-            TriggerButton = false;
-        }
+        //if(TriggerButton)
+        //{
+        //    OnClick();
+        //    TriggerButton = false;
+        //}
 
-        if(!TriggerButton && !script3.TriggerButton)
-        {
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                script3.TriggerButton = true;
-                TriggerButton = false;
-            }
-        }
+        //if(!TriggerButton && !script3.TriggerButton)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.D))
+        //    {
+        //        script3.TriggerButton = true;
+        //        TriggerButton = false;
+        //    }
+        //}
 
-        if (!TriggerButton && !script6.TriggerButton)
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                script6.TriggerButton = true;
-                TriggerButton = false;
-            }
-        }
+        //if (!TriggerButton && !script6.TriggerButton)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.A))
+        //    {
+        //        script6.TriggerButton = true;
+        //        TriggerButton = false;
+        //    }
+        //}
 
         //if (script6.TriggerButton && !script3.TriggerButton && !script4.TriggerButton && !script5.TriggerButton)
         //{
@@ -234,10 +234,10 @@ public class ButtonChangeP1Text : MonoBehaviour
         obj4.GetComponent<Button>().interactable = true;
 
         //1が押された
-        //TriggerButton = true;
-        //script3.TriggerButton = false;
-        //script4.TriggerButton = false;
-        //script5.TriggerButton = false;
-        //script6.TriggerButton = false;
+        TriggerButton = true;
+        script3.TriggerButton = false;
+        script4.TriggerButton = false;
+        script5.TriggerButton = false;
+        script6.TriggerButton = false;
     }
 }

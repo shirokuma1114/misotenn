@@ -105,7 +105,7 @@ public class AllMoney : MonoBehaviour
     void Update()
     {
 
-        if(!script7.TriggerButton)
+        if (!script7.TriggerButton)
         {
             if (script3.TriggerButton)
             {
@@ -139,7 +139,7 @@ public class AllMoney : MonoBehaviour
                 }
             }
         }
-       
+
         if (!mn)
         {
             Ex1n2out.enabled = false;

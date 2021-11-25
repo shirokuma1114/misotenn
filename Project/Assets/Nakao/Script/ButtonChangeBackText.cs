@@ -32,7 +32,7 @@ public class ButtonChangeBackText : MonoBehaviour
 
     public bool TriggerButton;
 
-    public int Number = 5;
+    //public int Number = 5;
 
     GameObject obj;
     AllIvent script;
@@ -106,11 +106,11 @@ public class ButtonChangeBackText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (TriggerButton)
-        {
-            OnClick();
-            TriggerButton = false;
-        }
+        //if (TriggerButton)
+        //{
+        //    OnClick();
+        //    TriggerButton = false;
+        //}
 
         //if (TriggerButton && !script6.TriggerButton)
         //{
@@ -209,10 +209,10 @@ public class ButtonChangeBackText : MonoBehaviour
         obj3.GetComponent<Button>().interactable = false;
         obj4.GetComponent<Button>().interactable = false;
 
-        //TriggerButton = true;
-        //script3.TriggerButton = false;
-        //script4.TriggerButton = false;
-        //script5.TriggerButton = false;
-        //script6.TriggerButton = false;
+        TriggerButton = true;
+        script3.TriggerButton = false;
+        script4.TriggerButton = false;
+        script5.TriggerButton = false;
+        script6.TriggerButton = false;
     }
 }
