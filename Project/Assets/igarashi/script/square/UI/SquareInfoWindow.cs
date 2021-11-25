@@ -10,6 +10,8 @@ public class SquareInfoWindow : WindowBase
     private Image _target;
 
     private bool _enable;
+
+    private float _rayDistance;
     
     MyGameManager _myGameManager;
 
@@ -22,6 +24,10 @@ public class SquareInfoWindow : WindowBase
         _frame.enabled = enable;
         _target.enabled = enable;
         _enable = enable;
+
+        var earth = FindObjectOfType<EarthFreeRotation>().gameObject;
+        _rayDistance = Vector3.Distance(Camera.main.transform.position, earth.transform.position);
+
         _myGameManager.EnableFreeRotation(enable);
     }
 
@@ -54,7 +60,7 @@ public class SquareInfoWindow : WindowBase
             Ray cameraRay = new Ray(camera.transform.position, camera.transform.forward);
             RaycastHit hitInfo = new RaycastHit();
 
-            if (Physics.Raycast(cameraRay, out hitInfo))
+            if (Physics.Raycast(cameraRay, out hitInfo,_rayDistance))
             {
                 SquareBase square = hitInfo.collider.GetComponent<SquareBase>();
                 SetSquareInfo("");
