@@ -5,7 +5,7 @@ using UnityEngine;
 public class Control_BGM : MonoBehaviour
 {
 	// Setting
-	public Setting_SoundUI SoundSetting;
+	Setting_SoundUI SoundSetting;
 
 	// Sound
 	AudioSource Sound;
@@ -19,7 +19,7 @@ public class Control_BGM : MonoBehaviour
 		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_BGM;
 
 		// Event
-		SoundSetting.Event_Sound += time =>
+		Setting_SoundUI.Event_Sound += time =>
 		{
 			Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_BGM;
 		};

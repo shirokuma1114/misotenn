@@ -1066,6 +1066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d362a61022ca7ec4ca5dd3021528fe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rouletteValues: e8030000d0070000b80b0000a00f0000881300007017000010270000
 --- !u!1 &4586331012736868429
 GameObject:
   m_ObjectHideFlags: 0
@@ -2825,7 +2826,7 @@ PrefabInstance:
     - target: {fileID: -5754084199372789682, guid: 86cc4ce637d199345a1dc30c06efbdc9, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 5082537870383742448, guid: 840cbff5f2357914b92d36f47271b039, type: 3}
+      objectReference: {fileID: 5082537870383742448, guid: 1809500b752261c48bc174d3dd5fb043, type: 3}
     - target: {fileID: 919132149155446097, guid: 86cc4ce637d199345a1dc30c06efbdc9, type: 3}
       propertyPath: m_Name
       value: Earth

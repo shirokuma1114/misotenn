@@ -51,6 +51,7 @@ public class SelectUI : MonoBehaviour
 
             rt.SetParent(transform);
             rt.localPosition = new Vector3(DEFAULT_RECT.x, DEFAULT_RECT.y + DEFAULT_RECT.height * (_elements.Count - 1 - i) ,0.0f);
+            rt.localScale = _selectionPrefab.transform.localScale;
             obj.GetComponentInChildren<Text>().text = _elements[i];
 
             _selections.Add(obj);
