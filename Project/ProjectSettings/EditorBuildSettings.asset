@@ -6,9 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Nakamura/Scene/Title.unity
+    guid: 592fa2e5591e9a0489822c7fd57c7dea
+  - enabled: 1
     path: Assets/Komachichan/Scenes/NewTincleScene.unity
     guid: 6953086f307827f488331b8c00799df2
   - enabled: 1
-    path: Assets/Komachichan/Scenes/re_copy.unity
-    guid: f908bf75b61aef442b43b414f8a8c998
+    path: Assets/Nakao/Scene/re_copy_copy.unity.unity
+    guid: e58ef02b5fd451d42a7fa9e03d81ac6c
   m_configObjects: {}
