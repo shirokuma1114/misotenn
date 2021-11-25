@@ -40,8 +40,12 @@ public class MoveCard : MonoBehaviour
             _startAnimSequence.Append(rt.DOMove(targetPos, 1.0f));
             _startAnimSequence.Join(rt.DORotate(new Vector3(0, 0, -450), 1.0f, RotateMode.WorldAxisAdd));
         }
+
         _startAnimSequence.Play();
-        _startAnimSequence.SetAutoKill(false);
+
+        _startAnimSequence.OnComplete(
+            () => { _startAnimComplete = true; }
+            );
     }
 
     public void PlayFinishAnimation()
@@ -55,7 +59,10 @@ public class MoveCard : MonoBehaviour
         _finAnimSequence.Join(rt.DOScale(new Vector3(0, 0, 0), 2.0f));
 
         _finAnimSequence.Play();
-        _finAnimSequence.SetAutoKill(false);
+
+        _finAnimSequence.OnComplete(
+            () => { _manager.FinAnimEnd(); }
+            );
     }
 
     //================================================
@@ -67,28 +74,6 @@ public class MoveCard : MonoBehaviour
 
     void Update()
     {
-        if(_finAnimSequence != null)
-        {
-            if (_finAnimSequence.IsComplete())
-            {
-                _manager.FinAnimEnd();
-
-                _finAnimSequence.Kill();
-                _finAnimSequence = null;
-            }
-        }
-
-
-        if (_startAnimSequence != null)
-        {
-            if(_startAnimSequence.IsComplete())
-            {
-                _startAnimComplete = true;
-
-                _startAnimSequence.Kill();
-                _startAnimSequence = null;
-            }
-        }
     }
 
     private void OnDisable()

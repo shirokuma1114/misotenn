@@ -83,13 +83,13 @@ Material:
     - _GuidAlpha: 12.1
     - _GuidLength: 0.976
     - _LightingEnabled: 0
-    - _MainAlpha: 1.94
+    - _MainAlpha: 2.3
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _Power: 1
-    - _RimAlpha: 38.83
+    - _RimAlpha: 12.98
     - _RimPower: 2.89
     - _RoadAlpha: 0.318
     - _SmoothnessTextureChannel: 0

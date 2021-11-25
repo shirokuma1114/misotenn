@@ -12,15 +12,7 @@ Shader "Custom/LineColor"
 	}
 		SubShader
 		{
-			Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
-			LOD 100
-			Pass
-			{
-				ZWrite ON
-				ColorMask 0
-			}
-
-			Tags { "RenderType" = "Transparent" "Queue" = "Transparent"}
+			Tags { "RenderType" = "Transparent" "Queue" = "AlphaTest"}
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100
 			ZWrite OFF
