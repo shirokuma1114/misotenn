@@ -7,6 +7,7 @@ public class SceneChange : MonoBehaviour
 {
     [SerializeField] private Animator fadeAnimater;
     [SerializeField] private bool isFadeIn;
+    [SerializeField] private int changeCou;
 
     private bool isFadeOutStart;
 
@@ -47,10 +48,11 @@ public class SceneChange : MonoBehaviour
 
         if (isFadeOutStart) cou++;
 
-        if (cou > 120 && isFadeOutStart)
+        if (cou > changeCou && isFadeOutStart)
         {
-            cou = 0;
-            SceneManager.LoadScene(m_sceneNameDictionary[sceneName]);
+            //‚±‚±‚ÅI—¹‚ğŒÄ‚Ño‚µ
+
         }
+
     }
 }
