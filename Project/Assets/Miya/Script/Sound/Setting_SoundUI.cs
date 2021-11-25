@@ -33,7 +33,7 @@ public class Setting_SoundUI : MonoBehaviour
 
 	// Event
 	public delegate void EventHandler_Sound(bool changed);
-	public event EventHandler_Sound Event_Sound;
+	public static event EventHandler_Sound Event_Sound;
 
 	// Start
 	void Start()

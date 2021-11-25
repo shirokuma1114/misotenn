@@ -14,7 +14,10 @@ public class ButtonChangeTitleText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            OnClick();
+        }
     }
 
     // ボタンが押された場合、今回呼び出される関数

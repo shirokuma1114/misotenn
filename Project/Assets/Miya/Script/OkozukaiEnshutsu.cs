@@ -12,7 +12,7 @@ public class OkozukaiEnshutsu : MonoBehaviour
 		if (Level > 10) Level = 10;
 
 		var emission = ParticleSystem_m.emission;
-		emission.rateOverTime = BaseNumber + Level * Auxiliary;
+		emission.rateOverTime = BaseNumber + Level * Level * Auxiliary;
 		
 		Instantiate(Particle);
 	}
@@ -30,7 +30,7 @@ public class OkozukaiEnshutsu : MonoBehaviour
 
 	int Level = 0;
 	int BaseNumber = 10;
-	int Auxiliary = 10;
+	int Auxiliary = 2;
 
 	// Start
 	void Start()
