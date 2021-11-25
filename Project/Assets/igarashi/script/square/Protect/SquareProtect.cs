@@ -20,11 +20,16 @@ public class SquareProtect : SquareBase
     StatusWindow _statusWindow;
     PayUI _payUI;
 
+    private ProtectEffect _protectEffect;
+
     [SerializeField]
     private int _cost;
 
     [SerializeField]
     private int _protectTurn;
+
+    [SerializeField]
+    private GameObject _protectEffectPrefab;
 
 
     // Start is called before the first frame update
@@ -59,7 +64,15 @@ public class SquareProtect : SquareBase
         }
     }
 
-
+    private void SelectAutomatic()
+    {
+        if (_character.Souvenirs.Count == 0)
+        {
+            _payUI.AISelectNo();
+            return;
+        }
+        _payUI.AISelectYes();
+    }
 
     public override void Stop(CharacterBase character)
     {
@@ -77,7 +90,14 @@ public class SquareProtect : SquareBase
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
+        Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
+
         _state = SquareProtectState.PAY;
+
+        if (character.IsAutomatic)
+        {
+            Invoke("SelectAutomatic", 1.5f);
+        }
     }
 
 
@@ -87,7 +107,10 @@ public class SquareProtect : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.PROTECT);
                 _character.SubMoney(_cost);
+
+                _protectEffect = Instantiate(_protectEffectPrefab, _character.transform.position, _character.transform.rotation).GetComponent<ProtectEffect>();
 
                 _state = SquareProtectState.PROTECT;
             }
@@ -100,6 +123,12 @@ public class SquareProtect : SquareBase
 
     private void ProtectStateProcess()
     {
+        if (!_protectEffect.IsEnd)
+            return;
+
+        Destroy(_protectEffect.gameObject);
+        _protectEffect = null;
+
         _character.GetComponent<Protector>().ProtectStart(_protectTurn);
         _state = SquareProtectState.END;
     }
@@ -110,6 +139,8 @@ public class SquareProtect : SquareBase
         {
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
+
+            Camera.main.GetComponent<CameraInterpolation>().Leave_Event();
 
             _state = SquareProtectState.IDLE;
         }

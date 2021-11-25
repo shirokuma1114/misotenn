@@ -1,0 +1,46 @@
+﻿・SelectUI(igarashi/prefab/SelectUI/SelectUI.prefab)をシーンに配置
+・PayUI(igarashi/prefab/PayUI.prefab)をシーンに配置
+
+◇Cost:発動するために必要な金額
+
+お土産マス(SquareSouvenir)
+	・OmiyageEnshutsu(Miya/prefab/OmiyageEnshutsu.prefab)をシーンに配置
+	・SouvenirFactory(Igarashi/Prefab/SouvenirFactory.prefab)をシーンに配置
+
+	◇SouvenirName	:お土産の名前
+	◇stock : お土産の在庫
+
+前進マス(SquareMoveForward)
+	◇MoveNum	：進むマス数
+
+保護マス(SquareProtect）
+	・キャラクターにProtecter.csを付ける
+	・_protectEffectPrefabにProtectEffect(Igrashi/Prefab/Effect.prefab)を設定する
+	
+	◇ProtectTurn	：保護するターン数
+
+カジノマス(SquareCasino)
+	◇Percentage	：当たる確率(%)
+	◇Rate			：当たった時の倍率
+
+ゴールマス(SquareGoal)
+	・BaseMoney * 周回数
+	・金額の計算は要相談
+
+	◇BaseMoney	:計算の元になる金額
+
+強制ゴールマス(SquareEnforcedGoal)
+	・お金払うこと以外ゴールマスと全く同じ
+
+刀狩マス(SquareSteal)
+	・StealEffectManagerを追加する
+
+ワープマス(SquareWarp)
+	・_WarpHolePrefabにWarpHole.prefab(Igarashi/Prefab/Warp/WarpHole.prefab)を追加する
+	・MainCameraのCameraInterpolation.ObjectArrayにCamera_warpView.prefab(Igarashi/Prefab/Warp/Camera_warpView.prefab)を追加
+			(※ObjectArrayの3番目じゃないとダメだと思う)
+
+お小遣いマス(SquareAllowance)
+	・OkozukaiEnshutsu(Miya/Prefab/OkozukaiEnshutsu.prefab)をシーンに配置
+
+	◇RouletteValues:ルーレットに追加するお小遣いのリスト

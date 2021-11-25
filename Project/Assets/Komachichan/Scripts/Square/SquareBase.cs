@@ -108,16 +108,17 @@ public class SquareBase : MonoBehaviour
     //評価を調べる
     public virtual int GetScore(CharacterBase character, CharacterType characterType)
     {
-        int addScore = 0;
+        int totalScore = 0;
         if (_stoppedCharacters.Count >= 1)
         {
+
 
             // 持ってないカードリスト
             var dontHaveTypes = new HashSet<SouvenirType>();
             for(int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
             {
                 // カードが無い
-                if(character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() >= 1)
+                if(character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() == 0)
                 {
                     dontHaveTypes.Add((SouvenirType)i);
                 }
@@ -138,15 +139,18 @@ public class SquareBase : MonoBehaviour
                             return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN;
                         }
                         // お土産マスに止まるよりも評価が高い
-                        addScore += (int)SquareScore.DONT_HAVE_SOUVENIR;
+                        totalScore += (int)SquareScore.DONT_HAVE_SOUVENIR;
+                    }
+                    else
+                    {
+                        totalScore += 2;
                     }   
                 }
                 
             }
         }
 
-        // マスに乗っている人の数
-        return _stoppedCharacters.Count * 2 + addScore;
+        return totalScore;
     }
 
     public Quaternion GetQuaternion()

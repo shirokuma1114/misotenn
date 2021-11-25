@@ -18,22 +18,19 @@ public class SquareMoveForward : SquareBase
     private CharacterBase _character;
     private MessageWindow _messageWindow;
     private StatusWindow _statusWindow;
-    private MovingCountWindow _countWindow;
     private PayUI _payUI;
 
     [SerializeField]
     private int _cost;
 
     [SerializeField]
-    private int _moveNum; 
-    private int _moveCount; 
+    private int _moveNum;
 
     // Start is called before the first frame update
     void Start()
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
-        _countWindow = FindObjectOfType<MovingCountWindow>();
         _payUI = FindObjectOfType<PayUI>();
 
 
@@ -67,8 +64,6 @@ public class SquareMoveForward : SquareBase
     {
         _character = character;
 
-        _moveCount = 0;
-
         if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
@@ -96,15 +91,15 @@ public class SquareMoveForward : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.MOVE_FORWARD);
+
                 _character.SubMoney(_cost);
 
                 _state = SquareMoveForwardState.MOVE;
-                _countWindow.SetEnable(true);
-                _countWindow.SetMovingCount(_moveNum - _moveCount);
             }
             else
             {
-                _state = SquareMoveForwardState.END;
+                _state = SquareMoveForwardState.IDLE;
                 _character.CompleteStopExec();
             }
             _statusWindow.SetEnable(false);
@@ -114,25 +109,18 @@ public class SquareMoveForward : SquareBase
 
     private void MoveStateProcess()
     {
-        if (_moveNum == _moveCount && _character.State != CharacterState.MOVE)
-        {
-            _state = SquareMoveForwardState.END;
-            _countWindow.SetEnable(false);
-            _character.Stop();
-            return;
-        }
-
-
-        if (_character.State != CharacterState.MOVE)
-        {
-            _character.StartMove(_character.CurrentSquare.OutConnects[0]);
-            _countWindow.SetMovingCount(_moveNum - _moveCount);
-            _moveCount++;
-        }
+        // 指定マス進めさせる
+        _character.ReStartMove(_moveNum);
+        _state = SquareMoveForwardState.IDLE;
     }
 
     void SelectAutomatic()
     {
+        if(_character.Money < _cost)
+        {
+            _payUI.AISelectNo();
+            return;
+        }
         _payUI.AISelectYes();
     }
 
@@ -141,7 +129,7 @@ public class SquareMoveForward : SquareBase
         if(!_messageWindow.IsDisplayed)
         {
             // 止まる処理終了
-            //_character.CompleteStopExec();
+            _character.CompleteStopExec();
 
             _state = SquareMoveForwardState.IDLE;
         }        

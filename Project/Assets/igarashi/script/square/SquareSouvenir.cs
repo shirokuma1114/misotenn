@@ -14,21 +14,35 @@ public class SquareSouvenir : SquareBase
     }
     protected SquareSouvenirState _state = SquareSouvenirState.IDLE;
 
-    CharacterBase _character;
-    MessageWindow _messageWindow;
-    StatusWindow _statusWindow;
-    PayUI _payUI;
+    private CharacterBase _character;
+    private MessageWindow _messageWindow;
+    private StatusWindow _statusWindow;
+    private PayUI _payUI;
+    private SouvenirWindow _souvenirWindow;
 
+    private OmiyageEnshutsu _effect;
 
-    [Header("Ç®ìyéY")]
-    [Space(20)]
-    [SerializeField]
     private string _souvenirName;
-    [SerializeField]
     private int _cost;
 
+    private int _nowStock;
+
+    [Header("Ç®ìyéYÇÃÉ^ÉCÉv")]
+    [Space(20)]
     [SerializeField]
     private SouvenirType _type;
+
+    [Header("ç›å…êî")]
+    [SerializeField]
+    private int _startStock = 3;
+
+    bool _isEffectUsed = false;    
+
+
+    private void Awake()
+    {
+        _nowStock = _startStock;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -36,12 +50,20 @@ public class SquareSouvenir : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+        _souvenirWindow = FindObjectOfType<SouvenirWindow>();
 
+        _effect = FindObjectOfType<OmiyageEnshutsu>();
+
+        var souve = SouvenirCreater.Instance.ReferenceSouvenirParameter(_type);
+        _cost = souve.Price;
+        _souvenirName = souve.Name;
+        
         _squareInfo =
             "Ç®ìyéYÉ}ÉX\n" +
             "ÉRÉXÉgÅF" + _cost.ToString() + "\n" +
             "Ç®ìyéYñºÅF" + _souvenirName + "\n" +
-            "Ç®ìyéYÉ^ÉCÉvÅF" + _type.ToString(); 
+            "Ç®ìyéYÉ^ÉCÉvÅF" + _type.ToString() + "\n" +
+            "ç›å…êîÅF" + _nowStock.ToString();
     }
 
     public override void Stop(CharacterBase character)
@@ -57,8 +79,16 @@ public class SquareSouvenir : SquareBase
             return;
         }
 
+        //ç›å…É`ÉFÉbÉN
+        if (_nowStock <= 0)
+        {
+            _messageWindow.SetMessage("ç›å…Ç™Ç†ÇËÇ‹ÇπÇÒ", character.IsAutomatic);
+            _state = SquareSouvenirState.END;
+            return;
+        }
 
-        var message = _cost.ToString() + "â~Çéxï•Ç¡ÇƒÇ®ìyéYÇîÉÇ¢Ç‹Ç∑Ç©ÅH";
+
+        var message = _cost.ToString() + "â~Çéxï•Ç¡Çƒ\nÇ®ìyéYÅ@" + _souvenirName + "ÇÅ@îÉÇ¢Ç‹Ç∑Ç©ÅH";
 
         _messageWindow.SetMessage(message, character.IsAutomatic);
         _statusWindow.SetEnable(true);
@@ -68,7 +98,7 @@ public class SquareSouvenir : SquareBase
 
         if (character.IsAutomatic)
         {
-            Invoke("SelectAutomatic", 1.5f);
+            Invoke("SelectAutomatic", 2.0f);
         }
     }
 
@@ -109,31 +139,75 @@ public class SquareSouvenir : SquareBase
             {
                 _state = SquareSouvenirState.END;
             }
-        }            
+        }
     }
 
     private void EventProcess()
     {
         _character.SubMoney(_cost);
-        _character.AddSouvenir(new Souvenir(_cost, _souvenirName, _type));
+        _statusWindow.SetMoney(_character.Money);
 
-        _messageWindow.SetMessage(_character.Name + "ÇÕ\nÇ®ìyéYÇéËÇ…ì¸ÇÍÇΩ", _character.IsAutomatic); //_character.name + "ÇÕ" + _souvenir.name + "ÇéËÇ…ì¸ÇÍÇΩ"
+        Souvenir souvenir = SouvenirCreater.Instance.CreateSouvenir(_type);
+        _character.AddSouvenir(souvenir);
+
+        //ç›å…çXêV
+        _nowStock--;
+
+        var buyMessage = _character.Name + "ÇÕ\n" + "Ç®ìyéY  " + _souvenirName + "ÇÅ@éËÇ…ì¸ÇÍÇΩÅI\n";
+        if (_nowStock > 0)
+        {
+            buyMessage += "écÇËÇÃç›å…ÇÕ  " + _nowStock.ToString() + "å¬";
+        }
+        else
+        {
+            buyMessage += "ç›å…Ç™Å@Ç»Ç≠Ç»Ç¡ÇΩÅI";
+        }
+
+        _messageWindow.SetMessage(buyMessage, _character.IsAutomatic);
+
+        _souvenirWindow.SetSouvenirs(_character.Souvenirs);
+        _souvenirWindow.SetEnable(true);
+
+        //ââèo
+        _effect.Use_OmiyageEnshutsu(souvenir.Sprite);
+        _isEffectUsed = true;
+
+        _squareInfo =
+            "Ç®ìyéYÉ}ÉX\n" +
+            "ÉRÉXÉgÅF" + _cost.ToString() + "\n" +
+            "Ç®ìyéYñºÅF" + _souvenirName + "\n" +
+            "Ç®ìyéYÉ^ÉCÉvÅF" + _type.ToString() + "\n" +
+            "ç›å…êîÅF" + _nowStock.ToString();
 
         _state = SquareSouvenirState.END;
     }
 
     private void EndProcess()
     {
-
-        if(!_messageWindow.IsDisplayed)
+        if (_isEffectUsed)
         {
-            // é~Ç‹ÇÈèàóùèIóπ
-            _character.CompleteStopExec();
-            _statusWindow.SetEnable(false);
+            if (!_messageWindow.IsDisplayed && _effect.IsAnimComplete)
+            {
+                // é~Ç‹ÇÈèàóùèIóπ
+                _character.CompleteStopExec();
+                _statusWindow.SetEnable(false);
+                _souvenirWindow.SetEnable(false);
 
-            _state = SquareSouvenirState.IDLE;
+                _state = SquareSouvenirState.IDLE;
+                _isEffectUsed = false;
+            }
         }
-       
+        else
+        {
+            if (!_messageWindow.IsDisplayed)
+            {
+                // é~Ç‹ÇÈèàóùèIóπ
+                _character.CompleteStopExec();
+                _statusWindow.SetEnable(false);
+
+                _state = SquareSouvenirState.IDLE;
+            }
+        }
     }
 
     public override int GetScore(CharacterBase character, CharacterType characterType)
@@ -141,8 +215,11 @@ public class SquareSouvenir : SquareBase
         // Ç®ã‡Ç™ë´ÇËÇ»Ç¢
         if (_cost > character.Money) return base.GetScore(character, characterType);
 
+        // ç›å…Ç™Ç»Ç¢
+        if (_nowStock <= 0) return base.GetScore(character, characterType);
+
         // éùÇ¡ÇƒÇ¢Ç»Ç¢Ç®ìyéYÇ™îÑÇ¡ÇƒÇ¢ÇÈ
-        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
+        if (character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
 
         return (int)SquareScore.SOUVENIR + base.GetScore(character, characterType);
     }

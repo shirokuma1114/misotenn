@@ -19,8 +19,6 @@ public class SquareEnforcedGoal : SquareBase
     private StatusWindow _statusWindow;
     private PayUI _payUI;
 
-    private SquareGoal _squareGoal;
-
     [SerializeField]
     private int _cost;
 
@@ -31,7 +29,6 @@ public class SquareEnforcedGoal : SquareBase
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
-        _squareGoal = FindObjectOfType<SquareGoal>();
     }
 
     // Update is called once per frame
@@ -71,8 +68,17 @@ public class SquareEnforcedGoal : SquareBase
         _payUI.Open(character);
 
         _state = SquareEnforcedGoalState.PAY;
+
+        if (character.IsAutomatic)
+        {
+            Invoke("SelectAutomatic", 1.5f);
+        }
     }
 
+    private void SelectAutomatic()
+    {
+        _payUI.AISelectYes();
+    }
 
     private void PayStateProcess()
     {
@@ -80,6 +86,8 @@ public class SquareEnforcedGoal : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
+                _character.Log.AddUseEventNum(SquareEventType.ENFORCED_GOAL);
+
                 _character.SubMoney(_cost);
 
                 _state = SquareEnforcedGoalState.GOAL;
@@ -87,6 +95,7 @@ public class SquareEnforcedGoal : SquareBase
             else
             {
                 _state = SquareEnforcedGoalState.END;
+
             }
         }
     }
@@ -95,7 +104,8 @@ public class SquareEnforcedGoal : SquareBase
     {
         if(!_messageWindow.IsDisplayed)
         {
-            _squareGoal.Goal(_character);
+            // 13マス進めさせる
+            _character.ReStartMove(13);
             _state = SquareEnforcedGoalState.END;
         }
     }
@@ -115,7 +125,7 @@ public class SquareEnforcedGoal : SquareBase
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // コストが足りない
-        if (_cost < character.Money) return base.GetScore(character, characterType);
+        if (_cost > character.Money) return base.GetScore(character, characterType);
 
         return (int)SquareScore.EGOAL + base.GetScore(character, characterType);
     }

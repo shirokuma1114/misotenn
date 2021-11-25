@@ -75,8 +75,8 @@ public class PayUI : MonoBehaviour
 
         _open = true;
 
-        if (_openerCharacter.IsAutomatic)
-            AISelectYes();
+        //if (_openerCharacter.IsAutomatic)
+          //  AISelectYes();
     }
 
     //===========================================

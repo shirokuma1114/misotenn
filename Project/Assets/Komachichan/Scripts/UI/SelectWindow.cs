@@ -51,6 +51,7 @@ public class SelectWindow : WindowBase
             _calledSelectAuto = true;
             Invoke("SelectAuto", 1.0f);
         }
+        if (_automaticMode) return;
 
         bool move = false;
         if (Input.GetKeyDown(KeyCode.W))
