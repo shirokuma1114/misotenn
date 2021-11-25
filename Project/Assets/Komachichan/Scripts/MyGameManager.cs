@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
+
 public class MyGameManager : MonoBehaviour
 {
     enum Phase
@@ -81,12 +83,15 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     bool _isManyManySouvenirs;
 
+    [SerializeField]
+    Animator _fadeAnimation;
+
     // Start is called before the first frame update
     void Start()
     {
-
-        _fade.FadeStart(30);
-
+        _fadeAnimation.Play("FadeIn");
+        //_fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime;
+        
         UpdateTurn();
 
         // お小遣い移動カード初期化
@@ -148,6 +153,10 @@ public class MyGameManager : MonoBehaviour
         if(_phase == Phase.CLEAR)
         {
             PhaseClear();
+        }
+        if(_phase == Phase.NEXT_SCENE)
+        {
+            PhaseNextScene();
         }
     }
 
@@ -237,7 +246,17 @@ public class MyGameManager : MonoBehaviour
         if (!_messageWindow.IsDisplayed)
         {
             // シーン遷移
-            _fade.FadeStart(30, true, true, "re_copy");
+            _fadeAnimation.Play("FadeOut");
+            //_fade.FadeStart(30, true, true, "re_copy");
+            _phase = Phase.NEXT_SCENE;
+        }
+    }
+
+    void PhaseNextScene()
+    {
+        if(_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        {
+            SceneManager.LoadScene("re_copy_copy.unity");
             _phase = Phase.NONE;
         }
     }
