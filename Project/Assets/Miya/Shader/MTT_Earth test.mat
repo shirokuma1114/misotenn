@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MTT_Earth test
   m_Shader: {fileID: 4800000, guid: 330a019cc06106f4f81f7d015c1b14a1, type: 3}
-  m_ShaderKeywords: COLOR_SHADOW CUBE_COLOR FOG HEIGHT_FOG WITHOUT_SHADOW
+  m_ShaderKeywords: COLOR_SHADOW CUBE_COLOR FOG HEIGHT_FOG SHADOW_COLOR WITHOUT_SHADOW
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -45,7 +45,7 @@ Material:
     - _OnOff_Fog: 1
     - _OnOff_HeightFog: 1
     - _OnOff_RimLight: 0
-    - _OnOff_ShadowColor: 0
+    - _OnOff_ShadowColor: 1
     - _OnOff_Texture_Main: 0
     - _OnOff_WithoutShadow: 1
     - _RimLight_Strength: 5.6
