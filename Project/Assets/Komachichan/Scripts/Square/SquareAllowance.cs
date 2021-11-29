@@ -39,6 +39,8 @@ public class SquareAllowance : SquareBase
         _rouletteValues.Sort();
 
         _effect = FindObjectOfType<OkozukaiEnshutsu>();
+
+        _squareInfo = "Ç®è¨å≠Ç¢É}ÉX";
     }
 
     public override void Stop(CharacterBase character)

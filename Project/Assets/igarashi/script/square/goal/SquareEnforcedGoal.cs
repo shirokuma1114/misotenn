@@ -28,7 +28,19 @@ public class SquareEnforcedGoal : SquareBase
     private int _cost;
 
 
-    // Start is called before the first frame update
+    public override string GetSquareInfo(CharacterBase character)
+    {
+        int displayCost = ComputeCost(character);
+
+        _squareInfo =
+            "強制ゴールマス\n" +
+            "コスト：" + displayCost.ToString() + "\n";
+
+        return _squareInfo;
+    }
+
+    //=============================
+
     void Start()
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
@@ -64,7 +76,7 @@ public class SquareEnforcedGoal : SquareBase
     {
         _character = character;
 
-        ComputeCost();
+        ComputeCost(_character);
 
         if (!_character.CanPay(_cost))
         {
@@ -86,7 +98,7 @@ public class SquareEnforcedGoal : SquareBase
         }
     }
 
-    private void ComputeCost()
+    private int ComputeCost(CharacterBase character)
     {
         //<LapCount,重複数>
         SortedDictionary<int, int> lapCounts = new SortedDictionary<int, int>();
@@ -107,13 +119,14 @@ public class SquareEnforcedGoal : SquareBase
         int invRank = 1;
         foreach (var lap in lapCounts)
         {
-            if (lap.Key == _character.LapCount)
+            if (lap.Key == character.LapCount)
                 break;
             else
                 invRank += lap.Value;
         }
 
-        _cost = _baseCost * invRank * _character.LapCount;
+        _cost = _baseCost * invRank * character.LapCount;
+        return _cost;
     }
 
     private void ComputeMoveNum()
