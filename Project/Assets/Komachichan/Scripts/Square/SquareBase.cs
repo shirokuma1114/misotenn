@@ -166,4 +166,9 @@ public class SquareBase : MonoBehaviour
     {
         return transform.up;
     }
+
+    public virtual string GetSquareInfo(CharacterBase character)
+    {
+        return _squareInfo;
+    }
 }
