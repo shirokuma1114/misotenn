@@ -31,6 +31,13 @@
 
 強制ゴールマス(SquareEnforcedGoal)
 	・お金払うこと以外ゴールマスと全く同じ
+	・LapCountの順位(タイ有り)でcostが変化する
+	  BaseCost * LapCount * 順位
+		例）BaseCost = 1000 ,p1:1週目, p2:1週目, p3:2週目, p4:3週目の場合それぞれが支払う金額は
+			p1 = baseCost * 1 * 1,p2 = baseCost * 1 * 1,p3 = baseCost * 2 * 3,p4 = baseCost * 3 * 4
+			p1 = 1000            ,p2 = 1000            ,p3 = 6000            ,p4 = 12000
+
+	◇BaseCost : 踏むために払う値段の元
 
 刀狩マス(SquareSteal)
 	・StealEffectManagerを追加する
