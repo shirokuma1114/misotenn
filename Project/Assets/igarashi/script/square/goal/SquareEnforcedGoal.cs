@@ -19,16 +19,37 @@ public class SquareEnforcedGoal : SquareBase
     private StatusWindow _statusWindow;
     private PayUI _payUI;
 
+    private List<CharacterBase> _characters = new List<CharacterBase>();
+
+    private int _moveNum;
+
     [SerializeField]
+    private int _baseCost;
     private int _cost;
 
 
-    // Start is called before the first frame update
+    public override string GetSquareInfo(CharacterBase character)
+    {
+        int displayCost = ComputeCost(character);
+
+        _squareInfo =
+            "強制ゴールマス\n" +
+            "コスト：" + displayCost.ToString() + "\n";
+
+        return _squareInfo;
+    }
+
+    //=============================
+
     void Start()
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
         _payUI = FindObjectOfType<PayUI>();
+
+        _characters.AddRange(FindObjectsOfType<CharacterBase>());
+
+        ComputeMoveNum();
     }
 
     // Update is called once per frame
@@ -55,6 +76,8 @@ public class SquareEnforcedGoal : SquareBase
     {
         _character = character;
 
+        ComputeCost(_character);
+
         if (!_character.CanPay(_cost))
         {
             _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
@@ -72,6 +95,52 @@ public class SquareEnforcedGoal : SquareBase
         if (character.IsAutomatic)
         {
             Invoke("SelectAutomatic", 1.5f);
+        }
+    }
+
+    private int ComputeCost(CharacterBase character)
+    {
+        //<LapCount,重複数>
+        SortedDictionary<int, int> lapCounts = new SortedDictionary<int, int>();
+        for (int i = 0; i < _characters.Count; i++)
+        {
+            int dummy;
+            int lapCount = _characters[i].LapCount;
+            if (lapCounts.TryGetValue(lapCount, out dummy))
+            {
+                lapCounts[lapCount]++;
+            }
+            else
+            {
+                lapCounts.Add(lapCount, 1);
+            }
+        }
+
+        int invRank = 1;
+        foreach (var lap in lapCounts)
+        {
+            if (lap.Key == character.LapCount)
+                break;
+            else
+                invRank += lap.Value;
+        }
+
+        _cost = _baseCost * invRank * character.LapCount;
+        return _cost;
+    }
+
+    private void ComputeMoveNum()
+    {
+        SquareBase searchSquare = OutConnects[0];
+        _moveNum = 1;
+
+        while(searchSquare != this)
+        {
+            if (searchSquare.name == "Japan")
+                break;
+
+            searchSquare = searchSquare.OutConnects[0];
+            _moveNum++;
         }
     }
 
@@ -104,8 +173,7 @@ public class SquareEnforcedGoal : SquareBase
     {
         if(!_messageWindow.IsDisplayed)
         {
-            // 13マス進めさせる
-            _character.ReStartMove(13);
+            _character.ReStartMove(_moveNum);
             _state = SquareEnforcedGoalState.END;
         }
     }
