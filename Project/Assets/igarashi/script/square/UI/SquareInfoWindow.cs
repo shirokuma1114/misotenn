@@ -15,6 +15,12 @@ public class SquareInfoWindow : WindowBase
     
     MyGameManager _myGameManager;
 
+    private EarthFreeRotation _earth;
+
+    private CharacterBase _operator;
+
+    private SquareBase _beforeSquare;
+
     [SerializeField]
     WindowBase _backToWindow;
 
@@ -25,10 +31,13 @@ public class SquareInfoWindow : WindowBase
         _target.enabled = enable;
         _enable = enable;
 
-        var earth = FindObjectOfType<EarthFreeRotation>().gameObject;
-        _rayDistance = Vector3.Distance(Camera.main.transform.position, earth.transform.position);
-
         _myGameManager.EnableFreeRotation(enable);
+
+
+        if (enable)
+        {
+            _operator = _earth.Operator;
+        }
     }
 
     public void SetSquareInfo(string info)
@@ -50,25 +59,16 @@ public class SquareInfoWindow : WindowBase
         _frame.enabled = false;
         _target.enabled = false;
         _enable = false;
+
+        _earth = FindObjectOfType<EarthFreeRotation>();
+        _rayDistance = Vector3.Distance(Camera.main.transform.position, _earth.gameObject.transform.position);
     }
 
     void Update()
     {
         if(_enable)
         {
-            GameObject camera = Camera.main.gameObject;
-            Ray cameraRay = new Ray(camera.transform.position, camera.transform.forward);
-            RaycastHit hitInfo = new RaycastHit();
-
-            if (Physics.Raycast(cameraRay, out hitInfo,_rayDistance))
-            {
-                SquareBase square = hitInfo.collider.GetComponent<SquareBase>();
-                SetSquareInfo("");
-                if (square)
-                {
-                    SetSquareInfo(square.SquareInfo);
-                }
-            }
+            UpdateInfoText();
 
             // フリーカメラモードOFF
             if (Input.GetKeyDown(KeyCode.Escape))
@@ -77,5 +77,26 @@ public class SquareInfoWindow : WindowBase
                 _backToWindow.SetEnable(true);
             }
         }        
+    }
+
+    private void UpdateInfoText()
+    {
+        GameObject camera = Camera.main.gameObject;
+        Ray cameraRay = new Ray(camera.transform.position, camera.transform.forward);
+        RaycastHit hitInfo = new RaycastHit();
+
+        if (Physics.Raycast(cameraRay, out hitInfo, _rayDistance))
+        {
+            SquareBase square = hitInfo.collider.GetComponent<SquareBase>();
+
+            if (square != _beforeSquare)
+            {
+                SetSquareInfo(square.GetSquareInfo(_operator));
+
+                _beforeSquare = square;
+            }
+        }
+        else
+            SetSquareInfo("");
     }
 }
