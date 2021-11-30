@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5754340407403619876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.923945, y: -1.1306727, z: -3.628777}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,23 +44,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afa9b1c084104c4c82d7ced4cfe035b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _miniGameSceneNames:
-  - SampleMiniGame
+  _miniGameSceneNames: []
   _disactiveExceptionList:
   - {fileID: 5754340407403619876}
-  _debugMode: 0
+  _debugMode: 1
   _debugCharactors:
   - _automatic: 0
-    _name: "\u507D\u3053\u307E\u3061\u793E\u9577"
+    _name: "\u3053\u307E\u3061\u793E\u9577(\u507D)"
     _money: 0
   - _automatic: 1
-    _name: "\u507D\u65751\u53F7"
+    _name: "\u65751\u53F7(\u507D)"
     _money: 0
   - _automatic: 1
-    _name: "\u507D\u65752\u53F7"
+    _name: "\u65752\u53F7(\u507D)"
     _money: 0
   - _automatic: 1
-    _name: "\u507D\u65753\u53F7"
+    _name: "\u65753\u53F7(\u507D)"
     _money: 0
 --- !u!114 &5754340407403619879
 MonoBehaviour:
