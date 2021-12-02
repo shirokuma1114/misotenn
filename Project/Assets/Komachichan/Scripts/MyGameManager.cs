@@ -394,7 +394,7 @@ public class MyGameManager : MonoBehaviour
             }
             if(i == 1)
             {
-                chara.Name = "シャトレーゼ";
+                chara.Name = "ザッハトルテ";
             }
             if(i == 2)
             {
