@@ -2045,7 +2045,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1957176711}
-  - component: {fileID: 1957176710}
   - component: {fileID: 1957176712}
   m_Layer: 0
   m_Name: SampleGameManager
@@ -2054,27 +2053,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1957176710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1957176709}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 689dab242eb97c94ea65ecc9e3266ddd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _miniGameConnection: {fileID: 1119000669}
-  _tenukiText: {fileID: 384465122}
-  _miniGameControllers:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  _rendaTime: 5
-  _playTime: 5
 --- !u!4 &1957176711
 Transform:
   m_ObjectHideFlags: 0
