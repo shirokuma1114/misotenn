@@ -6,6 +6,13 @@ using UnityEngine.UI;
 
 public class Setting_SoundUI : MonoBehaviour
 {
+	// ŠO•”‚©‚çŒÄ‚Ño‚·ŠÖ”
+	public void Open_SoundSetting()
+	{
+		Window.SetActive(true);
+		Start();
+	}
+
 	// static
 	static public float Magnification_BGM = 0.5f;
 	static public float Magnification_SE  = 0.5f;

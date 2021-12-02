@@ -97,6 +97,9 @@ public class SquareInfoWindow : WindowBase
             }
         }
         else
+        {
             SetSquareInfo("");
+            _beforeSquare = null;
+        }
     }
 }
