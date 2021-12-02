@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5754340407403619873}
   - component: {fileID: 5754340407403619878}
-  - component: {fileID: 5754340407403619879}
   m_Layer: 0
   m_Name: MiniGameConnection
   m_TagString: Untagged
@@ -61,16 +60,3 @@ MonoBehaviour:
   - _automatic: 1
     _name: "\u65753\u53F7(\u507D)"
     _money: 0
---- !u!114 &5754340407403619879
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5754340407403619876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -591303064, guid: a811bde74b26b53498b4f6d872b09b6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inspectorUpdater: 0
