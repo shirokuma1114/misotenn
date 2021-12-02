@@ -27,11 +27,15 @@ public class CollisionEvent
 
     int _souvenirIndex;
 
+    ShoutotsuEnshutsu _shoutotsuEnshutsu;
+
     public CollisionEvent(CharacterBase owner, List<CharacterBase> targets)
     {
         _messageWindow = Object.FindObjectOfType<MessageWindow>();
         _souvenirWindow = Object.FindObjectOfType<SouvenirWindow>();
+        _shoutotsuEnshutsu = Object.FindObjectOfType<ShoutotsuEnshutsu>();
         _messageWindow.SetMessage("Õ“ËI", owner.IsAutomatic);
+        _shoutotsuEnshutsu.Start_ShoutotsuEnshutsu();
         _phase = Phase.INIT;
         _targetIndex = 0;
         _owner = owner;
@@ -92,7 +96,7 @@ public class CollisionEvent
                 _phase = Phase.INIT;
                 _targetIndex++;
                 // I—¹
-                if(_targetIndex >= _targets.Count)
+                if(_targetIndex >= _targets.Count && _shoutotsuEnshutsu.Get_Completed())
                 {
                     _souvenirWindow.SetEnable(false);
                     _phase = Phase.NONE;

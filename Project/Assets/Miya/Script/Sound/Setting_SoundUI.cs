@@ -4,10 +4,10 @@ using UnityEngine;
 
 using UnityEngine.UI;
 
-public class Setting_SoundUI : MonoBehaviour
+public class Setting_SoundUI : WindowBase
 {
 	// äOïîÇ©ÇÁåƒÇ—èoÇ∑ä÷êî
-	public void Open_SoundSetting()
+	public override void SetEnable(bool enable)
 	{
 		Window.SetActive(true);
 		Start();
@@ -22,14 +22,19 @@ public class Setting_SoundUI : MonoBehaviour
 	public Image	Background_Select;
 	public Slider	Slider_BGM;
 	public Slider	Slider_SE;
+	public Slider	_sliderTextSpeed;
 	public Text		Image_BACK;
 	public AudioSource SE_Test;
 
-	// enum
-	enum SELECT
+    [SerializeField]
+    WindowBase _backToWindow;
+
+    // enum
+    enum SELECT
 	{
 		BGM,
 		SE,
+        TEXT_SPEED,
 		BACK,
 		SELECT_MAX
 	}
@@ -42,11 +47,16 @@ public class Setting_SoundUI : MonoBehaviour
 	public delegate void EventHandler_Sound(bool changed);
 	public static event EventHandler_Sound Event_Sound;
 
+    [SerializeField]
+    private MessageWindow _messageWindow;
+
 	// Start
 	void Start()
 	{
 		Select = (int)SELECT.BGM;
 		Update_SelectBackground();
+        _sliderTextSpeed.minValue = MessageWindow.TEXT_SPEED_MIN;
+        _sliderTextSpeed.maxValue = MessageWindow.TEXT_SPEED_MAX;
 	}
 
 	// FixedUpdate
@@ -91,6 +101,13 @@ public class Setting_SoundUI : MonoBehaviour
 						Magnification_SE = Slider_SE.value;
 						SE_Test.Play();
 						break;
+
+                    case (int)SELECT.TEXT_SPEED:
+						_sliderTextSpeed.value = Mathf.Max(_sliderTextSpeed.value - MessageWindow.TEXT_SPEED_MAX / MessageWindow.TEXT_SPEED_MIN, _sliderTextSpeed.minValue);
+                        _messageWindow.SetTextSpeed(_sliderTextSpeed.value);
+						
+						break;
+
 				}
 				Event_Sound(true);
 			}
@@ -110,6 +127,13 @@ public class Setting_SoundUI : MonoBehaviour
 						Magnification_SE = Slider_SE.value;
 						SE_Test.Play();
 						break;
+
+					case (int)SELECT.TEXT_SPEED:
+                        _sliderTextSpeed.value = Mathf.Min(_sliderTextSpeed.value + MessageWindow.TEXT_SPEED_MAX / MessageWindow.TEXT_SPEED_MIN, _sliderTextSpeed.maxValue);
+                        _messageWindow.SetTextSpeed(_sliderTextSpeed.value);
+
+						break;
+
 				}
 				Event_Sound(true);
 			}
@@ -119,6 +143,7 @@ public class Setting_SoundUI : MonoBehaviour
 			{
 				Window.SetActive(false);
 				Start();
+                _backToWindow.SetEnable(true);
 			}
 		}
 
@@ -141,6 +166,9 @@ public class Setting_SoundUI : MonoBehaviour
 				break;
 			case (int)SELECT.SE:
 				position.y = Slider_SE.GetComponent<RectTransform>().position.y;
+				break;
+                case (int)SELECT.TEXT_SPEED:
+				position.y = _sliderTextSpeed.GetComponent<RectTransform>().position.y;
 				break;
 			case (int)SELECT.BACK:
 				position.y = Image_BACK.GetComponent<RectTransform>().position.y;

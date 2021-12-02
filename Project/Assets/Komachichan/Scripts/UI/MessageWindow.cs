@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Text.RegularExpressions;
 
-public class MessageWindow : MonoBehaviour
+public class MessageWindow : WindowBase
 {
     // ï∂éöÇÃï\é¶ë¨ìx
-    public const float TEXT_SPEED = 0.05f;
+    public const float DEFAULT_TEXT_SPEED = 30.0f;
+    public const float TEXT_SPEED_MIN = DEFAULT_TEXT_SPEED;
+    public const float TEXT_SPEED_MAX = 120.0f;
 
     public static readonly float CLICK_FLASH_TIME = 0.2f;
-
+    
     [SerializeField]
     Text _text;
 
@@ -55,6 +57,7 @@ public class MessageWindow : MonoBehaviour
         _iconImage.enabled = false;
         _frameImage.enabled = false;
         _text.enabled = false;
+        _textSpeed = FindObjectOfType<DontDestroyManager>().TextSpeed;
     }
 
     // Update is called once per frame
@@ -62,10 +65,10 @@ public class MessageWindow : MonoBehaviour
     {
         if (!_isDisplayed) return;
 
-        _elapsedTime += Time.deltaTime;
+        _elapsedTime += _textSpeed * Time.deltaTime;
 
         if (!_isOneMessage){
-            if(_elapsedTime >= TEXT_SPEED)
+            if(_elapsedTime >= 1f)
             {
                 _text.text += _splitMessage[_messageNum][_currentTextNum];
                 _currentTextNum++;
@@ -85,7 +88,7 @@ public class MessageWindow : MonoBehaviour
         else
         {
             var pos = _iconTr.anchoredPosition;
-            pos.y = _iconPosY + Mathf.Sin(_elapsedTime * 8.0f) * 5.0f;
+            pos.y = _iconPosY + Mathf.Sin(Time.time * 8.0f) * 5.0f;
             _iconTr.anchoredPosition = pos;
 
         }
@@ -113,7 +116,7 @@ public class MessageWindow : MonoBehaviour
     }
 
     // ãÊêÿÇËï∂éöÇ<>Ç∆Ç∑ÇÈ
-    public void SetMessage(string message, bool isAutomatic, float textSpeed = TEXT_SPEED)
+    public void SetMessage(string message, bool isAutomatic)
     {
         _isDisplayed = true;
         _splitMessage = Regex.Split(message, @"\s*" + _splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
@@ -122,9 +125,13 @@ public class MessageWindow : MonoBehaviour
         _text.text = "";
         _isOneMessage = false;
         _elapsedTime = 0.0f;
-        _textSpeed = textSpeed;
         _frameImage.enabled = true;
         _text.enabled = true;
         _isAutomatic = isAutomatic;
+    }
+
+    public void SetTextSpeed(float textSpeed)
+    {
+        _textSpeed = textSpeed;
     }
 }
