@@ -36,9 +36,12 @@ public class Miya_Manager_1 : MonoBehaviour
 	private float _playTimeCounter;
 	public float PlayTimeCounter => _playTimeCounter;
 
-
+	
 	void Start()
 	{
+		_miniGameConnection = MiniGameConnection.Instance;
+		Debug.Log(_miniGameConnection.gameObject);
+
 		int i = 0;
 		foreach (var c in _miniGameConnection.Characters)
 		{
