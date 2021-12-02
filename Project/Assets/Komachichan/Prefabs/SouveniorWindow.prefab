@@ -189,11 +189,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _frame: {fileID: 6992566695573246482}
+  _frameRt: {fileID: 6992566695573246483}
   _prefab: {fileID: 4348494030944102062, guid: f0d7303078812344d8c0f23ca9ba4c30, type: 3}
-  _textures:
-  - {fileID: 21300000, guid: f8b011d1d6390b24884793b5ab42e8e6, type: 3}
-  - {fileID: 21300000, guid: d66ef0b12e636dc488a61f27195d4436, type: 3}
-  - {fileID: 21300000, guid: dda8cd9884f1aab43b8fd59170f20c0b, type: 3}
-  - {fileID: 21300000, guid: c660e8b526d90074abb0fae22eaa2d04, type: 3}
-  - {fileID: 21300000, guid: 29d264c4befdf314aaa6cf9a70de7775, type: 3}
-  - {fileID: 21300000, guid: ea73e276732eac248b9c189e3ff16898, type: 3}
+  _countPrefab: {fileID: 4079272041142956605, guid: a0e81257881bfa541b1c4713e59c4089, type: 3}

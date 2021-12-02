@@ -416,11 +416,9 @@ public class MyGameManager : MonoBehaviour
 
     public int GetRank(CharacterBase character)
     {
-        var characters = GetCharacters();
-        Debug.Assert(characters.Count() == 4);
-
         // ‡ˆÊ‚Í‚¨“yYí—Ş{‚¨‚±‚Ã‚©‚¢
-        characters = characters.OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
+        var characters = GetRankSortedCharacters();
+        Debug.Assert(characters.Count() == 4);
 
         int rank = 0;
 
@@ -501,7 +499,11 @@ public class MyGameManager : MonoBehaviour
         return characters;
         
     }
-
+    
+    public List<CharacterBase> GetRankSortedCharacters()
+    {
+        return GetCharacters().OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
+    }
     // Ÿ—˜ğŒ‚É•K—v‚È”
     public int GetNeedSouvenirType()
     {

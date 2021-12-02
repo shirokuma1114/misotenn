@@ -10,8 +10,12 @@ public class DontDestroyManager : MonoBehaviour
 
     private List<CharacterData> _characters;
 
+    private float _textSpeed;
+
+    public float TextSpeed => _textSpeed;
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (instance == null)
         {
@@ -23,6 +27,8 @@ public class DontDestroyManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(this.gameObject);
+
+        _textSpeed = MessageWindow.DEFAULT_TEXT_SPEED;
     }
 
     public void Init(List<CharacterControllerBase> characters)
