@@ -91,9 +91,9 @@ public class MiniGameConnection : MonoBehaviour
 
     //======================
 
-    void Start()
+    private void Awake()
     {
-        if(_debugMode)
+        if (_debugMode)
         {
             List<MiniGameConnection> sameComponent = new List<MiniGameConnection>();
             sameComponent.AddRange(FindObjectsOfType<MiniGameConnection>());
@@ -107,6 +107,10 @@ public class MiniGameConnection : MonoBehaviour
             foreach (var debugChara in _debugCharactors)
                 _characters.Add(new DebugMiniGameCharacter(debugChara));
         }
+    }
+    void Start()
+    {
+        
     }
 
     void Update()
