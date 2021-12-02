@@ -17,7 +17,6 @@ public class SampleMiniGameManager: MonoBehaviour
     private SampleGameState _state;
     public SampleGameState State => _state;
 
-    [SerializeField]
     private MiniGameConnection _miniGameConnection;
 
     [SerializeField]
@@ -38,7 +37,9 @@ public class SampleMiniGameManager: MonoBehaviour
 
 
     void Start()
-    {        
+    {
+        _miniGameConnection = FindObjectOfType<MiniGameConnection>();
+
         int i = 0;
         foreach(var c in _miniGameConnection.Characters)
         {

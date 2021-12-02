@@ -2738,6 +2738,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniGameConnection
       objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _debugMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _miniGameSceneNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _miniGameSceneNames.Array.data[0]
+      value: SampleMiniGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
 --- !u!1001 &5998318687736077666
