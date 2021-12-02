@@ -10,16 +10,26 @@ public class Miya_Controller_1 : MonoBehaviour
 	private MiniGameCharacter _controller;
 	private Miya_Manager_1 _manager;
 
-	private int _rendaCounter;
-	public int RendaCount => _rendaCounter;
-
-	private GameObject _rotateCenterObject;
-	private int _rotateCounter;
-	private float _rotateTimeCounter;
-	private float _animTimeCounter;
-
 	[SerializeField]
 	private Miya_ControllerUI_1 _playerUI;
+
+
+
+	// Variable
+	float Second_Meter = -1;
+	float Count_Meter = 0;
+	bool Hold = false;
+	bool Throw = false;
+	float CorrectPercentage = -1;
+	static float Percentage_Meter = 0;// アニメーション終了時初期化
+	static public float Get_MeterPercentage() { return Percentage_Meter; }
+	float Percentage = 0;
+
+	bool Animation = false;
+
+	static int PlayerCount = 0;
+	int PlayerNumber = -1;
+
 
 
 	public void Init(MiniGameCharacter character, Miya_Manager_1 manager)
@@ -28,62 +38,85 @@ public class Miya_Controller_1 : MonoBehaviour
 		_manager = manager;
 
 		_playerUI.SetPlayerName(character.Name);
-	}
 
-	public void Go()
-	{
-		var earth = GameObject.Find("Earth");
-		_rotateCenterObject = new GameObject();
-		_rotateCenterObject.transform.position = earth.transform.position;
-		_rotateCenterObject.transform.forward = -transform.right;
-		transform.SetParent(_rotateCenterObject.transform);
 
-		_rotateCenterObject.transform.DORotate(new Vector3(360 * _rendaCounter, 0, 0), _manager.PlayTime, RotateMode.LocalAxisAdd);
+		Second_Meter = Random.Range(_manager.SecondRange_Meter.x, _manager.SecondRange_Meter.y);
+		Count_Meter = 0;
+		Hold = false;
+		Throw = false;
+		CorrectPercentage = Random.Range(_manager.CorrectPercentageRange_Meter.x, _manager.CorrectPercentageRange_Meter.y);
+		Percentage = 0;
+
+		Animation = false;
+
+		PlayerCount++;
+		PlayerNumber = PlayerCount;
+		//Debug.Log("PlayerNumber" + PlayerNumber);
 	}
 
 	//==================
 
 	void Start()
 	{
-		_rendaCounter = 0;
+		
 	}
 
 	void Update()
 	{
-		switch (_manager.State)
+		if (_manager.State == Miya_Manager_1.Miya_State_1.PLAY &&
+			PlayerNumber == _manager.Get_CurrentPlayerNumber())
 		{
-			case Miya_Manager_1.Miya_State_1.PLAY_RENDA:
-				if (_controller.IsAutomatic)
+			//Debug.Log("Test_1");
+			if ( !Animation )
+			{
+				if ( _controller.IsAutomatic )
 					AutomaticPlay();
 				else
 					HumanPlay();
-				break;
 
-			case Miya_Manager_1.Miya_State_1.PLAY:
-				if (_rotateTimeCounter > _manager.PlayTime / _rendaCounter)
+				if ( Hold )
 				{
-					_rotateCounter++;
-					_playerUI.SetRotateCounter(_rotateCounter);
-
-					_rotateTimeCounter = 0;
+					Count_Meter += Time.deltaTime;
+					Percentage = Percentage_Meter = Count_Meter / Second_Meter;
+					if (Percentage_Meter > 1)
+					{
+						Percentage = Percentage_Meter = 1.0f;
+						Animation = true;
+					}
+					Debug.Log("Percentage_Meter : " + Percentage_Meter);
 				}
-
-				_rotateTimeCounter += Time.deltaTime;
-				break;
-
-			default:
-				break;
+			}
+			else
+			{
+				Update_Animation();
+			}
 		}
 	}
 
 	private void AutomaticPlay()
 	{
-		_rendaCounter = Random.Range(40, 60);
+		
 	}
 
 	private void HumanPlay()
 	{
-		if (Input.GetKeyDown(KeyCode.Space))
-			_rendaCounter++;
+		if (Input.GetKeyDown(KeyCode.Space) && !Throw)
+		{
+			Hold = true;
+		}
+
+		if (Input.GetKeyUp(KeyCode.Space) && Hold)
+		{
+			Hold = false;
+			Throw = true;
+
+			// Animation
+			Animation = true;
+		}
+	}
+
+	private void Update_Animation()
+	{
+
 	}
 }

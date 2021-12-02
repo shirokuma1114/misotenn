@@ -9,7 +9,7 @@ public class Miya_Manager_1 : MonoBehaviour
 	public enum Miya_State_1
 	{
 		TUTORIAL,
-		PLAY_RENDA,
+		WAIT,
 		PLAY,
 		RESULT,
 		END,
@@ -26,30 +26,46 @@ public class Miya_Manager_1 : MonoBehaviour
 	[SerializeField]
 	private List<Miya_Controller_1> _miniGameControllers;
 
-	[SerializeField]
-	private float _rendaTime;
-	private float _rendaTimeCounter;
 
-	[SerializeField]
-	private float _playTime;
-	public float PlayTime => _playTime;
-	private float _playTimeCounter;
-	public float PlayTimeCounter => _playTimeCounter;
 
-	
+	// Variable
+	public Slider Slider_Percentage;
+
+	public float Second_Wait = 1.0f;
+	float Timer_Wait = 0;
+	public Vector2 SecondRange_Meter = new Vector2(1, 2);
+	public Vector2 CorrectPercentageRange_Meter = new Vector2(0.4f, 0.9f);
+
+	bool FinishGame = false;
+	public void Set_FinishGame() { FinishGame = true; }
+
+	int PlayerCount = 0;
+	public int Get_PlayerCount() { return PlayerCount; }
+	int CurrentPlayerNumber = 1;
+	public int Get_CurrentPlayerNumber() { return CurrentPlayerNumber; }
+
+
 	void Start()
 	{
 		_miniGameConnection = MiniGameConnection.Instance;
-		Debug.Log(_miniGameConnection.gameObject);
+		//Debug.Log(_miniGameConnection.gameObject);
 
-		int i = 0;
+		PlayerCount = 0;
 		foreach (var c in _miniGameConnection.Characters)
 		{
-			_miniGameControllers[i].Init(c, this);
-			i++;
+			_miniGameControllers[PlayerCount].Init(c, this);
+			PlayerCount++;
 		}
 
-		_rendaTimeCounter = 0;
+
+		_tenukiText.text = "ギリギリチキンレース\nEnterでプレイ";
+
+
+		Slider_Percentage.gameObject.SetActive(false);
+
+		Timer_Wait = 0;
+
+		FinishGame = false;
 	}
 
 	void Update()
@@ -60,8 +76,8 @@ public class Miya_Manager_1 : MonoBehaviour
 				TutorialState();
 				break;
 
-			case Miya_State_1.PLAY_RENDA:
-				PlayRendaState();
+			case Miya_State_1.WAIT:
+				WaitState();
 				break;
 
 			case Miya_State_1.PLAY:
@@ -80,49 +96,36 @@ public class Miya_Manager_1 : MonoBehaviour
 
 	private void TutorialState()
 	{
-		_tenukiText.text = "ギリギリチキンレース\nEnterでプレイ";
-
 		if (Input.GetKeyDown(KeyCode.Return))
-			_state = Miya_State_1.PLAY_RENDA;
+		{
+			_state = Miya_State_1.WAIT;
+			_tenukiText.text = "ギリギリチキンレース\nスペースキーを押してチャージ\nスペースキーを離して投げる　";
+			Slider_Percentage.gameObject.SetActive(true);
+		}
 	}
 
-	private void PlayRendaState()
+	private void WaitState()
 	{
-		_tenukiText.text = "ギリギリチキンレース\nタイミングでスペース";
-
-		if (_rendaTimeCounter > _rendaTime)
+		Timer_Wait += Time.deltaTime;
+		if (Timer_Wait > Second_Wait)
 		{
-			//_playersを順位で並び替え
-			_miniGameControllers.Sort
-				(
-					(a, b) => { return b.RendaCount - a.RendaCount; }
-				);
-
-			foreach (var p in _miniGameControllers)
-			{
-				p.Go();
-			}
-
 			_state = Miya_State_1.PLAY;
 		}
-
-		_rendaTimeCounter += Time.deltaTime;
 	}
 
 	private void PlayState()
 	{
-		_tenukiText.text = "シュルシュルシュル";
+		Slider_Percentage.value = Miya_Controller_1.Get_MeterPercentage();
 
-		if (_playTimeCounter > _playTime)
+		if ( FinishGame )
+		{
 			_state = Miya_State_1.RESULT;
-
-		_playTimeCounter += Time.deltaTime;
+			_tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
+		}
 	}
 
 	private void ResltState()
 	{
-		_tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
-
 		if (Input.GetKeyDown(KeyCode.Return))
 			_state = Miya_State_1.END;
 	}
