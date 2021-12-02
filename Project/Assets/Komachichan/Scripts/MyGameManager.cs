@@ -280,7 +280,7 @@ public class MyGameManager : MonoBehaviour
 
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
-        _entryPlugs[_turnIndex].Character.Name = "こまち社長";
+        //_entryPlugs[_turnIndex].Character.Name = "フレジエ";
 
         if (_isManyManySouvenirs)
         {
@@ -388,7 +388,22 @@ public class MyGameManager : MonoBehaviour
                     chara.AddMovingCard(GetRandomRange());
                 }
             }
-            chara.Name = "敵" + i + "号";
+            if(i == 0)
+            {
+                chara.Name = "フレジエ";
+            }
+            if(i == 1)
+            {
+                chara.Name = "シャトレーゼ";
+            }
+            if(i == 2)
+            {
+                chara.Name = "ショートケーキ";
+            }
+            if(i == 3)
+            {
+                chara.Name = "アップルパイ";
+            }
             chara.SetCurrentSquare(startSquare);
             chara.AddMoney(_initMoney);
             chara.LapCount = 0;
