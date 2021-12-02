@@ -125,7 +125,7 @@ public class SquareEnforcedGoal : SquareBase
                 invRank += lap.Value;
         }
 
-        _cost = _baseCost * invRank * character.LapCount;
+        _cost = _baseCost * invRank * (character.LapCount + 1);
         return _cost;
     }
 

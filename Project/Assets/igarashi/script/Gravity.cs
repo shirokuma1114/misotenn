@@ -9,7 +9,7 @@ public class Gravity : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _center = FindObjectOfType<EarthMove>().transform.position;
+        _center = GameObject.Find("Earth").transform.position;
     }
 
     // Update is called once per frame
