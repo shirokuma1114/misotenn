@@ -2034,7 +2034,8 @@ PrefabInstance:
       propertyPath: _disactiveExceptionList.Array.data[0]
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5754340407403619879, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
 --- !u!1 &1957176709
 GameObject:
