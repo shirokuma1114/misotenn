@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Linq;
 
-public class SouvenirWindow : WindowBase
+public class MiniSouvenirWindow : WindowBase
 {
     [SerializeField]
     Image _frame;
@@ -25,11 +24,11 @@ public class SouvenirWindow : WindowBase
     float _defaultPosY;
 
     float _displayPosY;
-
     // Start is called before the first frame update
     void Start()
     {
         _displayPosY = _defaultPosY = _frameRt.anchoredPosition.y;
+        SetEnable(false);
     }
 
     // Update is called once per frame
@@ -50,44 +49,28 @@ public class SouvenirWindow : WindowBase
     {
         _frame.enabled = enable;
 
-        foreach(var x in _images)
+        if (!enable)
         {
-            x.GetComponent<Image>().enabled = enable;
-        }
+            foreach (var x in _images)
+                Destroy(x);
 
-        foreach(var x in _countTexts)
-        {
-            x.GetComponent<Text>().enabled = enable;
-        }
-        
-        if(!enable)
-        {
+            foreach (var x in _countTexts)
+                Destroy(x);
+
+            _images.Clear();
+            _countTexts.Clear();
             SetDisplayPositionY(_defaultPosY);
         }
     }
 
-    private void DestroySouvenirUI()
-    {
-        foreach (var x in _images)
-            Destroy(x);
-
-        foreach (var x in _countTexts)
-            Destroy(x);
-
-        _images.Clear();
-        _countTexts.Clear();
-    }
-
     public void SetSouvenirs(List<Souvenir> souvenirs)
     {
-        DestroySouvenirUI();
-        
         var map = new Dictionary<int, int>();
 
         foreach (var x in souvenirs)
         {
             var typeId = (int)x.Type;
-            var obj = Instantiate(_prefab, transform);
+            var obj = Instantiate(_prefab, transform.parent);
 
             if (map.ContainsKey(typeId))
             {
@@ -105,10 +88,10 @@ public class SouvenirWindow : WindowBase
             _images.Add(obj);
         }
 
-        for(int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
+        for (int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
         {
             if (!map.ContainsKey(i)) continue;
-            var obj = Instantiate(_countPrefab, transform);
+            var obj = Instantiate(_countPrefab, transform.parent);
             obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(_frameRt.anchoredPosition.x - 200.0f + i * 75.0f, _displayPosY + 20.0f);
             obj.GetComponent<Text>().text = map[i].ToString();
             _countTexts.Add(obj);
