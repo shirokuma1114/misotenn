@@ -35,11 +35,14 @@ public class SampleMiniGameManager: MonoBehaviour
     private float _playTimeCounter;
     public float PlayTimeCounter => _playTimeCounter;
 
-
+    private void Awake()
+    {
+        
+    }
     void Start()
     {
-        _miniGameConnection = FindObjectOfType<MiniGameConnection>();
-
+        _miniGameConnection = MiniGameConnection.Instance;
+        
         int i = 0;
         foreach(var c in _miniGameConnection.Characters)
         {

@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MiniGameConnection : MonoBehaviour
 {
+    static private MiniGameConnection _instance;
+    static public MiniGameConnection Instance => _instance;
+
     //ゲームシーン上のアクティブなすべてのオブジェクト保存
     private List<GameObject> _gameSceneActiveObjectTmp = new List<GameObject>();
 
@@ -107,6 +110,8 @@ public class MiniGameConnection : MonoBehaviour
             foreach (var debugChara in _debugCharactors)
                 _characters.Add(new DebugMiniGameCharacter(debugChara));
         }
+
+        _instance = this;
     }
     void Start()
     {
