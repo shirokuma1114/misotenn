@@ -8,6 +8,7 @@ using DG.Tweening;
 public class SampleGameController : MonoBehaviour
 {
     private MiniGameCharacter _controller;
+    public MiniGameCharacter Character => _controller;
     private SampleMiniGameManager _manager;
 
     private int _rendaCounter;
@@ -20,6 +21,9 @@ public class SampleGameController : MonoBehaviour
 
     [SerializeField]
     private SampleGameControllerUI _playerUI;
+    [SerializeField]
+    private string _cakeName;
+    public string CakeName => _cakeName;
 
 
     public void Init(MiniGameCharacter character,SampleMiniGameManager manager)
@@ -78,7 +82,7 @@ public class SampleGameController : MonoBehaviour
 
     private void AutomaticPlay()
     {
-        _rendaCounter = Random.Range(40, 60);
+        _rendaCounter = Random.Range(20, 50);
     }
 
     private void HumanPlay()

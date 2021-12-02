@@ -49,14 +49,14 @@ MonoBehaviour:
   _debugMode: 1
   _debugCharactors:
   - _automatic: 0
-    _name: "\u3053\u307E\u3061\u793E\u9577(\u507D)"
+    _name: "\u30D5\u30EC\u30B8\u30A8"
     _money: 0
   - _automatic: 1
-    _name: "\u65751\u53F7(\u507D)"
+    _name: "\u30B7\u30E3\u30C8\u30EC\u30FC\u30BC"
     _money: 0
   - _automatic: 1
-    _name: "\u65752\u53F7(\u507D)"
+    _name: "\u30B7\u30E7\u30FC\u30C8\u30B1\u30FC\u30AD"
     _money: 0
   - _automatic: 1
-    _name: "\u65753\u53F7(\u507D)"
+    _name: "\u30A2\u30C3\u30D7\u30EB\u30D1\u30A4"
     _money: 0
