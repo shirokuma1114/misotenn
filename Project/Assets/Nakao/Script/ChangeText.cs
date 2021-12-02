@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
-
+using UnityEngine.SceneManagement;
 
 public class ChangeText : MonoBehaviour
 {
@@ -98,6 +98,11 @@ public class ChangeText : MonoBehaviour
     private List<Text> _selectTexts;
 
 
+    [SerializeField]
+    Animator _fadeAnimation;
+
+    bool _isFadeOut;
+
     //Œˆ’èKey—p
     int Choice = 0;
     bool NextPage = false;
@@ -132,6 +137,8 @@ public class ChangeText : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _fadeAnimation.Play("FadeIn");
+
         InitCharacterInfo();
     
         ShowRank();
@@ -326,6 +333,7 @@ public class ChangeText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         if(!ExPage1)
         {
             EX1n2out.enabled = false;
@@ -466,6 +474,22 @@ public class ChangeText : MonoBehaviour
             P4min.enabled = false;
             _p4ItemText.enabled = false;
             _p4NumText.enabled = false;
+=======
+        if(_isFadeOut)
+        {
+            if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                SceneManager.LoadScene("Title");
+            }
+            return;
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _fadeAnimation.Play("FadeOut");
+            _isFadeOut = true;
+>>>>>>> 6a2557eaa2f76298cbeffd882d6d93229e82da5b
         }
 
             bool isMove = false;

@@ -36,8 +36,22 @@ public class SquareSouvenir : SquareBase
     [SerializeField]
     private int _startStock = 3;
 
-    bool _isEffectUsed = false;    
+    bool _isEffectUsed = false;
 
+
+    public override string GetSquareInfo(CharacterBase character)
+    {
+        _squareInfo =
+            "お土産マス\n" +
+            "コスト：" + _cost.ToString() + "\n" +
+            "お土産名：" + _souvenirName + "\n" +
+            "お土産タイプ：" + _type.ToString() + "\n" +
+            "在庫数：" + _nowStock.ToString();
+
+        return _squareInfo;
+    }
+
+    //=========================
 
     private void Awake()
     {
@@ -171,13 +185,6 @@ public class SquareSouvenir : SquareBase
         //演出
         _effect.Use_OmiyageEnshutsu(souvenir.Sprite);
         _isEffectUsed = true;
-
-        _squareInfo =
-            "お土産マス\n" +
-            "コスト：" + _cost.ToString() + "\n" +
-            "お土産名：" + _souvenirName + "\n" +
-            "お土産タイプ：" + _type.ToString() + "\n" +
-            "在庫数：" + _nowStock.ToString();
 
         _state = SquareSouvenirState.END;
     }

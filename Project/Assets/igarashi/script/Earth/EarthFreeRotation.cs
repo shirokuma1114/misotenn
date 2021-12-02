@@ -5,6 +5,7 @@ using UnityEngine;
 public class EarthFreeRotation : MonoBehaviour
 {
     private CharacterBase _operator;
+    public CharacterBase Operator => _operator;
 
     private bool _freeRotationMode = false;
     public bool IsFreeRotationMode => _freeRotationMode;
