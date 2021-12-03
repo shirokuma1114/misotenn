@@ -40,7 +40,7 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void Awake()
     {
-        
+        _state = SampleGameState.TUTORIAL;
     }
     void Start()
     {

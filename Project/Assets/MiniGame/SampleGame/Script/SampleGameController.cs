@@ -41,7 +41,6 @@ public class SampleGameController : MonoBehaviour
         _rotateCenterObject.transform.position = earth.transform.position;
         _rotateCenterObject.transform.forward = -transform.right;
         transform.SetParent(_rotateCenterObject.transform);
-
         _rotateCenterObject.transform.DORotate(new Vector3(360 * _rendaCounter, 0, 0), _manager.PlayTime, RotateMode.LocalAxisAdd);
     }
 
@@ -54,6 +53,9 @@ public class SampleGameController : MonoBehaviour
 
     void Update()
     {
+        if (!_manager)
+            return;
+
         switch (_manager.State)
         {
             case SampleMiniGameManager.SampleGameState.PLAY_RENDA:
