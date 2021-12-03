@@ -41,8 +41,6 @@ public class SampleGameController : MonoBehaviour
         _rotateCenterObject.transform.position = earth.transform.position;
         _rotateCenterObject.transform.forward = -transform.right;
         transform.SetParent(_rotateCenterObject.transform);
-        Debug.Log(_manager.gameObject);
-        Debug.Log(_rotateCenterObject);
         _rotateCenterObject.transform.DORotate(new Vector3(360 * _rendaCounter, 0, 0), _manager.PlayTime, RotateMode.LocalAxisAdd);
     }
 
