@@ -30,6 +30,9 @@ public class MiniGameConnection : MonoBehaviour
     [SerializeField]
     private List<GameObject> _disactiveExceptionList;
 
+    [SerializeField]
+    private Animator _fadeAnimation;
+
     [Header("デバッグモード")]
     [Space(10)]
     [SerializeField]
@@ -56,6 +59,8 @@ public class MiniGameConnection : MonoBehaviour
         RideMiniGameCharacter();
 
         AllObjectsDisactive();
+
+        _fadeAnimation.Play("FadeOut");
 
         LoadSceneParameters param = new LoadSceneParameters(LoadSceneMode.Additive);
         _playingMiniGameScene = SceneManager.LoadScene(miniGamesSceneName, param);
@@ -140,7 +145,7 @@ public class MiniGameConnection : MonoBehaviour
         {
             if (!obj.activeSelf)
                 continue;
-            if (_disactiveExceptionList.Contains(obj))
+            if (_disactiveExceptionList.Contains(obj.transform.root.gameObject))
                 continue;
 
             _gameSceneActiveObjectTmp.Add(obj);
@@ -171,7 +176,7 @@ public class MiniGameConnection : MonoBehaviour
         {
             yield return null;
         }
-        
+        _fadeAnimation.Play("FadeIn");
         SceneManager.SetActiveScene(_playingMiniGameScene);
     }
 }

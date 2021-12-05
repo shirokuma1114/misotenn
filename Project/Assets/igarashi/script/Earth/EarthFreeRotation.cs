@@ -32,14 +32,7 @@ public class EarthFreeRotation : MonoBehaviour
 
     [Header("上下回転最大角度")]
     [SerializeField]
-    private float _maxVerticalAngle = 80.0f;
-
-    [Header("Debug")]
-    [SerializeField]
-    private KeyCode _modeChangeKey = KeyCode.E;
-    [SerializeField]
-    private CharacterBase _debugOperator = null;
-    
+    private float _maxVerticalAngle = 80.0f;    
 
     /// <summary>
     /// フリー回転モードにする関数
@@ -103,21 +96,11 @@ public class EarthFreeRotation : MonoBehaviour
 
     private void DebugTrunOn()
     {
-        TrunOn(_debugOperator);
     }
 
 
     private void Operation()
     {
-        //Debug
-        //if(Input.GetKeyDown(_modeChangeKey))
-        //{
-        //    if (!_freeRotationMode)
-        //        DebugTrunOn();
-        //    else
-        //        TrunOff();
-        //}
-
         if (_freeRotationMode)
         {
             if (Input.GetKey(_upKey))

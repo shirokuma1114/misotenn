@@ -35,19 +35,24 @@ public class SampleMiniGameManager: MonoBehaviour
     private float _playTimeCounter;
     public float PlayTimeCounter => _playTimeCounter;
 
+    [SerializeField]
+    private MiniGameResult _miniGameResult;
+
     private void Awake()
     {
-        
+        _state = SampleGameState.TUTORIAL;
     }
     void Start()
     {
         _miniGameConnection = MiniGameConnection.Instance;
         
-        int i = 0;
         foreach(var c in _miniGameConnection.Characters)
         {
-            _miniGameControllers[i].Init(c,this);
-            i++;
+            foreach(var mc in _miniGameControllers)
+            {
+                if(mc.CakeName == c.Name)
+                    mc.Init(c, this);
+            }            
         }
 
         _rendaTimeCounter = 0;
@@ -93,12 +98,6 @@ public class SampleMiniGameManager: MonoBehaviour
 
         if (_rendaTimeCounter > _rendaTime)
         {
-            //_playersÇèáà Ç≈ï¿Ç—ë÷Ç¶
-            _miniGameControllers.Sort
-                (
-                    (a, b) => { return b.RendaCount - a.RendaCount; }
-                );
-
             foreach (var p in _miniGameControllers)
             {
                 p.Go();
@@ -115,7 +114,11 @@ public class SampleMiniGameManager: MonoBehaviour
         _tenukiText.text = "ëñÇÈÅI";
 
         if (_playTimeCounter > _playTime)
+        {          
+            _miniGameResult.Display(Ranking());
+
             _state = SampleGameState.RESULT;
+        }
 
         _playTimeCounter += Time.deltaTime;
     }
@@ -131,5 +134,43 @@ public class SampleMiniGameManager: MonoBehaviour
     private void EndState()
     {
         _miniGameConnection.EndMiniGame();
+    }
+
+
+    //èáà ïtÇØ
+    private Dictionary<MiniGameCharacter, int> Ranking()
+    {
+        Dictionary<MiniGameCharacter, int> dispCharacters = new Dictionary<MiniGameCharacter, int>();
+        List<SampleGameController> workCharacters = new List<SampleGameController>();
+        workCharacters.AddRange(_miniGameControllers);
+
+        List<SampleGameController> sameRanks = new List<SampleGameController>();
+        for(int rank = 1; rank <= 4;)
+        {
+            int maxRenda = -1;
+            foreach (var chara in workCharacters)
+            {
+                if(chara.RendaCount > maxRenda)
+                {
+                    sameRanks.Clear();
+
+                    sameRanks.Add(chara);
+                    maxRenda = chara.RendaCount;
+                }
+                else if(chara.RendaCount == maxRenda)
+                {
+                    sameRanks.Add(chara);
+                }
+            }
+            
+            foreach (var ranker in sameRanks)
+            {
+                dispCharacters.Add(ranker.Character, rank);
+                workCharacters.Remove(ranker);
+            }
+            rank += sameRanks.Count;
+        }
+
+        return dispCharacters;
     }
 }
