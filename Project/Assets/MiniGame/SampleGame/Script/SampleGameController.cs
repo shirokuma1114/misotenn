@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class SampleGameController : MonoBehaviour
@@ -41,14 +39,17 @@ public class SampleGameController : MonoBehaviour
         _rotateCenterObject.transform.position = earth.transform.position;
         _rotateCenterObject.transform.forward = -transform.right;
         transform.SetParent(_rotateCenterObject.transform);
-        _rotateCenterObject.transform.DORotate(new Vector3(360 * _rendaCounter, 0, 0), _manager.PlayTime, RotateMode.LocalAxisAdd);
-    }
 
+        _rotateCenterObject.transform.DORotate(new Vector3(360 * _rendaCounter, 0, 0), _manager.PlayTime, RotateMode.LocalAxisAdd)
+            .SetEase(Ease.InOutQuart);
+    }
+    
     //==================
 
     void Start()
     {
         _rendaCounter = 0;
+        _rotateCounter = -1;
     }
 
     void Update()
@@ -68,9 +69,6 @@ public class SampleGameController : MonoBehaviour
             case SampleMiniGameManager.SampleGameState.PLAY:
                 if(_rotateTimeCounter > _manager.PlayTime / _rendaCounter)
                 {
-                    _rotateCounter++;
-                    _playerUI.SetRotateCounter(_rotateCounter);
-
                     _rotateTimeCounter = 0;
                 }
 
@@ -91,5 +89,17 @@ public class SampleGameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
             _rendaCounter++;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "GoalCollider")
+            RotateCountUp();
+    }
+
+    private void RotateCountUp()
+    {
+        _rotateCounter++;
+        _playerUI.SetRotateCounter(_rotateCounter);
     }
 }
