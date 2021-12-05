@@ -20,6 +20,8 @@ public class SampleGameController : MonoBehaviour
     [SerializeField]
     private SampleGameControllerUI _playerUI;
     [SerializeField]
+    private KeyCode _rendaKey;
+    [SerializeField]
     private string _cakeName;
     public string CakeName => _cakeName;
 
@@ -30,6 +32,7 @@ public class SampleGameController : MonoBehaviour
         _manager = manager;
 
         _playerUI.SetPlayerName(character.Name);
+        _playerUI.SetRendaKeyEnable(!character.IsAutomatic);
     }
 
     public void Go()
@@ -87,7 +90,7 @@ public class SampleGameController : MonoBehaviour
 
     private void HumanPlay()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(_rendaKey))
             _rendaCounter++;
     }
 
