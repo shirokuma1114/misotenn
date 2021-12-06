@@ -62,6 +62,7 @@ public class EnemyBrain : MonoBehaviour
         //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
         var _isRandom = true;
         var _selectCard = -1;//選ぶカード
+
         //脳内メモリに正解があるか探す
         if(_correctMemory[_nowStep - 1] != -1)
         {
@@ -285,6 +286,31 @@ public class EnemyBrain : MonoBehaviour
             }
         });
     }
+
+    //ランダムにカードを選ぶ関数
+    private void RandomCard(int _select)
+    {
+        var ran2 = Random.Range(0, 4);
+        _select = ran2 + ((_nowStep - 1) * 4);
+
+        //前に同じ間違いをしていたら引き直す
+        for (int i = 0; i < _incorrectMemory.Length; i++)
+        {
+            if (_incorrectMemory[i] == _select)
+            {
+                TurnCard();
+                return;
+            }
+        }
+
+        //既に勝った敵がめくっているカードなら引き直す
+        if (_cardMgr.GetCard(_select).isCanTurn == false)
+        {
+            TurnCard();
+            return;
+        }
+    }
+
 
     public int GetId() { return _myId; } 
 

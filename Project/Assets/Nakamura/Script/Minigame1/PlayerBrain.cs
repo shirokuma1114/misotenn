@@ -44,6 +44,8 @@ public class PlayerBrain : MonoBehaviour
             //スペースキー押したらCardの関数呼ぶ
             if(Input.GetKeyDown(KeyCode.Space))
             {
+                if (_cardMgr.GetCard(_nowCursol).isCanTurn == false) return;
+
                 isControl = false;
 
                 //カーソル位置と照らし合わせてめくったカードの番号を持って置く
