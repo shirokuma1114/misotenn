@@ -27,18 +27,23 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     List<CharacterType> _createCharacterTypes;
 
+    [Header("移動カード最小値")]
     [SerializeField]
     private int _cardMinValue;
 
+    [Header("移動カード最大値")]
     [SerializeField]
     private int _cardMaxValue;
 
+    [Header("移動カード初期手札枚数")]
     [SerializeField]
     private int _initCardNum;
 
+    [Header("初期所持金")]
     [SerializeField]
     private int _initMoney;
 
+    [Header("登場キャラクターリスト")]
     [SerializeField]
     private List<CharacterControllerBase> _entryPlugs;
 
@@ -69,6 +74,7 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     EarthFreeRotation _earthFreeRotation;
 
+    [Header("勝利に必要なお土産の数")]
     [SerializeField]
     private int _needSouvenirType;
 
@@ -80,6 +86,7 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     List<int> _cardValues = new List<int>();
 
+    [Header("大量のお土産を抱えてスタート")]
     [SerializeField]
     bool _isManyManySouvenirs;
 
@@ -273,7 +280,7 @@ public class MyGameManager : MonoBehaviour
 
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
-        _entryPlugs[_turnIndex].Character.Name = "こまち社長";
+        //_entryPlugs[_turnIndex].Character.Name = "フレジエ";
 
         if (_isManyManySouvenirs)
         {
@@ -381,7 +388,22 @@ public class MyGameManager : MonoBehaviour
                     chara.AddMovingCard(GetRandomRange());
                 }
             }
-            chara.Name = "敵" + i + "号";
+            if(i == 0)
+            {
+                chara.Name = "フレジエ";
+            }
+            if(i == 1)
+            {
+                chara.Name = "ザッハトルテ";
+            }
+            if(i == 2)
+            {
+                chara.Name = "ショートケーキ";
+            }
+            if(i == 3)
+            {
+                chara.Name = "アップルパイ";
+            }
             chara.SetCurrentSquare(startSquare);
             chara.AddMoney(_initMoney);
             chara.LapCount = 0;
@@ -409,11 +431,9 @@ public class MyGameManager : MonoBehaviour
 
     public int GetRank(CharacterBase character)
     {
-        var characters = GetCharacters();
-        Debug.Assert(characters.Count() == 4);
-
         // 順位はお土産種類＋おこづかい
-        characters = characters.OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
+        var characters = GetRankSortedCharacters();
+        Debug.Assert(characters.Count() == 4);
 
         int rank = 0;
 
@@ -494,7 +514,11 @@ public class MyGameManager : MonoBehaviour
         return characters;
         
     }
-
+    
+    public List<CharacterBase> GetRankSortedCharacters()
+    {
+        return GetCharacters().OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
+    }
     // 勝利条件に必要な数
     public int GetNeedSouvenirType()
     {

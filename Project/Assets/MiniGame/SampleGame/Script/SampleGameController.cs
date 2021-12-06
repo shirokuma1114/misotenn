@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 
 public class SampleGameController : MonoBehaviour
 {
     private MiniGameCharacter _controller;
+    public MiniGameCharacter Character => _controller;
     private SampleMiniGameManager _manager;
 
     private int _rendaCounter;
@@ -20,6 +19,11 @@ public class SampleGameController : MonoBehaviour
 
     [SerializeField]
     private SampleGameControllerUI _playerUI;
+    [SerializeField]
+    private KeyCode _rendaKey;
+    [SerializeField]
+    private string _cakeName;
+    public string CakeName => _cakeName;
 
 
     public void Init(MiniGameCharacter character,SampleMiniGameManager manager)
@@ -28,6 +32,7 @@ public class SampleGameController : MonoBehaviour
         _manager = manager;
 
         _playerUI.SetPlayerName(character.Name);
+        _playerUI.SetRendaKeyEnable(!character.IsAutomatic);
     }
 
     public void Go()
@@ -38,18 +43,23 @@ public class SampleGameController : MonoBehaviour
         _rotateCenterObject.transform.forward = -transform.right;
         transform.SetParent(_rotateCenterObject.transform);
 
-        _rotateCenterObject.transform.DORotate(new Vector3(360 * _rendaCounter, 0, 0), _manager.PlayTime, RotateMode.LocalAxisAdd);
+        _rotateCenterObject.transform.DORotate(new Vector3(360 * _rendaCounter, 0, 0), _manager.PlayTime, RotateMode.LocalAxisAdd)
+            .SetEase(Ease.InOutQuart);
     }
-
+    
     //==================
 
     void Start()
     {
         _rendaCounter = 0;
+        _rotateCounter = -1;
     }
 
     void Update()
     {
+        if (!_manager)
+            return;
+
         switch (_manager.State)
         {
             case SampleMiniGameManager.SampleGameState.PLAY_RENDA:
@@ -62,9 +72,6 @@ public class SampleGameController : MonoBehaviour
             case SampleMiniGameManager.SampleGameState.PLAY:
                 if(_rotateTimeCounter > _manager.PlayTime / _rendaCounter)
                 {
-                    _rotateCounter++;
-                    _playerUI.SetRotateCounter(_rotateCounter);
-
                     _rotateTimeCounter = 0;
                 }
 
@@ -78,12 +85,24 @@ public class SampleGameController : MonoBehaviour
 
     private void AutomaticPlay()
     {
-        _rendaCounter = Random.Range(40, 60);
+        _rendaCounter = Random.Range(20, 50);
     }
 
     private void HumanPlay()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(_rendaKey))
             _rendaCounter++;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.name == "GoalCollider")
+            RotateCountUp();
+    }
+
+    private void RotateCountUp()
+    {
+        _rotateCounter++;
+        _playerUI.SetRotateCounter(_rotateCounter);
     }
 }

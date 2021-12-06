@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MiniGameConnection : MonoBehaviour
 {
+    static private MiniGameConnection _instance;
+    static public MiniGameConnection Instance => _instance;
+
     //ゲームシーン上のアクティブなすべてのオブジェクト保存
     private List<GameObject> _gameSceneActiveObjectTmp = new List<GameObject>();
 
@@ -26,6 +29,9 @@ public class MiniGameConnection : MonoBehaviour
     //ミニゲームに入った時に非アクティブにしないリスト
     [SerializeField]
     private List<GameObject> _disactiveExceptionList;
+
+    [SerializeField]
+    private Animator _fadeAnimation;
 
     [Header("デバッグモード")]
     [Space(10)]
@@ -53,6 +59,8 @@ public class MiniGameConnection : MonoBehaviour
         RideMiniGameCharacter();
 
         AllObjectsDisactive();
+
+        _fadeAnimation.Play("FadeOut");
 
         LoadSceneParameters param = new LoadSceneParameters(LoadSceneMode.Additive);
         _playingMiniGameScene = SceneManager.LoadScene(miniGamesSceneName, param);
@@ -107,6 +115,8 @@ public class MiniGameConnection : MonoBehaviour
             foreach (var debugChara in _debugCharactors)
                 _characters.Add(new DebugMiniGameCharacter(debugChara));
         }
+
+        _instance = this;
     }
     void Start()
     {
@@ -135,7 +145,7 @@ public class MiniGameConnection : MonoBehaviour
         {
             if (!obj.activeSelf)
                 continue;
-            if (_disactiveExceptionList.Contains(obj))
+            if (_disactiveExceptionList.Contains(obj.transform.root.gameObject))
                 continue;
 
             _gameSceneActiveObjectTmp.Add(obj);
@@ -166,7 +176,7 @@ public class MiniGameConnection : MonoBehaviour
         {
             yield return null;
         }
-        
+        _fadeAnimation.Play("FadeIn");
         SceneManager.SetActiveScene(_playingMiniGameScene);
     }
 }
