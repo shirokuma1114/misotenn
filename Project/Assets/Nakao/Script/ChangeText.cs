@@ -83,6 +83,14 @@ public class ChangeText : MonoBehaviour
     public Text EX6text;
     public Text EX7text;
     public Text EX8text;
+    public Text EX1text2;
+    public Text EX2text2;
+    public Text EX3text2;
+    public Text EX4text2;
+    public Text EX5text2;
+    public Text EX6text2;
+    public Text EX7text2;
+    public Text EX8text2;
 
     public Image EX1n2out;
     public Image EX1n2in;
@@ -90,6 +98,10 @@ public class ChangeText : MonoBehaviour
     public Image EXScOut;
     public Image EXBar;
     public Image EXBarIn;
+
+    public ScrollRect myScrollRect;
+    public Scrollbar newScrollBar;
+    public float MoveBar = 0.01f;
 
     private GameObject m_rtObj;
     private RectTransform m_rtView; //グラフ作成用
@@ -112,6 +124,7 @@ public class ChangeText : MonoBehaviour
     int wk = 0;
 
     int _selectIndex;
+   
 
     CharacterData[] _characters;
 
@@ -140,7 +153,7 @@ public class ChangeText : MonoBehaviour
         _fadeAnimation.Play("FadeIn");
 
         InitCharacterInfo();
-    
+
         ShowRank();
 
         //{
@@ -174,7 +187,7 @@ public class ChangeText : MonoBehaviour
 
     private void InitCharacterInfo()
     {
-        
+
 
         var manager = FindObjectOfType<DontDestroyManager>();
         _characters = new CharacterData[4];
@@ -223,15 +236,15 @@ public class ChangeText : MonoBehaviour
     {
         var rankSortedCharacters = _characters;
         rankSortedCharacters = _characters.OrderByDescending(x => x._souvenirNum).ThenByDescending(x => x._money).ToArray();
-        
-        for(int i = 0; i < rankSortedCharacters.Count(); i++)
+
+        for (int i = 0; i < rankSortedCharacters.Count(); i++)
         {
-            if(i == 0)
+            if (i == 0)
             {
                 _p1ItemText.text = rankSortedCharacters[i]._characterName;
                 _p1NumText.text = "";
             }
-            if(i == 1)
+            if (i == 1)
             {
                 _p2ItemText.text = rankSortedCharacters[i]._characterName;
                 _p2NumText.text = "";
@@ -333,8 +346,7 @@ public class ChangeText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-<<<<<<< HEAD
-        if(!ExPage1)
+        if (!ExPage1)
         {
             EX1n2out.enabled = false;
             EX1n2in.enabled = false;
@@ -413,6 +425,14 @@ public class ChangeText : MonoBehaviour
             EX6text.enabled = false;
             EX7text.enabled = false;
             EX8text.enabled = false;
+            EX1text2.enabled = false;
+            EX2text2.enabled = false;
+            EX3text2.enabled = false;
+            EX4text2.enabled = false;
+            EX5text2.enabled = false;
+            EX6text2.enabled = false;
+            EX7text2.enabled = false;
+            EX8text2.enabled = false;
 
             P1mout.enabled = true;
             P1min.enabled = true;
@@ -457,6 +477,14 @@ public class ChangeText : MonoBehaviour
             EX6text.enabled = true;
             EX7text.enabled = true;
             EX8text.enabled = true;
+            EX1text2.enabled = true;
+            EX2text2.enabled = true;
+            EX3text2.enabled = true;
+            EX4text2.enabled = true;
+            EX5text2.enabled = true;
+            EX6text2.enabled = true;
+            EX7text2.enabled = true;
+            EX8text2.enabled = true;
 
             P1mout.enabled = false;
             P1min.enabled = false;
@@ -474,505 +502,548 @@ public class ChangeText : MonoBehaviour
             P4min.enabled = false;
             _p4ItemText.enabled = false;
             _p4NumText.enabled = false;
-=======
-        if(_isFadeOut)
-        {
-            if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+        }
+            if (_isFadeOut)
             {
-                SceneManager.LoadScene("Title");
+                if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+                {
+                    SceneManager.LoadScene("Title");
+                }
+                return;
             }
-            return;
-        }
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _fadeAnimation.Play("FadeOut");
-            _isFadeOut = true;
->>>>>>> 6a2557eaa2f76298cbeffd882d6d93229e82da5b
-        }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _fadeAnimation.Play("FadeOut");
+                _isFadeOut = true;
+            }
 
             bool isMove = false;
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            _selectIndex = Mathf.Max(--_selectIndex, 0);
-            isMove = true;
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                _selectIndex = Mathf.Max(--_selectIndex, 0);
+                isMove = true;
 
-            P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            wk = 0;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            _selectIndex = Mathf.Min(++_selectIndex, _characters.Length);
-            isMove = true;
+                P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                wk = 0;
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                _selectIndex = Mathf.Min(++_selectIndex, _characters.Length);
+                isMove = true;
 
-            P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            wk = 0;
-        }
-
-        if (isMove)
-        {
-            if(_selectIndex == 0)
-            {
-                P1out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                P1in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            }
-            if(_selectIndex == 1)
-            {
-                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                P2in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            }
-            if(_selectIndex == 2)
-            {
-                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                P3in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            }
-            if(_selectIndex == 3)
-            {
-                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                P4in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                wk = 0;
             }
 
-        }
-
-        //戻るキー
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            ShowRank();
-            image1.enabled = true;
-            image2.enabled = true;
-            image3.enabled = true;
-            image4.enabled = true;
-
-            Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
-            Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-            Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-
-            P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-            Choice = 0;
-            NextPage = false;
-            ExPage1 = false;
-            ExPage2 = false;
-
-            DeleteGraph(); //グラフ消去
-        }
-
-       
-        if (NextPage)
-        {
-            isNextMove = false;
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                isNextMove = true;
-                wk = 1;
-
-                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            }
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                isNextMove = true;
-                wk = 2;
-
-                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            }
-
-            if (isNextMove)
-            {
-                if(wk == 1)
-                {
-                    P1mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                    P1min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                }
-                if (wk == 2)
-                {
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                    P3min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                }
-            }
-        }
-
-
-
-        //if (Input.GetKeyDown(KeyCode.Escape))    //戻るキー
-        //{
-        //    //text.text = "結果発表";
-        //    //image1.enabled = true;
-        //    //image2.enabled = true;
-        //    //image3.enabled = true;
-        //    //image4.enabled = true;
-        //    //P1text.text = "Player1                                順位条件";
-        //    //P2text.text = "Player2                                順位条件";
-        //    //P3text.text = "Player3                                順位条件";
-        //    //P4text.text = "Player4                                順位条件";
-        //    //Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
-        //    //Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-        //    //Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-
-        //    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    ReturnImg.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-        //    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    Choice = 5;
-        //}
-        //if (Input.GetKeyDown(KeyCode.Alpha6))    //タイトルキー
-        //{
-        //    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        //    Sideout.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-        //    Sidein.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-        //    Choice = 6;
-        //}
-
-        if (Input.GetKeyDown(KeyCode.Return))    //決定キー
-        {
-            if (wk == 0)
+            if (isMove)
             {
                 if (_selectIndex == 0)
                 {
-                    text.text = _characters[_selectIndex]._characterName;
-                    image1.enabled = false;
-                    image2.enabled = false;
-                    image3.enabled = false;
-                    image4.enabled = false;
-
-                    _p1ItemText.text = "総資産";
-                    _p2ItemText.text = "周回数";
-                    _p3ItemText.text = "イベントマス使用回数";
-                    _p4ItemText.text = "お土産数";
-
-                    _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                    _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                    _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-                    _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
-
-                    Top1.GetComponent<Image>().color = new Color32(101, 21, 21, 255);
-                    Top2.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
-                    Back.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
-                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                    Choice = 1;
-                    NextPage = true;
-                    ExPage1 = false;
-                    ExPage2 = false;
-                    //wk = 0;
-                    DeleteGraph(); //グラフ消去
+                    P1out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    P1in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 }
                 if (_selectIndex == 1)
                 {
-                    text.text = _characters[_selectIndex]._characterName;
-                    image1.enabled = false;
-                    image2.enabled = false;
-                    image3.enabled = false;
-                    image4.enabled = false;
-                    _p1ItemText.text = "総資産";
-                    _p2ItemText.text = "周回数";
-                    _p3ItemText.text = "イベントマス使用回数";
-                    _p4ItemText.text = "お土産数";
-
-                    _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                    _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                    _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-                    _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
-
-                    Top1.GetComponent<Image>().color = new Color32(21, 21, 101, 255);
-                    Top2.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
-                    Back.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
-                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                    Choice = 2;
-                    NextPage = true;
-                    ExPage1 = false;
-                    ExPage2 = false;
-                    //wk = 0;
-                    DeleteGraph(); //グラフ消去
+                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    P2in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 }
                 if (_selectIndex == 2)
                 {
-                    text.text = _characters[_selectIndex]._characterName;
-                    image1.enabled = false;
-                    image2.enabled = false;
-                    image3.enabled = false;
-                    image4.enabled = false;
-                    _p1ItemText.text = "総資産";
-                    _p2ItemText.text = "周回数";
-                    _p3ItemText.text = "イベントマス使用回数";
-                    _p4ItemText.text = "お土産数";
-
-                    _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                    _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                    _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-                    _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
-
-                    Top1.GetComponent<Image>().color = new Color32(11, 60, 11, 255);
-                    Top2.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
-                    Back.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
-                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                    Choice = 3;
-                    NextPage = true;
-                    ExPage1 = false;
-                    ExPage2 = false;
-                    //wk = 0;
-                    DeleteGraph(); //グラフ消去
+                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    P3in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 }
                 if (_selectIndex == 3)
                 {
-                    text.text = _characters[_selectIndex]._characterName;
-                    image1.enabled = false;
-                    image2.enabled = false;
-                    image3.enabled = false;
-                    image4.enabled = false;
-                    _p1ItemText.text = "総資産";
-                    _p2ItemText.text = "周回数";
-                    _p3ItemText.text = "イベントマス使用回数";
-                    _p4ItemText.text = "お土産数";
+                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    P4in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                }
 
-                    _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                    _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                    _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-                    _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+            }
 
-                    Top1.GetComponent<Image>().color = new Color32(101, 71, 21, 255);
-                    Top2.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
-                    Back.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
+            //戻るキー
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                ShowRank();
+                image1.enabled = true;
+                image2.enabled = true;
+                image3.enabled = true;
+                image4.enabled = true;
+
+                Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
+                Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+                Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+
+                P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                Choice = 0;
+                NextPage = false;
+                ExPage1 = false;
+                ExPage2 = false;
+
+                DeleteGraph(); //グラフ消去
+            }
+
+        //スクロールバーを動かす
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            //myScrollRect.verticalNormalizedPosition -= 0.01f;
+            newScrollBar.value -= MoveBar;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            //myScrollRect.verticalNormalizedPosition += 0.01f;
+            newScrollBar.value += MoveBar;
+        }
+
+        if (NextPage)
+            {
+                isNextMove = false;
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    isNextMove = true;
+                    wk = 1;
+
+                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                     P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                     P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                }
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    isNextMove = true;
+                    wk = 2;
 
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                }
 
-                    Choice = 4;
-                    NextPage = true;
-                    ExPage1 = false;
-                    ExPage2 = false;
-                    //wk = 0;
-                    DeleteGraph(); //グラフ消去
+                if (isNextMove)
+                {
+                    if (wk == 1)
+                    {
+                        P1mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                        P1min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    }
+                    if (wk == 2)
+                    {
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                        P3min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                    }
                 }
             }
-            if (wk == 1) //W
-            {
-                NextPage = false;
-                ExPage1 = true;
-                if (Choice == 1)
-                {
-                    //バグ用
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(testData);  //グラフ表示
-                }
-                if (Choice == 2)
-                {
-                    //バグ用
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(testData);  //グラフ表示
-                }
-                if (Choice == 3)
-                {
-                    //バグ用
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(testData);  //グラフ表示
-                }
-                if (Choice == 4)
-                {
-                    //バグ用
-                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                    ShowGraph(testData);  //グラフ表示
-                }
-
-            }
-            if (wk == 2) //S
-            {
-                NextPage = false;
-                ExPage2 = true;
-                if (Choice == 1)
-                {
-                    EX1text.text = "a";
-                    EX2text.text = "a";
-                    EX3text.text = "a";
-                    EX4text.text = "a";
-                    EX5text.text = "a";
-                    EX6text.text = "a";
-                    EX7text.text = "a";
-                    EX8text.text = "a";
-                }
-                if (Choice == 2)
-                {
-                    EX1text.text = "a";
-                    EX2text.text = "a";
-                    EX3text.text = "a";
-                    EX4text.text = "a";
-                    EX5text.text = "a";
-                    EX6text.text = "a";
-                    EX7text.text = "a";
-                    EX8text.text = "a";
-                }
-                if (Choice == 3)
-                {
-                    EX1text.text = "a";
-                    EX2text.text = "a";
-                    EX3text.text = "a";
-                    EX4text.text = "a";
-                    EX5text.text = "a";
-                    EX6text.text = "a";
-                    EX7text.text = "a";
-                    EX8text.text = "a";
-                }
-                if (Choice == 4)
-                {
-                    EX1text.text = "a";
-                    EX2text.text = "a";
-                    EX3text.text = "a";
-                    EX4text.text = "a";
-                    EX5text.text = "a";
-                    EX6text.text = "a";
-                    EX7text.text = "a";
-                    EX8text.text = "a";
-                }
-            }
-            
-
-            //if (Choice == 5)
+            //if (Input.GetKeyDown(KeyCode.Escape))    //戻るキー
             //{
-            //    text.text = "結果発表";
-            //    image1.enabled = true;
-            //    image2.enabled = true;
-            //    image3.enabled = true;
-            //    image4.enabled = true;
+            //    //text.text = "結果発表";
+            //    //image1.enabled = true;
+            //    //image2.enabled = true;
+            //    //image3.enabled = true;
+            //    //image4.enabled = true;
             //    //P1text.text = "Player1                                順位条件";
             //    //P2text.text = "Player2                                順位条件";
             //    //P3text.text = "Player3                                順位条件";
             //    //P4text.text = "Player4                                順位条件";
-            //    Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
-            //    Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-            //    Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-            //    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            //    //Choice = 0;
+            //    //Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
+            //    //Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+            //    //Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+
+            //    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    ReturnImg.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            //    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    Choice = 5;
             //}
-            //else if (Choice == 6)
+            //if (Input.GetKeyDown(KeyCode.Alpha6))    //タイトルキー
             //{
-            //    //タイトルに戻す
-            //    //ChangeScene
-            //    //Choice = 0;
+            //    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            //    Sideout.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            //    Sidein.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            //    Choice = 6;
             //}
-        }
-    }
-}
+
+            if (Input.GetKeyDown(KeyCode.Return))    //決定キー
+            {
+                if (wk == 0)
+                {
+                    if (_selectIndex == 0)
+                    {
+                        text.text = _characters[_selectIndex]._characterName;
+                        image1.enabled = false;
+                        image2.enabled = false;
+                        image3.enabled = false;
+                        image4.enabled = false;
+
+                        _p1ItemText.text = "総資産";
+                        _p2ItemText.text = "周回数";
+                        _p3ItemText.text = "イベントマス使用回数";
+                        _p4ItemText.text = "お土産数";
+
+                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
+                        Top1.GetComponent<Image>().color = new Color32(101, 21, 21, 255);
+                        Top2.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
+                        Back.GetComponent<Image>().color = new Color32(185, 66, 66, 255);
+                        P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        Choice = 1;
+                        NextPage = true;
+                        ExPage1 = false;
+                        ExPage2 = false;
+                        //wk = 0;
+                        DeleteGraph(); //グラフ消去
+                    }
+                    if (_selectIndex == 1)
+                    {
+                        text.text = _characters[_selectIndex]._characterName;
+                        image1.enabled = false;
+                        image2.enabled = false;
+                        image3.enabled = false;
+                        image4.enabled = false;
+                        _p1ItemText.text = "総資産";
+                        _p2ItemText.text = "周回数";
+                        _p3ItemText.text = "イベントマス使用回数";
+                        _p4ItemText.text = "お土産数";
+
+                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
+                        Top1.GetComponent<Image>().color = new Color32(21, 21, 101, 255);
+                        Top2.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
+                        Back.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
+                        P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        Choice = 2;
+                        NextPage = true;
+                        ExPage1 = false;
+                        ExPage2 = false;
+                        //wk = 0;
+                        DeleteGraph(); //グラフ消去
+                    }
+                    if (_selectIndex == 2)
+                    {
+                        text.text = _characters[_selectIndex]._characterName;
+                        image1.enabled = false;
+                        image2.enabled = false;
+                        image3.enabled = false;
+                        image4.enabled = false;
+                        _p1ItemText.text = "総資産";
+                        _p2ItemText.text = "周回数";
+                        _p3ItemText.text = "イベントマス使用回数";
+                        _p4ItemText.text = "お土産数";
+
+                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
+                        Top1.GetComponent<Image>().color = new Color32(11, 60, 11, 255);
+                        Top2.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
+                        Back.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
+                        P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        Choice = 3;
+                        NextPage = true;
+                        ExPage1 = false;
+                        ExPage2 = false;
+                        //wk = 0;
+                        DeleteGraph(); //グラフ消去
+                    }
+                    if (_selectIndex == 3)
+                    {
+                        text.text = _characters[_selectIndex]._characterName;
+                        image1.enabled = false;
+                        image2.enabled = false;
+                        image3.enabled = false;
+                        image4.enabled = false;
+                        _p1ItemText.text = "総資産";
+                        _p2ItemText.text = "周回数";
+                        _p3ItemText.text = "イベントマス使用回数";
+                        _p4ItemText.text = "お土産数";
+
+                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
+                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
+                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
+                        Top1.GetComponent<Image>().color = new Color32(101, 71, 21, 255);
+                        Top2.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
+                        Back.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
+                        P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        Choice = 4;
+                        NextPage = true;
+                        ExPage1 = false;
+                        ExPage2 = false;
+                        //wk = 0;
+                        DeleteGraph(); //グラフ消去
+                    }
+                }
+                if (wk == 1) //W
+                {
+                    NextPage = false;
+                    ExPage1 = true;
+                    if (Choice == 1)
+                    {
+                        //バグ用
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                        ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                    }
+                    if (Choice == 2)
+                    {
+                        //バグ用
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                }
+                    if (Choice == 3)
+                    {
+                        //バグ用
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                }
+                    if (Choice == 4)
+                    {
+                        //バグ用
+                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                }
+
+                }
+                if (wk == 2) //S
+                {
+                    NextPage = false;
+                    ExPage2 = true;
+                    if (Choice == 1)
+                    {
+                    EX1text.text = "カジノマス";
+                    EX1text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX2text.text = "強制ゴールマス";
+                    EX2text2.text = _characters[_selectIndex]._useEventNumByType[1] + "回";
+                    EX3text.text = "進むマス";
+                    EX3text2.text = _characters[_selectIndex]._useEventNumByType[2] + "回";
+                    EX4text.text = "防御マス";
+                    EX4text2.text = _characters[_selectIndex]._useEventNumByType[3] + "回";
+                    EX5text.text = "いただきマス";
+                    EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
+                    EX6text.text = "全員ワープマス";
+                    EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
+                    EX7text.text = "ゴールマス";
+                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX8text.text = "おこずかいマス";
+                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                }
+                    if (Choice == 2)
+                    {
+                    EX1text.text = "カジノマス";
+                    EX1text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX2text.text = "強制ゴールマス";
+                    EX2text2.text = _characters[_selectIndex]._useEventNumByType[1] + "回";
+                    EX3text.text = "進むマス";
+                    EX3text2.text = _characters[_selectIndex]._useEventNumByType[2] + "回";
+                    EX4text.text = "防御マス";
+                    EX4text2.text = _characters[_selectIndex]._useEventNumByType[3] + "回";
+                    EX5text.text = "いただきマス";
+                    EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
+                    EX6text.text = "全員ワープマス";
+                    EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
+                    EX7text.text = "ゴールマス";
+                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX8text.text = "おこずかいマス";
+                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                }
+                    if (Choice == 3)
+                    {
+                    EX1text.text = "カジノマス";
+                    EX1text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX2text.text = "強制ゴールマス";
+                    EX2text2.text = _characters[_selectIndex]._useEventNumByType[1] + "回";
+                    EX3text.text = "進むマス";
+                    EX3text2.text = _characters[_selectIndex]._useEventNumByType[2] + "回";
+                    EX4text.text = "防御マス";
+                    EX4text2.text = _characters[_selectIndex]._useEventNumByType[3] + "回";
+                    EX5text.text = "いただきマス";
+                    EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
+                    EX6text.text = "全員ワープマス";
+                    EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
+                    EX7text.text = "ゴールマス";
+                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX8text.text = "おこずかいマス";
+                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                }
+                    if (Choice == 4)
+                    {
+                    EX1text.text = "カジノマス";
+                    EX1text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX2text.text = "強制ゴールマス";
+                    EX2text2.text = _characters[_selectIndex]._useEventNumByType[1] + "回";
+                    EX3text.text = "進むマス";
+                    EX3text2.text = _characters[_selectIndex]._useEventNumByType[2] + "回";
+                    EX4text.text = "防御マス";
+                    EX4text2.text = _characters[_selectIndex]._useEventNumByType[3] + "回";
+                    EX5text.text = "いただきマス";
+                    EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
+                    EX6text.text = "全員ワープマス";
+                    EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
+                    EX7text.text = "ゴールマス";
+                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    EX8text.text = "おこずかいマス";
+                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    }
+                }
+
+
+                //if (Choice == 5)
+                //{
+                //    text.text = "結果発表";
+                //    image1.enabled = true;
+                //    image2.enabled = true;
+                //    image3.enabled = true;
+                //    image4.enabled = true;
+                //    //P1text.text = "Player1                                順位条件";
+                //    //P2text.text = "Player2                                順位条件";
+                //    //P3text.text = "Player3                                順位条件";
+                //    //P4text.text = "Player4                                順位条件";
+                //    Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
+                //    Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+                //    Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+                //    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                //    //Choice = 0;
+                //}
+                //else if (Choice == 6)
+                //{
+                //    //タイトルに戻す
+                //    //ChangeScene
+                //    //Choice = 0;
+                //}
+            }
+     }
+   }
