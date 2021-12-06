@@ -1,0 +1,62 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5754340407403619876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5754340407403619873}
+  - component: {fileID: 5754340407403619878}
+  m_Layer: 0
+  m_Name: MiniGameConnection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5754340407403619873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754340407403619876}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5754340407403619878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5754340407403619876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afa9b1c084104c4c82d7ced4cfe035b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _miniGameSceneNames: []
+  _disactiveExceptionList:
+  - {fileID: 5754340407403619876}
+  _debugMode: 1
+  _debugCharactors:
+  - _automatic: 0
+    _name: "\u30D5\u30EC\u30B8\u30A8"
+    _money: 0
+  - _automatic: 1
+    _name: "\u30B7\u30E3\u30C8\u30EC\u30FC\u30BC"
+    _money: 0
+  - _automatic: 1
+    _name: "\u30B7\u30E7\u30FC\u30C8\u30B1\u30FC\u30AD"
+    _money: 0
+  - _automatic: 1
+    _name: "\u30A2\u30C3\u30D7\u30EB\u30D1\u30A4"
+    _money: 0
