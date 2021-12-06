@@ -223,6 +223,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rouletteValues: e8030000d0070000b80b0000a00f0000881300007017000010270000
+--- !u!1 &87262303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1583258996954525255, guid: 5c7966abbe002ae429d90107d7b28e17, type: 3}
+  m_PrefabInstance: {fileID: 1410687715}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &240800706 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2968828845906122165, guid: 29d3e8d7be5d8ed4dbcf9a8a307c3309, type: 3}
@@ -593,6 +598,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _stealEffectPrefab: {fileID: 2910864685895576018, guid: 4420a79d39939ab41bccc444df991970, type: 3}
+--- !u!1 &968128784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968128786}
+  - component: {fileID: 968128785}
+  m_Layer: 0
+  m_Name: '[DOTween]'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &968128785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968128784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -591303064, guid: a811bde74b26b53498b4f6d872b09b6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inspectorUpdater: 0
+--- !u!4 &968128786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968128784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &974197065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2743,6 +2792,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _fadeAnimation
+      value: 
+      objectReference: {fileID: 1410687716}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -2750,6 +2803,18 @@ PrefabInstance:
       propertyPath: _miniGameSceneNames.Array.data[0]
       value: SampleMiniGame
       objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _disactiveExceptionList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _disactiveExceptionList.Array.data[1]
+      value: 
+      objectReference: {fileID: 968128784}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _disactiveExceptionList.Array.data[2]
+      value: 
+      objectReference: {fileID: 87262303}
     m_RemovedComponents:
     - {fileID: 5754340407403619879, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9748690c350ff174692e94624ac37e8f, type: 3}

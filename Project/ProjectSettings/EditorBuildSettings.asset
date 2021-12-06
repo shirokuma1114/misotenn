@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Nakamura/Scene/Title.unity
     guid: 592fa2e5591e9a0489822c7fd57c7dea
   - enabled: 1
+    path: Assets/Komachichan/Scenes/Select.unity
+    guid: c7ef356c0e79ff446a5235ee64554d00
+  - enabled: 1
     path: Assets/Komachichan/Scenes/NewTincleScene.unity
     guid: 6953086f307827f488331b8c00799df2
   - enabled: 1
