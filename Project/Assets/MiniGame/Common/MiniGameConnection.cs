@@ -147,6 +147,8 @@ public class MiniGameConnection : MonoBehaviour
                 continue;
             if (_disactiveExceptionList.Contains(obj.transform.root.gameObject))
                 continue;
+            if (obj.name == "[DOTween]")
+                continue;
 
             _gameSceneActiveObjectTmp.Add(obj);
             obj.SetActive(false);
