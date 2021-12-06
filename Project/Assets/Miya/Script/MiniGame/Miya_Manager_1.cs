@@ -72,6 +72,9 @@ public class Miya_Manager_1 : MonoBehaviour
 	}
 
 
+	public MiniGameResult Result; 
+
+
 	void Start()
 	{
 		_miniGameConnection = MiniGameConnection.Instance;
@@ -206,6 +209,52 @@ public class Miya_Manager_1 : MonoBehaviour
 	private void Completed()
 	{
 		Player_Finished = false;
-		if (CurrentPlayerNumber > 4) FinishGame = true;
+		if (CurrentPlayerNumber > 4)
+		{
+			FinishGame = true;
+			// ƒŠƒUƒ‹ƒg
+			Result.Display(Ranking());
+		}
+	}
+
+
+
+
+	//‡ˆÊ•t‚¯
+	private Dictionary<MiniGameCharacter, int> Ranking()
+	{
+		Dictionary<MiniGameCharacter, int> dispCharacters = new Dictionary<MiniGameCharacter, int>();
+		List<Miya_Controller_1> workCharacters = new List<Miya_Controller_1>();
+		workCharacters.AddRange(_miniGameControllers);
+
+		List<Miya_Controller_1> sameRanks = new List<Miya_Controller_1>();
+		for (int rank = 1; rank <= 4;)
+		{
+			int minDistance = 1000000000;
+			foreach (var chara in workCharacters)
+			{
+				if (chara.Get_DistanceScore() < minDistance)
+				{
+					sameRanks.Clear();
+
+					sameRanks.Add(chara);
+					minDistance = chara.Get_DistanceScore();
+					Debug.Log(minDistance);
+				}
+				else if (chara.Get_DistanceScore() == minDistance)
+				{
+					sameRanks.Add(chara);
+				}
+			}
+
+			foreach (var ranker in sameRanks)
+			{
+				dispCharacters.Add(ranker.Character, rank);
+				workCharacters.Remove(ranker);
+			}
+			rank += sameRanks.Count;
+		}
+
+		return dispCharacters;
 	}
 }

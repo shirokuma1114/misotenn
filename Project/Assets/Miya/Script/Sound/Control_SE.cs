@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Control_SE : MonoBehaviour
 {
+	// singleton
+	static Control_SE Myself = null;
+	static public Control_SE Get_Instance() { return Myself; }
+
+
 	// äOïîÇ©ÇÁì«Ç›çûÇﬁä÷êî
 	public void Play_SE(string _name)
 	{
@@ -27,6 +32,13 @@ public class Control_SE : MonoBehaviour
 	// Start
 	void Start()
 	{
+		// singlegon
+		if ( !Myself )
+		{
+			Myself = this.GetComponent<Control_SE>();
+			DontDestroyOnLoad(this.gameObject);
+		}
+
 		Sound = this.GetComponent<AudioSource>();
 		Initial_SoundVolume = Sound.volume;
 		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;

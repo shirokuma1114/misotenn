@@ -9,6 +9,7 @@ using DG.Tweening;
 public class Miya_Controller_1 : MonoBehaviour
 {
 	private MiniGameCharacter _controller;
+	public MiniGameCharacter Character => _controller;
 	private Miya_Manager_1 _manager;
 
 	[SerializeField]
@@ -30,6 +31,11 @@ public class Miya_Controller_1 : MonoBehaviour
 
 	static int PlayerCount = 0;
 	int PlayerNumber = -1;
+
+
+	int Score_Distance = 0;
+	public int Get_DistanceScore() { return Score_Distance; }
+
 
 
 	// Animation
@@ -206,6 +212,7 @@ public class Miya_Controller_1 : MonoBehaviour
 	{
 		_manager.Inform_Finished();
 		_playerUI.Set_Score((int)_manager.Get_Length_CardToGoal());
+		Score_Distance = (int)_manager.Get_Length_CardToGoal();
 	}
 	// OnDisable
 	private void OnDisable()
