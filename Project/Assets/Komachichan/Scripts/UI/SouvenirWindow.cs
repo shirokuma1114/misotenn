@@ -15,7 +15,12 @@ public class SouvenirWindow : WindowBase
     [SerializeField]
     GameObject _prefab;
 
+    [SerializeField]
+    GameObject _countPrefab;
+
     List<GameObject> _images = new List<GameObject>();
+
+    List<GameObject> _countTexts = new List<GameObject>();
 
     float _defaultPosY;
 
@@ -45,19 +50,38 @@ public class SouvenirWindow : WindowBase
     {
         _frame.enabled = enable;
 
+        foreach(var x in _images)
+        {
+            x.GetComponent<Image>().enabled = enable;
+        }
+
+        foreach(var x in _countTexts)
+        {
+            x.GetComponent<Text>().enabled = enable;
+        }
+        
         if(!enable)
         {
-            foreach (var x in _images)
-                Destroy(x);
-
-            _images.Clear();
             SetDisplayPositionY(_defaultPosY);
         }
     }
 
+    private void DestroySouvenirUI()
+    {
+        foreach (var x in _images)
+            Destroy(x);
+
+        foreach (var x in _countTexts)
+            Destroy(x);
+
+        _images.Clear();
+        _countTexts.Clear();
+    }
+
     public void SetSouvenirs(List<Souvenir> souvenirs)
     {
-
+        DestroySouvenirUI();
+        
         var map = new Dictionary<int, int>();
 
         foreach (var x in souvenirs)
@@ -76,11 +100,18 @@ public class SouvenirWindow : WindowBase
 
             float offset = map[typeId] * 2.0f;
 
-            //float offset = _images.Where(y => y.GetComponent<Souvenir>().Type == x.Type).Count();
-            //obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-47.0f + typeId * 75.0f + offset, -147.0f + offset * 2.0f, 0.0f);
-            obj.GetComponent<RectTransform>().anchoredPosition = new Vector3(-47.0f + typeId * 75.0f + offset, _displayPosY + 49.0f + offset * 2.0f, 0.0f);
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(_frameRt.anchoredPosition.x - 190.0f + typeId * 75.0f + offset, _displayPosY + 49.0f + offset * 2.0f);
             obj.GetComponent<Image>().sprite = x.Sprite;
             _images.Add(obj);
+        }
+
+        for(int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
+        {
+            if (!map.ContainsKey(i)) continue;
+            var obj = Instantiate(_countPrefab, transform);
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(_frameRt.anchoredPosition.x - 200.0f + i * 75.0f, _displayPosY + 20.0f);
+            obj.GetComponent<Text>().text = map[i].ToString();
+            _countTexts.Add(obj);
         }
     }
 }

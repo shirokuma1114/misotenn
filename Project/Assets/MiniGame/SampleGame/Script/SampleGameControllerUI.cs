@@ -7,6 +7,7 @@ public class SampleGameControllerUI : MonoBehaviour
 {
     private Text _playerName;
     private Text _rotateCounter;
+    private Text _rendaKey;
 
     public void SetPlayerName(string playerName)
     {
@@ -18,12 +19,18 @@ public class SampleGameControllerUI : MonoBehaviour
         _rotateCounter.text = count.ToString();
     }
 
+    public void SetRendaKeyEnable(bool enable)
+    {
+        _rendaKey.enabled = enable;
+    }
+
     //================
 
-    void Start()
+    void Awake()
     {
         _playerName = transform.Find("PlayerName").GetComponent<Text>();
         _rotateCounter = transform.Find("RotateCounter").GetComponent<Text>();
+        _rendaKey = transform.Find("RendaKey").GetComponent<Text>();
     }
 
     void Update()
