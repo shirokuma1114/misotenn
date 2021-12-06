@@ -11,14 +11,6 @@ Shader "Custom/Rim"
 	}
 		SubShader
 		{
-			Tags { "RenderType" = "Transparent" "Queue" = "Transparent" }
-			LOD 100
-			Pass
-			{
-				ZWrite ON
-				ColorMask 0
-			}
-
 			Tags { "RenderType" = "Transparent" "Queue" = "Transparent"}
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100
