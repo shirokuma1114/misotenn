@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
 
 public class Miya_Manager_1 : MonoBehaviour
 {
@@ -39,10 +41,35 @@ public class Miya_Manager_1 : MonoBehaviour
 	bool FinishGame = false;
 	public void Set_FinishGame() { FinishGame = true; }
 
+
+	// プレイヤー管理
 	int PlayerCount = 0;
 	public int Get_PlayerCount() { return PlayerCount; }
 	int CurrentPlayerNumber = 1;
 	public int Get_CurrentPlayerNumber() { return CurrentPlayerNumber; }
+
+	bool Player_Finished = false;
+	public void Inform_Finished()
+	{
+		Player_Finished = true;
+
+		Miya_Controller_1.Reset_MeterPercentage();
+	}
+
+	// Animation
+	public Image Card;
+	public Image Get_Card() { return Card; }
+	RectTransform Rect_Card;
+	Sequence Sequence_Initialize;
+
+
+	// GoalLine
+	public Image Goal;
+	float Goal_Length = -1;
+	public float Get_Length_CardToGoal()
+	{
+		return Mathf.Abs(Goal.GetComponent<RectTransform>().localPosition.y - Card.GetComponent<RectTransform>().localPosition.y);
+	}
 
 
 	void Start()
@@ -66,6 +93,15 @@ public class Miya_Manager_1 : MonoBehaviour
 		Timer_Wait = 0;
 
 		FinishGame = false;
+
+
+		// Animation
+		Rect_Card = Card.GetComponent<RectTransform>();
+
+
+		// GoalLine
+		Goal_Length = Random.Range(55 + 50, 55 + 80);
+		Goal.GetComponent<RectTransform>().localPosition = new Vector3(0, -55 + Goal_Length, 0);
 	}
 
 	void Update()
@@ -101,6 +137,9 @@ public class Miya_Manager_1 : MonoBehaviour
 			_state = Miya_State_1.WAIT;
 			_tenukiText.text = "ギリギリチキンレース\nスペースキーを押してチャージ\nスペースキーを離して投げる　";
 			Slider_Percentage.gameObject.SetActive(true);
+
+			Card.gameObject.SetActive(true);
+			Goal.gameObject.SetActive(true);
 		}
 	}
 
@@ -113,10 +152,30 @@ public class Miya_Manager_1 : MonoBehaviour
 		}
 	}
 
+
+	float Second_Wait_NextPlayer = 2.0f;
+	float Conter_Wait_NextPlayer = 0;
 	private void PlayState()
 	{
+		// ゲージ
 		Slider_Percentage.value = Miya_Controller_1.Get_MeterPercentage();
 
+		// プレイヤー変更
+		if ( Player_Finished )
+		{
+			Conter_Wait_NextPlayer += Time.deltaTime;
+			if (Conter_Wait_NextPlayer > Second_Wait_NextPlayer)
+			{
+				Conter_Wait_NextPlayer = 0;
+
+				CurrentPlayerNumber++;
+
+				Set_Animation_Initialize();
+			}
+		}
+
+
+		// 終了
 		if ( FinishGame )
 		{
 			_state = Miya_State_1.RESULT;
@@ -133,5 +192,20 @@ public class Miya_Manager_1 : MonoBehaviour
 	private void EndState()
 	{
 		_miniGameConnection.EndMiniGame();
+	}
+
+
+	private void Set_Animation_Initialize()
+	{
+		Sequence_Initialize = DOTween.Sequence();
+		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -55, 0), 1));
+		Sequence_Initialize.Join(Rect_Card.DORotate(new Vector3(0, 0, 0), 1)
+			.OnComplete(Completed));
+	}
+	// OnComplete
+	private void Completed()
+	{
+		Player_Finished = false;
+		if (CurrentPlayerNumber > 4) FinishGame = true;
 	}
 }

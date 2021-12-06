@@ -12,6 +12,8 @@ public class Control_SE : MonoBehaviour
 		Sound.Play();
 	}
 
+	
+
 	// Setting
 	Setting_SoundUI SoundSetting;
 
