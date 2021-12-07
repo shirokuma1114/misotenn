@@ -140,4 +140,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eab6b9fe75d45134ca147c6735ba4ab6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoundSetting: {fileID: 0}
+  Sound_Contents:
+  - Name: UI_Select
+    Audio: {fileID: 8300000, guid: 51111988ce58ca54083fd22907e7c0b7, type: 3}
+  - Name: UI_Correct
+    Audio: {fileID: 8300000, guid: 39e2e2f6dba02be45a382567d3b54d2b, type: 3}
+  - Name: UI_Close
+    Audio: {fileID: 8300000, guid: 937ec2f416e0d334e904e3dbe2458403, type: 3}
