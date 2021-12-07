@@ -122,7 +122,6 @@ public class CardManager : MonoBehaviour
     //カードをめくる
     public bool SetClickCurd(int num, int _charaId,int _nowStep)
     {
-        Debug.Log("カードめくる：ID：" + _charaId);
         GetCard(num).ClickCurd();
         if (GetCard(num).id == _charaId)
         {
