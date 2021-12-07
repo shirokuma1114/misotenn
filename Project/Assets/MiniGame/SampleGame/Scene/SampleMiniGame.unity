@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 62a8ba6dd2408c54eaa763226c115d78, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -151,7 +151,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.33
+  m_Radius: 8.61
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &243017051
 Transform:
@@ -161,7 +161,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 243017049}
   m_LocalRotation: {x: -0.504177, y: 8.731149e-11, z: 8.731149e-11, w: 0.8636004}
-  m_LocalPosition: {x: 0.00044783577, y: 3.3160276, z: -4.57156}
+  m_LocalPosition: {x: -0, y: 3.07, z: 4.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -660,7 +660,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _debugCharactors.Array.data[1]._automatic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _debugCharactors.Array.data[2]._automatic

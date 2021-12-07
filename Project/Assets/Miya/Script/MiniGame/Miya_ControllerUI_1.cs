@@ -13,9 +13,9 @@ public class Miya_ControllerUI_1 : MonoBehaviour
 		_playerName.text = playerName;
 	}
 
-	public void SetRotateCounter(int count)
+	public void Set_Score(int _score)
 	{
-		_rotateCounter.text = count.ToString();
+		_rotateCounter.text = _score.ToString();
 	}
 
 	//================
@@ -23,7 +23,7 @@ public class Miya_ControllerUI_1 : MonoBehaviour
 	void Start()
 	{
 		_playerName = transform.Find("PlayerName").GetComponent<Text>();
-		_rotateCounter = transform.Find("RotateCounter").GetComponent<Text>();
+		_rotateCounter = transform.Find("Score").GetComponent<Text>();
 	}
 
 	void Update()

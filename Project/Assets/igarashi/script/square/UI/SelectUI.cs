@@ -119,12 +119,13 @@ public class SelectUI : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.W))
         {
-
             _selectIndex--;
             if (_selectIndex < 0)
                 _selectIndex = _selections.Count - 1;
 
             UpdateSelectionColor();
+
+            Control_SE.Get_Instance().Play_SE("UI_Select");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -133,12 +134,16 @@ public class SelectUI : MonoBehaviour
                 _selectIndex = 0;
 
             UpdateSelectionColor();
+
+            Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
         if(Input.GetKeyDown(KeyCode.Return))
         {
             _selectComplete = true;
             Close();
+
+            Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
     }
     private void UpdateSelectionColor()
