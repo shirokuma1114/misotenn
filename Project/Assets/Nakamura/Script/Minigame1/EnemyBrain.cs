@@ -63,132 +63,14 @@ public class EnemyBrain : MonoBehaviour
         var _isRandom = true;
         var _selectCard = -1;//選ぶカード
 
-        //脳内メモリに正解があるか探す
+        //一度でも正解のカードを引いたことがあるか？
+        //引いたことがある
         if(_correctMemory[_nowStep - 1] != -1)
         {
            var ran = Random.Range(0.0f, 1.0f);
+            //自分のカードの位置を覚えてる
             if (ran < _correctMemoryRate) _selectCard = _correctMemory[_nowStep - 1];
-            else
-            {
-                if (lookMemory[_nowStep - 1] != -1)
-                {
-                    var ranLook = Random.Range(0.0f, 1.0f);
-                    if (ranLook < _lookMemoryRate)
-                    {
-                        _selectCard = lookMemory[_nowStep - 1];
-                    }
-                    else
-                    {
-                        var ran2 = Random.Range(0, 4);
-                        _selectCard = ran2 + ((_nowStep - 1) * 4);
-
-                        //前に同じ間違いをしていたら引き直す
-                        for (int i = 0; i < _incorrectMemory.Length; i++)
-                        {
-                            if (_incorrectMemory[i] == _selectCard)
-                            {
-                                TurnCard();
-                                return;
-                            }
-                        }
-
-                        //既に勝った敵がめくっているカードなら引き直す
-                        if (_cardMgr.GetCard(_selectCard).isCanTurn == false)
-                        {
-                            TurnCard();
-                            return;
-                        }
-                    }
-                }
-                else
-                {
-                    if (lookMemory[_nowStep - 1] != -1)
-                    {
-                        var ranLook = Random.Range(0.0f, 1.0f);
-                        if (ranLook < _lookMemoryRate)
-                        {
-                            _selectCard = lookMemory[_nowStep - 1];
-                        }
-                        else
-                        {
-                            var ran2 = Random.Range(0, 4);
-                            _selectCard = ran2 + ((_nowStep - 1) * 4);
-
-                            //前に同じ間違いをしていたら引き直す
-                            for (int i = 0; i < _incorrectMemory.Length; i++)
-                            {
-                                if (_incorrectMemory[i] == _selectCard)
-                                {
-                                    TurnCard();
-                                    return;
-                                }
-                            }
-
-                            //既に勝った敵がめくっているカードなら引き直す
-                            if (_cardMgr.GetCard(_selectCard).isCanTurn == false)
-                            {
-                                TurnCard();
-                                return;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        var ran2 = Random.Range(0, 4);
-                        _selectCard = ran2 + ((_nowStep - 1) * 4);
-
-                        //前に同じ間違いをしていたら引き直す
-                        for (int i = 0; i < _incorrectMemory.Length; i++)
-                        {
-                            if (_incorrectMemory[i] == _selectCard)
-                            {
-                                TurnCard();
-                                return;
-                            }
-                        }
-
-                        //既に勝った敵がめくっているカードなら引き直す
-                        if (_cardMgr.GetCard(_selectCard).isCanTurn == false)
-                        {
-                            TurnCard();
-                            return;
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            if (lookMemory[_nowStep - 1] != -1)
-            {
-                var ranLook = Random.Range(0.0f, 1.0f);
-                if (ranLook < _lookMemoryRate)
-                {
-                    _selectCard = lookMemory[_nowStep - 1];
-                }
-                else
-                {
-                    var ran2 = Random.Range(0, 4);
-                    _selectCard = ran2 + ((_nowStep - 1) * 4);
-
-                    //前に同じ間違いをしていたら引き直す
-                    for (int i = 0; i < _incorrectMemory.Length; i++)
-                    {
-                        if (_incorrectMemory[i] == _selectCard)
-                        {
-                            TurnCard();
-                            return;
-                        }
-                    }
-
-                    //既に勝った敵がめくっているカードなら引き直す
-                    if (_cardMgr.GetCard(_selectCard).isCanTurn == false)
-                    {
-                        TurnCard();
-                        return;
-                    }
-                }
-            }
+            //自分のカードの位置を覚えてない＜完全ランダム＞
             else
             {
                 var ran2 = Random.Range(0, 4);
@@ -212,18 +94,85 @@ public class EnemyBrain : MonoBehaviour
                 }
             }
         }
+        //脳内に正解がない場合
+        else
+        {
+            //自分のカードがめくられたのを見たことがある
+            if (lookMemory[_nowStep - 1] != -1)
+            {
+                var ranLook = Random.Range(0.0f, 1.0f);
+                //自分のカードの位置を思い出せた
+                if (ranLook < _lookMemoryRate)
+                {
+                    _selectCard = lookMemory[_nowStep - 1];
+                }
+                //思い出せなかった＜完全ランダム＞
+                else
+                {
+                    var ran2 = Random.Range(0, 4);
+                    _selectCard = ran2 + ((_nowStep - 1) * 4);
+
+                    //前に同じ間違いをしていたら引き直す
+                    for (int i = 0; i < _incorrectMemory.Length; i++)
+                    {
+                        if (_incorrectMemory[i] == _selectCard)
+                        {
+                            TurnCard();
+                            return;
+                        }
+                    }
+
+                    //既に勝った敵がめくっているカードなら引き直す
+                    if (_cardMgr.GetCard(_selectCard).isCanTurn == false)
+                    {
+                        TurnCard();
+                        return;
+                    }
+                }
+            }
+            //自分のカードのありかをみたことがない＜完全ランダム＞
+            else
+            { 
+                var ran2 = Random.Range(0, 4);
+                _selectCard = ran2 + ((_nowStep - 1) * 4);
+
+                //前に同じ間違いをしていたら引き直す
+                for (int i = 0; i < _incorrectMemory.Length; i++)
+                {
+                    if (_incorrectMemory[i] == _selectCard)
+                    {
+                        TurnCard();
+                        return;
+                    }
+                }
+
+                //既に勝った敵がめくっているカードなら引き直す
+                if (_cardMgr.GetCard(_selectCard).isCanTurn == false)
+                {
+                    TurnCard();
+                    return;
+                }
+            }
+        }
 
         //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-        //　移動
+        //　カーソル移動
+        //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+        var _dis = _selectCard -_nowCursol;
+     
+        if(_dis != 0)
+        {
+            StartCoroutine(CursolChange(_dis));
+        }
+
+        //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
+        //　２秒考えて、めくる
         //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
         DOVirtual.DelayedCall(2, () =>
         {
             _nowCursol = _selectCard;
             _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 
-            //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
-            //　めくる
-            //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
             isControl = false;
             //カーソル位置と照らし合わせてめくったカードの番号を持って置く
             _turnCard[_nowStep - 1] = _nowCursol;
@@ -287,32 +236,34 @@ public class EnemyBrain : MonoBehaviour
         });
     }
 
-    //ランダムにカードを選ぶ関数
-    private void RandomCard(int _select)
+    //カーソル移動コルーチン
+    private IEnumerator CursolChange(int _dis)
     {
-        var ran2 = Random.Range(0, 4);
-        _select = ran2 + ((_nowStep - 1) * 4);
-
-        //前に同じ間違いをしていたら引き直す
-        for (int i = 0; i < _incorrectMemory.Length; i++)
+        while (true) // このGameObjectが有効な間実行し続ける
         {
-            if (_incorrectMemory[i] == _select)
+            yield return new WaitForSeconds(0.8f);
+
+            // 上で指定した秒毎に実行する
+            if (_dis < 0)
             {
-                TurnCard();
-                return;
+                _nowCursol -= 1;
+                _dis += 1;
             }
-        }
+            else
+            {
+                _nowCursol += 1;
+                _dis -= 1;
+            }
+            _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 
-        //既に勝った敵がめくっているカードなら引き直す
-        if (_cardMgr.GetCard(_select).isCanTurn == false)
-        {
-            TurnCard();
-            return;
+            if (_dis == 0) yield break;
         }
     }
 
-
     public int GetId() { return _myId; } 
 
-    //他の人が自分のカードをめくって自分の位置にいれる処理欲しいね
+    //AIの精度をあげるアイデア（実装してないやつ）
+    //・自分のカードを見たことがないとき外す確率
+    //・他の人がカードをめくった時、そのときの位置をメモリに入れておく
+    //・↑の自分のカード以外の位置と覚えている確率をわける
 }

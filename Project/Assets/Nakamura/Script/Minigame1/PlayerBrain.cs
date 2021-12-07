@@ -11,7 +11,7 @@ public class PlayerBrain : MonoBehaviour
     private int _nowCursol;
     private int _nowStep;
     private int[] _turnCard = new int[3];//めくったカード
-
+    private int[] _correctMemory = new int[3];//正解した場所を記憶する
     public int _myId { get; private set;}//正解のカード画像
     public int correctAnswer { get; set; }//正解数
     public bool isControl { get; set; }
@@ -20,9 +20,12 @@ public class PlayerBrain : MonoBehaviour
     {
         _myId = 0;
         correctAnswer = 0;
-
-        //仮に自分からとしておく
-        StartTurn();
+        for (int i = 0; i < 3; i++)
+        {
+            _correctMemory[i] = -1;
+        }
+        ////仮に自分からとしておく
+        //StartTurn();
     }
    
     void Update()
@@ -57,18 +60,31 @@ public class PlayerBrain : MonoBehaviour
                 if (_isCorrect)
                 {
                     //正解数更新
+                    _correctMemory[_nowStep - 1] = _nowCursol;//脳のメモリに入れる
                     if (correctAnswer < _nowStep)
                     {
                         correctAnswer = _nowStep;
                     }
                     _nowStep += 1;
 
-    
-                    //カーソルの位置を次の段の左端にする
-                    _nowCursol = (_nowStep - 1) * 4;
-                    _cardMgr.SetCursolCurd(_nowCursol, _playerColor);
+                    //勝った
+                    if (correctAnswer == 3)
+                    {
+                        _turnController.SetWinner(_myId);
+                        _cardMgr.SetCardCantTurn(_correctMemory);//カード裏返せなくする
+                        _turnController.TurnChange();
 
-                    DOVirtual.DelayedCall(0.5f, () => isControl = true);
+                        Debug.Log("勝った敵脳内");
+                        return;
+                    }
+                    else
+                    {
+                        //カーソルの位置を次の段の左端にする
+                        _nowCursol = (_nowStep - 1) * 4;
+                        _cardMgr.SetCursolCurd(_nowCursol, _playerColor);
+
+                        DOVirtual.DelayedCall(0.5f, () => isControl = true);
+                    }
                 }
                 else
                 {
