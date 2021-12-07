@@ -38,6 +38,10 @@ public class Control_SE : MonoBehaviour
 			Myself = this.GetComponent<Control_SE>();
 			DontDestroyOnLoad(this.gameObject);
 		}
+        else
+        {
+            Destroy(gameObject);
+        }
 
 		Sound = this.GetComponent<AudioSource>();
 		Initial_SoundVolume = Sound.volume;
