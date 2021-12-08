@@ -136,6 +136,8 @@ public class RouletteUI : MonoBehaviour
         if (!_character.IsAutomatic && !_isPushed && Input.GetKeyDown(KeyCode.Return))
         {
             Push();
+
+            Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
     }
 
