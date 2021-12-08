@@ -27,6 +27,10 @@ public class CasinoGame : MonoBehaviour
 
     private bool _autoPlay;
 
+
+    [SerializeField]
+    private List<Sprite> _cardNumberSprites;
+
     [SerializeField]
     private KeyCode _right = KeyCode.D;
     [SerializeField]
@@ -40,17 +44,17 @@ public class CasinoGame : MonoBehaviour
         _answerIndex = Random.Range(0, 3);
 
         _originCardNumber = Random.Range(2, 12);
-        _originCard.InitDisplay(_originCardNumber);
+        _originCard.InitDisplay(_cardNumberSprites[_originCardNumber - 1]);
         
         for(int i = 0; i < _selectCards.Count;i++)
         {
             if(i == _answerIndex)
             {
-                _selectCards[i].InitDisplay(Random.Range(_originCardNumber + 1, CARD_NUMBER_MAX),true);
+                _selectCards[i].InitDisplay(_cardNumberSprites[Random.Range(_originCardNumber + 1, CARD_NUMBER_MAX) - 1],true);
             }
             else
             {
-                _selectCards[i].InitDisplay(Random.Range(CARD_NUMBER_MIN, _originCardNumber - 1),true);
+                _selectCards[i].InitDisplay(_cardNumberSprites[Random.Range(CARD_NUMBER_MIN, _originCardNumber - 1) - 1], true);
             }
         }
 
