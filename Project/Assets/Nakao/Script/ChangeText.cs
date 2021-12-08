@@ -70,10 +70,10 @@ public class ChangeText : MonoBehaviour
     public Image EX5in;
     public Image EX6out;
     public Image EX6in;
-    public Image EX7out;
-    public Image EX7in;
-    public Image EX8out;
-    public Image EX8in;
+    //public Image EX7out;
+    //public Image EX7in;
+    //public Image EX8out;
+    //public Image EX8in;
 
     public Text EX1text;
     public Text EX2text;
@@ -81,16 +81,16 @@ public class ChangeText : MonoBehaviour
     public Text EX4text;
     public Text EX5text;
     public Text EX6text;
-    public Text EX7text;
-    public Text EX8text;
+    //public Text EX7text;
+    //public Text EX8text;
     public Text EX1text2;
     public Text EX2text2;
     public Text EX3text2;
     public Text EX4text2;
     public Text EX5text2;
     public Text EX6text2;
-    public Text EX7text2;
-    public Text EX8text2;
+    //public Text EX7text2;
+    //public Text EX8text2;
 
     public Image EX1n2out;
     public Image EX1n2in;
@@ -407,32 +407,32 @@ public class ChangeText : MonoBehaviour
             EX4out.enabled = false;
             EX5out.enabled = false;
             EX6out.enabled = false;
-            EX7out.enabled = false;
-            EX8out.enabled = false;
+            //EX7out.enabled = false;
+            //EX8out.enabled = false;
             EX1in.enabled = false;
             EX2in.enabled = false;
             EX3in.enabled = false;
             EX4in.enabled = false;
             EX5in.enabled = false;
             EX6in.enabled = false;
-            EX7in.enabled = false;
-            EX8in.enabled = false;
+            //EX7in.enabled = false;
+            //EX8in.enabled = false;
             EX1text.enabled = false;
             EX2text.enabled = false;
             EX3text.enabled = false;
             EX4text.enabled = false;
             EX5text.enabled = false;
             EX6text.enabled = false;
-            EX7text.enabled = false;
-            EX8text.enabled = false;
+            //EX7text.enabled = false;
+            //EX8text.enabled = false;
             EX1text2.enabled = false;
             EX2text2.enabled = false;
             EX3text2.enabled = false;
             EX4text2.enabled = false;
             EX5text2.enabled = false;
             EX6text2.enabled = false;
-            EX7text2.enabled = false;
-            EX8text2.enabled = false;
+            //EX7text2.enabled = false;
+            //EX8text2.enabled = false;
 
             P1mout.enabled = true;
             P1min.enabled = true;
@@ -459,32 +459,32 @@ public class ChangeText : MonoBehaviour
             EX4out.enabled = true;
             EX5out.enabled = true;
             EX6out.enabled = true;
-            EX7out.enabled = true;
-            EX8out.enabled = true;
+            //EX7out.enabled = true;
+            //EX8out.enabled = true;
             EX1in.enabled = true;
             EX2in.enabled = true;
             EX3in.enabled = true;
             EX4in.enabled = true;
             EX5in.enabled = true;
             EX6in.enabled = true;
-            EX7in.enabled = true;
-            EX8in.enabled = true;
+            //EX7in.enabled = true;
+            //EX8in.enabled = true;
             EX1text.enabled = true;
             EX2text.enabled = true;
             EX3text.enabled = true;
             EX4text.enabled = true;
             EX5text.enabled = true;
             EX6text.enabled = true;
-            EX7text.enabled = true;
-            EX8text.enabled = true;
+            //EX7text.enabled = true;
+            //EX8text.enabled = true;
             EX1text2.enabled = true;
             EX2text2.enabled = true;
             EX3text2.enabled = true;
             EX4text2.enabled = true;
             EX5text2.enabled = true;
             EX6text2.enabled = true;
-            EX7text2.enabled = true;
-            EX8text2.enabled = true;
+            //EX7text2.enabled = true;
+            //EX8text2.enabled = true;
 
             P1mout.enabled = false;
             P1min.enabled = false;
@@ -956,10 +956,11 @@ public class ChangeText : MonoBehaviour
                     EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
                     EX6text.text = "全員ワープマス";
                     EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
-                    EX7text.text = "ゴールマス";
-                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
-                    EX8text.text = "おこずかいマス";
-                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+
+                    //EX7text.text = "ゴールマス";
+                    //EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    //EX8text.text = "おこずかいマス";
+                    //EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
                 }
                     if (Choice == 2)
                     {
@@ -975,10 +976,10 @@ public class ChangeText : MonoBehaviour
                     EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
                     EX6text.text = "全員ワープマス";
                     EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
-                    EX7text.text = "ゴールマス";
-                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
-                    EX8text.text = "おこずかいマス";
-                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    //EX7text.text = "ゴールマス";
+                    //EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    //EX8text.text = "おこずかいマス";
+                    //EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
                 }
                     if (Choice == 3)
                     {
@@ -994,10 +995,10 @@ public class ChangeText : MonoBehaviour
                     EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
                     EX6text.text = "全員ワープマス";
                     EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
-                    EX7text.text = "ゴールマス";
-                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
-                    EX8text.text = "おこずかいマス";
-                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    //EX7text.text = "ゴールマス";
+                    //EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    //EX8text.text = "おこずかいマス";
+                    //EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
                 }
                     if (Choice == 4)
                     {
@@ -1013,10 +1014,10 @@ public class ChangeText : MonoBehaviour
                     EX5text2.text = _characters[_selectIndex]._useEventNumByType[4] + "回";
                     EX6text.text = "全員ワープマス";
                     EX6text2.text = _characters[_selectIndex]._useEventNumByType[5] + "回";
-                    EX7text.text = "ゴールマス";
-                    EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
-                    EX8text.text = "おこずかいマス";
-                    EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    //EX7text.text = "ゴールマス";
+                    //EX7text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
+                    //EX8text.text = "おこずかいマス";
+                    //EX8text2.text = _characters[_selectIndex]._useEventNumByType[0] + "回";
                     }
                 }
 
