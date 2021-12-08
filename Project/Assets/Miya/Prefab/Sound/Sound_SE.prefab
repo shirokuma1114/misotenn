@@ -147,3 +147,5 @@ MonoBehaviour:
     Audio: {fileID: 8300000, guid: 39e2e2f6dba02be45a382567d3b54d2b, type: 3}
   - Name: UI_Close
     Audio: {fileID: 8300000, guid: 937ec2f416e0d334e904e3dbe2458403, type: 3}
+  - Name: Goal
+    Audio: {fileID: 8300000, guid: c1de5c6b536274e4494375e83558280d, type: 3}
