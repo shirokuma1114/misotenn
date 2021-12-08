@@ -2,7 +2,7 @@ Shader "Unlit/TwoSideSprite"
 {
     Properties
     {
-        _FrontTex ("TextureFront", 2D) = "white" {}
+        _MainTex ("TextureFront", 2D) = "white" {}
 		_BuckTex("TextureBuck", 2D) = "white" {}
     }
     SubShader
@@ -33,7 +33,7 @@ Shader "Unlit/TwoSideSprite"
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _FrontTex;
+            sampler2D _MainTex;
             sampler2D _BuckTex;
             float4 _MainTex_ST;
 
@@ -48,7 +48,7 @@ Shader "Unlit/TwoSideSprite"
 
 			fixed4 frag(v2f i, fixed facing : VFACE) : SV_Target
 			{
-				return (facing > 0) ? tex2D(_FrontTex, i.uv) : tex2D(_BuckTex, i.uv);
+				return (facing > 0) ? tex2D(_MainTex, i.uv) : tex2D(_BuckTex, i.uv);
 			}
 		ENDCG
         }

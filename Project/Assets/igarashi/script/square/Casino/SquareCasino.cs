@@ -102,6 +102,8 @@ public class SquareCasino : SquareBase
 
         _selectUI.Open(_selectElements,character);
 
+        Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
+
 
         _state = SquareCasinoState.PAY;
     }
@@ -159,6 +161,8 @@ public class SquareCasino : SquareBase
             // ~‚Ü‚éˆ—I—¹
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
+
+            Camera.main.GetComponent<CameraInterpolation>().Leave_Event();
 
             _state = SquareCasinoState.IDLE;
         }

@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5780181747463344338
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7496408176500283412}
+  - component: {fileID: 4132796997238245953}
+  m_Layer: 0
+  m_Name: TrumpCreater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7496408176500283412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5780181747463344338}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 88.743484, y: 116.58448, z: -13.726959}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4132796997238245953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5780181747463344338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43eab34750d69714a81e37a86ed742a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _TrumpPrefabs:
+  - {fileID: 2605853987925602428, guid: bfcfca9a5d7ef80418208e022ca1e217, type: 3}
+  - {fileID: 4965495741042014403, guid: fe211e7d096028f48a37267ecdd7ff71, type: 3}
+  - {fileID: 4623641606307806044, guid: d4052af6c5eb60647b8ab4a00d773e69, type: 3}
+  - {fileID: 1326946080209383306, guid: 8bc31ef152694364893f9b288190fb84, type: 3}
+  - {fileID: 8625848764968869945, guid: e337c233db965d046b4303b5d23db882, type: 3}
+  - {fileID: 2423173589663333128, guid: e5fe363271557914faf17dfe16e18fbb, type: 3}
+  - {fileID: 1296231285825224492, guid: 64b7343babedc6f4cb8ecf9701e9dbd7, type: 3}
+  - {fileID: 3136924657076583767, guid: d4bcb8829c4246b4b83eb0376a16be5c, type: 3}
+  - {fileID: 3710701264058529509, guid: a00f1bb9b10fec0499cf301d79c71092, type: 3}
+  - {fileID: 5906192961146044005, guid: dd312c623185159408dee46db32d1593, type: 3}
+  - {fileID: 8905718965744405486, guid: 1a65722e67f7c9d4cb94032159ec6714, type: 3}
+  - {fileID: 4054439039273425740, guid: 8a4290bb442e87848995c298f5a701df, type: 3}
+  - {fileID: 902511623996644766, guid: 9dde3543f55481d44a85843fde248bca, type: 3}
