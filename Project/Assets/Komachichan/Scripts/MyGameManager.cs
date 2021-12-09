@@ -14,6 +14,7 @@ public class MyGameManager : MonoBehaviour
         WAIT_TURN_END,
         FADE_OUT,
         MOVE_CAMERA,
+        MINI_GAME,
         CLEAR,
         NEXT_SCENE
     }
@@ -280,7 +281,7 @@ public class MyGameManager : MonoBehaviour
             {
                 _phase = Phase.CLEAR;
                 _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
-                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", false);
+                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character);
 
                 // このターンのおこづかい
                 _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);

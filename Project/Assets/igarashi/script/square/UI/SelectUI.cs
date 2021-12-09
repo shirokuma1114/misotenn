@@ -30,6 +30,7 @@ public class SelectUI : MonoBehaviour
     [SerializeField]
     private Color NOT_SELECT_COLOR = new Color(1, 1, 1, 1);
 
+    private float beforeTrigger;
 
     /// <summary>
     /// UI‚ðŠJ‚­
@@ -117,7 +118,35 @@ public class SelectUI : MonoBehaviour
         if (_openerCharacter.IsAutomatic)
             return;
 
-        if(Input.GetKeyDown(KeyCode.W))
+        float viewButton = _openerCharacter.Input.GetAxis("Vertical");
+        if (beforeTrigger == 0.0f)
+        {
+            if (viewButton < 0)
+            {
+                _selectIndex--;
+                if (_selectIndex < 0)
+                    _selectIndex = _selections.Count - 1;
+
+                UpdateSelectionColor();
+
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+
+            if(viewButton > 0)
+            {
+                _selectIndex++;
+                if (_selectIndex >= _selections.Count)
+                    _selectIndex = 0;
+
+                UpdateSelectionColor();
+
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+        }
+
+        beforeTrigger = viewButton;
+
+        if (Input.GetKeyDown(KeyCode.W))
         {
             _selectIndex--;
             if (_selectIndex < 0)
@@ -138,7 +167,7 @@ public class SelectUI : MonoBehaviour
             if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(KeyCode.Return) || _openerCharacter.Input.GetButtonDown("A"))
         {
             _selectComplete = true;
             Close();

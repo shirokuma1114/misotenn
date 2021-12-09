@@ -88,7 +88,7 @@ public class SquareSteal : SquareBase
         //‚¨‹àƒ`ƒFƒbƒN
         if (!_character.CanPay(_cost))
         {
-            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
+            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character);
             _state = SquareStealState.END;
             return;
         }
@@ -103,7 +103,7 @@ public class SquareSteal : SquareBase
 
 
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H";
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
@@ -140,7 +140,7 @@ public class SquareSteal : SquareBase
                 _selectElements.Add("‚â‚ß‚é");
 
                 _selectUI.Open(_selectElements, _character);
-                _messageWindow.SetMessage("’N‚©‚ç‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H", _character.IsAutomatic);
+                _messageWindow.SetMessage("’N‚©‚ç‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H", _character);
 
                 _state = SquareStealState.SLECT_TARGET;
 
@@ -204,14 +204,14 @@ public class SquareSteal : SquareBase
 
             if (targetCharacter.gameObject.GetComponent<Protector>().IsProtected)
             {
-                _messageWindow.SetMessage(targetCharacter.Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
             }
             else if(targetCharacter.Souvenirs.Count == 0)
             {
-                _messageWindow.SetMessage(targetCharacter.Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
@@ -225,7 +225,7 @@ public class SquareSteal : SquareBase
                 targetCharacter.RemoveSouvenir(targetSouvenirIndex);
 
                 var message = _character.Name + "‚Í" + targetCharacter.Name + "‚Ì" + targetSouvenir.Name + "‚ğ’D‚Á‚½I";
-                _messageWindow.SetMessage(message, _character.IsAutomatic);
+                _messageWindow.SetMessage(message, _character);
 
                 _souvenirWindow.SetSouvenirs(_character.Souvenirs);
                 _souvenirWindow.SetEnable(true);

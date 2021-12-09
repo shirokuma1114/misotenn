@@ -38,9 +38,13 @@ public class CasinoGame : MonoBehaviour
     [SerializeField]
     private KeyCode _enter = KeyCode.Return;
 
+    CharacterBase _character;
+    private float beforeTrigger;
 
-    public void Play(bool autoPlay = false)
+    public void Play(CharacterBase character)
     {
+        _character = character;
+
         _answerIndex = Random.Range(0, 3);
 
         _originCardNumber = Random.Range(2, 12);
@@ -67,8 +71,8 @@ public class CasinoGame : MonoBehaviour
         _complate = false;
         _selectEnd = false;
 
-        _autoPlay = autoPlay;
-        if (autoPlay)
+        _autoPlay = character.IsAutomatic;
+        if (_autoPlay)
         {
             _selectIndex = Random.Range(0, 3);
             _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
@@ -134,7 +138,30 @@ public class CasinoGame : MonoBehaviour
         if (_autoPlay)
             return;
 
-        if(Input.GetKeyDown(_right))
+        float viewButton = _character.Input.GetAxis("Horizontal");
+
+        if (beforeTrigger == 0.0f)
+        {
+            if (viewButton < 0)
+            {
+                _selectIndex++;
+                _selectIndex = Mathf.Min(_selectIndex, _selectCards.Count - 1);
+
+                _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
+            }
+
+            if(viewButton > 0)
+            {
+                _selectIndex--;
+                _selectIndex = Mathf.Max(_selectIndex, 0);
+
+                _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
+            }
+        }
+
+        beforeTrigger = viewButton;
+
+        if (Input.GetKeyDown(_right))
         {
             _selectIndex++;
             _selectIndex = Mathf.Min(_selectIndex, _selectCards.Count - 1);
@@ -149,7 +176,7 @@ public class CasinoGame : MonoBehaviour
             _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
         }
 
-        if(Input.GetKeyDown(_enter))
+        if(Input.GetKeyDown(_enter) || _character.Input.GetButtonDown("A"))
         {
             foreach(var card in _selectCards)
             {
