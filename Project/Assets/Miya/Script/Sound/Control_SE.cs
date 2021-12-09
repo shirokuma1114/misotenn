@@ -14,6 +14,7 @@ public class Control_SE : MonoBehaviour
 	{
 		Sound_List content = Sound_Contents.Find(l => l.Name == _name);
 		Sound.clip = content.Audio;
+		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE * content.Volume;
 		Sound.Play();
 	}
 

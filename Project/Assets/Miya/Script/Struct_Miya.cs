@@ -8,4 +8,5 @@ public struct Sound_List
 {
 	public string		Name;
 	public AudioClip	Audio;
+	public float		Volume;
 }
