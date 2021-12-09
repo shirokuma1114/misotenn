@@ -44,7 +44,7 @@ public class Miya_Controller_1 : MonoBehaviour
 	Sequence Sequence_Initialize;
 	Sequence Sequence_Throw;
 
-	float TotalLength = 150 + 55;
+	float TotalLength = 300 + 300;
 
 
 	// CPU
@@ -84,7 +84,7 @@ public class Miya_Controller_1 : MonoBehaviour
 
 		// CPU
 		AI_State = 0;
-		AI_Second_Throw = Random.Range(Second_Meter - 1, Second_Meter - 0.2f);
+		AI_Second_Throw = Random.Range(Second_Meter - 0.5f, Second_Meter - 0.2f);
 		Counter_AI = 0;
 	}
 
@@ -193,8 +193,9 @@ public class Miya_Controller_1 : MonoBehaviour
 	private void Set_Animation()
 	{
 		Sequence_Throw = DOTween.Sequence();
-		Sequence_Throw.Append(Rect_Card.DOLocalMove(new Vector3(0, -55 + TotalLength * Percentage_Meter, 0), 3));
-		Sequence_Throw.Join(Rect_Card.DORotate(new Vector3(0, 0, 360 + 360 * Percentage_Meter), 3)
+		Sequence_Throw.Append(Rect_Card.DOLocalMove(new Vector3( -300 +TotalLength * Percentage_Meter, 0
+			, 0), 4));
+		Sequence_Throw.Join(Rect_Card.DORotate(new Vector3(0, 0, 360 + 360 * Percentage_Meter), 4)
 			.OnComplete(Completed));
 
 		//Debug.Log("Test");
@@ -203,7 +204,7 @@ public class Miya_Controller_1 : MonoBehaviour
 	public void Set_Animation_Initialize()
 	{
 		Sequence_Initialize = DOTween.Sequence();
-		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -55, 0), 1));
+		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(-300, 0, 0), 1));
 		Sequence_Initialize.Join(Rect_Card.DORotate(new Vector3(0, 0, 0), 1));
 	}
 

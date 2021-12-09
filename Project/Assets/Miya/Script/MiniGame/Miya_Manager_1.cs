@@ -68,8 +68,11 @@ public class Miya_Manager_1 : MonoBehaviour
 	float Goal_Length = -1;
 	public float Get_Length_CardToGoal()
 	{
-		return Mathf.Abs(Goal.GetComponent<RectTransform>().localPosition.y - Card.GetComponent<RectTransform>().localPosition.y);
+		return Mathf.Abs(Goal.GetComponent<RectTransform>().localPosition.x - Card.GetComponent<RectTransform>().localPosition.x);
 	}
+
+	// Back
+	public Image Board;
 
 
 	public MiniGameResult Result; 
@@ -103,8 +106,8 @@ public class Miya_Manager_1 : MonoBehaviour
 
 
 		// GoalLine
-		Goal_Length = Random.Range(55 + 50, 55 + 80);
-		Goal.GetComponent<RectTransform>().localPosition = new Vector3(0, -55 + Goal_Length, 0);
+		Goal_Length = Random.Range(100, 200);
+		Goal.GetComponent<RectTransform>().localPosition = new Vector3( Goal_Length , 0, 0);
 	}
 
 	void Update()
@@ -138,11 +141,12 @@ public class Miya_Manager_1 : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Return))
 		{
 			_state = Miya_State_1.WAIT;
-			_tenukiText.text = "ギリギリチキンレース\nスペースキーを押してチャージ\nスペースキーを離して投げる　";
+			//_tenukiText.text = "ギリギリチキンレース\nスペースキーを押してチャージ\nスペースキーを離して投げる　";
 			Slider_Percentage.gameObject.SetActive(true);
 
 			Card.gameObject.SetActive(true);
 			Goal.gameObject.SetActive(true);
+			//Board.gameObject.SetActive(true);
 		}
 	}
 
@@ -201,7 +205,7 @@ public class Miya_Manager_1 : MonoBehaviour
 	private void Set_Animation_Initialize()
 	{
 		Sequence_Initialize = DOTween.Sequence();
-		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -55, 0), 1));
+		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(-300, 0, 0), 1));
 		Sequence_Initialize.Join(Rect_Card.DORotate(new Vector3(0, 0, 0), 1)
 			.OnComplete(Completed));
 	}
