@@ -4,8 +4,10 @@ using UnityEngine;
 
 [System.Serializable] // •K{
 
-public struct Sound_List
+public class Sound_List
 {
 	public string		Name;
 	public AudioClip	Audio;
+	public float		Volume;
+	public bool			Loop;
 }
