@@ -8,15 +8,30 @@ public class DontDestroyManager : MonoBehaviour
 {
     private static DontDestroyManager instance = null;
 
+    private CharacterType[] _characterTypes;
+
     private List<CharacterData> _characters;
 
     private float _textSpeed;
 
     public float TextSpeed => _textSpeed;
 
+    [SerializeField]
+    private bool _isDebug = false;
+
     // Start is called before the first frame update
     void Awake()
     {
+        if (_isDebug)
+        {
+            _characterTypes = new CharacterType[4];
+            _characterTypes[0] = CharacterType.PLAYER1;
+            _characterTypes[1] = CharacterType.COM2;
+            _characterTypes[2] = CharacterType.COM3;
+            _characterTypes[3] = CharacterType.COM4;
+        }
+
+
         if (instance == null)
         {
             instance = this;
@@ -77,5 +92,15 @@ public class DontDestroyManager : MonoBehaviour
     public CharacterData[] GetCharacterData()
     {
         return _characters.ToArray();
+    }
+
+    public void SetInitCharacterTypes(CharacterType[] characterTypes)
+    {
+        _characterTypes = characterTypes;
+    }
+
+    public List<CharacterType> GetCharacterTypes()
+    {
+        return _characterTypes.ToList();
     }
 }

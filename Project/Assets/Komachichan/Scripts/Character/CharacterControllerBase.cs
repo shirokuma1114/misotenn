@@ -16,7 +16,9 @@ public class CharacterControllerBase : MonoBehaviour
     }
     
     protected CharacterBase _character;
-    
+
+    public KomachiInput Input => _character.Input;
+
     protected bool _isAutomatic;
 
     protected SelectWindow _selectWindow;
