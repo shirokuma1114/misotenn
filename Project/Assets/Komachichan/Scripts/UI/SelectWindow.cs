@@ -29,6 +29,8 @@ public class SelectWindow : WindowBase
 
     float _textY;
 
+    CharacterBase _character;
+
     bool _automaticMode;
 
     bool _calledSelectAuto;
@@ -94,11 +96,12 @@ public class SelectWindow : WindowBase
         _enable = enable;
     }
 
-    public void SetIsAutomatic(bool isAutomatic)
+    public void SetCharacter(CharacterBase character)
     {
         _selectIndex = 0;
         _calledSelectAuto = false;
-        _automaticMode = isAutomatic;
+        _character = character;
+        _automaticMode = character.IsAutomatic;
     }
 
     private void SelectAuto()

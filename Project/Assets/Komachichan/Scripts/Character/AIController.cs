@@ -50,7 +50,7 @@ public class AIController : CharacterControllerBase
         _statusWindow.SetLapNum(_character.LapCount);
         _souvenirWindow.SetSouvenirs(_character.Souvenirs);
         _souvenirWindow.SetEnable(true);
-        _selectWindow.SetIsAutomatic(_character.IsAutomatic);
+        _selectWindow.SetCharacter(_character);
         _selectWindow.SetEnable(true);
     }
 
