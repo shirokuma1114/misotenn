@@ -46,7 +46,7 @@ public class OkozukaiEnshutsu : MonoBehaviour
 
     public void Kill()
     {
-        Destroy(ParticleSystem_m.gameObject);
+        Destroy(Particle_Instance);
     }
 
 	// Update

@@ -61,14 +61,14 @@ public class SelectWindow : WindowBase
             _selectIndex = Mathf.Max(0, --_selectIndex);
             move = true;
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             _selectIndex = Mathf.Min(_selectTexts.Count - 1, ++_selectIndex);
             move = true;
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
         if (Input.GetKeyDown(KeyCode.Return))
@@ -76,14 +76,14 @@ public class SelectWindow : WindowBase
             Invoke("ShowWindow", 0.001f);
             //ShowWindow();
 
-            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
 
         if (_backToWindow && Input.GetKeyDown(KeyCode.Escape))
         {
             Invoke("BackWindow", 0.001f);
 
-            Control_SE.Get_Instance().Play_SE("UI_Close");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Close");
         }
 
         if (move)

@@ -88,13 +88,14 @@ public class SquareAllowance : SquareBase
 
         if(_phase == Phase.GET_MESSAGE)
         {
-            if (!_messageWindow.IsDisplayed && _effect.Get_Completed())
+            if (!_messageWindow.IsDisplayed)
             {
                 // é~Ç‹ÇÈèàóùèIóπ
                 _character.CompleteStopExec();
                 _phase = Phase.NONE;
                 _rouletteUI.End();
                 _statusWindow.SetEnable(false);
+                _effect.Kill();
             }
         }
     }
