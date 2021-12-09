@@ -10,6 +10,7 @@ public class MiniGameCharacter
     public virtual bool IsAutomatic => _ridingCharacter.IsAutomatic;
     public virtual string Name => _ridingCharacter.Name;
     public virtual int Money => _ridingCharacter.Money;
+    public virtual KomachiInput Input => _ridingCharacter.Input;
 
     public MiniGameCharacter(CharacterBase controller)
     {
@@ -32,10 +33,15 @@ public class DebugMiniGameCharacter : MiniGameCharacter
     private string _name;
     [SerializeField]
     private int _money;
+    [SerializeField]
+    private int _inputID;
+
+    private KomachiInput _input;
 
     public override bool IsAutomatic => _automatic;
     public override string Name => _name;
     public override int Money => _money;
+    public override KomachiInput Input => _input;
 
     public DebugMiniGameCharacter() : base(null)
     {
@@ -46,6 +52,7 @@ public class DebugMiniGameCharacter : MiniGameCharacter
         _automatic = debugCharacter._automatic;
         _name = debugCharacter._name;
         _money = debugCharacter._money;
+        _input = new KomachiInput(debugCharacter._inputID);
     }
 
     public override void AddMoney(int money)
