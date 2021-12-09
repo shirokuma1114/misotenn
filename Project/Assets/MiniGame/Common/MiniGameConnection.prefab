@@ -46,13 +46,14 @@ MonoBehaviour:
   _miniGameSceneNames: []
   _disactiveExceptionList:
   - {fileID: 5754340407403619876}
+  _fadeAnimation: {fileID: 0}
   _debugMode: 1
   _debugCharactors:
   - _automatic: 0
     _name: "\u30D5\u30EC\u30B8\u30A8"
     _money: 0
   - _automatic: 1
-    _name: "\u30B7\u30E3\u30C8\u30EC\u30FC\u30BC"
+    _name: "\u30B6\u30C3\u30CF\u30C8\u30EB\u30C6"
     _money: 0
   - _automatic: 1
     _name: "\u30B7\u30E7\u30FC\u30C8\u30B1\u30FC\u30AD"

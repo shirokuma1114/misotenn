@@ -88,13 +88,8 @@ public class MiniGameConnection : MonoBehaviour
             return;
         }
 
-        SceneManager.UnloadSceneAsync(_playingMiniGameScene.buildIndex);
-
-        foreach (var obj in _gameSceneActiveObjectTmp)
-        {
-            obj.SetActive(true);
-        }
-        _gameSceneActiveObjectTmp.Clear();
+        _fadeAnimation.Play("FadeOut");
+        Invoke("MiniGameUnload", 1.0f);
     }
 
     //======================
@@ -147,6 +142,8 @@ public class MiniGameConnection : MonoBehaviour
                 continue;
             if (_disactiveExceptionList.Contains(obj.transform.root.gameObject))
                 continue;
+            if (obj.name == "[DOTween]")
+                continue;
 
             _gameSceneActiveObjectTmp.Add(obj);
             obj.SetActive(false);
@@ -178,5 +175,18 @@ public class MiniGameConnection : MonoBehaviour
         }
         _fadeAnimation.Play("FadeIn");
         SceneManager.SetActiveScene(_playingMiniGameScene);
+    }
+
+    private void MiniGameUnload()
+    {
+        SceneManager.UnloadSceneAsync(_playingMiniGameScene.buildIndex);
+
+        foreach (var obj in _gameSceneActiveObjectTmp)
+        {
+            obj.SetActive(true);
+        }
+        _gameSceneActiveObjectTmp.Clear();
+
+        _fadeAnimation.Play("FadeIn");
     }
 }

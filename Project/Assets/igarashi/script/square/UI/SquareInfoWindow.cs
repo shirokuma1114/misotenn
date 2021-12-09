@@ -75,6 +75,8 @@ public class SquareInfoWindow : WindowBase
             {
                 SetEnable(false);
                 _backToWindow.SetEnable(true);
+
+                Control_SE.Get_Instance().Play_SE("UI_Close");
             }
         }        
     }

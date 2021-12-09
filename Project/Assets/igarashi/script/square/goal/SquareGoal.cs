@@ -61,6 +61,8 @@ public class SquareGoal : SquareBase
 
         Goal(character);
 
+        Control_SE.Get_Instance().Play_SE("Goal");
+
         _state = SquareGoalState.END;
     }
 

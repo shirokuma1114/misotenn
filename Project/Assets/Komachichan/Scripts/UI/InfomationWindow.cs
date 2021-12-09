@@ -49,6 +49,8 @@ public class InfomationWindow : WindowBase
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
         {
             Invoke("BackToWindow", 0.01f);
+
+            Control_SE.Get_Instance().Play_SE("UI_Close");
         }
     }
 
