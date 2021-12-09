@@ -50,7 +50,7 @@ public class SquareAllowance : SquareBase
         // インスタンス生成
         var message =  character.Name + "は\nおこづかいマスに　止まった！";
 
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
 
         _phase = Phase.INIT_MESSAGE;

@@ -76,12 +76,12 @@ public class SquareCasino : SquareBase
         //お金チェック
         if (_character.Money == 0)
         {
-            _messageWindow.SetMessage("お金がありません", character.IsAutomatic);
+            _messageWindow.SetMessage("お金がありません", character);
             _state = SquareCasinoState.END;
             return;
         }
 
-        _messageWindow.SetMessage("賭ける額を選択してください", character.IsAutomatic);
+        _messageWindow.SetMessage("賭ける額を選択してください", character);
         _statusWindow.SetEnable(true);
 
 
@@ -125,8 +125,8 @@ public class SquareCasino : SquareBase
             _character.SubMoney(_bet);
 
 
-            _casinoGameUI.Play(_character.IsAutomatic);
-            _messageWindow.SetMessage("上のオープンしているカードより\n高いと思うカードを選択してください", _character.IsAutomatic);
+            _casinoGameUI.Play(_character);
+            _messageWindow.SetMessage("上のオープンしているカードより\n高いと思うカードを選択してください", _character);
 
             _statusWindow.SetEnable(false);
 
@@ -143,12 +143,12 @@ public class SquareCasino : SquareBase
 
         if(_casinoGameUI.IsCorrectAnswer)
         {
-            _messageWindow.SetMessage("当たり!!\n" + (_bet * _rate).ToString() + "円になりました", _character.IsAutomatic);
+            _messageWindow.SetMessage("当たり!!\n" + (_bet * _rate).ToString() + "円になりました", _character);
             _character.AddMoney(_bet * _rate);
         }
         else //はずれ
         {
-            _messageWindow.SetMessage("はずれ\n" + _bet.ToString() + "円失いました", _character.IsAutomatic);
+            _messageWindow.SetMessage("はずれ\n" + _bet.ToString() + "円失いました", _character);
         }
 
 

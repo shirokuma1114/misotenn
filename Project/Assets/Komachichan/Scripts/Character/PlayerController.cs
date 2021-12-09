@@ -48,7 +48,7 @@ public class PlayerController : CharacterControllerBase
     public override void Move()
     {
         base.Move();
-        _moveCardManager.SetCardList(_character.MovingCards);
+        _moveCardManager.SetCardList(_character.MovingCards, _character);
         _isSelectedCard = true;
     }
 

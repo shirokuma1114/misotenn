@@ -45,7 +45,7 @@ public class SouvenirWindow : WindowBase
         pos.y = _displayPosY;
         _frameRt.anchoredPosition = pos;
     }
-
+    
     public override void SetEnable(bool enable)
     {
         _frame.enabled = enable;

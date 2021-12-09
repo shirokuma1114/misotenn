@@ -27,6 +27,7 @@ public class PayUI : MonoBehaviour
     [SerializeField]
     private KeyCode _enter = KeyCode.Return;
 
+    private float beforeTrigger;
 
     /// <summary>
     /// AI‘I‘ð—p
@@ -114,6 +115,21 @@ public class PayUI : MonoBehaviour
         if (_openerCharacter.IsAutomatic)
             return;
 
+        float viewButton = _openerCharacter.Input.GetAxis("Vertical");
+
+        if (beforeTrigger == 0.0f)
+        {
+            if (viewButton != 0)
+            {
+                _selectYes = !_selectYes;
+                ButtonColorUpdate();
+
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+        }
+
+        beforeTrigger = viewButton;
+
         if (_selectYes)
         {
             if (Input.GetKeyDown(_moveUp) || Input.GetKeyDown(_moveDown))
@@ -135,7 +151,7 @@ public class PayUI : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(_enter))
+        if(Input.GetKeyDown(_enter) || _openerCharacter.Input.GetButtonDown("A"))
         {
             _selectComplete = true;
             Close();

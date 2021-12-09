@@ -36,6 +36,10 @@ public class ReturnToTitleWindow : WindowBase
 
     bool _isFade;
 
+    CharacterBase _character;
+
+    private float beforeTrigger;
+
     public override void SetEnable(bool enable)
     {
         _enable = enable;
@@ -53,6 +57,10 @@ public class ReturnToTitleWindow : WindowBase
         }
     }
 
+    public override void SetCharacter(CharacterBase character)
+    {
+        _character = character;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -72,13 +80,26 @@ public class ReturnToTitleWindow : WindowBase
         }
         if (_isFade) return;
 
+        float viewButton = _character.Input.GetAxis("Horizontal");
+
+        if (beforeTrigger == 0.0f)
+        {
+            if (viewButton != 0)
+            {
+                _selectedYes = !_selectedYes;
+                UpdateCursor();
+            }
+        }
+
+        beforeTrigger = viewButton;
+
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
             _selectedYes = !_selectedYes;
             UpdateCursor();
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || _character.Input.GetButtonDown("A"))
         {
             if (_selectedYes)
             {
@@ -89,7 +110,7 @@ public class ReturnToTitleWindow : WindowBase
             Invoke("BackToWindow", 0.01f);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || _character.Input.GetButtonDown("B"))
         {
             Invoke("BackToWindow", 0.01f);
         }
