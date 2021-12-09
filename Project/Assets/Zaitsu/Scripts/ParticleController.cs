@@ -9,6 +9,7 @@ public class ParticleController : MonoBehaviour
     void Start()
     {
         _ps = GetComponent<ParticleSystem>();
+        SetEmission(0.0f);
     }
 
     public void SetEmission(float emission)

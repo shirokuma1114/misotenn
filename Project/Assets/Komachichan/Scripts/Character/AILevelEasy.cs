@@ -13,7 +13,7 @@ public class AILevelEasy : AILevelBase
         //Debug.Log(_character.Name + "の移動可能マスのスコア");
         for (int i = 0; i < squares.Count; i++)
         {
-            var score = squares[i].GetScore(character, CharacterType.AI_EASY);
+            var score = squares[i].GetScore(character, CharacterType.COM1);
             //Debug.Log(squares[i].name + ":" + score);
             if (maxScore < score)
             {
