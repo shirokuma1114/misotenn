@@ -141,6 +141,7 @@ public class Miya_Manager_1 : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Return))
 		{
 			_state = Miya_State_1.WAIT;
+			_tenukiText.text = "ギリギリチキンレース";
 			//_tenukiText.text = "ギリギリチキンレース\nスペースキーを押してチャージ\nスペースキーを離して投げる　";
 			Slider_Percentage.gameObject.SetActive(true);
 
