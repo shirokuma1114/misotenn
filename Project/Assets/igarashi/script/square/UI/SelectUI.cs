@@ -125,7 +125,7 @@ public class SelectUI : MonoBehaviour
 
             UpdateSelectionColor();
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -135,7 +135,7 @@ public class SelectUI : MonoBehaviour
 
             UpdateSelectionColor();
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
         if(Input.GetKeyDown(KeyCode.Return))
@@ -143,7 +143,7 @@ public class SelectUI : MonoBehaviour
             _selectComplete = true;
             Close();
 
-            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
     }
     private void UpdateSelectionColor()

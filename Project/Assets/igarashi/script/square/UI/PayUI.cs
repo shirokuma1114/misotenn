@@ -121,7 +121,7 @@ public class PayUI : MonoBehaviour
                 _selectYes = false;
                 ButtonColorUpdate();
 
-                Control_SE.Get_Instance().Play_SE("UI_Select");
+                if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
             }
         }
         else
@@ -131,7 +131,7 @@ public class PayUI : MonoBehaviour
                 _selectYes = true;
                 ButtonColorUpdate();
 
-                Control_SE.Get_Instance().Play_SE("UI_Select");
+                if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
             }
         }
 
@@ -140,7 +140,7 @@ public class PayUI : MonoBehaviour
             _selectComplete = true;
             Close();
 
-            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
     }
 
