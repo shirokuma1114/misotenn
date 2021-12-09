@@ -65,7 +65,7 @@ public class SelectSelectWindow : MonoBehaviour
             if (newIndex < 0) newIndex = _selectRts.Count - 1;
             ChangeSelect(newIndex);
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
         if (Input.GetKeyDown(KeyCode.S))
@@ -74,7 +74,7 @@ public class SelectSelectWindow : MonoBehaviour
             if (newIndex == _selectRts.Count) newIndex = 0;
             ChangeSelect(newIndex);
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
         if(Input.GetKeyDown(KeyCode.Return))

@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Miya_ControllerUI_2 : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	private Text _playerName;
+	private Text _rotateCounter;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void SetPlayerName(string playerName)
+	{
+		_playerName.text = playerName;
+	}
+
+	public void Set_Score(int _score)
+	{
+		_rotateCounter.text = _score.ToString();
+	}
+
+	//================
+
+	void Start()
+	{
+		_playerName = transform.Find("PlayerName").GetComponent<Text>();
+		_rotateCounter = transform.Find("Score").GetComponent<Text>();
+	}
+
+	void Update()
+	{
+
+	}
 }

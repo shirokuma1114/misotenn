@@ -207,7 +207,7 @@ public class MoveCardManager : MonoBehaviour
 
             SelectCardColorUpdate();
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
         if (Input.GetKeyDown(_selectRightKey))
         {
@@ -217,7 +217,7 @@ public class MoveCardManager : MonoBehaviour
 
             SelectCardColorUpdate();
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
         // changed by miya
@@ -226,7 +226,7 @@ public class MoveCardManager : MonoBehaviour
             _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
             _finAnimStartFlag = true;
 
-            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
         }        
     }
 
