@@ -137,7 +137,7 @@ public class RouletteUI : MonoBehaviour
         {
             Push();
 
-            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
     }
 
