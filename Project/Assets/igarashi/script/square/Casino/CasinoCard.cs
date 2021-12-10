@@ -29,6 +29,21 @@ public class CasinoCard : MonoBehaviour
         _animEnd = false;
     }
 
+    public void InitDisplay(Sprite numberSprite, bool backCard = false)
+    {
+        _cardSprite.enabled = true;
+        _numberText.enabled = true;
+
+        _numberText.text = "";
+
+        _cardSprite.sprite = numberSprite;
+
+        if (backCard)
+            _transform.localRotation = new Quaternion(0, 180, 0, 0);
+
+        _animEnd = false;
+    }
+
     public void UnDisplay()
     {
         _cardSprite.enabled = false;

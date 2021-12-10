@@ -48,8 +48,7 @@ public class SquareWarp : SquareBase
         _payUI = FindObjectOfType<PayUI>();
         _fade = FindObjectOfType<SimpleFade>();
 
-        _characters = new List<CharacterBase>();
-        _characters.AddRange(FindObjectsOfType<CharacterBase>());
+
 
         _squares = new List<SquareBase>();
         _squares.AddRange(FindObjectsOfType<SquareBase>());
@@ -92,18 +91,19 @@ public class SquareWarp : SquareBase
     public override void Stop(CharacterBase character)
     {
         _character = character;
-
+        _characters = new List<CharacterBase>();
+        _characters.AddRange(FindObjectsOfType<CharacterBase>());
 
         //お金チェック
-        if(!_character.CanPay(_cost))
+        if (!_character.CanPay(_cost))
         {
-            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _messageWindow.SetMessage("お金が足りません", character);
             _state = SquareWarpState.END;
             return;
         }
 
         var message = _cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
-        _messageWindow.SetMessage(message,character.IsAutomatic);
+        _messageWindow.SetMessage(message,character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
@@ -129,6 +129,7 @@ public class SquareWarp : SquareBase
 
 
                 _character.SubMoney(_cost);
+
 
                 //ワープホールに飛んでく
                 foreach (var chara in _characters)
@@ -214,6 +215,8 @@ public class SquareWarp : SquareBase
             chara.transform.up = chara.CurrentSquare.transform.up;
             chara.Alignment();
         }
+
+        //Time.timeScale = 0.0f;
 
         _warpHole.Close();
 

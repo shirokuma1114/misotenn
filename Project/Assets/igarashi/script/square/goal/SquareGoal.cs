@@ -61,6 +61,8 @@ public class SquareGoal : SquareBase
 
         Goal(character);
 
+        if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("Goal");
+
         _state = SquareGoalState.END;
     }
 
@@ -77,7 +79,7 @@ public class SquareGoal : SquareBase
         _statusWindow.SetMoney(_character.Money);
 
         var message = character.Name + "‚Í" + character.LapCount.ToString() + "Žü–Ú\n" + money.ToString() + "‰~‚à‚ç‚Á‚½";
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message, character);
     }
 
 

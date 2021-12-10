@@ -4,9 +4,12 @@ using UnityEngine;
 
 public enum CharacterType
 {
-    PLAYER,
-    AI_EASY,
-    AI_NORMAL,
-    AI_HARD,
-    NONE,
+    PLAYER1,
+    PLAYER2,
+    PLAYER3,
+    PLAYER4,
+    COM1,
+    COM2,
+    COM3,
+    COM4,
 }

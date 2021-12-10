@@ -56,7 +56,7 @@ public class CharacterBase : MonoBehaviour
 
     //[SerializeField]
     //private Floating_Local_Miya _floating;
-    
+
     private int _movingCount;
 
     public int MovingCount
@@ -83,16 +83,28 @@ public class CharacterBase : MonoBehaviour
 
     private bool _waitEnable;
 
+    private ParticleController _particleController;
+
+    private KomachiInput _input;
+
+    public KomachiInput Input => _input;
+
     protected virtual void Start()
     {
         _originPosZ = transform.position.z;
         _log = new CharacterLog();
-        
+        _particleController = transform.GetComponentInChildren<ParticleController>();
     }
 
     public void SetController(CharacterControllerBase characterController)
     {
         _controller = characterController;
+    }
+
+    public void SetInputController(KomachiInput input)
+    {
+        _input = input;
+        
     }
 
     void Update()
@@ -156,6 +168,8 @@ public class CharacterBase : MonoBehaviour
 
     public void SetWaitEnable(bool enable)
     {
+        if (_waitEnable == enable) return;
+
         if (enable)
         {
             // èkè¨
@@ -207,6 +221,8 @@ public class CharacterBase : MonoBehaviour
 
     public void StartMove(SquareBase square)
     {
+        _particleController.SetEmission(10.0f);
+
         _state = CharacterState.MOVE;
         //_floating.Set_Using(false);
         _movingCount--;
@@ -227,6 +243,7 @@ public class CharacterBase : MonoBehaviour
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
             _state = CharacterState.WAIT;
+            _particleController.SetEmission(0.0f);
             //_floating.Set_Using(true);
         }
     }

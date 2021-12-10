@@ -40,7 +40,7 @@ public class PlayerController : CharacterControllerBase
         _statusWindow.SetLapNum(_character.LapCount);
         _souvenirWindow.SetSouvenirs(_character.Souvenirs);
         _souvenirWindow.SetEnable(true);
-        _selectWindow.SetIsAutomatic(_character.IsAutomatic);
+        _selectWindow.SetCharacter(_character);
         _selectWindow.SetEnable(true);
     }
 
@@ -48,7 +48,7 @@ public class PlayerController : CharacterControllerBase
     public override void Move()
     {
         base.Move();
-        _moveCardManager.SetCardList(_character.MovingCards);
+        _moveCardManager.SetCardList(_character.MovingCards, _character);
         _isSelectedCard = true;
     }
 
