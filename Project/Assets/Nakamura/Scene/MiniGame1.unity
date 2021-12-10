@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _turnController: {fileID: 946361843}
   _cardMgr: {fileID: 1531350547}
-  _playerColor: {r: 1, g: 0.5613208, b: 0.58960944, a: 1}
+  _myColor: {r: 1, g: 0.56078434, b: 0.56078434, a: 1}
 --- !u!1 &154987352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}

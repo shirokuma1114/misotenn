@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class EnemyBrain : MonoBehaviour
+public class EnemyBrain : Brain
 {
     //プレイヤー共通
     [SerializeField] private TurnController _turnController;
@@ -25,6 +25,7 @@ public class EnemyBrain : MonoBehaviour
 
     void Start()
     {
+        isControl = false;
         _nowStep = 1;
         correctAnswer = 0;
         
@@ -36,7 +37,78 @@ public class EnemyBrain : MonoBehaviour
             lookMemory[i] = -1;
         }
     }
-        
+
+    void Update()
+    {
+        if (isControl)
+        {
+            //操作ができる
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                if (_nowCursol > ((_nowStep - 1) * 4)) _nowCursol -= 1;
+                _cardMgr.SetCursolCurd(_nowCursol, _myColor);
+            }
+            if (Input.GetKeyDown(KeyCode.D))
+            {
+                if (_nowCursol < _nowStep * 4 - 1) _nowCursol += 1;
+                _cardMgr.SetCursolCurd(_nowCursol, _myColor);
+            }
+
+            //スペースキー押したらCardの関数呼ぶ
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (_cardMgr.GetCard(_nowCursol).isCanTurn == false) return;
+
+                isControl = false;
+
+                //カーソル位置と照らし合わせてめくったカードの番号を持って置く
+                _turnCard[_nowStep - 1] = _nowCursol;
+
+                //正誤判定
+                var _isCorrect = _cardMgr.SetClickCurd(_nowCursol, _myId, _nowStep);
+
+                if (_isCorrect)
+                {
+                    //正解数更新
+                    _correctMemory[_nowStep - 1] = _nowCursol;//脳のメモリに入れる
+                    if (correctAnswer < _nowStep)
+                    {
+                        correctAnswer = _nowStep;
+                    }
+                    _nowStep += 1;
+
+                    //勝った
+                    if (correctAnswer == 3)
+                    {
+                        _turnController.SetWinner(_myId);
+                        _cardMgr.SetCardCantTurn(_correctMemory);//カード裏返せなくする
+                        _turnController.TurnChange();
+
+                        Debug.Log("勝った敵脳内");
+                        return;
+                    }
+                    else
+                    {
+                        //カーソルの位置を次の段の左端にする
+                        _nowCursol = (_nowStep - 1) * 4;
+                        _cardMgr.SetCursolCurd(_nowCursol, _myColor);
+
+                        DOVirtual.DelayedCall(0.5f, () => isControl = true);
+                    }
+                }
+                else
+                {
+                    //ターン終了処理
+                    DOVirtual.DelayedCall(2, () =>
+                    {
+                        _cardMgr.ResetCards(_turnCard);
+                        _turnController.TurnChange();
+                    });
+                }
+            }
+        }
+    }
+
     //ターンの最初の初期化処理
     public void StartTurn()
     {
@@ -51,7 +123,7 @@ public class EnemyBrain : MonoBehaviour
             _turnCard[i] = -1;
         }
 
-        isControl = true;
+        if(_miniGameChara.IsAutomatic == false) isControl = true;
     }
 
     //カードをめくる処理 再帰しがち

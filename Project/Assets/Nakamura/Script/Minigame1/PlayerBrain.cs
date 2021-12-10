@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class PlayerBrain : MonoBehaviour
+public class PlayerBrain : Brain
 {
     [SerializeField] private TurnController _turnController;
     [SerializeField] private CardManager _cardMgr;
-    [SerializeField] private Color _playerColor;
+    [SerializeField] private Color _myColor;
     private int _nowCursol;
     private int _nowStep;
     private int[] _turnCard = new int[3];//めくったカード
@@ -16,6 +16,7 @@ public class PlayerBrain : MonoBehaviour
     public int correctAnswer { get; set; }//正解数
     public bool isControl { get; set; }
    
+
     void Start()
     {
         _myId = 0;
@@ -36,12 +37,12 @@ public class PlayerBrain : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A))
             {
                 if(_nowCursol > ((_nowStep - 1) * 4))_nowCursol -= 1;
-                _cardMgr.SetCursolCurd(_nowCursol, _playerColor);
+                _cardMgr.SetCursolCurd(_nowCursol, _myColor);
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
                 if (_nowCursol < _nowStep * 4 - 1) _nowCursol += 1;
-                _cardMgr.SetCursolCurd(_nowCursol, _playerColor);
+                _cardMgr.SetCursolCurd(_nowCursol, _myColor);
             }
 
             //スペースキー押したらCardの関数呼ぶ
@@ -81,7 +82,7 @@ public class PlayerBrain : MonoBehaviour
                     {
                         //カーソルの位置を次の段の左端にする
                         _nowCursol = (_nowStep - 1) * 4;
-                        _cardMgr.SetCursolCurd(_nowCursol, _playerColor);
+                        _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 
                         DOVirtual.DelayedCall(0.5f, () => isControl = true);
                     }
@@ -106,7 +107,7 @@ public class PlayerBrain : MonoBehaviour
 
         //カーソル設定
         _nowCursol = 0;
-        _cardMgr.SetCursolCurd(_nowCursol, _playerColor);
+        _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 
         //めくられたカードの初期化
         for(int i = 0;i < 3; i++)
