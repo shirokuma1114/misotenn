@@ -26,6 +26,8 @@ public class SquareMoveForward : SquareBase
     [SerializeField]
     private int _moveNum;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +60,6 @@ public class SquareMoveForward : SquareBase
                 break;
         }
     }
-
 
     public override void Stop(CharacterBase character)
     {
