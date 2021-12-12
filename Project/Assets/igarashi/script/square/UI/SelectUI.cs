@@ -62,9 +62,6 @@ public class SelectUI : MonoBehaviour
 
         UpdateSelectionColor();
 
-        if (character.IsAutomatic)
-            IndexSelect(0);
-
         _openerCharacter = character;
         _open = true;
     }
@@ -94,7 +91,10 @@ public class SelectUI : MonoBehaviour
     {
         _selectIndex = index;
         _selectComplete = true;
-        Close();
+
+        UpdateSelectionColor();
+
+        Invoke("Close",1.0f);
     }
 
 

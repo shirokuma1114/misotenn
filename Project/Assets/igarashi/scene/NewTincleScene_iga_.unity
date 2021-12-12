@@ -1631,6 +1631,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cost: 10000
   _moveNum: 4
+--- !u!20 &1623500855 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7559466924128813212, guid: 6db38679a2989014d8c7fd9776b859a4, type: 3}
+  m_PrefabInstance: {fileID: 2675768}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1663106409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1638,10 +1643,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2651294865733501855, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 2651294865733501855, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 2651294867390195688, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
       propertyPath: m_Name
       value: CasinoUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2651294867390195692, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1623500855}
     - target: {fileID: 2651294867390195693, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3244,11 +3261,11 @@ PrefabInstance:
       objectReference: {fileID: 492139932}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 2
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
-      value: 2
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _selectWindow
