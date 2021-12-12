@@ -21,7 +21,7 @@ public class SelectWindow : WindowBase
     List<WindowBase> _selectWindows;
 
     [SerializeField]
-    WindowBase _backToWindow;
+    SelectWindow _backToWindow;
 
     int _selectIndex;
 
@@ -29,16 +29,20 @@ public class SelectWindow : WindowBase
 
     float _textY;
 
+    CharacterBase _character;
+
     bool _automaticMode;
 
     bool _calledSelectAuto;
 
+    private float beforeTrigger;
     // Start is called before the first frame update
     void Start()
     {
         _selectTexts = transform.GetComponentsInChildren<Text>().ToList();
         _textY = _selectTexts.First().gameObject.GetComponent<RectTransform>().anchoredPosition.y;
         SetEnable(false);
+        
     }
 
     // Update is called once per frame
@@ -54,26 +58,58 @@ public class SelectWindow : WindowBase
         if (_automaticMode) return;
 
         bool move = false;
+
+        float viewButton = _character.Input.GetAxis("Vertical");
+        //Debug.Log(viewButton);
+
+        //RTが押されたら視点を変える：前フレームの入力値が0の場合のみ実施
+        if (beforeTrigger == 0.0f)
+        {
+            if(viewButton < 0)
+            {
+                _selectIndex = Mathf.Max(0, --_selectIndex);
+                move = true;
+
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+            if(viewButton > 0)
+            {
+                _selectIndex = Mathf.Min(_selectTexts.Count - 1, ++_selectIndex);
+                move = true;
+
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+        }
+        beforeTrigger = viewButton;
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             _selectIndex = Mathf.Max(0, --_selectIndex);
             move = true;
+
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
             _selectIndex = Mathf.Min(_selectTexts.Count - 1, ++_selectIndex);
             move = true;
+
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || _character.Input.GetButtonDown("A"))
         {
             Invoke("ShowWindow", 0.001f);
             //ShowWindow();
+
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
 
-        if (_backToWindow && Input.GetKeyDown(KeyCode.Escape))
+        if (_backToWindow && (Input.GetKeyDown(KeyCode.Escape) || _character.Input.GetButtonDown("B")))
         {
             Invoke("BackWindow", 0.001f);
+
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Close");
         }
 
         if (move)
@@ -94,11 +130,12 @@ public class SelectWindow : WindowBase
         _enable = enable;
     }
 
-    public void SetIsAutomatic(bool isAutomatic)
+    public override void SetCharacter(CharacterBase character)
     {
         _selectIndex = 0;
         _calledSelectAuto = false;
-        _automaticMode = isAutomatic;
+        _character = character;
+        _automaticMode = character.IsAutomatic;
     }
 
     private void SelectAuto()
@@ -109,6 +146,7 @@ public class SelectWindow : WindowBase
 
     private void ShowWindow()
     {
+        _selectWindows[_selectIndex].SetCharacter(_character);
         _selectWindows[_selectIndex].SetEnable(true);
         SetEnable(false);
     }

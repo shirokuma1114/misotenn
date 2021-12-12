@@ -25,10 +25,6 @@ public class SquareCasino : SquareBase
 
     private CasinoGame _casinoGameUI;
 
-    [SerializeField]
-    private int _percentage = 50;
-    [SerializeField]
-    private int _rate = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -43,9 +39,7 @@ public class SquareCasino : SquareBase
         _casinoGameUI = FindObjectOfType<CasinoGame>();
 
         _squareInfo =
-            "カジノマス\n" +
-            "確率：" + _percentage.ToString() + "\n" +
-            "倍率：" + _rate.ToString();
+            "カジノマス\n";
     }
 
     // Update is called once per frame
@@ -76,12 +70,12 @@ public class SquareCasino : SquareBase
         //お金チェック
         if (_character.Money == 0)
         {
-            _messageWindow.SetMessage("お金がありません", character.IsAutomatic);
+            _messageWindow.SetMessage("お金がありません", character);
             _state = SquareCasinoState.END;
             return;
         }
 
-        _messageWindow.SetMessage("賭ける額を選択してください", character.IsAutomatic);
+        _messageWindow.SetMessage("賭ける額を選択してください", character);
         _statusWindow.SetEnable(true);
 
 
@@ -101,6 +95,10 @@ public class SquareCasino : SquareBase
         _selectElements.Add("やめる");
 
         _selectUI.Open(_selectElements,character);
+        if(character.IsAutomatic)
+            _selectUI.IndexSelect(Random.Range(0, 3));
+
+        Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
 
 
         _state = SquareCasinoState.PAY;
@@ -123,8 +121,8 @@ public class SquareCasino : SquareBase
             _character.SubMoney(_bet);
 
 
-            _casinoGameUI.Play(_character.IsAutomatic);
-            _messageWindow.SetMessage("上のオープンしているカードより\n高いと思うカードを選択してください", _character.IsAutomatic);
+            _casinoGameUI.Play(_character,_bet);
+            _messageWindow.SetMessage("高いと思う方のカードを選択してください", _character);
 
             _statusWindow.SetEnable(false);
 
@@ -141,12 +139,12 @@ public class SquareCasino : SquareBase
 
         if(_casinoGameUI.IsCorrectAnswer)
         {
-            _messageWindow.SetMessage("当たり!!\n" + (_bet * _rate).ToString() + "円になりました", _character.IsAutomatic);
-            _character.AddMoney(_bet * _rate);
+            _messageWindow.SetMessage(_casinoGameUI.Reward.ToString() + "円獲得！", _character);
+            _character.AddMoney(_casinoGameUI.Reward);
         }
         else //はずれ
         {
-            _messageWindow.SetMessage("はずれ\n" + _bet.ToString() + "円失いました", _character.IsAutomatic);
+            _messageWindow.SetMessage(_bet.ToString() + "円失いました", _character);
         }
 
 
@@ -159,6 +157,8 @@ public class SquareCasino : SquareBase
             // 止まる処理終了
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
+
+            Camera.main.GetComponent<CameraInterpolation>().Leave_Event();
 
             _state = SquareCasinoState.IDLE;
         }

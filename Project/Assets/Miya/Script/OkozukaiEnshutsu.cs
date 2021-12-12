@@ -44,6 +44,11 @@ public class OkozukaiEnshutsu : MonoBehaviour
 		Timer_ParticleFinish = main.duration + main.startLifetime.constant;
 	}
 
+    public void Kill()
+    {
+        Destroy(Particle_Instance);
+    }
+
 	// Update
 	void Update()
     {

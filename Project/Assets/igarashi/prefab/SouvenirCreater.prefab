@@ -45,26 +45,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _souvenirs:
   - _price: 1000
-    _name: "\u3055\u304F\u3055\u304F\u3071\u3093\u3060"
+    _name: "\u30D1\u30F3\u30C0\u306E\u306C\u3044\u3050\u308B\u307F"
     _type: 0
-    _sprite: {fileID: 21300000, guid: f8b011d1d6390b24884793b5ab42e8e6, type: 3}
+    _sprite: {fileID: 21300000, guid: d39af40c8d1607946911c0522e3eed1c, type: 3}
   - _price: 2000
-    _name: "\u30AA\u30E9\u30F3\u30B8\u30FC\u30CA"
+    _name: "\u30DE\u30AB\u30ED\u30F3"
     _type: 4
-    _sprite: {fileID: 21300000, guid: 29d264c4befdf314aaa6cf9a70de7775, type: 3}
+    _sprite: {fileID: 21300000, guid: 783ea9cf40d8caa48b2a8f3001a5242f, type: 3}
   - _price: 20000
-    _name: "\u30E1\u30B8\u30A7\u30C9\u69D8"
+    _name: "\u30D4\u30E9\u30DF\u30C3\u30C9\u306E\u7F6E\u7269"
     _type: 5
-    _sprite: {fileID: 21300000, guid: ea73e276732eac248b9c189e3ff16898, type: 3}
+    _sprite: {fileID: 21300000, guid: 3ce3afab3f026394e91d9e480532ba60, type: 3}
   - _price: 2000
-    _name: "\u73C8\u7432\u8CB4\u65CF"
+    _name: "\u30B3\u30FC\u30D2\u30FC\u8C46"
     _type: 3
-    _sprite: {fileID: 21300000, guid: c660e8b526d90074abb0fae22eaa2d04, type: 3}
+    _sprite: {fileID: 21300000, guid: d53d406d2f6a1b241b37575f5656cf6e, type: 3}
   - _price: 10000
     _name: "\u81EA\u7531\u306E\u5973\u795E\u50CF"
     _type: 2
-    _sprite: {fileID: 21300000, guid: dda8cd9884f1aab43b8fd59170f20c0b, type: 3}
+    _sprite: {fileID: 21300000, guid: 3d8c6c9e58fc01d4981e12e2f9ee0e59, type: 3}
   - _price: 1000
-    _name: "\u30B3\u30A2\u30E9\u306E\u30DE\u30FC\u30C1"
+    _name: "\u30DE\u30AB\u30C0\u30DF\u30A2\u30CA\u30C3\u30C4"
     _type: 1
-    _sprite: {fileID: 21300000, guid: d66ef0b12e636dc488a61f27195d4436, type: 3}
+    _sprite: {fileID: 21300000, guid: 2f810373549afa4438122fdb669fee1f, type: 3}

@@ -50,7 +50,7 @@ public class SquareAllowance : SquareBase
         // インスタンス生成
         var message =  character.Name + "は\nおこづかいマスに　止まった！";
 
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
 
         _phase = Phase.INIT_MESSAGE;
@@ -88,13 +88,14 @@ public class SquareAllowance : SquareBase
 
         if(_phase == Phase.GET_MESSAGE)
         {
-            if (!_messageWindow.IsDisplayed && _effect.Get_Completed())
+            if (!_messageWindow.IsDisplayed)
             {
                 // 止まる処理終了
                 _character.CompleteStopExec();
                 _phase = Phase.NONE;
                 _rouletteUI.End();
                 _statusWindow.SetEnable(false);
+                _effect.Kill();
             }
         }
     }

@@ -14,6 +14,7 @@ public class MyGameManager : MonoBehaviour
         WAIT_TURN_END,
         FADE_OUT,
         MOVE_CAMERA,
+        MINI_GAME,
         CLEAR,
         NEXT_SCENE
     }
@@ -23,8 +24,7 @@ public class MyGameManager : MonoBehaviour
         CharacterBase character;
         int type;
     }
-
-    [SerializeField]
+    
     List<CharacterType> _createCharacterTypes;
 
     [Header("移動カード最小値")]
@@ -93,12 +93,19 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     Animator _fadeAnimation;
 
+    [SerializeField]
+    GameObject _startSquare;
+
+    [SerializeField]
+    List<GameObject> _cakePrefabs;
+
     // Start is called before the first frame update
     void Start()
     {
         _fadeAnimation.Play("FadeIn");
         //_fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime;
-        
+        CreateCharacters();
+
         UpdateTurn();
 
         // お小遣い移動カード初期化
@@ -122,10 +129,98 @@ public class MyGameManager : MonoBehaviour
 
     void CreateCharacters()
     {
-        for(int i = 0; i < _createCharacterTypes.Count; i++)
-        {
+        var characterTypes = FindObjectOfType<DontDestroyManager>().GetCharacterTypes();
 
+        foreach(var x in characterTypes)
+        {
+            GameObject obj = null;
+            if(x == CharacterType.PLAYER1)
+            {
+                obj = Instantiate(_cakePrefabs[0], _startSquare.transform);
+                //obj.AddComponent<CharacterBase>();
+                var co = obj.AddComponent<PlayerController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                co.SetCharacter(ch);
+                ch.Name = "フレジエ";
+                ch.SetInputController(new KomachiInput(0));
+                
+            }
+            if(x == CharacterType.PLAYER2)
+            {
+                obj = Instantiate(_cakePrefabs[1], _startSquare.transform);
+                var co = obj.AddComponent<PlayerController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                co.SetCharacter(ch);
+                ch.Name = "ザッハトルテ";
+                ch.SetInputController(new KomachiInput(1));
+                
+            }
+            if(x == CharacterType.PLAYER3)
+            {
+                obj = Instantiate(_cakePrefabs[2], _startSquare.transform);
+                var co = obj.AddComponent<PlayerController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                co.SetCharacter(ch);
+                ch.Name = "ショートケーキ";
+                ch.SetInputController(new KomachiInput(2));
+                
+            }
+            if(x == CharacterType.PLAYER4)
+            {
+                obj = Instantiate(_cakePrefabs[3], _startSquare.transform);
+                var co = obj.AddComponent<PlayerController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                co.SetCharacter(ch);
+                ch.Name = "アップルパイ";
+                ch.SetInputController(new KomachiInput(3));
+                
+            }
+            if (x == CharacterType.COM1)
+            {
+                obj = Instantiate(_cakePrefabs[0], _startSquare.transform);
+                var co = obj.AddComponent<AIController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                ch.Name = "フレジエ";
+                co.SetCharacter(ch);
+
+            }
+            if (x == CharacterType.COM2)
+            {
+                obj = Instantiate(_cakePrefabs[1], _startSquare.transform);
+                var co = obj.AddComponent<AIController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                ch.Name = "ザッハトルテ";
+                co.SetCharacter(ch);
+
+            }
+            if(x == CharacterType.COM3)
+            {
+                obj = Instantiate(_cakePrefabs[2], _startSquare.transform);
+                var co = obj.AddComponent<AIController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                co.SetCharacter(ch);
+                ch.Name = "ショートケーキ";
+            }
+            if(x == CharacterType.COM4)
+            {
+                obj = Instantiate(_cakePrefabs[3], _startSquare.transform);
+                var co = obj.AddComponent<AIController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                ch.Name = "アップルパイ";
+                co.SetCharacter(ch);
+            }
+            
+            var tr = obj.GetComponent<Transform>();
+            tr.localPosition = new Vector3(0f, 1.3f, 0f);
+            tr.Rotate(0f, -90f, 0f);
+            tr.localScale = new Vector3(25f, 25f, 25f);
+            _entryPlugs.Add(obj.GetComponent<CharacterControllerBase>());
         }
+    }
+    
+    public void FindInitCharacterTypes(CharacterType[] characterTypes)
+    {
+        _createCharacterTypes = characterTypes.ToList();
     }
 
     void UpdateTurn()
@@ -195,7 +290,7 @@ public class MyGameManager : MonoBehaviour
             {
                 _phase = Phase.CLEAR;
                 _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
-                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", false);
+                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character);
 
                 // このターンのおこづかい
                 _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
@@ -369,7 +464,6 @@ public class MyGameManager : MonoBehaviour
 
     void InitStatus()
     {
-        var startSquare = GameObject.Find("Japan").GetComponent<SquareBase>();
 
         for(int i = 0; i < _entryPlugs.Count; i++)
         {
@@ -388,23 +482,8 @@ public class MyGameManager : MonoBehaviour
                     chara.AddMovingCard(GetRandomRange());
                 }
             }
-            if(i == 0)
-            {
-                chara.Name = "フレジエ";
-            }
-            if(i == 1)
-            {
-                chara.Name = "ザッハトルテ";
-            }
-            if(i == 2)
-            {
-                chara.Name = "ショートケーキ";
-            }
-            if(i == 3)
-            {
-                chara.Name = "アップルパイ";
-            }
-            chara.SetCurrentSquare(startSquare);
+      
+            chara.SetCurrentSquare(_startSquare.GetComponent<SquareBase>());
             chara.AddMoney(_initMoney);
             chara.LapCount = 0;
         }
@@ -429,6 +508,7 @@ public class MyGameManager : MonoBehaviour
         _entryPlugs[_turnIndex].Move();
     }
 
+    // 0 1 2 3
     public int GetRank(CharacterBase character)
     {
         // 順位はお土産種類＋おこづかい
@@ -538,4 +618,5 @@ public class MyGameManager : MonoBehaviour
             _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 5.0f);
         }
     }
+
 }

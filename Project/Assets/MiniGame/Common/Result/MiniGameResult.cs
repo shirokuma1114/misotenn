@@ -79,7 +79,10 @@ public class MiniGameResult : MonoBehaviour
             _cakeInstance[i].transform.localScale = _cakeTransforms[i].transform.localScale;
             _cakeInstance[i].transform.rotation = _cakeTransforms[i].transform.rotation;
 
-            _addMoneyTexts[i].text = "+" + _rankMoney[_characterRankList[i].Value - 1].ToString();
+            int addMoney = _rankMoney[_characterRankList[i].Value - 1];
+            _addMoneyTexts[i].text = "+" + addMoney.ToString();
+            _characterRankList[i].Key.AddMoney(addMoney);
+
             _rankTexts[i].text = _characterRankList[i].Value.ToString() + "ˆÊ";
         }
     }

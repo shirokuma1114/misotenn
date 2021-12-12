@@ -4,13 +4,25 @@ using UnityEngine;
 
 public class Control_SE : MonoBehaviour
 {
+	// singleton
+	static Control_SE Myself = null;
+	static public Control_SE Get_Instance() { return Myself; }
+
+
 	// ŠO•”‚©‚ç“Ç‚Ýž‚ÞŠÖ”
 	public void Play_SE(string _name)
 	{
 		Sound_List content = Sound_Contents.Find(l => l.Name == _name);
 		Sound.clip = content.Audio;
+		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE * content.Volume;
+		Sound.loop = content.Loop;
 		Sound.Play();
 	}
+	public void Stop_SE()
+	{
+		Sound.Stop();
+	}
+
 
 	// Setting
 	Setting_SoundUI SoundSetting;
@@ -25,9 +37,26 @@ public class Control_SE : MonoBehaviour
 	// Start
 	void Start()
 	{
+		// singlegon
+		if ( !Myself )
+		{
+			Myself = this.GetComponent<Control_SE>();
+			DontDestroyOnLoad(this.gameObject);
+		}
+        else
+        {
+            Destroy(gameObject);
+        }
+
+		// Initialize
 		Sound = this.GetComponent<AudioSource>();
 		Initial_SoundVolume = Sound.volume;
 		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
+
+		foreach(var i in Sound_Contents)
+		{
+			if (i.Volume == 0) i.Volume = 1.0f;
+		}
 
 		// Event
 		Setting_SoundUI.Event_Sound += time =>

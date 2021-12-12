@@ -14,8 +14,8 @@ public class AILevelHard : AILevelBase
         Debug.Log(character.Name + "の移動可能マスのスコア");
         for (int i = 0; i < squares.Count; i++)
         {
-            var score = squares[i].GetScore(character, CharacterType.AI_HARD);
-            Debug.Log(squares[i].name + ":" + score);
+            var score = squares[i].GetScore(character, CharacterType.COM1);
+            Debug.Log(squares[i].name + ":" + squares[i].GetType() + ":" + score);
             if (maxScore < score)
             {
                 maxScore = score;

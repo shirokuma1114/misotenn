@@ -38,6 +38,7 @@ public class SquareSteal : SquareBase
 
     MyGameManager _gameManager;
 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -80,15 +81,35 @@ public class SquareSteal : SquareBase
         }
     }
 
+    public override string GetSquareInfo(CharacterBase character)
+    {
+        int displayCost = CalcCost(character);
+
+        _squareInfo =
+           "“ëƒ}ƒX\n" +
+           "ƒRƒXƒgF" + displayCost.ToString();
+
+        return _squareInfo;
+    }
+
+    private int CalcCost(CharacterBase character)
+    {
+        // 1ˆÊ 40000
+        // 4ˆÊ 10000
+
+        return (4 - _gameManager.GetRank(character)) * _cost;
+    }
+
     public override void Stop(CharacterBase character)
     {
         _character = character;
 
+        int cost = CalcCost(_character);
 
         //‚¨‹àƒ`ƒFƒbƒN
-        if (!_character.CanPay(_cost))
+        if (!_character.CanPay(cost))
         {
-            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
+            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character);
             _state = SquareStealState.END;
             return;
         }
@@ -102,8 +123,8 @@ public class SquareSteal : SquareBase
         }
 
 
-        var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H";
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        var message = cost.ToString() + "‰~‚ğx•¥‚Á‚Ä‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H";
+        _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
@@ -140,7 +161,7 @@ public class SquareSteal : SquareBase
                 _selectElements.Add("‚â‚ß‚é");
 
                 _selectUI.Open(_selectElements, _character);
-                _messageWindow.SetMessage("’N‚©‚ç‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H", _character.IsAutomatic);
+                _messageWindow.SetMessage("’N‚©‚ç‚¨“yY‚ğ’D‚¢‚Ü‚·‚©H", _character);
 
                 _state = SquareStealState.SLECT_TARGET;
 
@@ -204,14 +225,14 @@ public class SquareSteal : SquareBase
 
             if (targetCharacter.gameObject.GetComponent<Protector>().IsProtected)
             {
-                _messageWindow.SetMessage(targetCharacter.Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚Íg‚ğç‚ç‚ê‚Ä‚¢‚é", _character);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
             }
             else if(targetCharacter.Souvenirs.Count == 0)
             {
-                _messageWindow.SetMessage(targetCharacter.Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character.IsAutomatic);
+                _messageWindow.SetMessage(targetCharacter.Name + "‚¨“yY‚ğ‚Á‚Ä‚¢‚È‚¢", _character);
                 _selectUI.Open(_selectElements, _character);
 
                 return;
@@ -225,12 +246,12 @@ public class SquareSteal : SquareBase
                 targetCharacter.RemoveSouvenir(targetSouvenirIndex);
 
                 var message = _character.Name + "‚Í" + targetCharacter.Name + "‚Ì" + targetSouvenir.Name + "‚ğ’D‚Á‚½I";
-                _messageWindow.SetMessage(message, _character.IsAutomatic);
+                _messageWindow.SetMessage(message, _character);
 
                 _souvenirWindow.SetSouvenirs(_character.Souvenirs);
                 _souvenirWindow.SetEnable(true);
 
-                _character.SubMoney(_cost);
+                _character.SubMoney(CalcCost(_character));
 
                 //‰‰o
                 _effect.EffectStart(targetCharacter, _character,targetSouvenir.Sprite);
@@ -258,7 +279,7 @@ public class SquareSteal : SquareBase
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // ƒRƒXƒg‚ª‘«‚è‚È‚¢
-        if (_cost > character.Money) return base.GetScore(character, characterType);
+        if (CalcCost(character) > character.Money) return base.GetScore(character, characterType);
 
         // ’D‚¤‚à‚Ì‚ª–³‚¢
         if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);
