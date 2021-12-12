@@ -45,7 +45,6 @@ public class CollisionEvent
 
     public void Update()
     {
-
         if (_phase == Phase.NONE) return;
         if (_phase == Phase.INIT)
         {

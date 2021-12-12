@@ -112,7 +112,7 @@ public class SquareSouvenir : SquareBase
 
         if (character.IsAutomatic)
         {
-            Invoke("SelectAutomatic", 2.0f);
+            Invoke("SelectAutomatic", 1.5f);
         }
     }
 
