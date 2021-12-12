@@ -15,7 +15,7 @@ public class AILevelHard : AILevelBase
         for (int i = 0; i < squares.Count; i++)
         {
             var score = squares[i].GetScore(character, CharacterType.COM1);
-            Debug.Log(squares[i].name + ":" + score);
+            Debug.Log(squares[i].name + ":" + squares[i].GetType() + ":" + score);
             if (maxScore < score)
             {
                 maxScore = score;

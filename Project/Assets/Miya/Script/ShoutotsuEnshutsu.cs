@@ -33,7 +33,7 @@ public class ShoutotsuEnshutsu : MonoBehaviour
 	void Update()
 	{
 		// Debug
-		if (Input.GetKeyUp(KeyCode.A)) Start_ShoutotsuEnshutsu();
+		//if (Input.GetKeyUp(KeyCode.A)) Start_ShoutotsuEnshutsu();
 	}
 
 	// Update
