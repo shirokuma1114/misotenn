@@ -16,13 +16,22 @@ public class DontDestroyManager : MonoBehaviour
 
     public float TextSpeed => _textSpeed;
 
+    public enum DebugMode
+    {
+        RELEASE,
+        DEBUG,
+        FULL_AUTO
+    }
+
     [SerializeField]
-    private bool _isDebug = false;
+    private DebugMode _isDebug;
+
+
 
     // Start is called before the first frame update
     void Awake()
     {
-        if (_isDebug)
+        if (_isDebug == DebugMode.DEBUG)
         {
             _characterTypes = new CharacterType[4];
             _characterTypes[0] = CharacterType.PLAYER1;
@@ -30,6 +39,16 @@ public class DontDestroyManager : MonoBehaviour
             _characterTypes[2] = CharacterType.COM3;
             _characterTypes[3] = CharacterType.COM4;
         }
+
+        if(_isDebug == DebugMode.FULL_AUTO)
+        {
+            _characterTypes = new CharacterType[4];
+            _characterTypes[0] = CharacterType.COM1;
+            _characterTypes[1] = CharacterType.COM2;
+            _characterTypes[2] = CharacterType.COM3;
+            _characterTypes[3] = CharacterType.COM4;
+        }
+
         Debug.Log(Input.GetJoystickNames().Length);
 
         if (instance == null)

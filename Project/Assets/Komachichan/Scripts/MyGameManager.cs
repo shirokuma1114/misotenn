@@ -175,6 +175,15 @@ public class MyGameManager : MonoBehaviour
                 ch.SetInputController(new KomachiInput(3));
                 
             }
+            if (x == CharacterType.COM1)
+            {
+                obj = Instantiate(_cakePrefabs[0], _startSquare.transform);
+                var co = obj.AddComponent<AIController>();
+                var ch = obj.AddComponent<CharacterBase>();
+                ch.Name = "ƒtƒŒƒWƒG";
+                co.SetCharacter(ch);
+
+            }
             if (x == CharacterType.COM2)
             {
                 obj = Instantiate(_cakePrefabs[1], _startSquare.transform);
@@ -499,6 +508,7 @@ public class MyGameManager : MonoBehaviour
         _entryPlugs[_turnIndex].Move();
     }
 
+    // 0 1 2 3
     public int GetRank(CharacterBase character)
     {
         // ‡ˆÊ‚Í‚¨“yYí—Ş{‚¨‚±‚Ã‚©‚¢
