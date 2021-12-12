@@ -70,7 +70,7 @@ Material:
     - _OcclusionStrength: 1
     - _Octave: 6
     - _Parallax: 0.02
-    - _RimPower: 2.1
+    - _RimPower: 1.77
     - _Roughness: 0.005
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -81,5 +81,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0.13477373, g: 0, b: 1, a: 1}
+    - _RimColor: {r: 0.99215686, g: 0.987155, b: 0.8, a: 1}
   m_BuildTextureStacks: []
