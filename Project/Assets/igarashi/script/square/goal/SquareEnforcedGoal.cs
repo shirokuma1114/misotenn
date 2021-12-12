@@ -80,13 +80,13 @@ public class SquareEnforcedGoal : SquareBase
 
         if (!_character.CanPay(_cost))
         {
-            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
+            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character);
             _state = SquareEnforcedGoalState.END;
             return;
         }
 
         var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚ÄƒS[ƒ‹‚µ‚Ü‚·‚©?";
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 

@@ -56,7 +56,7 @@ public class AIController : CharacterControllerBase
 
     public override void Move()
     {
-        _moveCardManager.SetCardList(_character.MovingCards,true);
+        _moveCardManager.SetCardList(_character.MovingCards, _character);
         _isSelectedCard = true;
         Invoke("SelectMovingCard", 2.5f);
     }

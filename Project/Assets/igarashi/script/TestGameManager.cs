@@ -59,7 +59,7 @@ public class TestGameManager : MonoBehaviour
 
         if(_cardCreate)
         {
-            _cardManager.GetComponent<MoveCardManager>().SetCardList(_cardNumberList);
+            //_cardManager.GetComponent<MoveCardManager>().SetCardList(_cardNumberList);
 
             _cardCreate = false;
         }

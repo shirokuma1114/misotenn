@@ -2,53 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class CasinoGame : MonoBehaviour
 {
     private const int CARD_NUMBER_MAX = 13;
     private const int CARD_NUMBER_MIN = 1;
 
-    public enum CasinoGameState
-    {
-        IDLE,
-        INIT,
-
-        GAME,
-        AI_GAME,
-
-        CORRECT_CHECK,
-        CONTINUE_CHECK,
-        END,
-    }
-    private CasinoGameState _state;
-    public CasinoGameState State => _state;
+    private CasinoCard _originCard;
+    private int _originCardNumber;
 
     private List<CasinoCard> _selectCards = new List<CasinoCard>();
     private int _selectIndex = 0;
     private int _answerIndex;
-    private int _answerNumber;
-
-    private bool _correct = false;
-    public bool IsCorrectAnswer => _correct;
+    private bool _correctAnswer = false;
+    public bool IsCorrectAnswer => _correctAnswer;
 
     private Image _selectFrameSprite;
     private RectTransform _selectFrameTransform;
 
+    private bool _playing;
+    private bool _selectEnd;
     private bool _complate = false;
     public bool IsComplate => _complate;
 
     private bool _autoPlay;
-    private bool _aiThinkingAnimEnd;
-
-    private int _betMoney;
-    private int _reward;
-    public int Reward => _reward;
-
-    private PayUI _payUI;
-    private MessageWindow _messageWindow;
-
-    private CharacterBase _player;
 
 
     [SerializeField]
@@ -61,14 +38,47 @@ public class CasinoGame : MonoBehaviour
     [SerializeField]
     private KeyCode _enter = KeyCode.Return;
 
+    CharacterBase _character;
+    private float beforeTrigger;
 
-    public void Play(CharacterBase player,int betMoney)
+    public void Play(CharacterBase character)
     {
-        _player = player;
-        _betMoney = betMoney;
-        _reward = betMoney;
+        _character = character;
 
-        _state = CasinoGameState.INIT;
+        _answerIndex = Random.Range(0, 3);
+
+        _originCardNumber = Random.Range(2, 12);
+        _originCard.InitDisplay(_cardNumberSprites[_originCardNumber - 1]);
+        
+        for(int i = 0; i < _selectCards.Count;i++)
+        {
+            if(i == _answerIndex)
+            {
+                _selectCards[i].InitDisplay(_cardNumberSprites[Random.Range(_originCardNumber + 1, CARD_NUMBER_MAX) - 1],true);
+            }
+            else
+            {
+                _selectCards[i].InitDisplay(_cardNumberSprites[Random.Range(CARD_NUMBER_MIN, _originCardNumber - 1) - 1], true);
+            }
+        }
+
+        _selectIndex = 0;
+        _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
+
+        _selectFrameSprite.enabled = true;
+
+        _playing = true;
+        _complate = false;
+        _selectEnd = false;
+
+        _autoPlay = character.IsAutomatic;
+        if (_autoPlay)
+        {
+            _selectIndex = Random.Range(0, 3);
+            _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
+
+            Invoke("AIRandomSelect", 1.5f);
+        }
     }
 
     public void AIRandomSelect()
@@ -81,9 +91,11 @@ public class CasinoGame : MonoBehaviour
         _selectFrameSprite.enabled = false;
 
         if (_selectIndex == _answerIndex)
-            _correct = true;
+            _correctAnswer = true;
         else
-            _correct = false;
+            _correctAnswer = false;
+
+        _selectEnd = true;
     }
 
     //========================
@@ -91,13 +103,15 @@ public class CasinoGame : MonoBehaviour
     private void Awake()
     {
         _selectIndex = 0;
-        _state = CasinoGameState.IDLE;
     }
 
     void Start()
     {
+        _originCard = transform.Find("OriginCard").GetComponent<CasinoCard>();
+
         _selectCards.Add(transform.Find("Card1").GetComponent<CasinoCard>());
         _selectCards.Add(transform.Find("Card2").GetComponent<CasinoCard>());
+        _selectCards.Add(transform.Find("Card3").GetComponent<CasinoCard>());
 
         var sf = transform.Find("SelectFrame").gameObject;
         _selectFrameSprite = sf.GetComponent<Image>();
@@ -105,184 +119,64 @@ public class CasinoGame : MonoBehaviour
         _selectFrameTransform = sf.GetComponent<RectTransform>();
 
         GetComponent<Canvas>().worldCamera = Camera.main;
-
-        _payUI = FindObjectOfType<PayUI>();
-        _messageWindow = FindObjectOfType<MessageWindow>();
     }
 
     void Update()
     {
-        switch (_state)
-        {
-            case CasinoGameState.IDLE:
-                break;
-            
+        if (!_playing)
+            return;
 
-            case CasinoGameState.INIT:
-                InitState();
-                break;
+        AnimEndCheck();
 
-            case CasinoGameState.GAME:
-                GameState();
-                break;
-
-            case CasinoGameState.AI_GAME:
-                AIGameState();
-                break;
-
-            case CasinoGameState.CORRECT_CHECK:
-                CorrectCheckState();
-                break;
-
-            case CasinoGameState.CONTINUE_CHECK:
-                ContinueCheckState();
-                break;
-
-            case CasinoGameState.END:
-                EndState();
-                break;
-        }
-    }
-
-    private void InitState()
-    {
-        _answerIndex = Random.Range(0, 2);
-        _answerNumber = Random.Range(2, 12);
-
-        for (int i = 0; i < _selectCards.Count; i++)
-        {
-            if (i == _answerIndex)
-            {
-                _selectCards[i].InitDisplay(_cardNumberSprites[_answerNumber - 1], true);
-            }
-            else
-            {
-                _selectCards[i].InitDisplay(_cardNumberSprites[Random.Range(CARD_NUMBER_MIN, _answerNumber - 1) - 1], true);
-            }
-        }
-
-        _selectIndex = 0;
-        Vector3 selectCardPos = _selectCards[_selectIndex].GetComponent<RectTransform>().localPosition;
-        _selectFrameTransform.localPosition = new Vector3(selectCardPos.x,selectCardPos.y,2.0f);
-        _selectFrameSprite.enabled = true;
-
-        _complate = false;
-
-        _autoPlay = _player.IsAutomatic;
-        if (_autoPlay)
-        {
-            _selectIndex = Random.Range(0, 2);
-
-            Sequence sequence = DOTween.Sequence();
-            sequence.Append(_selectFrameTransform.DOLocalMoveX(_selectCards[0].GetComponent<RectTransform>().localPosition.x, 0.5f).SetEase(Ease.INTERNAL_Zero));
-            sequence.Append(_selectFrameTransform.DOLocalMoveX(_selectCards[1].GetComponent<RectTransform>().localPosition.x, 0.5f).SetEase(Ease.INTERNAL_Zero));
-            sequence.Append(_selectFrameTransform.DOLocalMoveX(_selectCards[0].GetComponent<RectTransform>().localPosition.x, 0.5f).SetEase(Ease.INTERNAL_Zero));
-            sequence.Append(_selectFrameTransform.DOLocalMoveX(_selectCards[_selectIndex].GetComponent<RectTransform>().localPosition.x, 0.5f).SetEase(Ease.INTERNAL_Zero));
-            _aiThinkingAnimEnd = false;
-
-            sequence.OnComplete(() => { _aiThinkingAnimEnd = true; });
-
-            _state = CasinoGameState.AI_GAME;
-        }
-        else
-            _state = CasinoGameState.GAME;
-    }
-
-    private void GameState()
-    {
         Operation();
-    }
-
-    private void AIGameState()
-    {
-        if (!_aiThinkingAnimEnd)
-            return;
-
-        foreach (var card in _selectCards)
-        {
-            card.TrunUp();
-        }
-
-        _selectFrameSprite.enabled = false;
-
-        _state = CasinoGameState.CORRECT_CHECK;
-    }
-
-    private void CorrectCheckState()
-    {
-        if (!_selectCards[0].IsAnimEnd)
-            return;
-
-        _correct = _selectIndex == _answerIndex;
-
-        if (_correct)
-        {
-            _reward *= 2; 
-
-            _messageWindow.SetMessage("正解!!\nダブルアップチャンスに挑戦しますか？\n(降りた場合" + _reward.ToString() + "円獲得できます)", _player.IsAutomatic);
-            _payUI.Open(_player);
-
-            if(_autoPlay)
-                _payUI.AISelectNo();
-
-            _state = CasinoGameState.CONTINUE_CHECK;
-        }
-        else
-        {
-            _reward = 0;
-
-            _messageWindow.SetMessage("不正解", _player.IsAutomatic);
-
-            _state = CasinoGameState.END;
-        }            
-    }
-
-    private void ContinueCheckState()
-    {
-        if (!_payUI.IsSelectComplete)
-            return;
-
-        if(_payUI.IsSelectYes)
-        {
-            _state = CasinoGameState.INIT;
-        }
-        else
-        {
-            _state = CasinoGameState.END;
-        }
-    }
-
-    private void EndState()
-    {
-        foreach (var card in _selectCards)
-            card.UnDisplay();
-
-        _complate = true;
     }
 
     private void Operation()
     {
+        if (_selectEnd)
+            return;
         if (_autoPlay)
             return;
 
-        if(Input.GetKeyDown(_right))
+        float viewButton = _character.Input.GetAxis("Horizontal");
+
+        if (beforeTrigger == 0.0f)
+        {
+            if (viewButton < 0)
+            {
+                _selectIndex++;
+                _selectIndex = Mathf.Min(_selectIndex, _selectCards.Count - 1);
+
+                _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
+            }
+
+            if(viewButton > 0)
+            {
+                _selectIndex--;
+                _selectIndex = Mathf.Max(_selectIndex, 0);
+
+                _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
+            }
+        }
+
+        beforeTrigger = viewButton;
+
+        if (Input.GetKeyDown(_right))
         {
             _selectIndex++;
             _selectIndex = Mathf.Min(_selectIndex, _selectCards.Count - 1);
 
-            Vector3 selectCardPos = _selectCards[_selectIndex].GetComponent<RectTransform>().localPosition;
-            _selectFrameTransform.localPosition = new Vector3(selectCardPos.x, selectCardPos.y, 2.0f);
+            _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
         }
         if(Input.GetKeyDown(_left))
         {
             _selectIndex--;
             _selectIndex = Mathf.Max(_selectIndex,0);
 
-            Vector3 selectCardPos = _selectCards[_selectIndex].GetComponent<RectTransform>().localPosition;
-            _selectFrameTransform.localPosition = new Vector3(selectCardPos.x, selectCardPos.y, 2.0f);
+            _selectFrameTransform.position = _selectCards[_selectIndex].GetComponent<RectTransform>().position;
         }
 
-        if(Input.GetKeyDown(_enter))
+        if(Input.GetKeyDown(_enter) || _character.Input.GetButtonDown("A"))
         {
             foreach(var card in _selectCards)
             {
@@ -291,7 +185,30 @@ public class CasinoGame : MonoBehaviour
 
             _selectFrameSprite.enabled = false;
 
-            _state = CasinoGameState.CORRECT_CHECK;
+            if (_selectIndex == _answerIndex)
+                _correctAnswer = true;
+            else
+                _correctAnswer = false;
+
+            _selectEnd = true;
+        }
+    }
+
+    private void AnimEndCheck()
+    {
+        if (!_selectEnd)
+            return;
+
+        if (_selectCards[0].IsAnimEnd)
+        {
+            _originCard.UnDisplay();
+            foreach (var card in _selectCards)
+            {
+                card.UnDisplay();
+            }
+            _selectFrameSprite.enabled = false;
+
+            _complate = true;
         }
     }
 }

@@ -103,6 +103,35 @@ public class EarthFreeRotation : MonoBehaviour
     {
         if (_freeRotationMode)
         {
+            float axisX = _operator.Input.GetAxis("Horizontal");
+            float axisY = _operator.Input.GetAxis("Vertical");
+
+            if(axisY < 0)
+            {
+                if (_xzAngle > -_maxVerticalAngle)
+                {
+                    transform.RotateAround(transform.position, new Vector3(1, 0, 0), -_freamRotationAngle * Time.deltaTime);
+                    _xzAngle += -_freamRotationAngle * Time.deltaTime;
+                }
+            }
+            if (axisY > 0)
+            {
+                if (_xzAngle < _maxVerticalAngle)
+                {
+                    transform.RotateAround(transform.position, new Vector3(1, 0, 0), _freamRotationAngle * Time.deltaTime);
+                    _xzAngle += _freamRotationAngle * Time.deltaTime;
+                }
+            }
+
+            if (axisX > 0)
+            {
+                transform.RotateAround(transform.position, transform.up, _freamRotationAngle * Time.deltaTime);
+            }
+            if (axisX < 0)
+            {
+                transform.RotateAround(transform.position, transform.up, -_freamRotationAngle * Time.deltaTime);
+            }
+
             if (Input.GetKey(_upKey))
             {
                 if(_xzAngle > -_maxVerticalAngle)
