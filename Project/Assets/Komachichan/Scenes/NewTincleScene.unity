@@ -1323,7 +1323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5408311a79bcad41a2060d60312eab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isDebug: 1
+  _isDebug: 2
 --- !u!4 &1156039280
 Transform:
   m_ObjectHideFlags: 0
@@ -3341,7 +3341,7 @@ PrefabInstance:
       objectReference: {fileID: 712244019}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _needSouvenirType
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _earthFreeRotation

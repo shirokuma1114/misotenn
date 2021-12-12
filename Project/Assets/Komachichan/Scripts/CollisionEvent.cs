@@ -79,7 +79,7 @@ public class CollisionEvent
 
                 if(_targetIndex + 1 >= _targets.Count)
                 {
-                    _souvenirWindow.SetDisplayPositionY(-90.0f);
+                    //_souvenirWindow.SetDisplayPositionY(-90.0f);
                     _souvenirWindow.SetSouvenirs(_owner.Souvenirs);
                     _souvenirWindow.SetEnable(true);
                 }

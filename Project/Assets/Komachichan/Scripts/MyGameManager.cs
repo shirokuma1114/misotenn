@@ -526,7 +526,7 @@ public class MyGameManager : MonoBehaviour
         // 2位からの同列を考慮したランキング 起こり得るパターンは
         // 1222 1224 1233 1234
         int addRank = 0;
-        if (characters[2].Souvenirs.Count == characters[1].Souvenirs.Count &&
+        if (characters[2].GetSouvenirTypeNum() == characters[1].GetSouvenirTypeNum() && characters[2].Souvenirs.Count == characters[1].Souvenirs.Count &&
             characters[2].Money == characters[1].Money)
         {
             addRank += 2;
@@ -538,7 +538,7 @@ public class MyGameManager : MonoBehaviour
 
         if (characters[2] == character) return rank;
 
-        if (!(characters[3].Souvenirs.Count == characters[2].Souvenirs.Count &&
+        if (!(characters[3].GetSouvenirTypeNum() == characters[2].GetSouvenirTypeNum() && characters[3].Souvenirs.Count == characters[2].Souvenirs.Count &&
             characters[3].Money == characters[2].Money))
         {
             rank++;
@@ -597,7 +597,8 @@ public class MyGameManager : MonoBehaviour
     
     public List<CharacterBase> GetRankSortedCharacters()
     {
-        return GetCharacters().OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Money).ToList();
+        // 順位決めは お土産の種類数 << お土産の数 << 所持金
+        return GetCharacters().OrderByDescending(x => x.GetSouvenirTypeNum()).ThenByDescending(x => x.Souvenirs.Count).ThenByDescending(x => x.Money).ToList();
     }
     // 勝利条件に必要な数
     public int GetNeedSouvenirType()

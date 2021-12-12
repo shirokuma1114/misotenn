@@ -67,7 +67,13 @@ public class MoveCardManager : MonoBehaviour
         SelectCardColorUpdate();
         _autoSelect = true;
 
-        _selectComplete = true;
+        Invoke("DelayAnimation", 0.5f);
+    }
+
+    private void DelayAnimation()
+    {
+        _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
+        _finAnimStartFlag = true;
     }
 
     /// <summary>

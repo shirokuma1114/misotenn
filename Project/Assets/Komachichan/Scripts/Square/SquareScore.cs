@@ -19,7 +19,7 @@ public enum SquareScore : int
     ALLOWANCE_50000_OR_LESS = 2,
     CASINO = 1,
     WARP = 1,
-    ALLOWANCE_50000_OR_MORE = 0,
+    ALLOWANCE_50000_OR_MORE = 1,
     NONE_PROTECT = 0,
     NONE_STEAL = 0,
     NORMAL = 0,
