@@ -9,6 +9,7 @@ public class TurnController : MonoBehaviour
     [SerializeField] private PlayerBrain _player;
     [SerializeField] private EnemyBrain[] _enemy; 
     [SerializeField] private Image _nowTurnArrow;
+    [SerializeField] private Text[] _names;
     [SerializeField] private MiniGameConnection _miniGameCorrection;
     [SerializeField] private MiniGameResult _miniGameResult;
 
@@ -31,6 +32,12 @@ public class TurnController : MonoBehaviour
         for (int i = 0; i < _winner.Length; i++)
         {
             _winner[i] = -1;
+        }
+
+        for(int i = 0;i < _names.Length;i++)
+        {
+            if (i == 0) _names[i].text = _player._miniGameChara.Name;
+            else _names[i].text = _enemy[i - 1]._miniGameChara.Name;
         }
 
         _turnText.text = "の番です";
@@ -105,7 +112,7 @@ public class TurnController : MonoBehaviour
         {
             //プレイヤー
             case 0:
-                _turnText.text = "こまち社長　の番です";
+                _turnText.text = _player._miniGameChara.Name + " の番です";
                 rect.localPosition = new Vector3(-270, 180, 0);
 
                 _player.StartTurn();
@@ -113,7 +120,7 @@ public class TurnController : MonoBehaviour
 
             //エネミー１
             case 1:
-                _turnText.text = "敵１号　の番です";
+                _turnText.text = _enemy[0]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 140, 0);
                 _enemy[0].StartTurn();
                 if(_enemy[0]._miniGameChara.IsAutomatic == true) _enemy[0].TurnCard();
@@ -121,7 +128,7 @@ public class TurnController : MonoBehaviour
 
             //エネミー２
             case 2:
-                _turnText.text = "敵２号　の番です";
+                _turnText.text = _enemy[1]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 100, 0);
 
                 _enemy[1].StartTurn();
@@ -130,7 +137,7 @@ public class TurnController : MonoBehaviour
 
             //エネミー３
             case 3:
-                _turnText.text = "敵３号　の番です";
+                _turnText.text = _enemy[2]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 60, 0);
 
                 _enemy[2].StartTurn();
@@ -153,7 +160,6 @@ public class TurnController : MonoBehaviour
             {
                 _winner[i] = _id;
                 if (i == _winner.Length - 1) _isGameEnd = true;
-                Debug.Log((i + 1) + "番目は" + _id);
                 break;
             }
         }
