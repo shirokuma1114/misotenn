@@ -9,6 +9,7 @@ public class TurnController : MonoBehaviour
     [SerializeField] private PlayerBrain _player;
     [SerializeField] private EnemyBrain[] _enemy; 
     [SerializeField] private Image _nowTurnArrow;
+    [SerializeField] private Text[] _names;
     [SerializeField] private MiniGameConnection _miniGameCorrection;
     [SerializeField] private MiniGameResult _miniGameResult;
 
@@ -20,6 +21,11 @@ public class TurnController : MonoBehaviour
     
    public void Init()
    {
+        _player._miniGameChara = _miniGameCorrection.Characters[0];
+        for (int i = 0; i < _enemy.Length; i++)
+        {
+            _enemy[i]._miniGameChara = _miniGameCorrection.Characters[i + 1];
+        }
         //ゲームの順番を決める
         turnRoulette(gameOrder);
        
@@ -27,6 +33,13 @@ public class TurnController : MonoBehaviour
         {
             _winner[i] = -1;
         }
+
+        for(int i = 0;i < _names.Length;i++)
+        {
+            if (i == 0) _names[i].text = _player._miniGameChara.Name;
+            else _names[i].text = _enemy[i - 1]._miniGameChara.Name;
+        }
+
         _turnText.text = "の番です";
         TurnChange();
     }
@@ -38,8 +51,30 @@ public class TurnController : MonoBehaviour
         {
             //リザルトを出す
             _miniGameCorrection.EndMiniGame();
+            Dictionary<MiniGameCharacter, int> rank = new Dictionary<MiniGameCharacter, int>();
+            for (int i = 0; i < _winner.Length; i++)
+            {
+               if(_winner[i] == 0)
+               {
+                   rank.Add(_player._miniGameChara, (i + 1));
+               }
+               else if (_winner[i] == 1)
+               {
+                   rank.Add(_enemy[0]._miniGameChara, (i + 1));
+               }
+               else if (_winner[i] == 2)
+               {
+                   rank.Add(_enemy[1]._miniGameChara, (i + 1));
+               }
+               else if (_winner[i] == 3)
+               {
+                   rank.Add(_enemy[2]._miniGameChara, (i + 1));
+               }
+            }
             //_miniGameResult.
-            //_miniGameResult.Display(_winner);
+            _miniGameResult.Display(rank);
+
+            _isGameEnd = false;
         }
     }
 
@@ -77,7 +112,7 @@ public class TurnController : MonoBehaviour
         {
             //プレイヤー
             case 0:
-                _turnText.text = "こまち社長　の番です";
+                _turnText.text = _player._miniGameChara.Name + " の番です";
                 rect.localPosition = new Vector3(-270, 180, 0);
 
                 _player.StartTurn();
@@ -85,28 +120,28 @@ public class TurnController : MonoBehaviour
 
             //エネミー１
             case 1:
-                _turnText.text = "敵１号　の番です";
+                _turnText.text = _enemy[0]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 140, 0);
                 _enemy[0].StartTurn();
-                _enemy[0].TurnCard();
+                if(_enemy[0]._miniGameChara.IsAutomatic == true) _enemy[0].TurnCard();
                 break;
 
             //エネミー２
             case 2:
-                _turnText.text = "敵２号　の番です";
+                _turnText.text = _enemy[1]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 100, 0);
 
                 _enemy[1].StartTurn();
-                _enemy[1].TurnCard();
+                if (_enemy[1]._miniGameChara.IsAutomatic == true) _enemy[1].TurnCard();
                 break;
 
             //エネミー３
             case 3:
-                _turnText.text = "敵３号　の番です";
+                _turnText.text = _enemy[2]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 60, 0);
 
                 _enemy[2].StartTurn();
-                _enemy[2].TurnCard();
+                if (_enemy[2]._miniGameChara.IsAutomatic == true) _enemy[2].TurnCard();
                 break;
         }
 
@@ -125,7 +160,6 @@ public class TurnController : MonoBehaviour
             {
                 _winner[i] = _id;
                 if (i == _winner.Length - 1) _isGameEnd = true;
-                Debug.Log((i + 1) + "番目は" + _id);
                 break;
             }
         }

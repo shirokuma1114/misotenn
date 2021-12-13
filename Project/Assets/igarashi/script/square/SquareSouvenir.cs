@@ -88,7 +88,7 @@ public class SquareSouvenir : SquareBase
         //お金チェック
         if (!_character.CanPay(_cost))
         {
-            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _messageWindow.SetMessage("お金が足りません", character);
             _state = SquareSouvenirState.END;
             return;
         }
@@ -96,7 +96,7 @@ public class SquareSouvenir : SquareBase
         //在庫チェック
         if (_nowStock <= 0)
         {
-            _messageWindow.SetMessage("在庫がありません", character.IsAutomatic);
+            _messageWindow.SetMessage("在庫がありません", character);
             _state = SquareSouvenirState.END;
             return;
         }
@@ -104,7 +104,7 @@ public class SquareSouvenir : SquareBase
 
         var message = _cost.ToString() + "円を支払って\nお土産　" + _souvenirName + "を　買いますか？";
 
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
@@ -112,7 +112,7 @@ public class SquareSouvenir : SquareBase
 
         if (character.IsAutomatic)
         {
-            Invoke("SelectAutomatic", 2.0f);
+            Invoke("SelectAutomatic", 1.5f);
         }
     }
 
@@ -177,7 +177,7 @@ public class SquareSouvenir : SquareBase
             buyMessage += "在庫が　なくなった！";
         }
 
-        _messageWindow.SetMessage(buyMessage, _character.IsAutomatic);
+        _messageWindow.SetMessage(buyMessage, _character);
 
         _souvenirWindow.SetSouvenirs(_character.Souvenirs);
         _souvenirWindow.SetEnable(true);

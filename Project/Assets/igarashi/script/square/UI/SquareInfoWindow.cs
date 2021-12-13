@@ -24,6 +24,8 @@ public class SquareInfoWindow : WindowBase
     [SerializeField]
     WindowBase _backToWindow;
 
+    CharacterBase _character;
+
     public override void SetEnable(bool enable)
     {
         _text.enabled = enable;
@@ -38,6 +40,11 @@ public class SquareInfoWindow : WindowBase
         {
             _operator = _earth.Operator;
         }
+    }
+
+    public override void SetCharacter(CharacterBase character)
+    {
+        _character = character;
     }
 
     public void SetSquareInfo(string info)
@@ -71,12 +78,12 @@ public class SquareInfoWindow : WindowBase
             UpdateInfoText();
 
             // フリーカメラモードOFF
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || _character.Input.GetButtonDown("B"))
             {
                 SetEnable(false);
                 _backToWindow.SetEnable(true);
 
-                Control_SE.Get_Instance().Play_SE("UI_Close");
+                if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Close");
             }
         }        
     }

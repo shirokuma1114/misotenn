@@ -80,13 +80,13 @@ public class SquareEnforcedGoal : SquareBase
 
         if (!_character.CanPay(_cost))
         {
-            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character.IsAutomatic);
+            _messageWindow.SetMessage("‚¨‹à‚ª‘«‚è‚Ü‚¹‚ñ", character);
             _state = SquareEnforcedGoalState.END;
             return;
         }
 
         var message = _cost.ToString() + "‰~‚ðŽx•¥‚Á‚ÄƒS[ƒ‹‚µ‚Ü‚·‚©?";
-        _messageWindow.SetMessage(message, character.IsAutomatic);
+        _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
@@ -193,7 +193,7 @@ public class SquareEnforcedGoal : SquareBase
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // ƒRƒXƒg‚ª‘«‚è‚È‚¢
-        if (_cost > character.Money) return base.GetScore(character, characterType);
+        if (ComputeCost(character) > character.Money) return base.GetScore(character, characterType);
 
         return (int)SquareScore.EGOAL + base.GetScore(character, characterType);
     }

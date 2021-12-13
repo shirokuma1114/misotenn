@@ -26,6 +26,8 @@ public class SquareMoveForward : SquareBase
     [SerializeField]
     private int _moveNum;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,20 +61,19 @@ public class SquareMoveForward : SquareBase
         }
     }
 
-
     public override void Stop(CharacterBase character)
     {
         _character = character;
 
         if (!_character.CanPay(_cost))
         {
-            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _messageWindow.SetMessage("お金が足りません", character);
             _state = SquareMoveForwardState.END;
             return;
         }
 
         var message = _cost.ToString() + "円を支払って" + _moveNum + "マス進みますか？";
-        _messageWindow.SetMessage(message,character.IsAutomatic);
+        _messageWindow.SetMessage(message,character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 

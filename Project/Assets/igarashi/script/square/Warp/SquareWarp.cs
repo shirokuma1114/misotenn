@@ -48,8 +48,7 @@ public class SquareWarp : SquareBase
         _payUI = FindObjectOfType<PayUI>();
         _fade = FindObjectOfType<SimpleFade>();
 
-        _characters = new List<CharacterBase>();
-        _characters.AddRange(FindObjectsOfType<CharacterBase>());
+
 
         _squares = new List<SquareBase>();
         _squares.AddRange(FindObjectsOfType<SquareBase>());
@@ -88,22 +87,43 @@ public class SquareWarp : SquareBase
         }
     }
 
+    public override string GetSquareInfo(CharacterBase character)
+    {
+        int displayCost = CalcCost(character);
+
+        _squareInfo =
+              "ワープマス\n" +
+              "コスト：" + displayCost.ToString();
+
+        return _squareInfo;
+    }
+
+    private int CalcCost(CharacterBase character)
+    {
+        // 1位 40000
+        // 4位 10000
+
+        return (4 - _gameManager.GetRank(character)) * _cost;
+    }
 
     public override void Stop(CharacterBase character)
     {
         _character = character;
+        _characters = new List<CharacterBase>();
+        _characters.AddRange(FindObjectsOfType<CharacterBase>());
 
+        int cost = CalcCost(character);
 
         //お金チェック
-        if(!_character.CanPay(_cost))
+        if (!_character.CanPay(cost))
         {
-            _messageWindow.SetMessage("お金が足りません", character.IsAutomatic);
+            _messageWindow.SetMessage("お金が足りません", character);
             _state = SquareWarpState.END;
             return;
         }
 
-        var message = _cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
-        _messageWindow.SetMessage(message,character.IsAutomatic);
+        var message = cost.ToString() + "円を支払って全員をランダムにワープさせますか？";
+        _messageWindow.SetMessage(message,character);
         _statusWindow.SetEnable(true);
         _payUI.Open(character);
 
@@ -128,7 +148,8 @@ public class SquareWarp : SquareBase
                 _character.Log.AddUseEventNum(SquareEventType.WARP);
 
 
-                _character.SubMoney(_cost);
+                _character.SubMoney(CalcCost(_character));
+
 
                 //ワープホールに飛んでく
                 foreach (var chara in _characters)
@@ -215,6 +236,8 @@ public class SquareWarp : SquareBase
             chara.Alignment();
         }
 
+        //Time.timeScale = 0.0f;
+
         _warpHole.Close();
 
         _state = SquareWarpState.END;
@@ -235,7 +258,7 @@ public class SquareWarp : SquareBase
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         // お金が足りない
-        if (_cost > character.Money) return base.GetScore(character, characterType);
+        if (CalcCost(character) > character.Money) return base.GetScore(character, characterType);
 
         // 自分が不利
         if (_gameManager.GetRank(character) > 2) return (int)SquareScore.HANDICAP_WARP + base.GetScore(character, characterType);

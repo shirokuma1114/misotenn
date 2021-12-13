@@ -28,7 +28,11 @@ public class AIController : CharacterControllerBase
     // Update is called once per frame
     void Update()
     {
-        if (_isSelectedCard) return;
+        if (_isSelectedCard)
+        {
+            UpdateSelect();
+            return;
+        }
         UpdateMove();
     }
 
@@ -50,25 +54,23 @@ public class AIController : CharacterControllerBase
         _statusWindow.SetLapNum(_character.LapCount);
         _souvenirWindow.SetSouvenirs(_character.Souvenirs);
         _souvenirWindow.SetEnable(true);
-        _selectWindow.SetIsAutomatic(_character.IsAutomatic);
+        _selectWindow.SetCharacter(_character);
         _selectWindow.SetEnable(true);
     }
 
     public override void Move()
     {
-        _moveCardManager.SetCardList(_character.MovingCards,true);
+        base.Move();
+        _moveCardManager.SetCardList(_character.MovingCards, _character);
         _isSelectedCard = true;
-        Invoke("SelectMovingCard", 2.5f);
+        Invoke("SelectMovingCard", 2.0f);
     }
 
     void SelectMovingCard()
     {
-        SetRoot();
-        _statusWindow.SetEnable(false);
-        _movingCount.SetEnable(true);
-        _souvenirWindow.SetEnable(false);
-        _isSelectedCard = false;
-        base.Move();
+        var index = _aiLevel.CalcRoot(_character, ref _root);
+        _moveCardManager.IndexSelect(index);
+        _isSelectedCard = true;
     }
 
     void DelayStartMove()
@@ -78,13 +80,24 @@ public class AIController : CharacterControllerBase
 
     public override void SetRoot()
     {
-        base.SetRoot();
         // 思考＆ルート作成
-        var index = _aiLevel.CalcRoot(_character, ref _root);
-        _moveCardManager.IndexSelect(index);
+        base.SetRoot();
+        var index = _moveCardManager.GetSelectedCardIndex();
         _character.RemoveMovingCard(index);
-        NotifyMovingCount(_character.MovingCount);
         _goalMovingCount = _character.MovingCount;
+        NotifyMovingCount(_character.MovingCount);
         _moveCardManager.DeleteCards();
+        _isSelectedCard = false;
+    }
+
+    private void UpdateSelect()
+    {
+        if (_moveCardManager.GetSelectedCardIndex() != -1)
+        {
+            SetRoot();
+            _statusWindow.SetEnable(false);
+            _movingCount.SetEnable(true);
+            _souvenirWindow.SetEnable(false);
+        }
     }
 }

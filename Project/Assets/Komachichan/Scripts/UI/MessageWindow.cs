@@ -30,6 +30,10 @@ public class MessageWindow : WindowBase
 
     bool _isAutomatic;
 
+    CharacterBase _character;
+
+
+
     private bool _isDisplayed = false;
     public bool IsDisplayed
     {
@@ -92,7 +96,7 @@ public class MessageWindow : WindowBase
             _iconTr.anchoredPosition = pos;
 
         }
-        if (!_isAutomatic && Input.GetKeyDown(KeyCode.Return))
+        if (!_isAutomatic && (Input.GetKeyDown(KeyCode.Return) || _character.Input.GetButtonDown("A")))
         {
             SetNextMessage();
         }
@@ -116,7 +120,7 @@ public class MessageWindow : WindowBase
     }
 
     // ãÊêÿÇËï∂éöÇ<>Ç∆Ç∑ÇÈ
-    public void SetMessage(string message, bool isAutomatic)
+    public void SetMessage(string message, CharacterBase character)
     {
         _isDisplayed = true;
         _splitMessage = Regex.Split(message, @"\s*" + _splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
@@ -127,7 +131,8 @@ public class MessageWindow : WindowBase
         _elapsedTime = 0.0f;
         _frameImage.enabled = true;
         _text.enabled = true;
-        _isAutomatic = isAutomatic;
+        _isAutomatic = character.IsAutomatic;
+        _character = character;
     }
 
     public void SetTextSpeed(float textSpeed)

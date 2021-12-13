@@ -114,19 +114,28 @@ Shader "Custom/Cloud"
 			{
 				fixed4 col = _Color;
 
-				half alpha = 1 - (dot(i.viewDir, i.normalDir));
-				alpha = clamp(alpha * _Alpha, 0.1, 1.0);
+				half alpha = dot(i.viewDir, i.normalDir);
+				
+				if (alpha < 0.4)
+				{
+					//alpha = clamp(pow(alpha*_Alpha, _RimPower)*_RimPower, 0.1, 1.0);
+					//col = fixed4(_RimColor.rgb, alpha);
+					
+					half emission = pow(alpha, _RimPower) * _RimPower;
+					emission = saturate(emission);
+					col = fixed4(_RimColor.rgb,emission);
+				
+					return col;
+				
+					/*fixed4 emission = _RimColor * pow(rim, _RimPower) * _RimPower;
+					emission = saturate(emission);
+					col = rim;
+					return col;*/
+				}
+				alpha = clamp((1.0-alpha) * _Alpha, 0.1, 1.0);
 
 				col = fixed4(col.rgb, alpha);
 
-				half rim = 1.0 - abs(dot(i.viewDir, i.normalDir));
-				if (rim > 0.6)
-				{
-					fixed4 emission = _RimColor * pow(rim, _RimPower) * _RimPower;
-					emission = saturate(emission);
-					col += emission;
-					return col;
-				}
 
 				half dir =dot(i.viewDir, i.normalDir);
 				if (dir > 0)dir = 1;

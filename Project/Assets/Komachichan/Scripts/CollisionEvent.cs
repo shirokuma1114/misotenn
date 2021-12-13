@@ -34,7 +34,7 @@ public class CollisionEvent
         _messageWindow = Object.FindObjectOfType<MessageWindow>();
         _souvenirWindow = Object.FindObjectOfType<SouvenirWindow>();
         _shoutotsuEnshutsu = Object.FindObjectOfType<ShoutotsuEnshutsu>();
-        _messageWindow.SetMessage("Õ“ËI", owner.IsAutomatic);
+        _messageWindow.SetMessage("Õ“ËI", owner);
         _shoutotsuEnshutsu.Start_ShoutotsuEnshutsu();
         _phase = Phase.INIT;
         _targetIndex = 0;
@@ -45,7 +45,6 @@ public class CollisionEvent
 
     public void Update()
     {
-
         if (_phase == Phase.NONE) return;
         if (_phase == Phase.INIT)
         {
@@ -54,7 +53,7 @@ public class CollisionEvent
                 // ‚¨“yŽY‚ðŽ‚Á‚Ä‚È‚¢
                 if (_targets[_targetIndex].Souvenirs.Count == 0)
                 {
-                    _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Í@‚¨“yŽY‚ð@Ž‚Á‚Ä‚¢‚È‚©‚Á‚½I", _owner.IsAutomatic);
+                    _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Í@‚¨“yŽY‚ð@Ž‚Á‚Ä‚¢‚È‚©‚Á‚½I", _owner);
                     _phase = Phase.END;
                 }
                 else
@@ -72,7 +71,7 @@ public class CollisionEvent
                 _souvenirIndex = Random.Range(0, _targets[_targetIndex].Souvenirs.Count);
 
                 var souvenir = _targets[_targetIndex].Souvenirs[_souvenirIndex];
-                _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Ì\n‚¨“yŽY@" + souvenir.Name + "‚ð@‚¢‚½‚¾‚¢‚½I", _owner.IsAutomatic);
+                _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Ì\n‚¨“yŽY@" + souvenir.Name + "‚ð@‚¢‚½‚¾‚¢‚½I", _owner);
 
                 _owner.AddSouvenir(souvenir);
                 _targets[_targetIndex].RemoveSouvenir(_souvenirIndex);
@@ -80,7 +79,7 @@ public class CollisionEvent
 
                 if(_targetIndex + 1 >= _targets.Count)
                 {
-                    _souvenirWindow.SetDisplayPositionY(-90.0f);
+                    //_souvenirWindow.SetDisplayPositionY(-90.0f);
                     _souvenirWindow.SetSouvenirs(_owner.Souvenirs);
                     _souvenirWindow.SetEnable(true);
                 }

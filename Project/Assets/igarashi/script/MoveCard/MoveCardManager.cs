@@ -29,21 +29,24 @@ public class MoveCardManager : MonoBehaviour
     [SerializeField]
     private KeyCode _enterKey = KeyCode.Return;
 
+    CharacterBase _character;
+
+    private float beforeTrigger;
 
     /// <summary>
     /// カード生成
     /// </summary>
     /// <param name="cardNumberList">生成するカードのリスト</param>
     /// <param name="autoSelect">AI判別用</param>
-    public void SetCardList(List<int> cardNumberList, bool autoSelect = false)
+    public void SetCardList(List<int> cardNumberList, CharacterBase character)
     {
         _cardNumberLists = cardNumberList;
-
+        _character = character;
         DeleteCards();
 
         CreateCards();
         SelectCardColorUpdate();
-        _autoSelect = autoSelect;
+        _autoSelect = character.IsAutomatic;
 
         _selectComplete = false;
     }
@@ -64,7 +67,13 @@ public class MoveCardManager : MonoBehaviour
         SelectCardColorUpdate();
         _autoSelect = true;
 
-        _selectComplete = true;
+        Invoke("DelayAnimation", 0.5f);
+    }
+
+    private void DelayAnimation()
+    {
+        _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
+        _finAnimStartFlag = true;
     }
 
     /// <summary>
@@ -101,7 +110,6 @@ public class MoveCardManager : MonoBehaviour
     }
 
     //=================================
-
 
     void Start()
     {
@@ -169,6 +177,34 @@ public class MoveCardManager : MonoBehaviour
                 return;
         }
 
+        float viewButton = _character.Input.GetAxis("Horizontal");
+
+        if (beforeTrigger == 0.0f)
+        {
+            if (viewButton < 0)
+            {
+                _selectedCardIndex--;
+                if (_selectedCardIndex < 0)
+                    _selectedCardIndex = _cards.Count - 1;
+
+                SelectCardColorUpdate();
+
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+            if(viewButton > 0)
+            {
+                _selectedCardIndex++;
+                if (_selectedCardIndex >= _cards.Count)
+                    _selectedCardIndex = 0;
+
+                SelectCardColorUpdate();
+
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+        }
+
+        beforeTrigger = viewButton;
+
         if (Input.GetKeyDown(_selectLeftKey))
         {
             _selectedCardIndex--;
@@ -177,7 +213,7 @@ public class MoveCardManager : MonoBehaviour
 
             SelectCardColorUpdate();
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
         if (Input.GetKeyDown(_selectRightKey))
         {
@@ -187,16 +223,16 @@ public class MoveCardManager : MonoBehaviour
 
             SelectCardColorUpdate();
 
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
         }
 
         // changed by miya
-        if (Input.GetKeyDown(_enterKey))
+        if (Input.GetKeyDown(_enterKey) || _character.Input.GetButtonDown("A"))
         {
             _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
             _finAnimStartFlag = true;
 
-            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
         }        
     }
 

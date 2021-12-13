@@ -34,6 +34,8 @@ public class InfomationWindow : WindowBase
     MyGameManager _gameManager;
 
     bool _enable;
+
+    private CharacterBase _character;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,11 +48,12 @@ public class InfomationWindow : WindowBase
     {
         if (!_enable) return;
 
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Return)
+            || _character.Input.GetButtonDown("A") || _character.Input.GetButtonDown("B"))
         {
             Invoke("BackToWindow", 0.01f);
 
-            Control_SE.Get_Instance().Play_SE("UI_Close");
+            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Close");
         }
     }
 
@@ -101,6 +104,11 @@ public class InfomationWindow : WindowBase
             x.SetEnable(enable);
         }
 
+    }
+
+    public override void SetCharacter(CharacterBase character)
+    {
+        _character = character;
     }
 
     void UpdateInfomation()

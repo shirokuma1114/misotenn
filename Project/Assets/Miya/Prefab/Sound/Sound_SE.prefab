@@ -143,7 +143,21 @@ MonoBehaviour:
   Sound_Contents:
   - Name: UI_Select
     Audio: {fileID: 8300000, guid: 51111988ce58ca54083fd22907e7c0b7, type: 3}
+    Volume: 0
+    Loop: 0
   - Name: UI_Correct
     Audio: {fileID: 8300000, guid: 39e2e2f6dba02be45a382567d3b54d2b, type: 3}
+    Volume: 0
+    Loop: 0
   - Name: UI_Close
     Audio: {fileID: 8300000, guid: 937ec2f416e0d334e904e3dbe2458403, type: 3}
+    Volume: 0
+    Loop: 0
+  - Name: Goal
+    Audio: {fileID: 8300000, guid: c1de5c6b536274e4494375e83558280d, type: 3}
+    Volume: 0
+    Loop: 0
+  - Name: Fly
+    Audio: {fileID: 8300000, guid: 9a5ef6754d1aac742acd993e7d9609a5, type: 3}
+    Volume: 0
+    Loop: 1

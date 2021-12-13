@@ -14,11 +14,13 @@ public class CakeAnimation : MonoBehaviour
     public void StartMove()
     {
         _animator.SetBool("Idle", false);
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("Fly");
     }
 
     public void EndMove()
     {
         _animator.SetBool("Idle", true);
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Stop_SE();
     }
 
     public bool CanMove()

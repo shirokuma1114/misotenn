@@ -14,10 +14,15 @@ public class Control_SE : MonoBehaviour
 	{
 		Sound_List content = Sound_Contents.Find(l => l.Name == _name);
 		Sound.clip = content.Audio;
+		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE * content.Volume;
+		Sound.loop = content.Loop;
 		Sound.Play();
 	}
+	public void Stop_SE()
+	{
+		Sound.Stop();
+	}
 
-	
 
 	// Setting
 	Setting_SoundUI SoundSetting;
@@ -43,9 +48,15 @@ public class Control_SE : MonoBehaviour
             Destroy(gameObject);
         }
 
+		// Initialize
 		Sound = this.GetComponent<AudioSource>();
 		Initial_SoundVolume = Sound.volume;
 		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
+
+		foreach(var i in Sound_Contents)
+		{
+			if (i.Volume == 0) i.Volume = 1.0f;
+		}
 
 		// Event
 		Setting_SoundUI.Event_Sound += time =>
