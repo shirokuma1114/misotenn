@@ -23,7 +23,8 @@ public class PlayerController : CharacterControllerBase
     // Update is called once per frame
     void Update()
     {
-        if (_isSelectedCard) {
+        if (_isSelectedCard)
+        {
             UpdateSelect();
             return;
         }
