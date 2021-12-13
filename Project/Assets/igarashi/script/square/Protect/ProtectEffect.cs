@@ -8,44 +8,44 @@ public class ProtectEffect : MonoBehaviour
     private bool _end;
     public bool IsEnd => _end;
 
-    private MeshRenderer _mesh;
+    private BarrierDissolve _effect;
 
-    private Sequence _sequence;
+    [SerializeField]
+    private float _playTime = 1.0f;
+    private float _playTimeCounter = 0.0f;
 
-    private void Awake()
+    private Tween _tween;
+
+    
+    public void EndEffect()
     {
-        _end = false;
-
-        _mesh = GetComponent<MeshRenderer>();        
-
-        transform.localScale = new Vector3(0, 0, 0);
+        
     }
+
+    //================================
 
     void Start()
     {
-        _sequence = DOTween.Sequence();
-        _sequence.Append(transform.DOScale(50.0f, 1.0f));
-        _sequence.AppendInterval(1.0f);
-        _sequence.Append(transform.DOScale(100.0f, 1.0f));
-        _sequence.Join(_mesh.material.DOColor(new Color(0,0,0,0), "_FadeAlpha", 1.0f));
+        _end = false;
 
-        _sequence.Play();
-
-        _sequence.SetAutoKill(false);
+        _effect = GetComponent<BarrierDissolve>();
+        _effect.StartBarrier();
     }
 
-
-    void FixedUpdate()
+    private void Update()
     {
-        if (_sequence == null)
-            return;
-
-        if(_sequence.IsComplete())
+        if (_playTimeCounter >= _playTime)
         {
-            _end = true;
-
-            _sequence.Kill();
-            _sequence = null;
+            _tween = transform.DOScale(0.0f, 0.5f);
+            _tween.OnComplete(() => { _end = true; });
+            _tween.SetLink(gameObject);
         }
+
+        _playTimeCounter += Time.deltaTime;
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }
