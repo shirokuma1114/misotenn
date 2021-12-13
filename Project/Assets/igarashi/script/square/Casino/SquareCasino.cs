@@ -68,7 +68,7 @@ public class SquareCasino : SquareBase
 
 
         //お金チェック
-        if (_character.Money == 0)
+        if (_character.Money <= 0)
         {
             _messageWindow.SetMessage("お金がありません", character);
             _state = SquareCasinoState.END;
