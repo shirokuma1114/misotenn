@@ -10,13 +10,12 @@ public class Miya_Manager_2 : MonoBehaviour
 {
 	// Template
 	public enum Miya_State_2 { TUTORIAL, WAIT, PLAY, RESULT, END, };
-	private Miya_State_2 _state;
-	public Miya_State_2 State => _state;
+	private		Miya_State_2 _state;
+	public		Miya_State_2 State => _state;
 	[SerializeField] private MiniGameConnection _miniGameConnection;
 	[SerializeField] private Text _tenukiText;
 	[SerializeField] private List<Miya_Controller_2> _miniGameControllers;
 	public MiniGameResult Result;
-
 
 	// Public
 	public Image Card;
@@ -32,11 +31,11 @@ public class Miya_Manager_2 : MonoBehaviour
 	public void Set_PlayerFinished		() { Player_Finished = true; }
 
 	// Variable
-	float Counter_Wait_Start = 0;
-	float Conter_Wait_NextPlayer = 0;
+	float	Counter_Wait_Start		= 0;
+	float	Conter_Wait_NextPlayer	= 0;
 
-	int CurrentPlayerNumber = 1;
-	bool Player_Finished = false;
+	int		CurrentPlayerNumber = 1;
+	bool	Player_Finished		= false;
 
 	RectTransform Rect_Card;
 	Sequence Sequence_Initialize;
@@ -48,6 +47,23 @@ public class Miya_Manager_2 : MonoBehaviour
 	RectTransform Rect_Hand_L;
 	RectTransform Rect_Hand_R;
 
+	// Play
+	float Falling_Position_Start	=  500;
+	float Falling_Position_End		= -500;
+	float Second_FallingStandby		= -1;
+	float Conter_FallingStandby		= 0;
+	Vector2 Range_Second_FallingStandby = new Vector2(0, 6);
+	float Second_Falling = -1;
+	Vector2 Range_Second_Falling = new Vector2(1, 2);
+	Sequence Sequence_Fall;
+
+	float Tolerance = -1;
+	public float Get_Tolerance() { return Tolerance; }
+
+	public float Get_Second_FallingToMiddle()
+	{
+		return Second_FallingStandby + Second_Falling / 2;
+	}
 
 	// Initialize
 	void Start()
@@ -73,6 +89,11 @@ public class Miya_Manager_2 : MonoBehaviour
 		Rect_Button = Button.GetComponent<RectTransform>();
 		Rect_Hand_L = Hand_L.GetComponent<RectTransform>();
 		Rect_Hand_R = Hand_R.GetComponent<RectTransform>();
+
+		// Play
+		Second_FallingStandby	= Random.Range(Range_Second_FallingStandby.x, Range_Second_FallingStandby.y);
+		Second_Falling			= Random.Range(Range_Second_Falling.x		, Range_Second_Falling.y);
+		Tolerance = Second_Falling / 10; // —v’²®
 	}
 
 
@@ -81,25 +102,11 @@ public class Miya_Manager_2 : MonoBehaviour
 	{
 		switch (_state)
 		{
-			case Miya_State_2.TUTORIAL:
-				TutorialState();
-				break;
-
-			case Miya_State_2.WAIT:
-				WaitState();
-				break;
-
-			case Miya_State_2.PLAY:
-				PlayState();
-				break;
-
-			case Miya_State_2.RESULT:
-				ResultState();
-				break;
-
-			case Miya_State_2.END:
-				EndState();
-				break;
+			case Miya_State_2.TUTORIAL: TutorialState	(); break;
+			case Miya_State_2.WAIT:		WaitState		(); break;
+			case Miya_State_2.PLAY:		PlayState		(); break;
+			case Miya_State_2.RESULT:	ResultState		(); break;
+			case Miya_State_2.END:		EndState		(); break;
 		}
 	}
 
@@ -117,11 +124,27 @@ public class Miya_Manager_2 : MonoBehaviour
 	private void WaitState()
 	{
 		Counter_Wait_Start += Time.deltaTime;
-		if (Counter_Wait_Start > Second_Wait_Start) { _state = Miya_State_2.PLAY; }
+		if (Counter_Wait_Start > Second_Wait_Start)
+		{
+			_state = Miya_State_2.PLAY;
+
+			// ã‚É“Š‚°ã‚°
+			Sequence_Initialize = DOTween.Sequence();
+			Sequence_Initialize.Append(Rect_Card.DORotateY(88, 1));
+			Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1));
+		}
 	}
 	
 	private void PlayState()
 	{
+		// Play
+		Conter_FallingStandby += Time.deltaTime;
+		if (Counter_FallingStandby > Second_FallingStandby)
+		{
+			Counter_FallingStandby = 0;
+			Set_Animation_Fall();
+		}
+
 		// Player Change
 		if ( Player_Finished )
 		{
@@ -159,17 +182,27 @@ public class Miya_Manager_2 : MonoBehaviour
 	// Animation
 	private void Set_Animation_Initialize()
 	{
+		// ‰ŠúˆÊ’u
 		Sequence_Initialize = DOTween.Sequence();
 		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -100, 0), 1));
 		Sequence_Initialize.Join(Rect_Hand_L.DOLocalMove(new Vector3(-200, 0, 0), 1));
 		Sequence_Initialize.Join(Rect_Hand_R.DOLocalMove(new Vector3( 200, 0, 0), 1));
-		Sequence_Initialize.Join(Rect_Button.DOScaleY(1, 1)
+		Sequence_Initialize.Join(Rect_Button.DORotateY(0, 1));
+		Sequence_Initialize.Join(Rect_Button.DOScaleY(1, 1));
+		// ã‚É“Š‚°ã‚°
+		Sequence_Initialize.Append(Rect_Card.DORotateY(88, 1));
+		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1)
 			.OnComplete(Completed));
 	}
 	// OnComplete
 	private void Completed()
 	{
 		Player_Finished = false;
+		
+		// Play
+		Second_FallingStandby	= Random.Range(Range_Second_FallingStandby.x, Range_Second_FallingStandby.y);
+		Second_Falling			= Random.Range(Range_Second_Falling.x, Range_Second_Falling.y);
+
 		if (CurrentPlayerNumber > 4)
 		{
 			FinishGame = true;
@@ -177,6 +210,15 @@ public class Miya_Manager_2 : MonoBehaviour
 		}
 	}
 
+	private void Set_Animation_Fall()
+	{
+		Sequence_Fall = DOTween.Sequence();
+		Sequence_Fall.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_End, 0), Second_Falling));
+	}
+	public void Stop_Animation_Fall()
+	{
+		Sequence_Fall.Kill();
+	}
 
 	// OnDisable
 	private void OnDisable()
