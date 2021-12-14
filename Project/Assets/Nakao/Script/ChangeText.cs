@@ -527,8 +527,8 @@ public class ChangeText : MonoBehaviour
 
                 P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 wk = 0;
             }
             if (Input.GetKeyDown(KeyCode.D))
@@ -538,8 +538,8 @@ public class ChangeText : MonoBehaviour
 
                 P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 wk = 0;
             }
 
@@ -619,8 +619,8 @@ public class ChangeText : MonoBehaviour
 
                 P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                 Choice = 0;
                 NextPage = false;
@@ -687,15 +687,15 @@ public class ChangeText : MonoBehaviour
                     {
                         P1mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
                         P1min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                     }
                     if (wk == 2)
                     {
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                        P3min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                        P2mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                        P2min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
                     }
                 }
             }
@@ -759,13 +759,13 @@ public class ChangeText : MonoBehaviour
                         image4.enabled = false;
 
                         _p1ItemText.text = "総資産";
-                        _p2ItemText.text = "周回数";
-                        _p3ItemText.text = "イベントマス使用回数";
+                        _p2ItemText.text = "イベントマス使用回数";
+                        _p3ItemText.text = "周回数";
                         _p4ItemText.text = "お土産数";
 
-                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                        _p1NumText.text = _characters[_selectIndex]._money + "円";
+                        _p2NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                        _p3NumText.text = _characters[_selectIndex]._lapCount + "回";
                         _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
 
                         Top1.GetComponent<Image>().color = new Color32(101, 21, 21, 255);
@@ -776,8 +776,8 @@ public class ChangeText : MonoBehaviour
 
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                         Choice = 1;
                         NextPage = true;
@@ -793,17 +793,18 @@ public class ChangeText : MonoBehaviour
                         image2.enabled = false;
                         image3.enabled = false;
                         image4.enabled = false;
-                        _p1ItemText.text = "総資産";
-                        _p2ItemText.text = "周回数";
-                        _p3ItemText.text = "イベントマス使用回数";
-                        _p4ItemText.text = "お土産数";
 
-                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-                        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+                    _p1ItemText.text = "総資産";
+                    _p2ItemText.text = "イベントマス使用回数";
+                    _p3ItemText.text = "周回数";
+                    _p4ItemText.text = "お土産数";
 
-                        Top1.GetComponent<Image>().color = new Color32(21, 21, 101, 255);
+                    _p1NumText.text = _characters[_selectIndex]._money + "円";
+                    _p2NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                    _p3NumText.text = _characters[_selectIndex]._lapCount + "回";
+                    _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
+                    Top1.GetComponent<Image>().color = new Color32(21, 21, 101, 255);
                         Top2.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
                         Back.GetComponent<Image>().color = new Color32(62, 115, 185, 255);
                         P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -811,8 +812,8 @@ public class ChangeText : MonoBehaviour
 
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                         Choice = 2;
                         NextPage = true;
@@ -828,17 +829,18 @@ public class ChangeText : MonoBehaviour
                         image2.enabled = false;
                         image3.enabled = false;
                         image4.enabled = false;
-                        _p1ItemText.text = "総資産";
-                        _p2ItemText.text = "周回数";
-                        _p3ItemText.text = "イベントマス使用回数";
-                        _p4ItemText.text = "お土産数";
 
-                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-                        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+                    _p1ItemText.text = "総資産";
+                    _p2ItemText.text = "イベントマス使用回数";
+                    _p3ItemText.text = "周回数";
+                    _p4ItemText.text = "お土産数";
 
-                        Top1.GetComponent<Image>().color = new Color32(11, 60, 11, 255);
+                    _p1NumText.text = _characters[_selectIndex]._money + "円";
+                    _p2NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                    _p3NumText.text = _characters[_selectIndex]._lapCount + "回";
+                    _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
+                    Top1.GetComponent<Image>().color = new Color32(11, 60, 11, 255);
                         Top2.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
                         Back.GetComponent<Image>().color = new Color32(52, 180, 105, 255);
                         P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -846,8 +848,8 @@ public class ChangeText : MonoBehaviour
 
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                         Choice = 3;
                         NextPage = true;
@@ -863,17 +865,18 @@ public class ChangeText : MonoBehaviour
                         image2.enabled = false;
                         image3.enabled = false;
                         image4.enabled = false;
-                        _p1ItemText.text = "総資産";
-                        _p2ItemText.text = "周回数";
-                        _p3ItemText.text = "イベントマス使用回数";
-                        _p4ItemText.text = "お土産数";
 
-                        _p1NumText.text = _characters[_selectIndex]._money + "＄";
-                        _p2NumText.text = _characters[_selectIndex]._lapCount + "回";
-                        _p3NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
-                        _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+                    _p1ItemText.text = "総資産";
+                    _p2ItemText.text = "イベントマス使用回数";
+                    _p3ItemText.text = "周回数";
+                    _p4ItemText.text = "お土産数";
 
-                        Top1.GetComponent<Image>().color = new Color32(101, 71, 21, 255);
+                    _p1NumText.text = _characters[_selectIndex]._money + "円";
+                    _p2NumText.text = _characters[_selectIndex]._useEventNumByType.Sum() + "回";
+                    _p3NumText.text = _characters[_selectIndex]._lapCount + "回";
+                    _p4NumText.text = _characters[_selectIndex]._souvenirNum + "個";
+
+                    Top1.GetComponent<Image>().color = new Color32(101, 71, 21, 255);
                         Top2.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
                         Back.GetComponent<Image>().color = new Color32(195, 195, 55, 255);
                         P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
@@ -881,8 +884,8 @@ public class ChangeText : MonoBehaviour
 
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                         Choice = 4;
                         NextPage = true;
@@ -901,8 +904,8 @@ public class ChangeText : MonoBehaviour
                         //バグ用
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                         ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
                     }
@@ -911,8 +914,8 @@ public class ChangeText : MonoBehaviour
                         //バグ用
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                     ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
                 }
@@ -921,8 +924,8 @@ public class ChangeText : MonoBehaviour
                         //バグ用
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                     ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
                 }
@@ -931,8 +934,8 @@ public class ChangeText : MonoBehaviour
                         //バグ用
                         P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P3min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
                     ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
                 }
