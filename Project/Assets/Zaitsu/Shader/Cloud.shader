@@ -13,7 +13,7 @@ Shader "Custom/Cloud"
     }
     SubShader
     {
-		Tags { "RenderType" = "Transparent" "Queue" = "Transparent"}
+		Tags { "RenderType" = "Transparent" "Queue" = "Overlay"}
 		Blend SrcAlpha OneMinusSrcAlpha
 		Cull off
 		LOD 100
