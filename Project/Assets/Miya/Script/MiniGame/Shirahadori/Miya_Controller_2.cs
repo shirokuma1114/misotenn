@@ -17,6 +17,7 @@ public class Miya_Controller_2 : MonoBehaviour
 
 	// public
 	public int Get_Score() { return Score; }
+	public void Set_Score(int _score) { Score = _score; _playerUI.Set_Score(Score);}
 
 
 	// Player Manager
@@ -47,14 +48,14 @@ public class Miya_Controller_2 : MonoBehaviour
 	float AI_Second_Wait = 0;
 	float AI_Second_Wait_PushButton = -1;
 
-	Vector2 AI_Range_Second_Error = new Vector2(-0.3f, 0.3f);
+	Vector2 AI_Range_Second_Error = new Vector2(-0.4f, 0.35f);
 
 	// Play
 	float Counter_Waiting = 0;
 	
 	bool Scored = false;
 
-	float a = 0.52f;
+	float a = 0.25f;
 
 
 	public void Init(MiniGameCharacter character, Miya_Manager_2 manager)
@@ -121,6 +122,13 @@ public class Miya_Controller_2 : MonoBehaviour
 						_playerUI.Set_Score(Score);
 						_manager.Stop_Animation_Fall();
 					}
+				}
+				else if (!Scored) 
+				{
+					Scored = true;
+
+					Score = 0;
+					_playerUI.Set_Score(Score);
 				}
 			}
 		}

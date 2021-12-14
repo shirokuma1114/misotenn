@@ -54,8 +54,7 @@ public class Miya_Manager_2 : MonoBehaviour
 	float Second_FallingStandby		= -1;
 	float Counter_FallingStandby	= 0;
 	Vector2 Range_Second_FallingStandby = new Vector2(1, 5);
-	float Second_Falling = -1;
-	Vector2 Range_Second_Falling = new Vector2(3, 4);
+	float Second_Falling = 2;
 	Sequence Sequence_Fall;
 
 	float Tolerance = -1;
@@ -100,8 +99,7 @@ public class Miya_Manager_2 : MonoBehaviour
 
 		// Play
 		Second_FallingStandby	= Random.Range(Range_Second_FallingStandby.x, Range_Second_FallingStandby.y);
-		Second_Falling			= Random.Range(Range_Second_Falling.x		, Range_Second_Falling.y);
-		Tolerance = 0.15f; // 要調整
+		Tolerance = 0.13f; // 要調整
 	}
 
 
@@ -202,17 +200,21 @@ public class Miya_Manager_2 : MonoBehaviour
 	// Animation
 	private void Set_Animation_Initialize()
 	{
-		// 初期位置
-		Sequence_Initialize = DOTween.Sequence();
-		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -100, 0), 1));
-		Sequence_Initialize.Join(Rect_Hand_L.DOLocalMove(new Vector3(-200, 0, 0), 1));
-		Sequence_Initialize.Join(Rect_Hand_R.DOLocalMove(new Vector3( 200, 0, 0), 1));
-		Sequence_Initialize.Join(Rect_Button.DORotate(new Vector3(0, 0, 0), 1));
-		Sequence_Initialize.Join(Rect_Button.DOScaleY(1, 1));
-		// 上に投げ上げ
-		Sequence_Initialize.Append(Rect_Card.DORotate(new Vector3(0, 88, 0), 1));
-		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1)
-			.OnComplete(Completed));
+		if (CurrentPlayerNumber != 4)
+		{
+			// 初期位置
+			Sequence_Initialize = DOTween.Sequence();
+			Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -100, 0), 1));
+			Sequence_Initialize.Join(Rect_Hand_L.DOLocalMove(new Vector3(-200, 0, 0), 1));
+			Sequence_Initialize.Join(Rect_Hand_R.DOLocalMove(new Vector3( 200, 0, 0), 1));
+			Sequence_Initialize.Join(Rect_Button.DORotate(new Vector3(0, 0, 0), 1));
+			Sequence_Initialize.Join(Rect_Button.DOScaleY(1, 1));
+			// 上に投げ上げ
+			Sequence_Initialize.Append(Rect_Card.DORotate(new Vector3(0, 88, 0), 1));
+			Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1)
+				.OnComplete(Completed));
+		}
+		else Completed();
 	}
 	// OnComplete
 	public void Completed()
@@ -227,7 +229,6 @@ public class Miya_Manager_2 : MonoBehaviour
 
 		// Play
 		Second_FallingStandby	= Random.Range(Range_Second_FallingStandby.x, Range_Second_FallingStandby.y);
-		Second_Falling			= Random.Range(Range_Second_Falling.x, Range_Second_Falling.y);
 
 		if (CurrentPlayerNumber > 4)
 		{
@@ -246,6 +247,7 @@ public class Miya_Manager_2 : MonoBehaviour
 	public void Completed_Fall()
 	{
 		Set_PlayerFinished();
+		_miniGameControllers[CurrentPlayerNumber-1].Set_Score(0);
 	}
 	public void Stop_Animation_Fall()
 	{
