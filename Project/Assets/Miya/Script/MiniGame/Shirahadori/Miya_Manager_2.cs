@@ -38,6 +38,7 @@ public class Miya_Manager_2 : MonoBehaviour
 	bool	Player_Finished		= false;
 
 	RectTransform Rect_Card;
+	Sequence Sequence_First;
 	Sequence Sequence_Initialize;
 
 	bool FinishGame = false;
@@ -51,14 +52,21 @@ public class Miya_Manager_2 : MonoBehaviour
 	float Falling_Position_Start	=  500;
 	float Falling_Position_End		= -500;
 	float Second_FallingStandby		= -1;
-	float Conter_FallingStandby		= 0;
-	Vector2 Range_Second_FallingStandby = new Vector2(0, 6);
+	float Counter_FallingStandby	= 0;
+	Vector2 Range_Second_FallingStandby = new Vector2(1, 5);
 	float Second_Falling = -1;
-	Vector2 Range_Second_Falling = new Vector2(1, 2);
+	Vector2 Range_Second_Falling = new Vector2(3, 4);
 	Sequence Sequence_Fall;
 
 	float Tolerance = -1;
 	public float Get_Tolerance() { return Tolerance; }
+
+	bool Falling = false;
+	bool Initialized = false;
+	public void Reset_Initialized() { Initialized = false; }
+
+
+	Sequence Sequence_Wait;
 
 	public float Get_Second_FallingToMiddle()
 	{
@@ -93,7 +101,7 @@ public class Miya_Manager_2 : MonoBehaviour
 		// Play
 		Second_FallingStandby	= Random.Range(Range_Second_FallingStandby.x, Range_Second_FallingStandby.y);
 		Second_Falling			= Random.Range(Range_Second_Falling.x		, Range_Second_Falling.y);
-		Tolerance = Second_Falling / 10; // 要調整
+		Tolerance = 0.15f; // 要調整
 	}
 
 
@@ -126,36 +134,42 @@ public class Miya_Manager_2 : MonoBehaviour
 		Counter_Wait_Start += Time.deltaTime;
 		if (Counter_Wait_Start > Second_Wait_Start)
 		{
-			_state = Miya_State_2.PLAY;
-
 			// 上に投げ上げ
-			Sequence_Initialize = DOTween.Sequence();
-			Sequence_Initialize.Append(Rect_Card.DORotateY(88, 1));
-			Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1));
+			Sequence_First = DOTween.Sequence();
+			Sequence_First.Append(Rect_Card.DORotate(new Vector3(0, 88, 0), 1));
+			Sequence_First.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1)
+				.OnComplete(Completed_First));
 		}
 	}
-	
+	// OnComplete
+	private void Completed_First()
+	{
+		_state = Miya_State_2.PLAY;
+	}
+
 	private void PlayState()
 	{
 		// Play
-		Conter_FallingStandby += Time.deltaTime;
-		if (Counter_FallingStandby > Second_FallingStandby)
+		if ( !Falling )
 		{
-			Counter_FallingStandby = 0;
-			Set_Animation_Fall();
+			Counter_FallingStandby += Time.deltaTime;
+			if (Counter_FallingStandby > Second_FallingStandby)
+			{
+				Falling = true;
+				Set_Animation_Fall();
+			}
 		}
 
 		// Player Change
 		if ( Player_Finished )
 		{
-			Conter_Wait_NextPlayer += Time.deltaTime;
-			if (Conter_Wait_NextPlayer > Second_Wait_NextPlayer)
+			if (!Initialized)
 			{
-				Conter_Wait_NextPlayer = 0;
+				Initialized = true;
 
-				CurrentPlayerNumber++;
-
-				Set_Animation_Initialize();
+				Sequence_Wait = DOTween.Sequence();
+				Sequence_Wait.AppendInterval(2)
+					.OnComplete(Completed_Wait);
 			}
 		}
 		
@@ -165,6 +179,12 @@ public class Miya_Manager_2 : MonoBehaviour
 			_state = Miya_State_2.RESULT;
 			_tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
 		}
+	}
+	// OnComplete
+	private void Completed_Wait()
+	{
+		Set_Animation_Initialize();
+
 	}
 
 	private void ResultState()
@@ -187,18 +207,24 @@ public class Miya_Manager_2 : MonoBehaviour
 		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -100, 0), 1));
 		Sequence_Initialize.Join(Rect_Hand_L.DOLocalMove(new Vector3(-200, 0, 0), 1));
 		Sequence_Initialize.Join(Rect_Hand_R.DOLocalMove(new Vector3( 200, 0, 0), 1));
-		Sequence_Initialize.Join(Rect_Button.DORotateY(0, 1));
+		Sequence_Initialize.Join(Rect_Button.DORotate(new Vector3(0, 0, 0), 1));
 		Sequence_Initialize.Join(Rect_Button.DOScaleY(1, 1));
 		// 上に投げ上げ
-		Sequence_Initialize.Append(Rect_Card.DORotateY(88, 1));
+		Sequence_Initialize.Append(Rect_Card.DORotate(new Vector3(0, 88, 0), 1));
 		Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1)
 			.OnComplete(Completed));
 	}
 	// OnComplete
-	private void Completed()
+	public void Completed()
 	{
+		CurrentPlayerNumber++;
+
+		Counter_FallingStandby = 0;
+
+		Falling = false;
 		Player_Finished = false;
-		
+		Reset_Initialized();
+
 		// Play
 		Second_FallingStandby	= Random.Range(Range_Second_FallingStandby.x, Range_Second_FallingStandby.y);
 		Second_Falling			= Random.Range(Range_Second_Falling.x, Range_Second_Falling.y);
@@ -213,17 +239,27 @@ public class Miya_Manager_2 : MonoBehaviour
 	private void Set_Animation_Fall()
 	{
 		Sequence_Fall = DOTween.Sequence();
-		Sequence_Fall.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_End, 0), Second_Falling));
+		Sequence_Fall.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_End, 0), Second_Falling)
+			.OnComplete(Completed_Fall));
+	}
+	// OnComplete
+	public void Completed_Fall()
+	{
+		Set_PlayerFinished();
 	}
 	public void Stop_Animation_Fall()
 	{
 		Sequence_Fall.Kill();
+		Set_PlayerFinished();
 	}
 
 	// OnDisable
 	private void OnDisable()
 	{
 		if (Sequence_Initialize != null) Sequence_Initialize.Kill();
+		if (Sequence_Fall != null) Sequence_Fall.Kill();
+		if (Sequence_Wait != null) Sequence_Wait.Kill(); 
+		if (Sequence_First != null) Sequence_First.Kill();
 	}
 
 
@@ -237,18 +273,17 @@ public class Miya_Manager_2 : MonoBehaviour
 		List<Miya_Controller_2> sameRanks = new List<Miya_Controller_2>();
 		for (int rank = 1; rank <= 4;)
 		{
-			int minDistance = 1000000000;
+			int maxScore = -1;
 			foreach (var chara in workCharacters)
 			{
-				if (chara.Get_Score() < minDistance)
+				if (chara.Get_Score() > maxScore)
 				{
 					sameRanks.Clear();
-
 					sameRanks.Add(chara);
-					minDistance = chara.Get_Score();
-					Debug.Log(minDistance);
+
+					maxScore = chara.Get_Score();
 				}
-				else if (chara.Get_Score() == minDistance)
+				else if (chara.Get_Score() == maxScore)
 				{
 					sameRanks.Add(chara);
 				}

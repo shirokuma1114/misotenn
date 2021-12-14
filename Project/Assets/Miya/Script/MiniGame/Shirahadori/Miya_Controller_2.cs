@@ -47,10 +47,14 @@ public class Miya_Controller_2 : MonoBehaviour
 	float AI_Second_Wait = 0;
 	float AI_Second_Wait_PushButton = -1;
 
-	Vector2 AI_Range_Second_Error = new Vector2(0.05f, 0.4f);
+	Vector2 AI_Range_Second_Error = new Vector2(-0.3f, 0.3f);
 
 	// Play
 	float Counter_Waiting = 0;
+	
+	bool Scored = false;
+
+	float a = 0.52f;
 
 
 	public void Init(MiniGameCharacter character, Miya_Manager_2 manager)
@@ -105,17 +109,23 @@ public class Miya_Controller_2 : MonoBehaviour
 			{
 				if
 					(
-					Counter_Waiting + Speed_Animation > _manager.Get_Second_FallingToMiddle() - _manager.Get_Tolerance() &&
-					Counter_Waiting + Speed_Animation < _manager.Get_Second_FallingToMiddle() + _manager.Get_Tolerance()
+					Counter_Waiting + Speed_Animation > _manager.Get_Second_FallingToMiddle() - _manager.Get_Tolerance() - a &&
+					Counter_Waiting + Speed_Animation < _manager.Get_Second_FallingToMiddle() + _manager.Get_Tolerance() - a
 					)
 				{
-					Score = 1;
-					_manager.Stop_Animation_Fall();
+					if (!Scored)
+					{
+						Scored = true;
+
+						Score = 1;
+						_playerUI.Set_Score(Score);
+						_manager.Stop_Animation_Fall();
+					}
 				}
 			}
 		}
 	}
-	
+
 	private void AutomaticPlay()
 	{
 		AI_Counter += Time.deltaTime;
@@ -127,8 +137,12 @@ public class Miya_Controller_2 : MonoBehaviour
 				{
 					AI_State = 1;
 					AI_Counter = 0;
-					
-					AI_Second_Wait_PushButton = _manager.Get_Second_FallingToMiddle();
+
+					AI_Second_Wait_PushButton = Random.Range
+						(
+						_manager.Get_Second_FallingToMiddle() - Speed_Animation + AI_Range_Second_Error.x - a,
+						_manager.Get_Second_FallingToMiddle() - Speed_Animation + AI_Range_Second_Error.y - a
+						);
 				}
 				break;
 
@@ -158,7 +172,6 @@ public class Miya_Controller_2 : MonoBehaviour
 		}
 	}
 
-
 	// Animation
 	private void Animation_Push_Button()
 	{
@@ -166,18 +179,18 @@ public class Miya_Controller_2 : MonoBehaviour
 		Sequence_PushButton.Append(Rect_Button.DOScaleY(0.5f, Speed_Animation));
 		Sequence_PushButton.Join(Rect_Hand_L.DOLocalMove(new Vector3(-20, 0, 0), Speed_Animation));
 		Sequence_PushButton.Join(Rect_Hand_R.DOLocalMove(new Vector3( 20, 0, 0), Speed_Animation));
-		Sequence_PushButton.AppendInterval(2)
+		Sequence_PushButton.AppendInterval(1)
 			.OnComplete(Completed);
 	}
 	// OnComplete
 	private void Completed()
 	{
 		_manager.Set_PlayerFinished();
-		_playerUI.Set_Score(Score);
 	}
+
 	// OnDisable
 	private void OnDisable()
 	{
-		if (Sequence_PushButton != null) Sequence_PushButton.Kill();
+		if (Sequence_PushButton != null) Sequence_PushButton.Kill(); 
 	}
 }
