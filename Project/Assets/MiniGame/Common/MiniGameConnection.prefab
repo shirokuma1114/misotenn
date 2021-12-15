@@ -43,7 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3afa9b1c084104c4c82d7ced4cfe035b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _miniGameSceneNames: []
+  _miniGameSceneNames:
+  - SampleMiniGame
   _disactiveExceptionList:
   - {fileID: 5754340407403619876}
   _fadeAnimation: {fileID: 0}
