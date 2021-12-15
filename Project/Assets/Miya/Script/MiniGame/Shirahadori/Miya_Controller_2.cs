@@ -48,7 +48,7 @@ public class Miya_Controller_2 : MonoBehaviour
 	float AI_Second_Wait = 0;
 	float AI_Second_Wait_PushButton = -1;
 
-	Vector2 AI_Range_Second_Error = new Vector2(-0.4f, 0.35f);
+	Vector2 AI_Range_Second_Error = new Vector2(-0.4f, 0.5f);
 
 	// Play
 	float Counter_Waiting = 0;
@@ -185,8 +185,8 @@ public class Miya_Controller_2 : MonoBehaviour
 	{
 		Sequence_PushButton = DOTween.Sequence();
 		Sequence_PushButton.Append(Rect_Button.DOScaleY(0.5f, Speed_Animation));
-		Sequence_PushButton.Join(Rect_Hand_L.DOLocalMove(new Vector3(-20, 0, 0), Speed_Animation));
-		Sequence_PushButton.Join(Rect_Hand_R.DOLocalMove(new Vector3( 20, 0, 0), Speed_Animation));
+		Sequence_PushButton.Join(Rect_Hand_L.DOLocalMove(new Vector3(-5, 0, 0), Speed_Animation));
+		Sequence_PushButton.Join(Rect_Hand_R.DOLocalMove(new Vector3( 5, 0, 0), Speed_Animation));
 		Sequence_PushButton.AppendInterval(1)
 			.OnComplete(Completed);
 	}
