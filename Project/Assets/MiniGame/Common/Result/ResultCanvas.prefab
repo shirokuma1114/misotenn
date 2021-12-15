@@ -784,7 +784,7 @@ GameObject:
   - component: {fileID: 6424637770305656255}
   - component: {fileID: 235392219986948964}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: RankBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -859,7 +859,7 @@ GameObject:
   - component: {fileID: 3032258202764182957}
   - component: {fileID: 8580656073640629017}
   m_Layer: 5
-  m_Name: Image (3)
+  m_Name: MoneyBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -934,7 +934,7 @@ GameObject:
   - component: {fileID: 805451006364120235}
   - component: {fileID: 1657400541938917699}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: CakeBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
