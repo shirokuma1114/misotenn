@@ -80,6 +80,7 @@ public class SelectSelectWindow : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Return))
         {
             Apply();
+            if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
     }
 
