@@ -517,6 +517,7 @@ public class ChangeText : MonoBehaviour
             {
                 _fadeAnimation.Play("FadeOut");
                 _isFadeOut = true;
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
             }
 
             bool isMove = false;
@@ -530,6 +531,8 @@ public class ChangeText : MonoBehaviour
                 P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 wk = 0;
+
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
@@ -541,6 +544,8 @@ public class ChangeText : MonoBehaviour
                 P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                 wk = 0;
+
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
             }
 
             if (isMove)
@@ -628,6 +633,8 @@ public class ChangeText : MonoBehaviour
                 ExPage2 = false;
 
                 DeleteGraph(); //グラフ消去
+
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Close");
             }
 
         //スクロールバーを動かす
@@ -662,6 +669,8 @@ public class ChangeText : MonoBehaviour
                     ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                     Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                     Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                    if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
                 }
                 if (Input.GetKeyDown(KeyCode.S))
                 {
@@ -679,6 +688,8 @@ public class ChangeText : MonoBehaviour
                     ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                     Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                     Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                    if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
                 }
 
                 if (isNextMove)
@@ -748,6 +759,7 @@ public class ChangeText : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Return))    //決定キー
             {
+                if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
                 if (wk == 0)
                 {
                     if (_selectIndex == 0)
