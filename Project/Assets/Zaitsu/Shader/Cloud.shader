@@ -15,7 +15,7 @@ Shader "Custom/Cloud"
     SubShader
     {
 		//Tags { "RenderType" = "Transparent" "Queue" = "Overlay"}
-	    Tags {"Queue"="Transparent" "IgnoreProjector"="True" "RenderType"="Transparent"}
+	    Tags {"Queue"="Overlay" "IgnoreProjector"="True" "RenderType"="Transparent"}
 		Blend SrcAlpha OneMinusSrcAlpha
 		Cull off
 		// デプスバッファのみにレンダリングする追加パス
