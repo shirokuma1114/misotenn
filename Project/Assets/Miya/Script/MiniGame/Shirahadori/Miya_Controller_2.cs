@@ -16,9 +16,8 @@ public class Miya_Controller_2 : MonoBehaviour
 
 
 	// public
-	public float AI_Second_Wait = 2;
-	public float AI_Second_Hand = 2;
 	public int Get_Score() { return Score; }
+	public void Set_Score(int _score) { Score = _score; _playerUI.Set_Score(Score);}
 
 
 	// Player Manager
@@ -30,7 +29,6 @@ public class Miya_Controller_2 : MonoBehaviour
 	int Score = 0;
 	bool Finish = false;
 
-
 	// Animation
 	Image Button;
 	RectTransform Rect_Button;
@@ -40,10 +38,24 @@ public class Miya_Controller_2 : MonoBehaviour
 	RectTransform Rect_Hand_R;
 	Sequence Sequence_PushButton;
 
+	float Speed_Animation = 0.2f;
+
 
 	// CPU
 	int AI_State = 0; // 0 = 待機, 1 = プレイ, 2 = 終了
 	float AI_Counter = 0;
+
+	float AI_Second_Wait = 0;
+	float AI_Second_Wait_PushButton = -1;
+
+	Vector2 AI_Range_Second_Error = new Vector2(-0.4f, 0.5f);
+
+	// Play
+	float Counter_Waiting = 0;
+	
+	bool Scored = false;
+
+	float a = 0.25f;
 
 
 	public void Init(MiniGameCharacter character, Miya_Manager_2 manager)
@@ -57,12 +69,10 @@ public class Miya_Controller_2 : MonoBehaviour
 		// Player Manager
 		PlayerCount++;
 		PlayerNumber = PlayerCount;
-
-
+		
 		// Variable
 		Score = 0;
 		Finish = false;
-
 
 		// Animation
 		Button = _manager.Get_Button();
@@ -71,8 +81,7 @@ public class Miya_Controller_2 : MonoBehaviour
 		Rect_Hand_L = Hand_L.GetComponent<RectTransform>();
 		Hand_R = _manager.Get_Hand_R();
 		Rect_Hand_R = Hand_R.GetComponent<RectTransform>();
-
-
+		
 		// CPU
 		AI_State = 0;
 		AI_Counter = 0;
@@ -94,10 +103,37 @@ public class Miya_Controller_2 : MonoBehaviour
 			{
 				if (_controller.IsAutomatic) AutomaticPlay();
 				else HumanPlay();
+
+				Counter_Waiting += Time.deltaTime;
+			}
+			else // ボタンが押された瞬間から
+			{
+				if
+					(
+					Counter_Waiting + Speed_Animation > _manager.Get_Second_FallingToMiddle() - _manager.Get_Tolerance() - a &&
+					Counter_Waiting + Speed_Animation < _manager.Get_Second_FallingToMiddle() + _manager.Get_Tolerance() - a
+					)
+				{
+					if (!Scored)
+					{
+						Scored = true;
+
+						Score = 1;
+						_playerUI.Set_Score(Score);
+						_manager.Stop_Animation_Fall();
+					}
+				}
+				else if (!Scored) 
+				{
+					Scored = true;
+
+					Score = 0;
+					_playerUI.Set_Score(Score);
+				}
 			}
 		}
 	}
-	
+
 	private void AutomaticPlay()
 	{
 		AI_Counter += Time.deltaTime;
@@ -109,11 +145,17 @@ public class Miya_Controller_2 : MonoBehaviour
 				{
 					AI_State = 1;
 					AI_Counter = 0;
+
+					AI_Second_Wait_PushButton = Random.Range
+						(
+						_manager.Get_Second_FallingToMiddle() - Speed_Animation + AI_Range_Second_Error.x - a,
+						_manager.Get_Second_FallingToMiddle() - Speed_Animation + AI_Range_Second_Error.y - a
+						);
 				}
 				break;
 
 			case 1: // プレイ
-				if (AI_Counter > AI_Second_Hand)
+				if (AI_Counter > AI_Second_Wait_PushButton)
 				{
 					AI_State = 2;
 					AI_Counter = 0;
@@ -138,14 +180,13 @@ public class Miya_Controller_2 : MonoBehaviour
 		}
 	}
 
-
 	// Animation
 	private void Animation_Push_Button()
 	{
 		Sequence_PushButton = DOTween.Sequence();
-		Sequence_PushButton.Append(Rect_Button.DOScaleY(0.5f, 0.2f));
-		Sequence_PushButton.Join(Rect_Hand_L.DOLocalMove(new Vector3(-20, 0, 0), 0.2f));
-		Sequence_PushButton.Join(Rect_Hand_R.DOLocalMove(new Vector3( 20, 0, 0), 0.2f));
+		Sequence_PushButton.Append(Rect_Button.DOScaleY(0.5f, Speed_Animation));
+		Sequence_PushButton.Join(Rect_Hand_L.DOLocalMove(new Vector3(-5, 0, 0), Speed_Animation));
+		Sequence_PushButton.Join(Rect_Hand_R.DOLocalMove(new Vector3( 5, 0, 0), Speed_Animation));
 		Sequence_PushButton.AppendInterval(1)
 			.OnComplete(Completed);
 	}
@@ -153,11 +194,11 @@ public class Miya_Controller_2 : MonoBehaviour
 	private void Completed()
 	{
 		_manager.Set_PlayerFinished();
-		_playerUI.Set_Score(Score);
 	}
+
 	// OnDisable
 	private void OnDisable()
 	{
-		if (Sequence_PushButton != null) Sequence_PushButton.Kill();
+		if (Sequence_PushButton != null) Sequence_PushButton.Kill(); 
 	}
 }

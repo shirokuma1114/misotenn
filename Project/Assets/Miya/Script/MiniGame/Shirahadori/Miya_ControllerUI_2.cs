@@ -15,7 +15,8 @@ public class Miya_ControllerUI_2 : MonoBehaviour
 
 	public void Set_Score(int _score)
 	{
-		_rotateCounter.text = _score.ToString();
+		if 	(_score == 0) _rotateCounter.text = "×";
+		else if (_score == 1) _rotateCounter.text = "〇";
 	}
 
 	//================
@@ -24,6 +25,8 @@ public class Miya_ControllerUI_2 : MonoBehaviour
 	{
 		_playerName = transform.Find("PlayerName").GetComponent<Text>();
 		_rotateCounter = transform.Find("Score").GetComponent<Text>();
+
+		_rotateCounter.text = "ー";
 	}
 
 	void Update()
