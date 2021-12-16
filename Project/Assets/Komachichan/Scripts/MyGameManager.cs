@@ -328,12 +328,6 @@ public class MyGameManager : MonoBehaviour
             // ‚±‚Ìƒ^[ƒ“‚Ì‚¨‚±‚Ã‚©‚¢
             _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
 
-
-            //_miniGameConnection.StartRandomMiniGame();
-            //_phase = Phase.MINI_GAME;
-            _phase = Phase.MINI_GAME;
-            _miniGameConnection.StartRandomMiniGame();
-
             _turnIndex++;
             if (_turnIndex >= _entryPlugs.Count)
             {

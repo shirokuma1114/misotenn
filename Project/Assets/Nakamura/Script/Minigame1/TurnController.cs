@@ -21,6 +21,8 @@ public class TurnController : MonoBehaviour
     
    public void Init()
    {
+        _miniGameCorrection = MiniGameConnection.Instance;
+
         _player._miniGameChara = _miniGameCorrection.Characters[0];
         for (int i = 0; i < _enemy.Length; i++)
         {
