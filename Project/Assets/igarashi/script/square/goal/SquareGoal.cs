@@ -22,12 +22,14 @@ public class SquareGoal : SquareBase
     private int _baseMoney;
     public int BaseMoney => _baseMoney;
 
+    MyGameManager _gameManager;
+
 
     public override string GetSquareInfo(CharacterBase character)
     {
         _squareInfo =
             "ゴールマス\n" +
-            "次もらえるお金：" + ComputeGetMoney(character.LapCount + 1).ToString();
+            "次もらえるお金：" + ComputeGetMoney(character.LapCount + 1).ToString() + "円";
 
         return _squareInfo;
     }
@@ -39,6 +41,7 @@ public class SquareGoal : SquareBase
     {
         _messageWindow = FindObjectOfType<MessageWindow>();
         _statusWindow = FindObjectOfType<StatusWindow>();
+        _gameManager = FindObjectOfType<MyGameManager>();
     }
 
     // Update is called once per frame
@@ -102,6 +105,7 @@ public class SquareGoal : SquareBase
         }
     }
 
+    
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
         return (int)SquareScore.GOAL + base.GetScore(character, characterType);
@@ -109,6 +113,6 @@ public class SquareGoal : SquareBase
 
     private int ComputeGetMoney(int lapCount)
     {
-        return _baseMoney * lapCount;
+        return _baseMoney + (lapCount - 1) * 15000;
     }
 }

@@ -36,7 +36,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 4
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Horizontal1
     descriptiveName: 
@@ -52,7 +52,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 5
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Horizontal2
     descriptiveName: 
@@ -68,7 +68,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 6
+    joyNum: 3
   - serializedVersion: 3
     m_Name: Horizontal3
     descriptiveName: 
@@ -84,7 +84,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 0
-    joyNum: 7
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Vertical
     descriptiveName: 
@@ -116,7 +116,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 1
-    joyNum: 4
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Vertical1
     descriptiveName: 
@@ -132,7 +132,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 1
-    joyNum: 5
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Vertical2
     descriptiveName: 
@@ -148,7 +148,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 1
-    joyNum: 6
+    joyNum: 3
   - serializedVersion: 3
     m_Name: Vertical3
     descriptiveName: 
@@ -164,7 +164,7 @@ InputManager:
     invert: 0
     type: 2
     axis: 1
-    joyNum: 7
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Fire1
     descriptiveName: 
@@ -340,7 +340,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 4
+    joyNum: 1
   - serializedVersion: 3
     m_Name: A1
     descriptiveName: 
@@ -356,7 +356,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 5
+    joyNum: 2
   - serializedVersion: 3
     m_Name: A2
     descriptiveName: 
@@ -372,7 +372,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 6
+    joyNum: 3
   - serializedVersion: 3
     m_Name: A3
     descriptiveName: 
@@ -388,7 +388,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 7
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Fire2
     descriptiveName: 
@@ -420,7 +420,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 4
+    joyNum: 1
   - serializedVersion: 3
     m_Name: B1
     descriptiveName: 
@@ -436,7 +436,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 5
+    joyNum: 2
   - serializedVersion: 3
     m_Name: B2
     descriptiveName: 
@@ -452,7 +452,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 6
+    joyNum: 3
   - serializedVersion: 3
     m_Name: B3
     descriptiveName: 
@@ -468,7 +468,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 7
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Fire3
     descriptiveName: 
@@ -500,7 +500,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 4
+    joyNum: 1
   - serializedVersion: 3
     m_Name: X1
     descriptiveName: 
@@ -516,7 +516,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 5
+    joyNum: 2
   - serializedVersion: 3
     m_Name: X2
     descriptiveName: 
@@ -532,7 +532,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 6
+    joyNum: 3
   - serializedVersion: 3
     m_Name: X3
     descriptiveName: 
@@ -548,7 +548,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 7
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Jump
     descriptiveName: 
@@ -580,7 +580,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 4
+    joyNum: 1
   - serializedVersion: 3
     m_Name: Y1
     descriptiveName: 
@@ -596,7 +596,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 5
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Y2
     descriptiveName: 
@@ -612,7 +612,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 6
+    joyNum: 3
   - serializedVersion: 3
     m_Name: Y3
     descriptiveName: 
@@ -628,7 +628,7 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
-    joyNum: 7
+    joyNum: 4
   - serializedVersion: 3
     m_Name: Submit
     descriptiveName: 

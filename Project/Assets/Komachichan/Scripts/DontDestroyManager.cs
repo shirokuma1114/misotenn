@@ -49,7 +49,12 @@ public class DontDestroyManager : MonoBehaviour
             _characterTypes[3] = CharacterType.COM4;
         }
 
-        Debug.Log(Input.GetJoystickNames().Length);
+        //Debug.Log(Input.GetJoystickNames().Length);
+
+        foreach(var x in Input.GetJoystickNames())
+        {
+            //Debug.Log(x);
+        }
 
         if (instance == null)
         {

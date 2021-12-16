@@ -38,7 +38,7 @@ public class SquareMoveForward : SquareBase
 
         _squareInfo =
             "前進マス\n" +
-            "コスト：" + _cost.ToString() + "\n" +
+            "コスト：" + _cost.ToString() + "円" + "\n" +
             "進むマス数：" + _moveNum.ToString();
     }
 

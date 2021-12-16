@@ -6,7 +6,7 @@ public enum SquareScore : int
 {
     // Ž‚Á‚Ä‚¢‚È‚¢‚¨“yŽYƒ}ƒX‚ÉŽ~‚Ü‚èŸ—˜‚·‚é
     DONT_HAVE_SOUVENIR_TO_WIN = 1000000000,
-    HANDICAP_WARP = 51,
+    HANDICAP_WARP = 50,
     ADVANTAGEOUS_PROTECT = 51,
     DONT_HAVE_STEAL = 51,
     DONT_HAVE_SOUVENIR = 44,

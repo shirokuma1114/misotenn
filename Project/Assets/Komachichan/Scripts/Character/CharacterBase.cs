@@ -120,6 +120,7 @@ public class CharacterBase : MonoBehaviour
     public void SubMoney(int subValue)
     {
         _money -= subValue;
+        Debug.Assert(_money >= 0);
     }
 
     public bool CanPay(int value)
@@ -187,7 +188,7 @@ public class CharacterBase : MonoBehaviour
 
             // ˆÚ“®
             transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-            transform.Translate(0, 0.65f, 0);
+            transform.Translate(0, 0.6f, 0);
 
             var scale = 11.0f;
 
@@ -207,7 +208,7 @@ public class CharacterBase : MonoBehaviour
 
     private void AlignmentByMove(int index)
     {
-        transform.localPosition = new Vector3(0.0f, 1.2f, 0.0f);
+        transform.localPosition = new Vector3(0.0f, 1.14f, 0.0f);
         transform.Translate(-((index / 2) * 0.35f - 0.5f * 0.35f), 0, -((index % 2) * 0.35f - 0.5f * 0.35f));
     }
 

@@ -23,6 +23,9 @@ public class SelectWindow : WindowBase
     [SerializeField]
     SelectWindow _backToWindow;
 
+    [SerializeField]
+    MovingCardWindow _movingCardWindow;
+
     int _selectIndex;
 
     bool _enable;
@@ -128,6 +131,8 @@ public class SelectWindow : WindowBase
         _cursorImage.enabled = enable;
 
         _enable = enable;
+
+        //if(_movingCardWindow)_movingCardWindow.SetEnable(enable);
     }
 
     public override void SetCharacter(CharacterBase character)
@@ -136,6 +141,7 @@ public class SelectWindow : WindowBase
         _calledSelectAuto = false;
         _character = character;
         _automaticMode = character.IsAutomatic;
+        //if (_movingCardWindow) _movingCardWindow.GenerateMovingCards(character.MovingCards);
     }
 
     private void SelectAuto()
