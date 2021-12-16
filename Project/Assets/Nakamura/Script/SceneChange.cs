@@ -48,7 +48,7 @@ public class SceneChange : MonoBehaviour
             && fadeAnimater.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
             //‚±‚±‚ÅI—¹‚ğŒÄ‚Ño‚µ
-            SceneManager.LoadScene("NewTincleScene");
+            SceneManager.LoadScene("Select");
         }
 
     }

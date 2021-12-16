@@ -99,6 +99,9 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     List<GameObject> _cakePrefabs;
 
+    [SerializeField]
+    MiniGameConnection _miniGameConnection;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,6 +128,7 @@ public class MyGameManager : MonoBehaviour
         {
             x.SetInOut();
         }
+
     }
 
     void CreateCharacters()
@@ -232,6 +236,8 @@ public class MyGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(_phase);
+
         if(_phase == Phase.AWAKE)
         {
             PhaseAwake();
@@ -321,7 +327,13 @@ public class MyGameManager : MonoBehaviour
             
             // このターンのおこづかい
             _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
-            
+
+
+            //_miniGameConnection.StartRandomMiniGame();
+            //_phase = Phase.MINI_GAME;
+            _phase = Phase.MINI_GAME;
+            _miniGameConnection.StartRandomMiniGame();
+
             _turnIndex++;
             if (_turnIndex >= _entryPlugs.Count)
             {
@@ -331,6 +343,7 @@ public class MyGameManager : MonoBehaviour
                 UpdateTurn();
 
                 _phase = Phase.MINI_GAME;
+                _miniGameConnection.StartRandomMiniGame();
             }
 
             //次の人の止まっているマス座標
@@ -340,17 +353,7 @@ public class MyGameManager : MonoBehaviour
 
     void PhaseMiniGame()
     {
-        if(true)
-        {
-            // 適当にお金配る
-            for (int i = 0; i < 3; i++)
-            {
-                int index = Random.Range(0, _entryPlugs.Count);
-                _entryPlugs[index].Character.AddMoney(1000);
-            }
-
-            _phase = Phase.MOVE_CAMERA;
-        }
+       _phase = Phase.MOVE_CAMERA;
     }
 
     void PhaseMoveCamera()
