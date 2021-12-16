@@ -95,12 +95,14 @@ public class ReturnToTitleWindow : WindowBase
 
         if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
+            Control_SE.Get_Instance().Play_SE("UI_Select");
             _selectedYes = !_selectedYes;
             UpdateCursor();
         }
 
         if (Input.GetKeyDown(KeyCode.Return) || _character.Input.GetButtonDown("A"))
         {
+            Control_SE.Get_Instance().Play_SE("UI_Correct");
             if (_selectedYes)
             {
                 _fadeAnimation.Play("FadeOut");
@@ -112,6 +114,7 @@ public class ReturnToTitleWindow : WindowBase
 
         if (Input.GetKeyDown(KeyCode.Escape) || _character.Input.GetButtonDown("B"))
         {
+            Control_SE.Get_Instance().Play_SE("UI_Close");
             Invoke("BackToWindow", 0.01f);
         }
     }

@@ -60,7 +60,7 @@ public class SquareWarp : SquareBase
 
         _squareInfo =
             "ワープマス\n" +
-            "コスト：" + _cost.ToString();
+            "コスト：" + _cost.ToString() + "円";
     }
 
     // Update is called once per frame
@@ -93,7 +93,7 @@ public class SquareWarp : SquareBase
 
         _squareInfo =
               "ワープマス\n" +
-              "コスト：" + displayCost.ToString();
+              "コスト：" + displayCost.ToString() + "円";
 
         return _squareInfo;
     }
@@ -103,7 +103,7 @@ public class SquareWarp : SquareBase
         // 1位 40000
         // 4位 10000
 
-        return (4 - _gameManager.GetRank(character)) * _cost;
+        return ((4 - _gameManager.GetRank(character)) * _cost) > 0 ? ((4 - _gameManager.GetRank(character)) * _cost) : _cost;
     }
 
     public override void Stop(CharacterBase character)

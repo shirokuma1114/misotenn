@@ -34,7 +34,7 @@ public class SquareEnforcedGoal : SquareBase
 
         _squareInfo =
             "強制ゴールマス\n" +
-            "コスト：" + displayCost.ToString() + "\n";
+            "コスト：" + displayCost.ToString() + "円";
 
         return _squareInfo;
     }
@@ -74,6 +74,7 @@ public class SquareEnforcedGoal : SquareBase
 
     public override void Stop(CharacterBase character)
     {
+        _characters.AddRange(FindObjectsOfType<CharacterBase>());
         _character = character;
 
         ComputeCost(_character);
@@ -100,32 +101,7 @@ public class SquareEnforcedGoal : SquareBase
 
     private int ComputeCost(CharacterBase character)
     {
-        //<LapCount,重複数>
-        SortedDictionary<int, int> lapCounts = new SortedDictionary<int, int>();
-        for (int i = 0; i < _characters.Count; i++)
-        {
-            int dummy;
-            int lapCount = _characters[i].LapCount;
-            if (lapCounts.TryGetValue(lapCount, out dummy))
-            {
-                lapCounts[lapCount]++;
-            }
-            else
-            {
-                lapCounts.Add(lapCount, 1);
-            }
-        }
-
-        int invRank = 1;
-        foreach (var lap in lapCounts)
-        {
-            if (lap.Key == character.LapCount)
-                break;
-            else
-                invRank += lap.Value;
-        }
-
-        _cost = _baseCost * invRank * (character.LapCount + 1);
+        _cost = _baseCost * (character.LapCount + 1);
         return _cost;
     }
 

@@ -90,7 +90,7 @@ public class SampleGameController : MonoBehaviour
 
     private void HumanPlay()
     {
-        if (Input.GetKeyDown(_rendaKey) || _controller.Input.GetButton("B"))
+        if (Input.GetKeyDown(_rendaKey) || _controller.Input.GetButtonDown("B"))
             _rendaCounter++;
     }
 

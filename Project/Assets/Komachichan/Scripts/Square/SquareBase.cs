@@ -111,8 +111,6 @@ public class SquareBase : MonoBehaviour
         int totalScore = 0;
         if (_stoppedCharacters.Count >= 1)
         {
-
-
             // 持ってないカードリスト
             var dontHaveTypes = new HashSet<SouvenirType>();
             for(int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
@@ -127,26 +125,31 @@ public class SquareBase : MonoBehaviour
             // 持っていないカードを持っているか
             foreach (var x in _stoppedCharacters)
             {
+                if (x.GetComponent<Protector>().IsProtected) continue;
+                bool donotHave = false;
                 foreach(var y in x.Souvenirs)
                 {
                     //　持っていないカードリストに含まれている
-                    if(dontHaveTypes.Where(z => z == y.Type).Count() >= 1)
+                    if (dontHaveTypes.Where(z => z == y.Type).Count() >= 1)
                     {
                         // 揃ったら勝利の場合
-                        if(dontHaveTypes.Count == 1)
+                        if (dontHaveTypes.Count == 1)
                         {
                             // 持っていないお土産マスに止まり勝利するスコアと同じ
                             return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN;
                         }
-                        // お土産マスに止まるよりも評価が高い
-                        totalScore += (int)SquareScore.DONT_HAVE_SOUVENIR;
+                        donotHave = true;
                     }
-                    else
-                    {
-                        totalScore += 2;
-                    }   
                 }
-                
+                if (x.Souvenirs.Count == 0) continue;
+                if (donotHave)
+                {
+                    totalScore += (int)SquareScore.DONT_HAVE_SOUVENIR + 1;
+                }
+                else
+                {
+                    totalScore += (int)SquareScore.SOUVENIR + 1;
+                }
             }
         }
 
