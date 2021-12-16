@@ -83,7 +83,7 @@ public class MiniSouvenirWindow : WindowBase
 
             float offset = map[typeId] * 2.0f;
 
-            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(_frameRt.anchoredPosition.x - 190.0f + typeId * 75.0f + offset, _displayPosY + 49.0f + offset * 2.0f);
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(_frameRt.anchoredPosition.x - 189.0f + typeId * 74.2f + offset, _displayPosY + 40.0f + offset * 2.0f);
             obj.GetComponent<Image>().sprite = x.Sprite;
             _images.Add(obj);
         }
@@ -92,8 +92,8 @@ public class MiniSouvenirWindow : WindowBase
         {
             if (!map.ContainsKey(i)) continue;
             var obj = Instantiate(_countPrefab, transform.parent);
-            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(_frameRt.anchoredPosition.x - 200.0f + i * 75.0f, _displayPosY + 20.0f);
-            obj.GetComponent<Text>().text = map[i].ToString();
+            obj.GetComponent<RectTransform>().anchoredPosition = new Vector2(_frameRt.anchoredPosition.x - 170.0f + i * 75.0f, _displayPosY + 10.0f);
+            obj.GetComponent<NumberRender>().SetNumber(map[i]);
             _countTexts.Add(obj);
         }
     }

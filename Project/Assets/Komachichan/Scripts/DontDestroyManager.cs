@@ -51,6 +51,11 @@ public class DontDestroyManager : MonoBehaviour
 
         Debug.Log(Input.GetJoystickNames().Length);
 
+        foreach(var x in Input.GetJoystickNames())
+        {
+            //Debug.Log(x);
+        }
+
         if (instance == null)
         {
             instance = this;

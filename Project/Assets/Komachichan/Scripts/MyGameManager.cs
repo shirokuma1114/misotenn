@@ -53,7 +53,7 @@ public class MyGameManager : MonoBehaviour
     private Phase _phase;
 
     private int _turnIndex = 0;
-
+    
     [SerializeField]
     SimpleFade _fade;
 
@@ -248,6 +248,10 @@ public class MyGameManager : MonoBehaviour
         {
             PhaseFadeOut();
         }
+        if(_phase == Phase.MINI_GAME)
+        {
+            PhaseMiniGame();
+        }
         if(_phase == Phase.MOVE_CAMERA)
         {
             PhaseMoveCamera();
@@ -325,10 +329,27 @@ public class MyGameManager : MonoBehaviour
 
                 // 合計ターン加算
                 UpdateTurn();
+
+                _phase = Phase.MINI_GAME;
             }
 
             //次の人の止まっているマス座標
             _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
+        }
+    }
+
+    void PhaseMiniGame()
+    {
+        if(true)
+        {
+            // 適当にお金配る
+            for (int i = 0; i < 3; i++)
+            {
+                int index = Random.Range(0, _entryPlugs.Count);
+                _entryPlugs[index].Character.AddMoney(1000);
+            }
+
+            _phase = Phase.MOVE_CAMERA;
         }
     }
 
@@ -375,87 +396,59 @@ public class MyGameManager : MonoBehaviour
 
         _entryPlugs[_turnIndex].Character.SetWaitEnable(false);
         _entryPlugs[_turnIndex].Character.AddMovingCard(GetRandomRange());
-        //_entryPlugs[_turnIndex].Character.Name = "フレジエ";
-
+        
         if (_isManyManySouvenirs)
         {
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(1000, "コアラのマーチ", SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.OCEANIA));
 
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "珈琲貴族", SouvenirType.SOUTH_AMERICA));
-
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(10000, "女神像", SouvenirType.NORTH_AMERICA));
-
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(2000, "オランジーナ", SouvenirType.EUROPE));
-
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
-            _entryPlugs[_turnIndex].Character.AddSouvenir(new Souvenir(20000, "メジェド様", SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.NORTH_AMERICA));
+            
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.SOUTH_AMERICA));
+            
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.EUROPE));
+            
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            _entryPlugs[_turnIndex].Character.AddSouvenir(SouvenirCreater.Instance.CreateSouvenir(SouvenirType.AFRICA));
+            
         }
 
         _entryPlugs[_turnIndex].InitTurn();
@@ -469,8 +462,9 @@ public class MyGameManager : MonoBehaviour
         {
             _entryPlugs[i].SetSelectWindow(_selectWindow);
             _entryPlugs[i].SetCharacter(_entryPlugs[i].GetComponent<CharacterBase>());
-
             var chara = _entryPlugs[i].Character;
+            _entryPlugs[i].GetComponent<Protector>().SetCharacter(chara);
+            
             if (_isFixedMode && chara.IsAutomatic)
             {
                 EditMovingCards(chara);
@@ -482,7 +476,7 @@ public class MyGameManager : MonoBehaviour
                     chara.AddMovingCard(GetRandomRange());
                 }
             }
-      
+
             chara.SetCurrentSquare(_startSquare.GetComponent<SquareBase>());
             chara.AddMoney(_initMoney);
             chara.LapCount = 0;
@@ -568,6 +562,37 @@ public class MyGameManager : MonoBehaviour
             if (x.Character.Souvenirs.Count > 0) return true;
         }
         return false;
+    }
+
+    public bool IsAllCharacterProtected(CharacterBase omitCharacter = null)
+    {
+        foreach (var x in _entryPlugs)
+        {
+            if (omitCharacter == x) continue;
+            if (!x.GetComponent<Protector>().IsProtected && x.Character.Souvenirs.Count > 0) return false;
+        }
+        return true;
+    }
+
+    public bool CanClearByCharacter(CharacterBase character)
+    {
+        // 必要種類全て集めたか
+        return character.GetSouvenirTypeNum() >= _needSouvenirType ? true : false;
+    }
+
+    public void ChangeClearScene(CharacterBase character)
+    {
+        if (!CanClearByCharacter(character)) return;
+
+        _phase = Phase.CLEAR;
+        _messageWindow.SetMessage(character.Name + "　は　全てのお土産を制覇した！\n"
+            + character.Name + "　の勝利！", character);
+
+        // このターンのおこづかい
+        character.Log.SetMoenyByTurn(character.Money);
+
+        // ログを設定
+        SetCharacterLogToInfo();
     }
 
     // リーチのキャラクターが存在するか

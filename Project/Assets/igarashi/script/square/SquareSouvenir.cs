@@ -43,7 +43,7 @@ public class SquareSouvenir : SquareBase
     {
         _squareInfo =
             "お土産マス\n" +
-            "コスト：" + _cost.ToString() + "\n" +
+            "コスト：" + _cost.ToString() + "円" + "\n" +
             "お土産名：" + _souvenirName + "\n" +
             "お土産タイプ：" + _type.ToString() + "\n" +
             "在庫数：" + _nowStock.ToString();
@@ -74,7 +74,7 @@ public class SquareSouvenir : SquareBase
         
         _squareInfo =
             "お土産マス\n" +
-            "コスト：" + _cost.ToString() + "\n" +
+            "コスト：" + _cost.ToString() + "円" + "\n" +
             "お土産名：" + _souvenirName + "\n" +
             "お土産タイプ：" + _type.ToString() + "\n" +
             "在庫数：" + _nowStock.ToString();
