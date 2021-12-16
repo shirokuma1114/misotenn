@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e65390f0eec5749419f3a43660a04892, type: 3}
+        m_Texture: {fileID: 2800000, guid: 260a76f11c7ab7c4e97f9c1a47614ac6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -99,28 +99,28 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _BackColor1: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _BackColor2: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _BottomColor1: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _BottomColor2: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _Color: {r: 0.45660377, g: 0.936071, b: 1, a: 1}
+    - _BackColor1: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _BackColor2: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _BottomColor1: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _BottomColor2: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _Color: {r: 0.84435457, g: 0.9137255, b: 0.20392154, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Fog_Color: {r: 1, g: 0.09639593, b: 0, a: 1}
-    - _FrontColor1: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _FrontColor2: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
+    - _FrontColor1: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _FrontColor2: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
     - _GradOrigin_B: {r: 0, g: 25, b: 0, a: 0}
     - _GradOrigin_D: {r: 0, g: 0, b: 25, a: 0}
     - _GradOrigin_F: {r: 0, g: 7.5, b: 0, a: 0}
     - _GradOrigin_L: {r: -4, g: 20.39, b: 0, a: 0}
     - _GradOrigin_R: {r: 0, g: 25, b: 0, a: 0}
     - _GradOrigin_T: {r: 0, g: 0, b: 25, a: 0}
-    - _HeightFog_Color: {r: 0, g: 0.9494679, b: 1, a: 1}
-    - _LeftColor1: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _LeftColor2: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _RightColor1: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _RightColor2: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
+    - _HeightFog_Color: {r: 1, g: 0.98674095, b: 0.8528302, a: 1}
+    - _LeftColor1: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _LeftColor2: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _RightColor1: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
+    - _RightColor2: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
     - _RimLight_Color: {r: 1, g: 0.0603773, b: 0.8800462, a: 1}
     - _Shadow_Color: {r: 1, g: 1, b: 1, a: 1}
-    - _TopColor1: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
-    - _TopColor2: {r: 0.454902, g: 0.93725497, b: 1, a: 1}
+    - _TopColor1: {r: 0.98551774, g: 1, b: 0, a: 1}
+    - _TopColor2: {r: 1, g: 0.68235296, b: 0.96470594, a: 1}
   m_BuildTextureStacks: []
