@@ -1,0 +1,396 @@
+fileFormatVersion: 2
+guid: fde8473f2132bec4bb5b3a1a204d5878
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7898510755966961919
+    second: MoveCardNumbers2_0
+  - first:
+      213: -87109181187418605
+    second: MoveCardNumbers2_1
+  - first:
+      213: 5997859053948721465
+    second: MoveCardNumbers2_2
+  - first:
+      213: 7153841241820639670
+    second: MoveCardNumbers2_3
+  - first:
+      213: -8287028731352022138
+    second: MoveCardNumbers2_4
+  - first:
+      213: -4621696023662696181
+    second: MoveCardNumbers2_5
+  - first:
+      213: 7514667014919877894
+    second: MoveCardNumbers2_6
+  - first:
+      213: -4097194674644365565
+    second: MoveCardNumbers2_7
+  - first:
+      213: -1664123660221781445
+    second: MoveCardNumbers2_8
+  - first:
+      213: 7869308115026166360
+    second: MoveCardNumbers2_9
+  - first:
+      213: -2892864997391929294
+    second: MoveCardNumbers2_10
+  - first:
+      213: 4246712956565547373
+    second: MoveCardNumbers2_11
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: -1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MoveCardNumbers2_0
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 217
+        width: 389
+        height: 493
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 107bcf7c05ad26290800000000000000
+      internalID: -7898510755966961919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_1
+      rect:
+        serializedVersion: 2
+        x: 1341
+        y: 237
+        width: 251
+        height: 473
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31616a649a68acef0800000000000000
+      internalID: -87109181187418605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_2
+      rect:
+        serializedVersion: 2
+        x: 2322
+        y: 264
+        width: 351
+        height: 455
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9395973180dac3350800000000000000
+      internalID: 5997859053948721465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_3
+      rect:
+        serializedVersion: 2
+        x: 2349
+        y: 237
+        width: 329
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b1324ee4bc874360800000000000000
+      internalID: 7153841241820639670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_4
+      rect:
+        serializedVersion: 2
+        x: 3318
+        y: 212
+        width: 365
+        height: 497
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6838e40864f8efc80800000000000000
+      internalID: -8287028731352022138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_5
+      rect:
+        serializedVersion: 2
+        x: 4283
+        y: 237
+        width: 391
+        height: 472
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b09efb904ff6cdfb0800000000000000
+      internalID: -4621696023662696181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_6
+      rect:
+        serializedVersion: 2
+        x: 5315
+        y: 220
+        width: 375
+        height: 543
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 605f4ade5d5794860800000000000000
+      internalID: 7514667014919877894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_7
+      rect:
+        serializedVersion: 2
+        x: 6306
+        y: 222
+        width: 366
+        height: 498
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30f433ab627d327c0800000000000000
+      internalID: -4097194674644365565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_8
+      rect:
+        serializedVersion: 2
+        x: 7288
+        y: 264
+        width: 336
+        height: 446
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3a68221958d7e8e0800000000000000
+      internalID: -1664123660221781445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_9
+      rect:
+        serializedVersion: 2
+        x: 7405
+        y: 237
+        width: 244
+        height: 458
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 852cb388906653d60800000000000000
+      internalID: 7869308115026166360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_10
+      rect:
+        serializedVersion: 2
+        x: 8289
+        y: 222
+        width: 385
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 230fa47ac9a7ad7d0800000000000000
+      internalID: -2892864997391929294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MoveCardNumbers2_11
+      rect:
+        serializedVersion: 2
+        x: 9314
+        y: 193
+        width: 361
+        height: 560
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6963271fea5fea30800000000000000
+      internalID: 4246712956565547373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5021d963f4c75a24fa6fbb5167b7da4e
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

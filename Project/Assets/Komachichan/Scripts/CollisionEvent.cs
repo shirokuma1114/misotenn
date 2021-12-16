@@ -56,6 +56,11 @@ public class CollisionEvent
                     _messageWindow.SetMessage(_targets[_targetIndex].Name + "は　お土産を　持っていなかった！", _owner);
                     _phase = Phase.END;
                 }
+                else if(_targets[_targetIndex].GetComponent<Protector>().IsProtected)
+                {
+                    _messageWindow.SetMessage(_targets[_targetIndex].Name + "は　守られていた！", _owner);
+                    _phase = Phase.END;
+                }
                 else
                 {
                     _phase = Phase.SELECT;
@@ -79,7 +84,6 @@ public class CollisionEvent
 
                 if(_targetIndex + 1 >= _targets.Count)
                 {
-                    //_souvenirWindow.SetDisplayPositionY(-90.0f);
                     _souvenirWindow.SetSouvenirs(_owner.Souvenirs);
                     _souvenirWindow.SetEnable(true);
                 }

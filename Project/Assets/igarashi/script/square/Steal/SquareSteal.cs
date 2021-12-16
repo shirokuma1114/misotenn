@@ -59,7 +59,7 @@ public class SquareSteal : SquareBase
 
         _squareInfo =
             "刀狩マス\n" +
-            "コスト：" + _cost.ToString();
+            "コスト：" + _cost.ToString() + "円";
     }
 
     // Update is called once per frame
@@ -87,7 +87,7 @@ public class SquareSteal : SquareBase
 
         _squareInfo =
            "刀狩マス\n" +
-           "コスト：" + displayCost.ToString();
+           "コスト：" + displayCost.ToString() + "円";
 
         return _squareInfo;
     }
@@ -97,7 +97,7 @@ public class SquareSteal : SquareBase
         // 1位 40000
         // 4位 10000
 
-        return (4 - _gameManager.GetRank(character)) * _cost;
+        return ((4 - _gameManager.GetRank(character)) * _cost) > 0 ? ((4 - _gameManager.GetRank(character)) * _cost) : _cost;
     }
 
     public override void Stop(CharacterBase character)
@@ -117,11 +117,18 @@ public class SquareSteal : SquareBase
         // 誰もお土産をもっていない
         if(!_gameManager.HasSouvenirByCharacters(character))
         {
-            //_messageWindow.SetMessage("誰もお土産を持っていなかった！", character.IsAutomatic);
-            //_state = SquareStealState.END;
-            //return;
+            _messageWindow.SetMessage("誰もお土産を持っていなかった！", character);
+            _state = SquareStealState.END;
+            return;
         }
 
+        // 全てのキャラクターが保護状態
+        if(_gameManager.IsAllCharacterProtected(character))
+        {
+            _messageWindow.SetMessage("誰のお土産も奪えなかった！", character);
+            _state = SquareStealState.END;
+            return;
+        }
 
         var message = cost.ToString() + "円を支払ってお土産を奪いますか？";
         _messageWindow.SetMessage(message, character);
@@ -154,7 +161,6 @@ public class SquareSteal : SquareBase
         {
             if (_payUI.IsSelectYes)
             {
-                _character.Log.AddUseEventNum(SquareEventType.STEAL);
 
                 for (int i = 0; i < _otherCharacters.Count; i++)
                     _selectElements.Add(_otherCharacters[i].Name);
@@ -185,23 +191,30 @@ public class SquareSteal : SquareBase
         //var hasSouvenirCharacters = _otherCharacters.Where(x => x.Souvenirs.Count > 0).ToList();
         //if (hasSouvenirCharacters.Count == 0) return;
 
-        // 相手がリーチの場合阻止する方を選ぶ 該当しない場合ランダム
+        // 一番持っている種類が多い相手を選ぶ
+        int maxSouvenirType = 0;
+        int targetIdx = -1;
         for(int i = 0; i < _otherCharacters.Count; i++)
         {
-            if (_otherCharacters[i].GetSouvenirTypeNum() + 1 == _gameManager.GetNeedSouvenirType())
+            Debug.Log(_otherCharacters[i].Name + ":" + _otherCharacters[i].GetSouvenirTypeNum());
+            if (_otherCharacters[i].GetComponent<Protector>().IsProtected) continue;
+            if (maxSouvenirType < _otherCharacters[i].GetSouvenirTypeNum())
             {
-                _selectUI.IndexSelect(i);
-                return;
+                maxSouvenirType = _otherCharacters[i].GetSouvenirTypeNum();
+                targetIdx = i;
             }
         }
-
-
+        if (maxSouvenirType > 0)
+        {
+            _selectUI.IndexSelect(targetIdx);
+            return;
+        }
         // 検索の最初の位置
         var item = Random.Range(0, _otherCharacters.Count);
 
         for(int i = 0; i < _otherCharacters.Count; i++)
         {
-            if (_otherCharacters[item].Souvenirs.Count > 0)
+            if (_otherCharacters[item].Souvenirs.Count > 0 && !_otherCharacters[i].GetComponent<Protector>().IsProtected)
             {
                 _selectUI.IndexSelect(item);
                 return;
@@ -239,6 +252,9 @@ public class SquareSteal : SquareBase
             }
             else
             {
+                _character.SubMoney(CalcCost(_character));
+                _character.Log.AddUseEventNum(SquareEventType.STEAL);
+
                 var targetSouvenirIndex = Random.Range(0, targetCharacter.Souvenirs.Count);
                 var targetSouvenir = targetCharacter.Souvenirs[targetSouvenirIndex];
 
@@ -247,11 +263,10 @@ public class SquareSteal : SquareBase
 
                 var message = _character.Name + "は" + targetCharacter.Name + "の" + targetSouvenir.Name + "を奪った！";
                 _messageWindow.SetMessage(message, _character);
-
+                Debug.Log(message);
                 _souvenirWindow.SetSouvenirs(_character.Souvenirs);
                 _souvenirWindow.SetEnable(true);
 
-                _character.SubMoney(CalcCost(_character));
 
                 //演出
                 _effect.EffectStart(targetCharacter, _character,targetSouvenir.Sprite);
@@ -282,7 +297,11 @@ public class SquareSteal : SquareBase
         if (CalcCost(character) > character.Money) return base.GetScore(character, characterType);
 
         // 奪うものが無い
-        if (_gameManager.GetCharacters(character).Where(x => x.Souvenirs.Count > 0).Count() == 0) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);
+        if (!_gameManager.HasSouvenirByCharacters(character)) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);
+
+        // 奪えない
+        if (_gameManager.IsAllCharacterProtected(character)) return (int)SquareScore.NONE_STEAL + base.GetScore(character, characterType);
+
 
         // 持ってないお土産を持っているプレイヤーがいる
         var characters = _gameManager.GetCharacters(character);
@@ -292,7 +311,7 @@ public class SquareSteal : SquareBase
         for (int i = 0; i < (int)SouvenirType.MAX_TYPE; i++)
         {
             // カードが無い
-            if (character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() >= 1)
+            if (character.Souvenirs.Where(x => x.Type == (SouvenirType)i).Count() == 0)
             {
                 dontHaveTypes.Add((SouvenirType)i);
             }
@@ -306,7 +325,7 @@ public class SquareSteal : SquareBase
                 if (x.Souvenirs.Where(z => z.Type == y).Count() > 0)
                 {
                     // 揃えば勝ち
-                    if(character.GetSouvenirTypeNum() == 5)
+                    if(character.GetSouvenirTypeNum() == _gameManager.GetNeedSouvenirType() - 1)
                     {
                         return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN + base.GetScore(character, characterType);
                     }

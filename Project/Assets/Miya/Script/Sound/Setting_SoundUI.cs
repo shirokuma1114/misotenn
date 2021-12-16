@@ -86,6 +86,7 @@ public class Setting_SoundUI : WindowBase
 
             if (beforeAxisY == 0.0f)
             {
+                Control_SE.Get_Instance().Play_SE("UI_Select");
                 if (axisY < 0)
                 {
                     Select--;
@@ -105,13 +106,15 @@ public class Setting_SoundUI : WindowBase
 
             if (Input.GetKeyDown(KeyCode.W))
 			{
-				Select--;
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+                Select--;
 				if (Select < 0) Select = 0;
 				Update_SelectBackground();
 			}
 			if (Input.GetKeyDown(KeyCode.S))
 			{
-				Select++;
+                Control_SE.Get_Instance().Play_SE("UI_Select");
+                Select++;
 				if (Select > (int)SELECT.SELECT_MAX - 1) Select = (int)SELECT.SELECT_MAX - 1;
 				Update_SelectBackground();
 			}
@@ -139,9 +142,9 @@ public class Setting_SoundUI : WindowBase
                         case (int)SELECT.TEXT_SPEED:
                             _sliderTextSpeed.value = Mathf.Max(_sliderTextSpeed.value - MessageWindow.TEXT_SPEED_MAX / MessageWindow.TEXT_SPEED_MIN, _sliderTextSpeed.minValue);
                             _messageWindow.SetTextSpeed(_sliderTextSpeed.value);
-
+                            
                             break;
-
+                            
                     }
                     Event_Sound(true);
                 }
@@ -231,13 +234,15 @@ public class Setting_SoundUI : WindowBase
 			// BACK
 			if ((Input.GetKeyDown(KeyCode.Return) || _character.Input.GetButtonDown("A")) && Select == (int)SELECT.BACK)
 			{
-				Window.SetActive(false);
+                Control_SE.Get_Instance().Play_SE("UI_Close");
+                Window.SetActive(false);
 				Start();
                 Invoke("BackToWindow", 0.001f);
 			}
             if (_character.Input.GetButtonDown("B"))
 			{
-				Window.SetActive(false);
+                Control_SE.Get_Instance().Play_SE("UI_Close");
+                Window.SetActive(false);
 				Start();
                 Invoke("BackToWindow", 0.001f);
 			}

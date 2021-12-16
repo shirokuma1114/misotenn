@@ -6,24 +6,14 @@ public class Protector : MonoBehaviour
 {
     private CharacterBase _character;
     private CharacterState _prevCharacterState;
-
+    
     private bool _protected;
     public bool IsProtected => _protected;
 
-    private int _turnEndCount;
+    private int _turnEndCount = -1;
     private int _protectTurn;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        _character = GetComponent<CharacterBase>();
-        _prevCharacterState = _character.State;
-
-        _protected = false;
-
-        _turnEndCount = -1;
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -50,4 +40,11 @@ public class Protector : MonoBehaviour
         _protectTurn = protectTurn;
         _turnEndCount = -1;
     }
+
+    public void SetCharacter(CharacterBase character)
+    {
+        _character = character;
+        _prevCharacterState = _character.State;
+    }
+
 }
