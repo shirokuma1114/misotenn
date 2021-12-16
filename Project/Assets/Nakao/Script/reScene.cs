@@ -18,6 +18,8 @@ public class reScene : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SceneManager.LoadScene("ti");
+
+            if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
 
         // タイトルシーンで保持しているスコアを取得
