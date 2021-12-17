@@ -38,17 +38,18 @@ public class SceneChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isFadeOutStart)
+        if (Input.GetKeyDown(KeyCode.Return) && !isFadeOutStart)
         {
             fadeAnimater.Play("FadeOut");
             isFadeOutStart = true;
+            if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
         
         if (isFadeOutStart && fadeAnimater.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" 
             && fadeAnimater.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
             //‚±‚±‚ÅI—¹‚ğŒÄ‚Ño‚µ
-            SceneManager.LoadScene("NewTincleScene");
+            SceneManager.LoadScene("Select");
         }
 
     }
