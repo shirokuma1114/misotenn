@@ -10,7 +10,7 @@ public class TurnController : MonoBehaviour
     [SerializeField] private EnemyBrain[] _enemy; 
     [SerializeField] private Image _nowTurnArrow;
     [SerializeField] private Text[] _names;
-    [SerializeField] private MiniGameConnection _miniGameCorrection;
+    [SerializeField] private MiniGameConnection _miniGameConnection;
     [SerializeField] private MiniGameResult _miniGameResult;
 
     public int[] gameOrder = new int[4];//0～３のキャラクターIDが入る
@@ -21,12 +21,10 @@ public class TurnController : MonoBehaviour
     
    public void Init()
    {
-        _miniGameCorrection = MiniGameConnection.Instance;
-
-        _player._miniGameChara = _miniGameCorrection.Characters[0];
+        _player._miniGameChara = _miniGameConnection.Characters[0];
         for (int i = 0; i < _enemy.Length; i++)
         {
-            _enemy[i]._miniGameChara = _miniGameCorrection.Characters[i + 1];
+            _enemy[i]._miniGameChara = _miniGameConnection.Characters[i + 1];
         }
         //ゲームの順番を決める
         turnRoulette(gameOrder);
@@ -52,7 +50,7 @@ public class TurnController : MonoBehaviour
         if (_isGameEnd)
         {
             //リザルトを出す
-            _miniGameCorrection.EndMiniGame();
+            _miniGameConnection.EndMiniGame();
             Dictionary<MiniGameCharacter, int> rank = new Dictionary<MiniGameCharacter, int>();
             for (int i = 0; i < _winner.Length; i++)
             {
@@ -157,7 +155,6 @@ public class TurnController : MonoBehaviour
     {
         for(int i = 0;i < _winner.Length;i++)
         {
-            
             if (_winner[i] == -1)
             {
                 _winner[i] = _id;
