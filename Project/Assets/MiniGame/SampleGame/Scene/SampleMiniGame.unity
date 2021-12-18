@@ -2771,6 +2771,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5904343228405309689, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
+      propertyPath: _rankMoney.Array.data[0]
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904343228405309689, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
+      propertyPath: _rankMoney.Array.data[1]
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904343228405309689, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
+      propertyPath: _rankMoney.Array.data[2]
+      value: 1000
+      objectReference: {fileID: 0}
     - target: {fileID: 8504008568247219138, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
       propertyPath: m_IsActive
       value: 0
