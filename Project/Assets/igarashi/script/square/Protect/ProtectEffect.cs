@@ -10,6 +10,8 @@ public class ProtectEffect : MonoBehaviour
 
     private BarrierDissolve _effect;
 
+    private GameObject _subEffect;
+
     [SerializeField]
     private float _playTime = 1.0f;
     private float _playTimeCounter = 0.0f;
@@ -30,15 +32,35 @@ public class ProtectEffect : MonoBehaviour
 
         _effect = GetComponent<BarrierDissolve>();
         _effect.StartBarrier();
+
+        _subEffect = transform.Find("SubParticle").gameObject;
+    }
+
+    private void FixedUpdate()
+    {
+        if (!transform.parent)
+            return;
+
+        Vector3 localScale = transform.localScale;
+        Vector3 lossScale = transform.lossyScale;
+        float characterMinScale = Mathf.Min(transform.parent.lossyScale.x, Mathf.Min(transform.parent.lossyScale.y, transform.parent.lossyScale.z));
+
+        transform.localScale = new Vector3(
+                localScale.x / lossScale.x * characterMinScale / 10.0f,
+                localScale.y / lossScale.y * characterMinScale / 10.0f,
+                localScale.z / lossScale.z * characterMinScale / 10.0f
+        );
     }
 
     private void Update()
     {
+        if (_end)
+            return;
+
         if (_playTimeCounter >= _playTime)
         {
-            _tween = transform.DOScale(0.0f, 0.5f);
-            _tween.OnComplete(() => { _end = true; });
-            _tween.SetLink(gameObject);
+            _subEffect.SetActive(false);
+            _end = true;
         }
 
         _playTimeCounter += Time.deltaTime;

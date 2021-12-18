@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 7935460760518204018}
   - component: {fileID: 7935460760518204019}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: SubParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7935460760518204020
 Transform:
   m_ObjectHideFlags: 0
@@ -4877,7 +4877,7 @@ GameObject:
   - component: {fileID: 7935460762043612304}
   - component: {fileID: 9118646067750694895}
   m_Layer: 0
-  m_Name: Barrier
+  m_Name: ProtectEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
