@@ -95,13 +95,30 @@ public class SquareCasino : SquareBase
         _selectElements.Add("‚â‚ß‚é");
 
         _selectUI.Open(_selectElements,character);
-        if(character.IsAutomatic)
-            _selectUI.IndexSelect(Random.Range(0, 3));
-
+        if (character.IsAutomatic)
+        {
+            Invoke("AISelect", 0.5f);
+            //_selectUI.IndexSelect(Random.Range(0, 3));
+        }
         Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
 
 
         _state = SquareCasinoState.PAY;
+    }
+
+    private void AISelect()
+    {
+        if(_character.Money < 15000)
+        {
+            // ”¼•ª‚ÌŠm—¦‚Å‚â‚ç‚È‚¢
+            if(Random.Range(0, 1) == 0)
+            {
+                _state = SquareCasinoState.END;
+                return;
+            }
+            _state = SquareCasinoState.END;
+        }
+        
     }
 
     private void PayStateProcess()

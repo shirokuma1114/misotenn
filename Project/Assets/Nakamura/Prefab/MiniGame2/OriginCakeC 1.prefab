@@ -562,6 +562,7 @@ GameObject:
   - component: {fileID: 1039732494553593958}
   - component: {fileID: -575269676453663116}
   - component: {fileID: 5807909837690686972}
+  - component: {fileID: 8978408823716412484}
   m_Layer: 0
   m_Name: OriginCakeC 1
   m_TagString: Untagged
@@ -589,6 +590,7 @@ Transform:
   - {fileID: 3045486696914596698}
   - {fileID: 5323218214745603006}
   - {fileID: 2997384523280941790}
+  - {fileID: 316243153554398367}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -634,8 +636,24 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.05, y: 0.05, z: 0.05}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.04, y: 0.03, z: 0.05}
+  m_Center: {x: -0.005, y: 0, z: 0}
+--- !u!54 &8978408823716412484
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6515820214891790944}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6879111784477727330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,3 +1254,65 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &6841606743571618413
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5847650724466333914}
+    m_Modifications:
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.016
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6526208910590904055, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+      propertyPath: m_Name
+      value: Smoke
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+--- !u!4 &316243153554398367 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6526208910590904050, guid: d103acf92b813b5489dcd05dd4618602, type: 3}
+  m_PrefabInstance: {fileID: 6841606743571618413}
+  m_PrefabAsset: {fileID: 0}

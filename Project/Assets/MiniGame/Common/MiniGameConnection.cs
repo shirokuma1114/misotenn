@@ -179,7 +179,10 @@ public class MiniGameConnection : MonoBehaviour
 
     private void MiniGameUnload()
     {
-        SceneManager.UnloadSceneAsync(_playingMiniGameScene.buildIndex);
+        if (_playingMiniGameScene.IsValid())
+        {
+            SceneManager.UnloadSceneAsync(_playingMiniGameScene.buildIndex);
+        }
 
         foreach (var obj in _gameSceneActiveObjectTmp)
         {

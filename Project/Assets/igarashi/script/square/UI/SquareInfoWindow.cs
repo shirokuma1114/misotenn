@@ -26,6 +26,9 @@ public class SquareInfoWindow : WindowBase
 
     CharacterBase _character;
 
+    [SerializeField]
+    MovingCardWindow _movingCardWindow;
+
     public override void SetEnable(bool enable)
     {
         _text.enabled = enable;
@@ -35,7 +38,7 @@ public class SquareInfoWindow : WindowBase
 
         _myGameManager.EnableFreeRotation(enable);
 
-
+        _movingCardWindow.SetEnable(enable);
         if (enable)
         {
             _operator = _earth.Operator;
@@ -45,6 +48,7 @@ public class SquareInfoWindow : WindowBase
     public override void SetCharacter(CharacterBase character)
     {
         _character = character;
+        _movingCardWindow.GenerateMovingCards(character.MovingCards);
     }
 
     public void SetSquareInfo(string info)
@@ -97,6 +101,7 @@ public class SquareInfoWindow : WindowBase
         if (Physics.Raycast(cameraRay, out hitInfo, _rayDistance))
         {
             SquareBase square = hitInfo.collider.GetComponent<SquareBase>();
+            if (!square) return;
 
             if (square != _beforeSquare)
             {
