@@ -5,6 +5,9 @@ using System.Linq;
 
 public class SquareBase : MonoBehaviour
 {
+    [SerializeField]
+    GameObject _linePrefab;
+
     // Ží—Þ
     private SquareType _squareType;
 
@@ -88,6 +91,12 @@ public class SquareBase : MonoBehaviour
     public virtual void Stop(CharacterBase character)
     {
         character.CompleteStopExec();
+    }
+
+    public void PlayLineEffect()
+    {
+        var obj = Instantiate(_linePrefab, transform);
+        obj.transform.localPosition = new Vector3(0, 1.0f, 0);
     }
 
     public void AddCharacter(CharacterBase character)
