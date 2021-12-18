@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 using UnityEngine.SceneManagement;
 
 public class MyGameManager : MonoBehaviour
@@ -89,6 +90,9 @@ public class MyGameManager : MonoBehaviour
     [Header("大量のお土産を抱えてスタート")]
     [SerializeField]
     bool _isManyManySouvenirs;
+
+    [SerializeField]
+    bool _isMiniGameDebug;
 
     [SerializeField]
     Animator _fadeAnimation;
@@ -299,7 +303,7 @@ public class MyGameManager : MonoBehaviour
             if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() == _needSouvenirType)
             {
                 _phase = Phase.CLEAR;
-                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　全てのお土産を制覇した！\n"
+                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　" +  _needSouvenirType.ToString() + "つの種類のお土産を集めた！\n"
                     + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character);
 
                 // このターンのおこづかい
@@ -328,6 +332,13 @@ public class MyGameManager : MonoBehaviour
             // このターンのおこづかい
             _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
 
+
+            if (_isMiniGameDebug)
+            {
+                _phase = Phase.MINI_GAME;
+                _miniGameConnection.StartRandomMiniGame();
+            }
+            
             _turnIndex++;
             if (_turnIndex >= _entryPlugs.Count)
             {
@@ -335,9 +346,16 @@ public class MyGameManager : MonoBehaviour
 
                 // 合計ターン加算
                 UpdateTurn();
+                
+                var list = _entryPlugs.OrderBy(a => Guid.NewGuid()).ToList();
 
-                _phase = Phase.MINI_GAME;
-                _miniGameConnection.StartRandomMiniGame();
+                list[0].Character.AddMoney(5000);
+                list[1].Character.AddMoney(3000);
+                list[2].Character.AddMoney(1000);
+
+                // ミニゲームモード起動
+                //_phase = Phase.MINI_GAME;
+                //_miniGameConnection.StartRandomMiniGame();
             }
 
             //次の人の止まっているマス座標
@@ -491,7 +509,7 @@ public class MyGameManager : MonoBehaviour
 
     int GetRandomRange()
     {
-        return Random.Range(_cardMinValue, _cardMaxValue + 1);
+        return UnityEngine.Random.Range(_cardMinValue, _cardMaxValue + 1);
     }
 
     public void Move()
