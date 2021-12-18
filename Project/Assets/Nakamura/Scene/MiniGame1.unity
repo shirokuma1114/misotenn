@@ -173,17 +173,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &132172938 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
-  m_PrefabInstance: {fileID: 270272748}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3afa9b1c084104c4c82d7ced4cfe035b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &154365665
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,7 +1110,7 @@ MonoBehaviour:
   - {fileID: 154987354}
   - {fileID: 1176237004}
   - {fileID: 501879706}
-  _miniGameCorrection: {fileID: 132172938}
+  _miniGameConnection: {fileID: 0}
   _miniGameResult: {fileID: 1756561945}
   gameOrder: 00000000000000000000000000000000
 --- !u!1 &1009013538
@@ -2407,6 +2396,18 @@ PrefabInstance:
     - target: {fileID: 5396342285605632008, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904343228405309689, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
+      propertyPath: _rankMoney.Array.data[0]
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904343228405309689, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
+      propertyPath: _rankMoney.Array.data[1]
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5904343228405309689, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
+      propertyPath: _rankMoney.Array.data[2]
+      value: 1000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}

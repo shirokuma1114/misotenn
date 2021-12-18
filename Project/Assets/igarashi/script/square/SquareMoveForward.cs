@@ -122,6 +122,13 @@ public class SquareMoveForward : SquareBase
             _payUI.AISelectNo();
             return;
         }
+
+        // 1/2‚Å•¥‚í‚È‚¢
+        if (Random.Range(0, 1) == 0)
+        {
+            _payUI.AISelectNo();
+            return;
+        }
         _payUI.AISelectYes();
     }
 
