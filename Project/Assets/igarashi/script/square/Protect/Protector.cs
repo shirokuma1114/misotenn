@@ -13,13 +13,19 @@ public class Protector : MonoBehaviour
     private int _turnEndCount = -1;
     private int _protectTurn;
 
-    
+    private ProtectEffect _protectInstance;
+
+    private void Start()
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
         if(_protected)
         {
-            if (_prevCharacterState != CharacterState.END && _character.State == CharacterState.END)
+            if (_prevCharacterState != CharacterState.WAIT && _character.State == CharacterState.WAIT)
             {
                 _turnEndCount++;
             }
@@ -27,6 +33,7 @@ public class Protector : MonoBehaviour
             if (_turnEndCount >= _protectTurn)
             {
                 _protected = false;
+                Destroy(_protectInstance.gameObject);
             }
 
             _prevCharacterState = _character.State;
@@ -34,11 +41,12 @@ public class Protector : MonoBehaviour
     }
 
 
-    public void ProtectStart(int protectTurn)
+    public void ProtectStart(int protectTurn, ProtectEffect protect)
     {
         _protected = true;
         _protectTurn = protectTurn;
         _turnEndCount = -1;
+        _protectInstance = protect;
     }
 
     public void SetCharacter(CharacterBase character)

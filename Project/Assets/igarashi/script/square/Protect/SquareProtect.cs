@@ -111,6 +111,7 @@ public class SquareProtect : SquareBase
                 _character.SubMoney(_cost);
 
                 _protectEffect = Instantiate(_protectEffectPrefab, _character.transform.position, _character.transform.rotation).GetComponent<ProtectEffect>();
+                _protectEffect.transform.SetParent(_character.transform);
 
                 _state = SquareProtectState.PROTECT;
             }
@@ -126,10 +127,9 @@ public class SquareProtect : SquareBase
         if (!_protectEffect.IsEnd)
             return;
 
-        Destroy(_protectEffect.gameObject);
+        _character.GetComponent<Protector>().ProtectStart(_protectTurn,_protectEffect);
         _protectEffect = null;
 
-        _character.GetComponent<Protector>().ProtectStart(_protectTurn);
         _state = SquareProtectState.END;
     }
 
