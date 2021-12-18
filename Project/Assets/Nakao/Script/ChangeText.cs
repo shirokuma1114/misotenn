@@ -919,7 +919,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                        ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                        ShowGraph(_characters[0]._moneyByTurn);  //グラフ表示
                     }
                     if (Choice == 2)
                     {
@@ -929,7 +929,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                    ShowGraph(_characters[1]._moneyByTurn);  //グラフ表示
                 }
                     if (Choice == 3)
                     {
@@ -939,7 +939,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                    ShowGraph(_characters[2]._moneyByTurn);  //グラフ表示
                 }
                     if (Choice == 4)
                     {
@@ -949,7 +949,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                    ShowGraph(_characters[3]._moneyByTurn);  //グラフ表示
                 }
 
                 }
