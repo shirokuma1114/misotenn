@@ -114,6 +114,7 @@ public class DontDestroyManager : MonoBehaviour
             x._lapCount = x._character.LapCount;
             x._characterName = x._character.Name;
             x._souvenirNum = x._character.Souvenirs.Count;
+            x._souvenirTypeNum = x._character.GetSouvenirTypeNum();
             Array.Copy(x._character.Log.GetUseEventNum(), x._useEventNumByType, x._useEventNumByType.Length);
             foreach(var y in x._character.Log.GetMoneyByTurn())
             {

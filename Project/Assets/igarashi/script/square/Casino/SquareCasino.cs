@@ -65,8 +65,7 @@ public class SquareCasino : SquareBase
     public override void Stop(CharacterBase character)
     {
         _character = character;
-
-
+        
         //お金チェック
         if (_character.Money <= 0)
         {

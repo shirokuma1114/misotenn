@@ -38,7 +38,7 @@ public class SceneChange : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && !isFadeOutStart)
+        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Start") || Input.GetButtonDown("A")) && !isFadeOutStart)
         {
             fadeAnimater.Play("FadeOut");
             isFadeOutStart = true;

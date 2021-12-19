@@ -79,7 +79,6 @@ public class SquareSouvenir : SquareBase
     public override void Stop(CharacterBase character)
     {
         _character = character;
-
         
         //お金チェック
         if (!_character.CanPay(_cost))
