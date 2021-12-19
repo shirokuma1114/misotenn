@@ -8,8 +8,9 @@ public class CountController : MonoBehaviour
 {
     public bool isCountTime { set; get; }
     public bool isCountFin { set; get; }
-    public MiniGameCharacter miniGameChara;
+    public MiniGameCharacter _miniGameChara;
     [SerializeField] Text _cntText;
+    [SerializeField] Text _nameText;
     [SerializeField] int _id;
     [SerializeField] bool _isPlayer;
     [SerializeField] private MiniGameConnection _miniGameConnection;
@@ -19,7 +20,8 @@ public class CountController : MonoBehaviour
 
     void Start()
     {
-        miniGameChara = _miniGameConnection.Characters[_id];
+        _miniGameChara = _miniGameConnection.Characters[_id];
+        _nameText.text = _miniGameChara.Name;
 
         isCountTime = false;
         isCountFin = false;
@@ -30,7 +32,7 @@ public class CountController : MonoBehaviour
 
     void Update()
     {
-        if (isCountTime && !isCountFin && !miniGameChara.IsAutomatic)
+        if (isCountTime && !isCountFin && !_miniGameChara.IsAutomatic)
         {
             //操作ができるプレイヤー
             if (_id == 0)
@@ -118,7 +120,7 @@ public class CountController : MonoBehaviour
             }
         }
         //操作が出来ないエネミー(CPUは完全ランダム)
-        else if(isCountTime && !isCountFin && miniGameChara.IsAutomatic)
+        else if(isCountTime && !isCountFin && _miniGameChara.IsAutomatic)
         {
             int rand = UnityEngine.Random.Range(_cakeGenerator.GetNumQuestCake() - 2, _cakeGenerator.GetNumQuestCake() + 3);
             _cntCake = rand;
@@ -127,4 +129,5 @@ public class CountController : MonoBehaviour
             isCountFin = true;//カウント終了
         }
     }
+
 }
