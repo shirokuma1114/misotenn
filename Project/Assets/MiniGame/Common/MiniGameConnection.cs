@@ -122,11 +122,11 @@ public class MiniGameConnection : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            StartRandomMiniGame();
+            //StartRandomMiniGame();
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            EndMiniGame();
+            //EndMiniGame();
         }
     }
 
