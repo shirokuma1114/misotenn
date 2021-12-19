@@ -144,7 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_lineRenderer: {fileID: 4240053167703607842}
   m_radius: 0.5
-  m_lineWidth: 0.1
-  m_duration: 2
+  m_lineWidth: 0.05
+  m_duration: 0.5
   m_from: 1
   m_to: 8

@@ -86,9 +86,9 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void TutorialState()
     {
-        _tenukiText.text = "チュートリアル画面\nEnterでプレイ";
+        _tenukiText.text = "Enterでスタート";
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
             _state = SampleGameState.PLAY_RENDA;
     }
 
@@ -127,7 +127,7 @@ public class SampleMiniGameManager: MonoBehaviour
     {
         _tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A"))
             _state = SampleGameState.END;
     }
 
