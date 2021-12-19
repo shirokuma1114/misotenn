@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
-
+using DG.Tweening;
 
 public class CakeGenerator : MonoBehaviour
 {
@@ -88,18 +88,27 @@ public class CakeGenerator : MonoBehaviour
         //終了したらカウントタイムに入る
         if(_isStart && _nowCake == cakeNum)
         {
-            for(int i = 0;i < _countController.Length;i++)
+            DOVirtual.DelayedCall(3, () =>
             {
-                _countObj[i].SetActive(true);
-                _countController[i].isCountTime = true;
-            }
+                for (int i = 0; i < _countController.Length; i++)
+                {
+                    _countObj[i].SetActive(true);
+                    _countController[i].isCountTime = true;
+                }
+            });
         }
 
         //みんなが数え終わったらリザルトを表示
         if(_isGameResultTrigger)
-        {
-            CheckAnswer();
+        { 
+            _countObj[4].SetActive(true);
+            _answerText.text = Convert.ToString(_numQuestCake);
             _isGameResultTrigger = false;//呼ぶのは１回でいいので元に戻す
+
+            DOVirtual.DelayedCall(3, () =>
+            {
+                CheckAnswer();
+            });
         }
     }
 
@@ -178,5 +187,10 @@ public class CakeGenerator : MonoBehaviour
             if (_isCntFin[i] == true) fin += 1; 
         }
         if (fin == 4) _isGameResultTrigger = true;
+    }
+
+    public int GetNumQuestCake()
+    {
+        return _numQuestCake;
     }
 }
