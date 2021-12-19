@@ -86,7 +86,7 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void TutorialState()
     {
-        _tenukiText.text = "Enterでスタート";
+        _tenukiText.text = "連打でGO!\nEnterでスタート";
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
             _state = SampleGameState.PLAY_RENDA;
