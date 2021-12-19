@@ -22,6 +22,7 @@ public class CakeGenerator : MonoBehaviour
     [SerializeField] CountController[] _countController;
     [SerializeField] private MiniGameConnection _miniGameCorrection;
     [SerializeField] private MiniGameResult _miniGameResult;
+    [SerializeField] private GameObject[] _controlUI;//操作ボタン表示UI
 
     private int _nowCake = 0;
     private bool _isStart = false;
@@ -93,6 +94,13 @@ public class CakeGenerator : MonoBehaviour
                 for (int i = 0; i < _countController.Length; i++)
                 {
                     _countObj[i].SetActive(true);
+
+                    //オートの敵は操作UI表示しない
+                    if (_countController[i]._miniGameChara.IsAutomatic)
+                    {
+                        _controlUI[i].SetActive(false);
+                    }
+
                     _countController[i].isCountTime = true;
                 }
             });
@@ -167,7 +175,7 @@ public class CakeGenerator : MonoBehaviour
         foreach (var ID in _Answers.Keys)
         {
             if(cnt > 0 && ID > 0 && (_Answers[ID] != _Answers[ID - 1])) ranking++;
-            rank.Add(_countController[ID].miniGameChara, ranking);
+            rank.Add(_countController[ID]._miniGameChara, ranking);
             cnt++;
         }
        
