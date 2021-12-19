@@ -49,7 +49,7 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.X))
                 {
                     //ケーキのカウント
-                    _cakeGenerator.SetAnswer(_id, _cntCake);
+                    _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                 }
             }
@@ -70,7 +70,7 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.V))
                 {
                     //ケーキのカウント
-                    _cakeGenerator.SetAnswer(_id, _cntCake);
+                    _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                 }
             }
@@ -91,7 +91,7 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.N))
                 {
                     //ケーキのカウント
-                    _cakeGenerator.SetAnswer(_id, _cntCake);
+                    _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                 }
             }
@@ -112,16 +112,18 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.M))
                 {
                     //ケーキのカウント
-                    _cakeGenerator.SetAnswer(_id, _cntCake);
+                    _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                 }
             }
         }
+        //操作が出来ないエネミー
         else if(isCountTime && !isCountFin && miniGameChara.IsAutomatic)
         {
             int rand = UnityEngine.Random.Range(5, 8);
+            _cntCake = rand;
             _cntText.text = Convert.ToString(rand);
-            _cakeGenerator.SetAnswer(_id, _cntCake);
+            _cakeGenerator.SetCntFin(_id, _cntCake);
             isCountFin = true;//カウント終了
         }
     }
