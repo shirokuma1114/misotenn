@@ -101,7 +101,7 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void TutorialState()
     {
-        _tenukiText.text = "Enterでスタート"; //チュートリアル画面が来る予定のため非表示予定
+        _tenukiText.text = "連打でGO!"; //チュートリアル画面が来る予定のため非表示予定
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
         {
