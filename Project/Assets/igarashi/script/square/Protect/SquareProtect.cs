@@ -113,6 +113,8 @@ public class SquareProtect : SquareBase
                 _protectEffect = Instantiate(_protectEffectPrefab, _character.transform.position, _character.transform.rotation).GetComponent<ProtectEffect>();
                 _protectEffect.transform.SetParent(_character.transform);
 
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("Protect");
+
                 _state = SquareProtectState.PROTECT;
             }
             else
