@@ -117,10 +117,10 @@ public class CountController : MonoBehaviour
                 }
             }
         }
-        //操作が出来ないエネミー
+        //操作が出来ないエネミー(CPUは完全ランダム)
         else if(isCountTime && !isCountFin && miniGameChara.IsAutomatic)
         {
-            int rand = UnityEngine.Random.Range(5, 8);
+            int rand = UnityEngine.Random.Range(_cakeGenerator.GetNumQuestCake() - 2, _cakeGenerator.GetNumQuestCake() + 3);
             _cntCake = rand;
             _cntText.text = Convert.ToString(rand);
             _cakeGenerator.SetCntFin(_id, _cntCake);
