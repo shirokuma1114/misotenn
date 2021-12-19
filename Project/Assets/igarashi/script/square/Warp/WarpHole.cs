@@ -34,7 +34,7 @@ public class WarpHole : MonoBehaviour
 
     public void Close()
     {
-        _state = WarpHoleState.BLACK_CLOSE;
+        Destroy(gameObject);
     }
 
    //===========================

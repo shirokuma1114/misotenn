@@ -273,6 +273,8 @@ public class SquareSteal : SquareBase
                 _camera.Enter_Event();
                 _camera.Set_NextCamera(0);
 
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("Steal");
+
             }
 
             _state = SquareStealState.END;
