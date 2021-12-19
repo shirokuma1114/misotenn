@@ -224,8 +224,8 @@ public class CasinoGame : MonoBehaviour
             _messageWindow.SetMessage("正解!!\nダブルアップチャンスに挑戦しますか？\n(降りた場合" + _reward.ToString() + "円獲得できます)", _character);
             _payUI.Open(_character);
 
-            if(_autoPlay)
-                _payUI.AISelectNo();
+            if (_autoPlay)
+                AIDoubleUpChallenge();
 
             _state = CasinoGameState.CONTINUE_CHECK;
         }
@@ -319,6 +319,21 @@ public class CasinoGame : MonoBehaviour
             _selectFrameSprite.enabled = false;
 
             _state = CasinoGameState.CORRECT_CHECK;
+        }
+    }
+
+    private void AIDoubleUpChallenge()
+    {
+        //AIがダブルアップに挑戦する確率(%)
+        const int DOUBLEUP_CHALLENGE_PERCENTAGE = 50;
+
+        if(Random.Range(1,100) <= DOUBLEUP_CHALLENGE_PERCENTAGE)
+        {
+            _payUI.AISelectYes();
+        }
+        else
+        {
+            _payUI.AISelectNo();
         }
     }
 }
