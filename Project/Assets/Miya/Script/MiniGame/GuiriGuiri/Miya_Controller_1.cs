@@ -169,12 +169,12 @@ public class Miya_Controller_1 : MonoBehaviour
 
 	private void HumanPlay()
 	{
-		if (Input.GetKeyDown(KeyCode.Space) && !Throw)
+		if ((Input.GetKeyDown(KeyCode.Space) || _controller.Input.GetButtonDown("A")) && !Throw)
 		{
 			Hold = true;
 		}
 
-		if (Input.GetKeyUp(KeyCode.Space) && Hold)
+		if ((Input.GetKeyUp(KeyCode.Space) || _controller.Input.GetButtonUp("A")) && Hold)
 		{
 			Hold = false;
 			Throw = true;

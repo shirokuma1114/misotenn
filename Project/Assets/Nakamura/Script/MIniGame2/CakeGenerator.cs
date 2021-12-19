@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using System.Linq;
-
+using DG.Tweening;
 
 public class CakeGenerator : MonoBehaviour
 {
@@ -22,6 +22,7 @@ public class CakeGenerator : MonoBehaviour
     [SerializeField] CountController[] _countController;
     [SerializeField] private MiniGameConnection _miniGameCorrection;
     [SerializeField] private MiniGameResult _miniGameResult;
+    [SerializeField] private GameObject[] _controlUI;//操作ボタン表示UI
 
     private int _nowCake = 0;
     private bool _isStart = false;
@@ -88,18 +89,34 @@ public class CakeGenerator : MonoBehaviour
         //終了したらカウントタイムに入る
         if(_isStart && _nowCake == cakeNum)
         {
-            for(int i = 0;i < _countController.Length;i++)
+            DOVirtual.DelayedCall(3, () =>
             {
-                _countObj[i].SetActive(true);
-                _countController[i].isCountTime = true;
-            }
+                for (int i = 0; i < _countController.Length; i++)
+                {
+                    _countObj[i].SetActive(true);
+
+                    //オートの敵は操作UI表示しない
+                    if (_countController[i]._miniGameChara.IsAutomatic)
+                    {
+                        _controlUI[i].SetActive(false);
+                    }
+
+                    _countController[i].isCountTime = true;
+                }
+            });
         }
 
         //みんなが数え終わったらリザルトを表示
         if(_isGameResultTrigger)
-        {
-            CheckAnswer();
+        { 
+            _countObj[4].SetActive(true);
+            _answerText.text = Convert.ToString(_numQuestCake);
             _isGameResultTrigger = false;//呼ぶのは１回でいいので元に戻す
+
+            DOVirtual.DelayedCall(3, () =>
+            {
+                CheckAnswer();
+            });
         }
     }
 
@@ -158,7 +175,7 @@ public class CakeGenerator : MonoBehaviour
         foreach (var ID in _Answers.Keys)
         {
             if(cnt > 0 && ID > 0 && (_Answers[ID] != _Answers[ID - 1])) ranking++;
-            rank.Add(_countController[ID].miniGameChara, ranking);
+            rank.Add(_countController[ID]._miniGameChara, ranking);
             cnt++;
         }
        
@@ -178,5 +195,10 @@ public class CakeGenerator : MonoBehaviour
             if (_isCntFin[i] == true) fin += 1; 
         }
         if (fin == 4) _isGameResultTrigger = true;
+    }
+
+    public int GetNumQuestCake()
+    {
+        return _numQuestCake;
     }
 }
