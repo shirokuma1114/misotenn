@@ -31,12 +31,13 @@ public class SquareWarp : SquareBase
     private Tween _outholeTween;
     private CameraInterpolation _camera;
 
+    private Vector3 _warpHolePosition = new Vector3(0,10.0f,0);
+
     [SerializeField]
     private int _cost;
     [SerializeField]
     private GameObject _warpHolePrefab;
-    [SerializeField]
-    private Vector3 _warpHolePosition;
+    
 
 
     MyGameManager _gameManager;
@@ -174,6 +175,8 @@ public class SquareWarp : SquareBase
                 _camera.Enter_Event();
                 _camera.Set_NextCamera(2);
 
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("Warp");
+
                 _state = SquareWarpState.WARP;
             }
             else
@@ -217,6 +220,8 @@ public class SquareWarp : SquareBase
 
             flyCount++;
         }
+
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("Warp_End");
 
         _state = SquareWarpState.WARP_END;
     }

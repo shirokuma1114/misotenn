@@ -161,3 +161,19 @@ MonoBehaviour:
     Audio: {fileID: 8300000, guid: 9a5ef6754d1aac742acd993e7d9609a5, type: 3}
     Volume: 0
     Loop: 1
+  - Name: Warp
+    Audio: {fileID: 8300000, guid: 49df5e6c225ca5141b048e608f2965ca, type: 3}
+    Volume: 0
+    Loop: 0
+  - Name: Warp_End
+    Audio: {fileID: 8300000, guid: b74052574a52cc049a1a7736ab7e7c1c, type: 3}
+    Volume: 0
+    Loop: 0
+  - Name: Protect
+    Audio: {fileID: 8300000, guid: 05e01ac8b61697e46a2e7cdac135a286, type: 3}
+    Volume: 0
+    Loop: 0
+  - Name: Steal
+    Audio: {fileID: 8300000, guid: fe98421f128c38748aa7fb5e479b2b1d, type: 3}
+    Volume: 0
+    Loop: 0
