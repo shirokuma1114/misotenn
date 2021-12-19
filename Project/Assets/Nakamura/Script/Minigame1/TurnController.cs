@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TurnController : MonoBehaviour
 {
     [SerializeField] private Text _turnText;
-    [SerializeField] private PlayerBrain _player;
+    //[SerializeField] private PlayerBrain _player;
     [SerializeField] private EnemyBrain[] _enemy; 
     [SerializeField] private Image _nowTurnArrow;
     [SerializeField] private Text[] _names;
@@ -18,15 +18,17 @@ public class TurnController : MonoBehaviour
     
     private int _nowTurnOrder = 0;
     private bool _isGameEnd = false;
-    
+
+    private bool _isJoJo;
+
    public void Init()
    {
         _miniGameConnection = MiniGameConnection.Instance;
 
-        _player._miniGameChara = _miniGameConnection.Characters[0];
+        //_player._miniGameChara = _miniGameConnection.Characters[0];
         for (int i = 0; i < _enemy.Length; i++)
         {
-            _enemy[i]._miniGameChara = _miniGameConnection.Characters[i + 1];
+            _enemy[i]._miniGameChara = _miniGameConnection.Characters[i];
         }
         //ゲームの順番を決める
         turnRoulette(gameOrder);
@@ -38,8 +40,7 @@ public class TurnController : MonoBehaviour
 
         for(int i = 0;i < _names.Length;i++)
         {
-            if (i == 0) _names[i].text = _player._miniGameChara.Name;
-            else _names[i].text = _enemy[i - 1]._miniGameChara.Name;
+            _names[i].text = _enemy[i]._miniGameChara.Name;
         }
 
         _turnText.text = "の番です";
@@ -52,31 +53,41 @@ public class TurnController : MonoBehaviour
         if (_isGameEnd)
         {
             //リザルトを出す
-            _miniGameConnection.EndMiniGame();
             Dictionary<MiniGameCharacter, int> rank = new Dictionary<MiniGameCharacter, int>();
             for (int i = 0; i < _winner.Length; i++)
             {
                if(_winner[i] == 0)
                {
-                   rank.Add(_player._miniGameChara, (i + 1));
+                   rank.Add(_enemy[0]._miniGameChara, (i + 1));
                }
                else if (_winner[i] == 1)
                {
-                   rank.Add(_enemy[0]._miniGameChara, (i + 1));
+                   rank.Add(_enemy[1]._miniGameChara, (i + 1));
                }
                else if (_winner[i] == 2)
                {
-                   rank.Add(_enemy[1]._miniGameChara, (i + 1));
+                   rank.Add(_enemy[2]._miniGameChara, (i + 1));
                }
                else if (_winner[i] == 3)
                {
-                   rank.Add(_enemy[2]._miniGameChara, (i + 1));
+                   rank.Add(_enemy[3]._miniGameChara, (i + 1));
                }
             }
             //_miniGameResult.
             _miniGameResult.Display(rank);
 
             _isGameEnd = false;
+
+            _isJoJo = true;
+
+        }
+
+        if (_isJoJo)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
+            {
+                _miniGameConnection.EndMiniGame();
+            }
         }
     }
 
@@ -114,36 +125,36 @@ public class TurnController : MonoBehaviour
         {
             //プレイヤー
             case 0:
-                _turnText.text = _player._miniGameChara.Name + " の番です";
+                _turnText.text = _enemy[0]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 180, 0);
-
-                _player.StartTurn();
+                _enemy[0].StartTurn();
+                if (_enemy[0]._miniGameChara.IsAutomatic == true) _enemy[0].TurnCard();
                 break;
 
             //エネミー１
             case 1:
-                _turnText.text = _enemy[0]._miniGameChara.Name + "　の番です";
+                _turnText.text = _enemy[1]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 140, 0);
-                _enemy[0].StartTurn();
-                if(_enemy[0]._miniGameChara.IsAutomatic == true) _enemy[0].TurnCard();
+                _enemy[1].StartTurn();
+                if(_enemy[1]._miniGameChara.IsAutomatic == true) _enemy[1].TurnCard();
                 break;
 
             //エネミー２
             case 2:
-                _turnText.text = _enemy[1]._miniGameChara.Name + "　の番です";
+                _turnText.text = _enemy[2]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 100, 0);
 
-                _enemy[1].StartTurn();
-                if (_enemy[1]._miniGameChara.IsAutomatic == true) _enemy[1].TurnCard();
+                _enemy[2].StartTurn();
+                if (_enemy[2]._miniGameChara.IsAutomatic == true) _enemy[2].TurnCard();
                 break;
 
             //エネミー３
             case 3:
-                _turnText.text = _enemy[2]._miniGameChara.Name + "　の番です";
+                _turnText.text = _enemy[3]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 60, 0);
 
-                _enemy[2].StartTurn();
-                if (_enemy[2]._miniGameChara.IsAutomatic == true) _enemy[2].TurnCard();
+                _enemy[3].StartTurn();
+                if (_enemy[3]._miniGameChara.IsAutomatic == true) _enemy[3].TurnCard();
                 break;
         }
 

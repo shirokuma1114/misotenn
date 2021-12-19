@@ -23,6 +23,9 @@ public class EnemyBrain : Brain
     private int[] _incorrectMemory = new int[3];//間違えた場所を記憶する
     public int[] lookMemory = new int[3]; //他の人がめくったのが目に入った（場所が入る）
 
+    float _beforeTrigger;
+
+
     void Start()
     {
         isControl = false;
@@ -43,6 +46,27 @@ public class EnemyBrain : Brain
         if (isControl)
         {
             //操作ができる
+            if (_miniGameChara.Input == null) return;
+            float viewButton = _miniGameChara.Input.GetAxis("Horizontal");
+            if (_beforeTrigger == 0.0f)
+            {
+                if (viewButton < 0)
+                {
+                    if (_nowCursol > ((_nowStep - 1) * 4)) _nowCursol -= 1;
+                    _cardMgr.SetCursolCurd(_nowCursol, _myColor);
+
+                    if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+                }
+                if (viewButton > 0)
+                {
+                    if (_nowCursol < _nowStep * 4 - 1) _nowCursol += 1;
+                    _cardMgr.SetCursolCurd(_nowCursol, _myColor);
+
+                    if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+                }
+            }
+            _beforeTrigger = viewButton;
+            
             if (Input.GetKeyDown(KeyCode.A))
             {
                 if (_nowCursol > ((_nowStep - 1) * 4)) _nowCursol -= 1;
@@ -55,7 +79,7 @@ public class EnemyBrain : Brain
             }
 
             //スペースキー押したらCardの関数呼ぶ
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || _miniGameChara.Input.GetButtonDown("A"))
             {
                 if (_cardMgr.GetCard(_nowCursol).isCanTurn == false) return;
 
