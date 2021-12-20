@@ -5323,7 +5323,7 @@ PrefabInstance:
       objectReference: {fileID: 712244019}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _isMiniGameDebug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _needSouvenirType
