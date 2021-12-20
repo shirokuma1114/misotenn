@@ -5,27 +5,30 @@ using UnityEngine;
 public class Protector : MonoBehaviour
 {
     private CharacterBase _character;
-    private CharacterState _prevCharacterState;
+
+    private CharacterControllerBase _controller;
+    private CharacterControllerBase.EventState _prevControllerState;
     
     private bool _protected;
     public bool IsProtected => _protected;
 
-    private int _turnEndCount = -1;
+    private int _turnEndCount = 0;
     private int _protectTurn;
 
     private ProtectEffect _protectInstance;
 
     private void Start()
     {
-
+        _controller = GetComponent<CharacterControllerBase>();
+        _prevControllerState = _controller.State;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(_protected)
+        if (_protected)
         {
-            if (_prevCharacterState != CharacterState.WAIT && _character.State == CharacterState.WAIT)
+            if (_prevControllerState != CharacterControllerBase.EventState.SELECT && _controller.State == CharacterControllerBase.EventState.SELECT)
             {
                 _turnEndCount++;
             }
@@ -36,7 +39,7 @@ public class Protector : MonoBehaviour
                 Destroy(_protectInstance.gameObject);
             }
 
-            _prevCharacterState = _character.State;
+            _prevControllerState = _controller.State;
         }        
     }
 
@@ -45,14 +48,13 @@ public class Protector : MonoBehaviour
     {
         _protected = true;
         _protectTurn = protectTurn;
-        _turnEndCount = -1;
+        _turnEndCount = 0;
         _protectInstance = protect;
     }
 
     public void SetCharacter(CharacterBase character)
     {
         _character = character;
-        _prevCharacterState = _character.State;
     }
 
 }
