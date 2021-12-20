@@ -23,17 +23,7 @@ public class BarrierDissolve : MonoBehaviour
         _renderer.material.SetFloat(_Cutoff, 0f);
         _renderer.material.SetFloat(_Width, 0f);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            particle.SetActive(true);
-            StartCoroutine(BlinkerCoroutine());
-        }
-    }
+    
 
     IEnumerator BlinkerCoroutine()
     {
