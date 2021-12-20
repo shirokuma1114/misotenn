@@ -20,6 +20,8 @@ public class CountController : MonoBehaviour
 
     void Start()
     {
+        _miniGameConnection = MiniGameConnection.Instance;
+
         _miniGameChara = _miniGameConnection.Characters[_id];
         _nameText.text = _miniGameChara.Name;
 
@@ -27,7 +29,7 @@ public class CountController : MonoBehaviour
         isCountFin = false;
         _cntCake = 0;
         if (_isPlayer) _cntText.text = Convert.ToString(_cntCake);
-        else _cntText.text = "?";
+        else _cntText.text = "0";
     }
 
     void Update()

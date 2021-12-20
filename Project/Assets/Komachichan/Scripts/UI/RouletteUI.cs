@@ -75,7 +75,7 @@ public class RouletteUI : MonoBehaviour
         {
             var pos = i.GetComponent<RectTransform>().anchoredPosition;
             pos.y -= Time.deltaTime * _currentMoveSpeed;
-            if(pos.y - _offsetY <= -74.0f)
+            if(pos.y - _offsetY <= -85.0f)
             {
                 target = i;
                 //pos.y = -64.0f + _rouletteObjects.Count * 32.0f - 10.0f + _offsetY;
@@ -85,7 +85,7 @@ public class RouletteUI : MonoBehaviour
 
             i.GetComponent<RectTransform>().anchoredPosition = pos;
 
-            if(pos.y - _offsetY <= 74.0f)
+            if(pos.y - _offsetY <= 85.0f)
             {
                 i.GetComponent<Text>().enabled = true;
             }

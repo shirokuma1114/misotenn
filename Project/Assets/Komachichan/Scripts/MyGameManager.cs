@@ -95,6 +95,9 @@ public class MyGameManager : MonoBehaviour
     bool _isMiniGameDebug;
 
     [SerializeField]
+    bool _isMiniGameSkip;
+    
+    [SerializeField]
     Animator _fadeAnimation;
 
     [SerializeField]
@@ -346,16 +349,23 @@ public class MyGameManager : MonoBehaviour
 
                 // 合計ターン加算
                 UpdateTurn();
-                
-                var list = _entryPlugs.OrderBy(a => Guid.NewGuid()).ToList();
 
-                list[0].Character.AddMoney(5000);
-                list[1].Character.AddMoney(3000);
-                list[2].Character.AddMoney(1000);
 
-                // ミニゲームモード起動
-                //_phase = Phase.MINI_GAME;
-                //_miniGameConnection.StartRandomMiniGame();
+                if (_isMiniGameSkip)
+                {
+
+                    var list = _entryPlugs.OrderBy(a => Guid.NewGuid()).ToList();
+
+                    list[0].Character.AddMoney(5000);
+                    list[1].Character.AddMoney(3000);
+                    list[2].Character.AddMoney(1000);
+                }
+                else
+                {
+                    // ミニゲームモード起動
+                    _phase = Phase.MINI_GAME;
+                    _miniGameConnection.StartRandomMiniGame();
+                }
             }
 
             //次の人の止まっているマス座標
