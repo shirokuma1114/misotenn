@@ -10,7 +10,8 @@ public class SandbyManager : MonoBehaviour
     private bool[] _isUse=new bool[4];
     [SerializeField]
     private GameObject[] _isOK;
-
+    [SerializeField]
+    private StandbyFade _fade;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +29,7 @@ public class SandbyManager : MonoBehaviour
         // インプットでカラーとフラグを立てる // カラーとフラグをおろす
         if (!_isUse[0])
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 _charaImage[0].color = new Color(255.0f, 0f, 0f);
                 _isUse[0] = true;
@@ -37,7 +38,7 @@ public class SandbyManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.W))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 _charaImage[0].color = new Color(0f, 0f, 0f);
                 _isUse[0] = false;
@@ -46,7 +47,7 @@ public class SandbyManager : MonoBehaviour
         }
         if (!_isUse[1])
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 _charaImage[1].color = new Color(255.0f, 0f, 0f);
                 _isUse[1] = true;
@@ -55,7 +56,7 @@ public class SandbyManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 _charaImage[1].color = new Color(0f, 0f, 0f);
                 _isUse[1] = false;
@@ -65,7 +66,7 @@ public class SandbyManager : MonoBehaviour
 
         if (!_isUse[2])
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 _charaImage[2].color = new Color(255.0f, 0f, 0f);
                 _isUse[2] = true;
@@ -74,7 +75,7 @@ public class SandbyManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.S))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 _charaImage[2].color = new Color(0f, 0f, 0f);
                 _isUse[2] = false;
@@ -84,7 +85,7 @@ public class SandbyManager : MonoBehaviour
 
         if (!_isUse[3])
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 _charaImage[3].color = new Color(255.0f, 0f, 0f);
                 _isUse[3] = true;
@@ -93,7 +94,7 @@ public class SandbyManager : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 _charaImage[3].color = new Color(0f, 0f, 0f);
                 _isUse[3] = false;
@@ -104,9 +105,9 @@ public class SandbyManager : MonoBehaviour
         // フラグがすべて立った時
         if (_isUse[0] == true&&_isUse[1] == true&&_isUse[2] == true&&_isUse[3] == true)
         {
-            // ゲームスタート
-            gameObject.SetActive(false);
-            Debug.Log("入った");
+            StartCoroutine(_fade.FadeStart());
         }
     }
+
+    
 }
