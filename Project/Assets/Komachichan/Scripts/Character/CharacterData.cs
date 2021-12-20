@@ -9,6 +9,7 @@ public class CharacterData
     public int _rank;
     public int _lapCount;
     public int _souvenirNum;
+    public int _souvenirTypeNum;
     public int _money;
     public int[] _useEventNumByType;
     public List<int> _moneyByTurn;

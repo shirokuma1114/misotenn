@@ -9,6 +9,7 @@ public class SampleMiniGameManager: MonoBehaviour
     public enum SampleGameState
     {
         TUTORIAL,
+        RENDA_START_COUNT,
         PLAY_RENDA,
         PLAY,
         RESULT,
@@ -38,6 +39,13 @@ public class SampleMiniGameManager: MonoBehaviour
     [SerializeField]
     private MiniGameResult _miniGameResult;
 
+    [SerializeField]
+    private Text _rendaStartCounterText;
+    private float _rendaStartCounter;
+
+    [SerializeField]
+    private Image _rendaTextBG;
+
     private void Awake()
     {
         _state = SampleGameState.TUTORIAL;
@@ -55,6 +63,9 @@ public class SampleMiniGameManager: MonoBehaviour
             }            
         }
 
+        _rendaTextBG.enabled = false;
+        _rendaStartCounterText.enabled = false;
+
         _rendaTimeCounter = 0;
     }
 
@@ -64,6 +75,10 @@ public class SampleMiniGameManager: MonoBehaviour
         {
             case SampleGameState.TUTORIAL:
                 TutorialState();
+                break;
+
+            case SampleGameState.RENDA_START_COUNT:
+                RendaStartCountState();
                 break;
 
             case SampleGameState.PLAY_RENDA:
@@ -86,15 +101,39 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void TutorialState()
     {
-        _tenukiText.text = "チュートリアル画面\nEnterでプレイ";
+        _tenukiText.text = "連打でGO!"; //チュートリアル画面が来る予定のため非表示予定
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
+        {
+            _rendaStartCounterText.enabled = true;
+            _rendaStartCounterText.text = "3";
+            _rendaStartCounter = 4.0f;
+
+            _rendaTextBG.enabled = true;
+
+            _state = SampleGameState.RENDA_START_COUNT;
+        }
+    }
+
+    private void RendaStartCountState()
+    {
+        _rendaStartCounterText.text = Mathf.FloorToInt(_rendaStartCounter).ToString();
+
+        if (_rendaStartCounter < 1)
+        {
+            _rendaStartCounterText.enabled = false;
+
+            _tenukiText.enabled = true;
+
             _state = SampleGameState.PLAY_RENDA;
+        }
+
+        _rendaStartCounter -= Time.deltaTime;
     }
 
     private void PlayRendaState()
     {
-        _tenukiText.text = "スペース連打！\nTime:" + (_rendaTime - _rendaTimeCounter).ToString();
+        _tenukiText.text = "連打!!";
 
         if (_rendaTimeCounter > _rendaTime)
         {
@@ -102,6 +141,9 @@ public class SampleMiniGameManager: MonoBehaviour
             {
                 p.Go();
             }
+
+            _rendaTextBG.enabled = false;
+            _tenukiText.enabled = false;
 
             _state = SampleGameState.PLAY;
         }
@@ -111,8 +153,6 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void PlayState()
     {
-        _tenukiText.text = "走る！";
-
         if (_playTimeCounter > _playTime)
         {          
             _miniGameResult.Display(Ranking());
@@ -127,7 +167,7 @@ public class SampleMiniGameManager: MonoBehaviour
     {
         _tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A"))
             _state = SampleGameState.END;
     }
 

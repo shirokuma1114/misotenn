@@ -122,11 +122,11 @@ public class MiniGameConnection : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.P))
         {
-            StartRandomMiniGame();
+            //StartRandomMiniGame();
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            EndMiniGame();
+            //EndMiniGame();
         }
     }
 
@@ -159,7 +159,8 @@ public class MiniGameConnection : MonoBehaviour
         _characters.Clear();
 
         var gameSceneCharacters = new List<CharacterBase>();
-        gameSceneCharacters.AddRange(FindObjectsOfType<CharacterBase>());
+        //gameSceneCharacters.AddRange(FindObjectsOfType<CharacterBase>());
+        gameSceneCharacters.AddRange(FindObjectOfType<MyGameManager>().GetCharacters());
 
         foreach(var chara in gameSceneCharacters)
         {

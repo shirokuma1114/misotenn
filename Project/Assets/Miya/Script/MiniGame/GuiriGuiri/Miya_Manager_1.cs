@@ -138,7 +138,7 @@ public class Miya_Manager_1 : MonoBehaviour
 
 	private void TutorialState()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
 		{
 			_state = Miya_State_1.WAIT;
 			_tenukiText.text = "ギリギリチキンレース";
@@ -193,7 +193,7 @@ public class Miya_Manager_1 : MonoBehaviour
 
 	private void ResltState()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A"))
 			_state = Miya_State_1.END;
 	}
 

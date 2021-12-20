@@ -42,10 +42,8 @@ public class SquareSouvenir : SquareBase
     public override string GetSquareInfo(CharacterBase character)
     {
         _squareInfo =
-            "お土産マス\n" +
+            "お土産マス" + "<" + _souvenirName + ">\n" +
             "コスト：" + _cost.ToString() + "円" + "\n" +
-            "お土産名：" + _souvenirName + "\n" +
-            "お土産タイプ：" + _type.ToString() + "\n" +
             "在庫数：" + _nowStock.ToString();
 
         return _squareInfo;
@@ -71,19 +69,16 @@ public class SquareSouvenir : SquareBase
         var souve = SouvenirCreater.Instance.ReferenceSouvenirParameter(_type);
         _cost = souve.Price;
         _souvenirName = souve.Name;
-        
+
         _squareInfo =
-            "お土産マス\n" +
+            "お土産マス" + "<" + _souvenirName + ">\n" +
             "コスト：" + _cost.ToString() + "円" + "\n" +
-            "お土産名：" + _souvenirName + "\n" +
-            "お土産タイプ：" + _type.ToString() + "\n" +
             "在庫数：" + _nowStock.ToString();
     }
 
     public override void Stop(CharacterBase character)
     {
         _character = character;
-
         
         //お金チェック
         if (!_character.CanPay(_cost))

@@ -132,6 +132,11 @@ public class ChangeText : MonoBehaviour
     List<int> testData = new List<int> {
             10,15,20,90,70,50,40,45,60,55,50,45,30,40,50,20,15,45,30,70,90,15};
 
+    float _beforeTriggerX;
+    float _beforeTriggerY;
+
+    bool _isShowGraph;
+
     //Awake
     private void Awake()
     {
@@ -207,10 +212,11 @@ public class ChangeText : MonoBehaviour
                 _characters[i]._moneyByTurn = new List<int>();
                 foreach (var x in charaOriginData[i]._character.Log.GetMoneyByTurn())
                 {
-                    _characters[i]._moneyByTurn.Add(x);
+                    _characters[i]._moneyByTurn.Add(x / 100000);
                 }
                 _characters[i]._rank = charaOriginData[i]._rank;
                 _characters[i]._souvenirNum = charaOriginData[i]._souvenirNum;
+                _characters[i]._souvenirTypeNum = charaOriginData[i]._souvenirTypeNum;
                 _selectTexts[i].text = _characters[i]._characterName;
             }
         }
@@ -224,7 +230,10 @@ public class ChangeText : MonoBehaviour
                 _characters[i]._money = 999;
                 _characters[i]._useEventNumByType = new int[(int)SquareEventType.EVENT_TYPE_MAX];
                 _characters[i]._moneyByTurn = new List<int>();
-                _characters[i]._moneyByTurn.Add(999);
+                for (int j = 0; j < 20; j++)
+                {
+                    _characters[i]._moneyByTurn.Add(UnityEngine.Random.Range(0, 100));
+                }
                 _characters[i]._rank = i;
                 _characters[i]._souvenirNum = 0;
                 _selectTexts[i].text = _characters[i]._characterName;
@@ -304,6 +313,7 @@ public class ChangeText : MonoBehaviour
             //RectTransform rtLabelX = Instantiate(m_templateLabelX, m_rtView2);
             //rtLabelX.anchoredPosition = new Vector2(fPosX, 0.0f);
         }
+        _isShowGraph = true;
     }
 
     //CreateLine
@@ -341,6 +351,7 @@ public class ChangeText : MonoBehaviour
             // 一つずつ破棄する
             Destroy(child.gameObject);
         }
+        _isShowGraph = false;
     }
 
     // Update is called once per frame
@@ -503,25 +514,28 @@ public class ChangeText : MonoBehaviour
             _p4ItemText.enabled = false;
             _p4NumText.enabled = false;
         }
-            if (_isFadeOut)
+        if (_isFadeOut)
+        {
+            if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
             {
-                if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
-                {
-                    SceneManager.LoadScene("Title");
-                }
-                return;
+                SceneManager.LoadScene("Title");
             }
+            return;
+        }
 
 
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                _fadeAnimation.Play("FadeOut");
-                _isFadeOut = true;
-                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
-            }
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Start"))
+        {
+            _fadeAnimation.Play("FadeOut");
+            _isFadeOut = true;
+            if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
+        }
 
-            bool isMove = false;
-            if (Input.GetKeyDown(KeyCode.A))
+        float viewButton = Input.GetAxis("Horizontal");
+        bool isMove = false;
+        if (_beforeTriggerX == 0.0f && !NextPage && !_isShowGraph)
+        {
+            if (viewButton < 0)
             {
                 _selectIndex = Mathf.Max(--_selectIndex, 0);
                 isMove = true;
@@ -534,7 +548,7 @@ public class ChangeText : MonoBehaviour
 
                 if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (viewButton > 0)
             {
                 _selectIndex = Mathf.Min(++_selectIndex, _characters.Length);
                 isMove = true;
@@ -547,96 +561,141 @@ public class ChangeText : MonoBehaviour
 
                 if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
             }
+        }
+        _beforeTriggerX = viewButton;
 
-            if (isMove)
+        /*
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            _selectIndex = Mathf.Max(--_selectIndex, 0);
+            isMove = true;
+
+            P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            wk = 0;
+
+            if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            _selectIndex = Mathf.Min(++_selectIndex, _characters.Length);
+            isMove = true;
+
+            P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            wk = 0;
+
+            if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+        }*/
+
+        if (isMove)
+        {
+            if (_selectIndex == 0)
             {
-                if (_selectIndex == 0)
-                {
-                    P1out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    P1in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                }
-                if (_selectIndex == 1)
-                {
-                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P2out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    P2in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                }
-                if (_selectIndex == 2)
-                {
-                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    P3in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                }
-                if (_selectIndex == 3)
-                {
-                    P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    P4out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    P4in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-                    ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                }
-
+                P1out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P1in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            if (_selectIndex == 1)
+            {
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P2in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            if (_selectIndex == 2)
+            {
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P3in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+            if (_selectIndex == 3)
+            {
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                P4in.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
 
-            //戻るキー
-            if (Input.GetKeyDown(KeyCode.X))
+        }
+
+        //戻るキー
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("B"))
+        {
+            ShowRank();
+            image1.enabled = true;
+            image2.enabled = true;
+            image3.enabled = true;
+            image4.enabled = true;
+
+            Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
+            Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+            Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
+
+            P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+            Choice = 0;
+            NextPage = false;
+            ExPage1 = false;
+            ExPage2 = false;
+
+            DeleteGraph(); //グラフ消去
+
+            if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Close");
+        }
+
+
+        if (_isShowGraph)
+        {
+            float axisX = Input.GetAxis("Horizontal");
+            if(axisX < 0.0f)
             {
-                ShowRank();
-                image1.enabled = true;
-                image2.enabled = true;
-                image3.enabled = true;
-                image4.enabled = true;
-
-                Top1.GetComponent<Image>().color = new Color32(50, 55, 19, 255);
-                Top2.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-                Back.GetComponent<Image>().color = new Color32(244, 255, 182, 255);
-
-                P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-
-                Choice = 0;
-                NextPage = false;
-                ExPage1 = false;
-                ExPage2 = false;
-
-                DeleteGraph(); //グラフ消去
-
-                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Close");
+                newScrollBar.value -= MoveBar * Time.deltaTime * 10;
+            }
+            if(axisX > 0.0f)
+            {
+                newScrollBar.value += MoveBar * Time.deltaTime * 10;
             }
 
+        }
+        
         //スクロールバーを動かす
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -651,9 +710,12 @@ public class ChangeText : MonoBehaviour
         }
 
         if (NextPage)
+        {
+            float viewButtonY = Input.GetAxis("Vertical");
+            isNextMove = false;
+            if (_beforeTriggerY == 0.0f)
             {
-                isNextMove = false;
-                if (Input.GetKeyDown(KeyCode.W))
+                if (viewButtonY > 0)
                 {
                     isNextMove = true;
                     wk = 1;
@@ -672,7 +734,7 @@ public class ChangeText : MonoBehaviour
 
                     if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
                 }
-                if (Input.GetKeyDown(KeyCode.S))
+                if (viewButtonY < 0)
                 {
                     isNextMove = true;
                     wk = 2;
@@ -691,25 +753,67 @@ public class ChangeText : MonoBehaviour
 
                     if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
                 }
+            }
+            _beforeTriggerY = viewButtonY;
+  
+            /*
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                isNextMove = true;
+                wk = 1;
 
-                if (isNextMove)
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                isNextMove = true;
+                wk = 2;
+
+                P1out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P1in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P2in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P3in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4out.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                P4in.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                ReturnImg.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sideout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                Sidein.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+            }*/
+
+            if (isNextMove)
+            {
+                if (wk == 1)
                 {
-                    if (wk == 1)
-                    {
-                        P1mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                        P1min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                        P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                    }
-                    if (wk == 2)
-                    {
-                        P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-                        P2mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                        P2min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
-                    }
+                    P1mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                    P1min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                    P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                }
+                if (wk == 2)
+                {
+                    P1mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P1min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    P2mout.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
+                    P2min.transform.localScale = new Vector3(1.05f, 1.05f, 1.05f);
                 }
             }
+        }
 
 
 
@@ -757,7 +861,7 @@ public class ChangeText : MonoBehaviour
             //    Choice = 6;
             //}
 
-            if (Input.GetKeyDown(KeyCode.Return))    //決定キー
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A"))    //決定キー
             {
                 if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Correct");
                 if (wk == 0)
@@ -919,7 +1023,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                        ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                        ShowGraph(_characters[0]._moneyByTurn);  //グラフ表示
                     }
                     if (Choice == 2)
                     {
@@ -929,7 +1033,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                    ShowGraph(_characters[1]._moneyByTurn);  //グラフ表示
                 }
                     if (Choice == 3)
                     {
@@ -939,7 +1043,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                    ShowGraph(_characters[2]._moneyByTurn);  //グラフ表示
                 }
                     if (Choice == 4)
                     {
@@ -949,7 +1053,7 @@ public class ChangeText : MonoBehaviour
                         P2mout.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
                         P2min.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
 
-                    ShowGraph(_characters[_selectIndex]._moneyByTurn);  //グラフ表示
+                    ShowGraph(_characters[3]._moneyByTurn);  //グラフ表示
                 }
 
                 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class CharacterControllerBase : MonoBehaviour
 {
-    protected enum EventState
+    public enum EventState
     {
         DEFORM_FLY,
         WAIT,
@@ -41,6 +41,11 @@ public class CharacterControllerBase : MonoBehaviour
     protected CollisionEvent _collisionEvent;
 
     protected EventState _eventState;
+
+    public EventState State
+    {
+        get { return _eventState; }
+    }
 
     public CharacterBase Character
     {

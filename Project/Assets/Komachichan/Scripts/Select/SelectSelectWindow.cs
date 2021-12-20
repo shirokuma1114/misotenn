@@ -32,6 +32,8 @@ public class SelectSelectWindow : MonoBehaviour
 
     bool _isFade;
 
+    float _beforeTrigger;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,25 +61,29 @@ public class SelectSelectWindow : MonoBehaviour
 
         if (_isFade) return;
 
-        if (Input.GetKeyDown(KeyCode.W))
+        float viewButton = Input.GetAxis("Vertical");
+        if (_beforeTrigger == 0.0f)
         {
-            var newIndex = _selectedIndex - 1;
-            if (newIndex < 0) newIndex = _selectRts.Count - 1;
-            ChangeSelect(newIndex);
+            if (viewButton > 0)
+            {
+                var newIndex = _selectedIndex - 1;
+                if (newIndex < 0) newIndex = _selectRts.Count - 1;
+                ChangeSelect(newIndex);
 
-            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
+            if (viewButton < 0)
+            {
+                var newIndex = _selectedIndex + 1;
+                if (newIndex == _selectRts.Count) newIndex = 0;
+                ChangeSelect(newIndex);
+
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+            }
         }
+        _beforeTrigger = viewButton;
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            var newIndex = _selectedIndex + 1;
-            if (newIndex == _selectRts.Count) newIndex = 0;
-            ChangeSelect(newIndex);
-
-            if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("UI_Select");
-        }
-
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
         {
             Apply();
             if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");

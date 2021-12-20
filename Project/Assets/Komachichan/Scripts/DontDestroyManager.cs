@@ -20,6 +20,7 @@ public class DontDestroyManager : MonoBehaviour
     {
         RELEASE,
         DEBUG,
+        DEBUG_2P,
         FULL_AUTO
     }
 
@@ -40,6 +41,15 @@ public class DontDestroyManager : MonoBehaviour
             _characterTypes[3] = CharacterType.COM4;
         }
 
+        if (_isDebug == DebugMode.DEBUG_2P)
+        {
+            _characterTypes = new CharacterType[4];
+            _characterTypes[0] = CharacterType.PLAYER1;
+            _characterTypes[1] = CharacterType.PLAYER2;
+            _characterTypes[2] = CharacterType.COM3;
+            _characterTypes[3] = CharacterType.COM4;
+        }
+        
         if(_isDebug == DebugMode.FULL_AUTO)
         {
             _characterTypes = new CharacterType[4];
@@ -49,11 +59,11 @@ public class DontDestroyManager : MonoBehaviour
             _characterTypes[3] = CharacterType.COM4;
         }
 
-        //Debug.Log(Input.GetJoystickNames().Length);
+        Debug.Log(Input.GetJoystickNames().Length);
 
         foreach(var x in Input.GetJoystickNames())
         {
-            //Debug.Log(x);
+            Debug.Log(x);
         }
 
         if (instance == null)
@@ -104,6 +114,7 @@ public class DontDestroyManager : MonoBehaviour
             x._lapCount = x._character.LapCount;
             x._characterName = x._character.Name;
             x._souvenirNum = x._character.Souvenirs.Count;
+            x._souvenirTypeNum = x._character.GetSouvenirTypeNum();
             Array.Copy(x._character.Log.GetUseEventNum(), x._useEventNumByType, x._useEventNumByType.Length);
             foreach(var y in x._character.Log.GetMoneyByTurn())
             {

@@ -31,11 +31,13 @@ public class CircleLineRenderer : MonoBehaviour
         if (!_isUse) return;
         m_elapedTime += Time.deltaTime;
 
-        var amount = m_elapedTime % m_duration / m_duration;
+        var amount = m_elapedTime / m_duration;
         var scale = Mathf.Lerp(m_from, m_to, amount);
 
         m_lineRenderer.SetColors(new Color(1, 1, 1, 1.0f - scale / m_to), new Color(1, 1, 1, 1.0f - scale / m_to));
         transform.localScale = new Vector3(scale, scale, 1);
+
+        if (amount >= 1.0f) StopCircle();
     }
 
     private void InitLineRenderer()
@@ -59,6 +61,8 @@ public class CircleLineRenderer : MonoBehaviour
         }
 
         m_lineRenderer.SetPositions(points);
+
+        PlayCircle();
     }
 
     public void PlayCircle()
@@ -70,5 +74,6 @@ public class CircleLineRenderer : MonoBehaviour
     public void StopCircle()
     {
         _isUse = false;
+        Destroy(gameObject);
     }
 }
