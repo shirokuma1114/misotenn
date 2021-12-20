@@ -1,4 +1,4 @@
-Shader "Custom/UVGradation"
+Shader "Custom/UVGradationLine"
 {
     Properties
     {
@@ -6,6 +6,8 @@ Shader "Custom/UVGradation"
 		_LeftColor("Left Color", Color) = (0.5,0.5,0.5,0.5)
 		_RightColor("Right Color", Color) = (0.5,0.5,0.5,0.5)
 		_Range("Range Col", Range(0.0, 1.0))=0.5
+		_LineColor("Line Color", Color) = (0.0,0.0,0.0,0.0)
+		_LineRange("LineRange Col", Range(0.0, 0.25))=0.1
     }
     SubShader
     {
@@ -41,7 +43,8 @@ Shader "Custom/UVGradation"
             float4 _MainTex_ST;
 			fixed4 _LeftColor;
 			fixed4 _RightColor;
-			float _Range;
+			fixed4 _LineColor;
+			float _Range, _LineRange;
 
             v2f vert (appdata v)
             {
@@ -54,8 +57,8 @@ Shader "Custom/UVGradation"
 
 			fixed4 frag(v2f i) : SV_Target
 			{
-				//if (i.uv.x > 1.0 - _LineRange || i.uv.x< _LineRange || i.uv.y> 1.0 - _LineRange || i.uv.y < _LineRange)
-				//return _LineColor;
+				if (i.uv.x > 1.0 - _LineRange || i.uv.x< _LineRange || i.uv.y> 1.0 - _LineRange || i.uv.y < _LineRange)
+				return _LineColor;
                 fixed4 col = tex2D(_MainTex, i.uv)*(_LeftColor*(1.0f- i.uv.x) + _RightColor * i.uv.x);
                 return col;
 

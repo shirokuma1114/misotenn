@@ -57,7 +57,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - PixelSnap: 1
-    - _AnimationTime: 2.4
+    - _AnimationTime: 0.7
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -65,7 +65,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _LoopTime: 2.9
+    - _LoopTime: 4
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -76,7 +76,7 @@ Material:
     - _StartTime: 0
     - _StartWidth: 0.2
     - _UVSec: 0
-    - _Width: 0.3
+    - _Width: 3
     - _ZWrite: 1
     - _isAlpha: 1
     - _isColorShift: 0
