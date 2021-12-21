@@ -74,7 +74,7 @@ public class CakeGenerator : MonoBehaviour
     void Update()
     {
         //スペースキーが押されたら始まる
-        if (!_isStart && Input.GetKeyDown(KeyCode.Space))
+        if (!_isStart && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A")))
         {
             _isStart = true;
             _missionObj.SetActive(false);

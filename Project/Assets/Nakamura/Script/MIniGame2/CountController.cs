@@ -18,6 +18,8 @@ public class CountController : MonoBehaviour
 
     private int _cntCake;//カウント数
 
+    float _beforeTrigger;
+
     void Start()
     {
         _miniGameConnection = MiniGameConnection.Instance;
@@ -39,6 +41,23 @@ public class CountController : MonoBehaviour
             //操作ができるプレイヤー
             if (_id == 0)
             {
+                float viewButton = _miniGameChara.Input.GetAxis("Vertical");
+                
+                if(_beforeTrigger == 0.0f)
+                {
+                    if(viewButton < 0.0f)
+                    {
+                        _cntCake += 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                    if(viewButton > 0.0f)
+                    {
+                        if (_cntCake > 0) _cntCake -= 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                }
+                _beforeTrigger = viewButton;
+                /*
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     _cntCake += 1;
@@ -48,9 +67,10 @@ public class CountController : MonoBehaviour
                 {
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
-                }
+                }*/
+
                 //スペースキー押したらCardの関数呼ぶ
-                if (Input.GetKeyDown(KeyCode.X))
+                if (Input.GetKeyDown(KeyCode.X) || _miniGameChara.Input.GetButtonDown("A") || _miniGameChara.Input.GetButtonDown("Start"))
                 {
                     //ケーキのカウント
                     _cakeGenerator.SetCntFin(_id, _cntCake);
