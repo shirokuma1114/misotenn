@@ -25,6 +25,12 @@ public class SampleGameController : MonoBehaviour
     private string _cakeName;
     public string CakeName => _cakeName;
 
+    [SerializeField]
+    private GameObject _rendaEffectPrefab;
+
+    private const float AI_RENDA_INTERVAL = 0.1f;
+    private float _aiRendaIntervalCounter;
+
 
     public void Init(MiniGameCharacter character,SampleMiniGameManager manager)
     {
@@ -92,12 +98,23 @@ public class SampleGameController : MonoBehaviour
     private void AutomaticPlay()
     {
         _rendaCounter = Random.Range(20, 50);
+
+        if(_aiRendaIntervalCounter >= AI_RENDA_INTERVAL)
+        {
+            Instantiate(_rendaEffectPrefab, transform);
+            _aiRendaIntervalCounter = 0.0f;
+        }
+        _aiRendaIntervalCounter += Time.deltaTime;
     }
 
     private void HumanPlay()
     {
         if (Input.GetKeyDown(_rendaKey) || _controller.Input.GetButtonDown("A"))
+        {
             _rendaCounter++;
+
+            Instantiate(_rendaEffectPrefab,transform);
+        }
     }
 
     private void RotateCountUp()
