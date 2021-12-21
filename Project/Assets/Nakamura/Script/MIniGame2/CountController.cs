@@ -25,7 +25,6 @@ public class CountController : MonoBehaviour
     void Start()
     {
         _miniGameConnection = MiniGameConnection.Instance;
-        Debug.Log(_miniGameConnection.Characters.Count);
 
         _miniGameChara = _miniGameConnection.Characters[_id];
         _nameText.text = _miniGameChara.Name;

@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class MiniGameRandomManager : MonoBehaviour
+public class MiniGameRandomManager : WindowBase
 {
     [SerializeField] private MiniGameConnection _miniGameConnection;
     [SerializeField] private List<GameObject> _miniGameObj;
@@ -11,10 +12,32 @@ public class MiniGameRandomManager : MonoBehaviour
     [SerializeField] private int _randMin = 10; // 再生時間
     [SerializeField] private int _randMax = 13; // 再生時間
 
+    [SerializeField]
+    private List<Image> _imageList;
+    [SerializeField]
+    private List<Text> _textList;
+
+    bool _enable;
+    public bool Enable => _enable;
+
     // Start is called before the first frame update
     void Start()
     {
-        StartMiniGamneRand();
+        SetEnable(false);
+        //StartMiniGamneRand();
+    }
+
+    public override void SetEnable(bool enable)
+    {
+        _enable = enable;
+        foreach(var x in _imageList)
+        {
+            x.enabled = enable;
+        }
+        foreach(var x in _textList)
+        {
+            x.enabled = enable;
+        }
     }
 
     public void StartMiniGamneRand()
@@ -40,10 +63,10 @@ public class MiniGameRandomManager : MonoBehaviour
         }
 
         // ランダム演出スタート
-        StartCoroutine(RandomStart());
+        StartCoroutine(RandomStart(PlayMiniGame));
     }
 
-    public IEnumerator RandomStart()
+    public IEnumerator RandomStart(UnityAction<string> callback)
     {
         int rotateCount = 0;
         int endCount = Random.Range(_randMin, _randMax);
@@ -87,7 +110,12 @@ public class MiniGameRandomManager : MonoBehaviour
             }
             yield return null;
         }
+        callback(_miniGameObj[decisionNum].GetComponentInChildren<Text>().text);
+    }
 
+    void PlayMiniGame(string miniGameName)
+    {
+        _miniGameConnection.StartMiniGame(miniGameName);
     }
 
     void ClearObject()

@@ -40,11 +40,13 @@ public class MiniGameConnection : MonoBehaviour
     [SerializeField]
     private List<DebugMiniGameCharacter> _debugCharactors;
 
+    bool _endFlg;
 
     //ミニゲームをシーン名で再生
     //※シーンはbuildSettingでAddすること
     public void StartMiniGame(string miniGamesSceneName)
     {
+        _endFlg = false;
         if (_debugMode)
         {
             Debug.Log("デバッグモード中");
@@ -88,6 +90,7 @@ public class MiniGameConnection : MonoBehaviour
             return;
         }
 
+        _endFlg = true;
         _fadeAnimation.Play("FadeOut");
         Invoke("MiniGameUnload", 1.0f);
     }
@@ -192,5 +195,10 @@ public class MiniGameConnection : MonoBehaviour
         _gameSceneActiveObjectTmp.Clear();
 
         _fadeAnimation.Play("FadeIn");
+    }
+
+    public bool IsMiniGameFinished()
+    {
+        return _endFlg;
     }
 }
