@@ -44,6 +44,9 @@ public class SouvenirScrambleManager : MonoBehaviour
     [SerializeField]
     private GameObject _cloud;
 
+    [SerializeField]
+    private ParticleController _speedLine;
+
 
     void Start()
     {
@@ -113,6 +116,8 @@ public class SouvenirScrambleManager : MonoBehaviour
 
             _tenukiText.enabled = false;
 
+            _speedLine.SetEmission(10.0f);
+
             _state = SouvenirScrambleState.START_COUNT;
         }
     }
@@ -137,7 +142,10 @@ public class SouvenirScrambleManager : MonoBehaviour
         if(_playTimeCounter > _playTime)
         {
             _result.Display(Ranking());
+
             _cloud.SetActive(false);
+
+            _speedLine.SetEmission(0.0f);
 
             _state = SouvenirScrambleState.RESULT;
         }
