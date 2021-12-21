@@ -53,7 +53,8 @@ public class SampleMiniGameManager: MonoBehaviour
     void Start()
     {
         _miniGameConnection = MiniGameConnection.Instance;
-        
+        Debug.Log(_miniGameConnection.Characters.Count);
+
         foreach(var c in _miniGameConnection.Characters)
         {
             foreach(var mc in _miniGameControllers)

@@ -870,6 +870,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _baseMoney: 10000
+  _effectPrefab: {fileID: 5286668797765013552, guid: 46caf22e72057b94b8c20c3abe06bdf5, type: 3}
 --- !u!1 &530173996 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8748697317062749465, guid: 62a4a8b64421559429da4308bf123cc1, type: 3}
@@ -2679,7 +2680,7 @@ PrefabInstance:
       objectReference: {fileID: 1410687716}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[0]
@@ -2687,7 +2688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[1]
-      value: Miya_MiniGame_1
+      value: "\u9023\u6253\u3067GO"
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[2]
@@ -3092,43 +3093,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.059999954
+      value: -0.7100002
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.65000045
+      value: 0.58
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.5899994
+      value: 3.7599988
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9260491
+      value: 0.994192
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.036540993
+      value: 0.05278548
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.3741456
+      value: 0.0916305
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.033358343
+      value: 0.019998081
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 2.448
+      value: 5.814
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -44.109
+      value: 10.676
       objectReference: {fileID: 0}
     - target: {fileID: 4988661238508801065, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -5.118
+      value: 2.848
       objectReference: {fileID: 0}
     - target: {fileID: 5074945232950252995, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_Materials.Array.data[0]
