@@ -240,14 +240,7 @@ public class MoveCardManager : MonoBehaviour
     {
         for (int i = 0; i < _cards.Count; i++)
         {
-            if (i == _selectedCardIndex)
-            {
-                _cards[i].GetComponent<Image>().color = new Color(1, 0, 0, 0.5f);
-
-                continue;
-            }
-
-            _cards[i].GetComponent<Image>().color = new Color(1, 1, 1, 0.5f);
+            _cards[i].GetComponentInChildren<MoveCardFrame>().SelectedColorUpdate(i == _selectedCardIndex);
         }
     }
 }
