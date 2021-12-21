@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _miniGameSceneNames:
-  - SampleMiniGame
+  - MiniGame2
   _disactiveExceptionList:
   - {fileID: 5754340407403619876}
   _fadeAnimation: {fileID: 0}

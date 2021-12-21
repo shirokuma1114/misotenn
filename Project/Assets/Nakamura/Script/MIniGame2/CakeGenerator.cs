@@ -33,8 +33,12 @@ public class CakeGenerator : MonoBehaviour
     private bool[] _isCntFin;//数え終わったか？？
 
     private bool _isGameResultTrigger = false;//リザルトを出すか？
+
+    bool _isJoJo;
     void Start()
     {
+        _miniGameCorrection = MiniGameConnection.Instance;
+
         _isCntFin = new bool[4];
         for(int i = 0; i < _isCntFin.Length;i++)
         {
@@ -74,7 +78,7 @@ public class CakeGenerator : MonoBehaviour
     void Update()
     {
         //スペースキーが押されたら始まる
-        if (!_isStart && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A")))
+        if (!_isStart && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start")))
         {
             _isStart = true;
             _missionObj.SetActive(false);
@@ -109,6 +113,11 @@ public class CakeGenerator : MonoBehaviour
         //みんなが数え終わったらリザルトを表示
         if(_isGameResultTrigger)
         { 
+            foreach(var x in _countController)
+            {
+                x.ShowSelectCount();
+            }
+
             _countObj[4].SetActive(true);
             _answerText.text = Convert.ToString(_numQuestCake);
             _isGameResultTrigger = false;//呼ぶのは１回でいいので元に戻す
@@ -117,6 +126,15 @@ public class CakeGenerator : MonoBehaviour
             {
                 CheckAnswer();
             });
+            _isJoJo = true;
+        }
+
+        if (_isJoJo)
+        {
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
+            {
+                _miniGameCorrection.EndMiniGame();
+            }
         }
     }
 
@@ -170,6 +188,7 @@ public class CakeGenerator : MonoBehaviour
         Dictionary<MiniGameCharacter, int> rank = new Dictionary<MiniGameCharacter, int>();
 
         int ranking = 1;
+        /*
         int cnt = 0;
         //_Answers.KeysにIDが入っている。
         foreach (var ID in _Answers.Keys)
@@ -177,8 +196,29 @@ public class CakeGenerator : MonoBehaviour
             if(cnt > 0 && ID > 0 && (_Answers[ID] != _Answers[ID - 1])) ranking++;
             rank.Add(_countController[ID]._miniGameChara, ranking);
             cnt++;
+        }*/
+
+        int currentAns = int.MaxValue;
+        int nextRank = 1;
+        foreach (var ID in _Answers.Keys)
+        {
+            // 同列でない
+            if (currentAns < _Answers[ID])
+            {
+                ranking += nextRank;
+                nextRank = 1;
+            }
+            
+            // 同列
+            if (currentAns == _Answers[ID])
+            {
+                nextRank++;
+            }
+            
+            rank.Add(_countController[ID]._miniGameChara, ranking);
+            currentAns = _Answers[ID];
         }
-       
+        
         _miniGameResult.Display(rank);
     }
 
@@ -186,7 +226,6 @@ public class CakeGenerator : MonoBehaviour
     public void SetCntFin(int _myId, int _ans)
     {
         _Answers[_myId] = (_ans - _numQuestCake) * (_ans - _numQuestCake);//絶対値を入れる
-        
         _isCntFin[_myId] = true;
 
         var fin = 0;

@@ -20,9 +20,12 @@ public class CountController : MonoBehaviour
 
     float _beforeTrigger;
 
+    int _AISelectCount;
+
     void Start()
     {
         _miniGameConnection = MiniGameConnection.Instance;
+        Debug.Log(_miniGameConnection.Characters.Count);
 
         _miniGameChara = _miniGameConnection.Characters[_id];
         _nameText.text = _miniGameChara.Name;
@@ -32,6 +35,8 @@ public class CountController : MonoBehaviour
         _cntCake = 0;
         if (_isPlayer) _cntText.text = Convert.ToString(_cntCake);
         else _cntText.text = "0";
+        
+        if (_miniGameChara.IsAutomatic) _cntText.text = "?";
     }
 
     void Update()
@@ -70,11 +75,12 @@ public class CountController : MonoBehaviour
                 }*/
 
                 //スペースキー押したらCardの関数呼ぶ
-                if (Input.GetKeyDown(KeyCode.X) || _miniGameChara.Input.GetButtonDown("A") || _miniGameChara.Input.GetButtonDown("Start"))
+                if (Input.GetKeyDown(KeyCode.X) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
+                    _cntText.color = Color.yellow;
                 }
             }
             //操作ができるエネミー１
@@ -90,12 +96,30 @@ public class CountController : MonoBehaviour
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
+
+                float viewButton = _miniGameChara.Input.GetAxis("Vertical");
+                if (_beforeTrigger == 0.0f)
+                {
+                    if (viewButton < 0.0f)
+                    {
+                        _cntCake += 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                    if (viewButton > 0.0f)
+                    {
+                        if (_cntCake > 0) _cntCake -= 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                }
+                _beforeTrigger = viewButton;
+                
                 //スペースキー押したらCardの関数呼ぶ
-                if (Input.GetKeyDown(KeyCode.V))
+                if (Input.GetKeyDown(KeyCode.V) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
+                    _cntText.color = Color.yellow;
                 }
             }
             //操作ができるエネミー2
@@ -111,12 +135,31 @@ public class CountController : MonoBehaviour
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
+
+                float viewButton = _miniGameChara.Input.GetAxis("Vertical");
+                if (_beforeTrigger == 0.0f)
+                {
+                    if (viewButton < 0.0f)
+                    {
+                        _cntCake += 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                    if (viewButton > 0.0f)
+                    {
+                        if (_cntCake > 0) _cntCake -= 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                }
+                _beforeTrigger = viewButton;
+
+
                 //スペースキー押したらCardの関数呼ぶ
-                if (Input.GetKeyDown(KeyCode.N))
+                if (Input.GetKeyDown(KeyCode.N) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
+                    _cntText.color = Color.yellow;
                 }
             }
             //操作ができるエネミー3
@@ -132,12 +175,30 @@ public class CountController : MonoBehaviour
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
+
+                float viewButton = _miniGameChara.Input.GetAxis("Vertical");
+                if (_beforeTrigger == 0.0f)
+                {
+                    if (viewButton < 0.0f)
+                    {
+                        _cntCake += 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                    if (viewButton > 0.0f)
+                    {
+                        if (_cntCake > 0) _cntCake -= 1;
+                        _cntText.text = Convert.ToString(_cntCake);
+                    }
+                }
+                _beforeTrigger = viewButton;
+
                 //スペースキー押したらCardの関数呼ぶ
-                if (Input.GetKeyDown(KeyCode.M))
+                if (Input.GetKeyDown(KeyCode.M) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
+                    _cntText.color = Color.yellow;
                 }
             }
         }
@@ -146,10 +207,20 @@ public class CountController : MonoBehaviour
         {
             int rand = UnityEngine.Random.Range(_cakeGenerator.GetNumQuestCake() - 2, _cakeGenerator.GetNumQuestCake() + 3);
             _cntCake = rand;
-            _cntText.text = Convert.ToString(rand);
+            Debug.Log(rand);
+            //_cntText.text = Convert.ToString(rand);
+            //_cntText.text = "?";
+            _AISelectCount = rand;
             _cakeGenerator.SetCntFin(_id, _cntCake);
             isCountFin = true;//カウント終了
         }
+    }
+
+    public void ShowSelectCount()
+    {
+        _cntText.color = Color.white;
+        if (!_miniGameChara.IsAutomatic) return;
+        _cntText.text = _AISelectCount.ToString();
     }
 
 }
