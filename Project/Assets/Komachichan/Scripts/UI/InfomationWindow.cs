@@ -16,8 +16,10 @@ public class InfomationWindow : WindowBase
 
     [SerializeField]
     List<Text> _characterMoneyAmountTexts;
-    
-    
+
+    [SerializeField]
+    List<Image> _characterIcons;
+
     [SerializeField]
     List<MiniSouvenirWindow> _souvenirWindows;
 
@@ -36,6 +38,9 @@ public class InfomationWindow : WindowBase
     bool _enable;
 
     private CharacterBase _character;
+
+    [SerializeField]
+    List<Sprite> _cakeSprites;
     // Start is called before the first frame update
     void Start()
     {
@@ -84,6 +89,10 @@ public class InfomationWindow : WindowBase
         {
             x.enabled = enable;
         }
+        foreach(var x in _characterIcons)
+        {
+            x.enabled = enable;
+        }
         
     }
 
@@ -120,6 +129,22 @@ public class InfomationWindow : WindowBase
             _characterNameTexts[i].text = ranksortedCharacters[i].Name;
             _characterMoneyAmountTexts[i].text = ranksortedCharacters[i].Money.ToString() + '円';
             _souvenirWindows[i].SetSouvenirs(ranksortedCharacters[i].Souvenirs);
+            if(ranksortedCharacters[i].Name == "フレジエ")
+            {
+                _characterIcons[i].sprite = _cakeSprites[0];
+            }
+            if(ranksortedCharacters[i].Name == "ザッハトルテ")
+            {
+                _characterIcons[i].sprite = _cakeSprites[1];
+            }
+            if(ranksortedCharacters[i].Name == "ショートケーキ")
+            {
+                _characterIcons[i].sprite = _cakeSprites[2];
+            }
+            if (ranksortedCharacters[i].Name == "アップルパイ")
+            {
+                _characterIcons[i].sprite = _cakeSprites[3];
+            }
         }
     }
     
