@@ -85,6 +85,20 @@ public class Miya_Manager_1 : MonoBehaviour
 	public Image PlayerColor_3;
 	public Image PlayerColor_4;
 
+	public Image Character_1;
+	public Image Character_2;
+	public Image Character_3;
+	public Image Character_4;
+
+	public Sprite PlayerSprite_f;
+	public Sprite PlayerSprite_z;
+	public Sprite PlayerSprite_s;
+	public Sprite PlayerSprite_a;
+	public Sprite Get_PlayerSprite_f() { return PlayerSprite_f; }
+	public Sprite Get_PlayerSprite_z() { return PlayerSprite_z; }
+	public Sprite Get_PlayerSprite_s() { return PlayerSprite_s; }
+	public Sprite Get_PlayerSprite_a() { return PlayerSprite_a; }
+
 
 	void Start()
 	{
@@ -95,6 +109,8 @@ public class Miya_Manager_1 : MonoBehaviour
 		foreach (var c in _miniGameConnection.Characters)
 		{
 			_miniGameControllers[PlayerCount].Init(c, this);
+
+
 			PlayerCount++;
 		}
 
