@@ -3019,14 +3019,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[0]
-      value: MiniGame1
+      value: "\u304A\u571F\u7523\u4E89\u596A\u6226"
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[1]
-      value: MiniGame2
+      value: "\u304A\u571F\u7523\u4E89\u596A\u6226"
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[2]
+      value: "\u304A\u571F\u7523\u4E89\u596A\u6226"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _miniGameSceneNames.Array.data[3]
       value: "\u9023\u6253\u3067GO"
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
@@ -5685,7 +5689,7 @@ PrefabInstance:
       objectReference: {fileID: 712244019}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _isMiniGameDebug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _needSouvenirType
@@ -5880,6 +5884,14 @@ PrefabInstance:
       propertyPath: _souvenirWindow
       value: 
       objectReference: {fileID: 1934814525}
+    - target: {fileID: 6873976736550423695, guid: b6662320d4cb7a74d9c554b972e6fddd, type: 3}
+      propertyPath: _cakeSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: a8b31076742e2634992abd11c0d9dfc5, type: 3}
+    - target: {fileID: 6873976736550423695, guid: b6662320d4cb7a74d9c554b972e6fddd, type: 3}
+      propertyPath: _cakeSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: b2c7389b012aebe43aec313a40d45e78, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6662320d4cb7a74d9c554b972e6fddd, type: 3}
 --- !u!1001 &6992566697477139671
