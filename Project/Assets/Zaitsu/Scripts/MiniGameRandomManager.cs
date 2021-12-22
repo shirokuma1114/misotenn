@@ -88,6 +88,7 @@ public class MiniGameRandomManager : MonoBehaviour
             yield return null;
         }
 
+        _miniGameConnection.StartMiniGame(_miniGameObj[decisionNum].GetComponentInChildren<Text>().text);
     }
 
     void ClearObject()

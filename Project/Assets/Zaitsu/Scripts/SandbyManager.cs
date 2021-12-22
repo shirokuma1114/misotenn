@@ -14,8 +14,11 @@ public class SandbyManager : MonoBehaviour
     private StandbyFade _fade;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        // ステートをスタンバイように変更する
+
+
         for (int i = 0; i < 4; i++)
         {
             _isUse[i] = false;

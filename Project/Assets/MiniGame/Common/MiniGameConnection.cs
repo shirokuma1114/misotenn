@@ -60,11 +60,7 @@ public class MiniGameConnection : MonoBehaviour
 
         AllObjectsDisactive();
 
-        _fadeAnimation.Play("FadeOut");
-
-        LoadSceneParameters param = new LoadSceneParameters(LoadSceneMode.Additive);
-        _playingMiniGameScene = SceneManager.LoadScene(miniGamesSceneName, param);
-        StartCoroutine("MiniGameSceneActivate");
+        StartCoroutine(FadeOut(miniGamesSceneName));
     }
 
     //ミニゲームを_miniGameSceneNamesからランダムで再生
@@ -192,5 +188,28 @@ public class MiniGameConnection : MonoBehaviour
         _gameSceneActiveObjectTmp.Clear();
 
         _fadeAnimation.Play("FadeIn");
+    }
+
+    private IEnumerator FadeOut(string miniGamesSceneName)
+    {
+        _fadeAnimation.Play("FadeOut");
+
+        Debug.Log(_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        Debug.Log(_fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        while (true)
+        {
+            if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut"
+                && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                LoadSceneParameters param = new LoadSceneParameters(LoadSceneMode.Additive);
+                _playingMiniGameScene = SceneManager.LoadScene(miniGamesSceneName, param);
+                StartCoroutine("MiniGameSceneActivate");
+
+                yield break;
+            }
+
+            yield return null;
+        }
     }
 }
