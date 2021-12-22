@@ -24,7 +24,10 @@ public class Miya_Controller_1 : MonoBehaviour
 	float CorrectPercentage = -1;
 	static float Percentage_Meter = 0;// アニメーション終了時初期化
 	static public float Get_MeterPercentage() { return Percentage_Meter; }
-	static public void Reset_MeterPercentage() { Percentage_Meter = 0; }
+	static public void Reset_MeterPercentage()
+	{
+		Percentage_Meter = 0;
+	}
 	float Percentage = 0;
 
 	bool Animation = false;
