@@ -25,7 +25,6 @@ public class StandbyFade : MonoBehaviour
         {
             a += Time.deltaTime * _fadeSpeed;
             _image.color = new Color(c.r, c.g, c.b, a);
-            Debug.Log("入っている1");
             yield return null;
         }
 
@@ -42,8 +41,10 @@ public class StandbyFade : MonoBehaviour
         {
             a -= Time.deltaTime * _fadeSpeed;
             _image.color = new Color(c.r, c.g, c.b, a);
-            Debug.Log("入っている2");
             yield return null;
         }
+
+        // フェードの終了　ステートをミニゲームに直す
+
     }
 }
