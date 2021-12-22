@@ -13,7 +13,7 @@ public class Miya_Manager_2 : MonoBehaviour
 	private		Miya_State_2 _state;
 	public		Miya_State_2 State => _state;
 	[SerializeField] private MiniGameConnection _miniGameConnection;
-	[SerializeField] private Text _tenukiText;
+	//[SerializeField] private Text _tenukiText;
 	[SerializeField] private List<Miya_Controller_2> _miniGameControllers;
 	public MiniGameResult Result;
 
@@ -22,7 +22,7 @@ public class Miya_Manager_2 : MonoBehaviour
 	public Image Button;
 	public Image Hand_L;
 	public Image Hand_R;
-	public float Second_Wait_Start = 1.0f;
+	public float Second_Wait_Start = 2.0f;
 	public float Second_Wait_NextPlayer = 2.0f;
 	public Image Get_Button	() { return Button; }
 	public Image Get_Hand_L	() { return Hand_L; }
@@ -78,7 +78,7 @@ public class Miya_Manager_2 : MonoBehaviour
 		// Template
 		_miniGameConnection = MiniGameConnection.Instance;
 		int i = 0; foreach (var c in _miniGameConnection.Characters) { _miniGameControllers[i].Init(c, this); i++; }
-		_tenukiText.text = "全集中白羽取り！\nEnterでプレイ";
+		//_tenukiText.text = "全集中白羽取り！\nEnterでプレイ";
 
 
 		// Variable
@@ -118,10 +118,10 @@ public class Miya_Manager_2 : MonoBehaviour
 
 	private void TutorialState()
 	{
-		if (Input.GetKeyDown(KeyCode.Return))
+		//if (Input.GetKeyDown(KeyCode.Return))
 		{
 			_state = Miya_State_2.WAIT;
-			_tenukiText.text = "全集中白羽取り！";
+			//_tenukiText.text = "全集中白羽取り！";
 			// Display
 			Card.gameObject.SetActive(true);
 		}
@@ -175,14 +175,13 @@ public class Miya_Manager_2 : MonoBehaviour
 		if ( FinishGame )
 		{
 			_state = Miya_State_2.RESULT;
-			_tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
+			//_tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
 		}
 	}
 	// OnComplete
 	private void Completed_Wait()
 	{
 		Set_Animation_Initialize();
-
 	}
 
 	private void ResultState()
