@@ -95,6 +95,9 @@ public class MyGameManager : MonoBehaviour
     bool _isMiniGameDebug;
 
     [SerializeField]
+    bool _isMiniGameSkip;
+    
+    [SerializeField]
     Animator _fadeAnimation;
 
     [SerializeField]
@@ -105,6 +108,9 @@ public class MyGameManager : MonoBehaviour
 
     [SerializeField]
     MiniGameConnection _miniGameConnection;
+
+    [SerializeField]
+    MiniGameRandomManager _miniManager;
 
     // Start is called before the first frame update
     void Start()
@@ -314,6 +320,38 @@ public class MyGameManager : MonoBehaviour
                 return;
             }
 
+            if (_isMiniGameDebug)
+            {
+                _phase = Phase.MINI_GAME;
+                _miniGameConnection.StartRandomMiniGame();
+
+                //_phase = Phase.MINI_GAME;
+                //_miniManager.SetEnable(true);
+                //_miniManager.StartMiniGamneRand();
+                return;
+            }
+
+            if (_turnIndex + 1 >= _entryPlugs.Count)
+            {
+                if (_isMiniGameSkip)
+                {
+
+                    var list = _entryPlugs.OrderBy(a => Guid.NewGuid()).ToList();
+
+                    list[0].Character.AddMoney(5000);
+                    list[1].Character.AddMoney(3000);
+                    list[2].Character.AddMoney(1000);
+                }
+                else
+                {
+                    // ミニゲームモード起動
+                    _phase = Phase.MINI_GAME;
+                    _miniManager.SetEnable(true);
+                    _miniManager.StartMiniGamneRand();
+                }
+                return;
+            }
+
             _phase = Phase.FADE_OUT;
             _fade.FadeStart(30, true);
 
@@ -328,36 +366,8 @@ public class MyGameManager : MonoBehaviour
 
             // 現在のキャラクターを止める
             _entryPlugs[_turnIndex].Character.SetWaitEnable(true);
-            
-            // このターンのおこづかい
-            _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
-
-
-            if (_isMiniGameDebug)
-            {
-                _phase = Phase.MINI_GAME;
-                _miniGameConnection.StartRandomMiniGame();
-            }
-            
             _turnIndex++;
-            if (_turnIndex >= _entryPlugs.Count)
-            {
-                _turnIndex = 0;
-
-                // 合計ターン加算
-                UpdateTurn();
-                
-                var list = _entryPlugs.OrderBy(a => Guid.NewGuid()).ToList();
-
-                list[0].Character.AddMoney(5000);
-                list[1].Character.AddMoney(3000);
-                list[2].Character.AddMoney(1000);
-
-                // ミニゲームモード起動
-                //_phase = Phase.MINI_GAME;
-                //_miniGameConnection.StartRandomMiniGame();
-            }
-
+            
             //次の人の止まっているマス座標
             _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
         }
@@ -365,7 +375,31 @@ public class MyGameManager : MonoBehaviour
 
     void PhaseMiniGame()
     {
-       _phase = Phase.MOVE_CAMERA;
+        if (_miniGameConnection.IsMiniGameFinished())
+        {
+            _miniManager.SetEnable(false);
+            _phase = Phase.MOVE_CAMERA;
+
+            // 現在のキャラクターを止める
+            _entryPlugs[_turnIndex].Character.SetWaitEnable(true);
+
+            _turnIndex++;
+            if (_turnIndex >= _entryPlugs.Count)
+            {
+                _turnIndex = 0;
+
+                // 合計ターン加算
+                UpdateTurn();
+
+                foreach (var x in _entryPlugs)
+                {
+                    x.Character.Log.SetMoenyByTurn(x.Character.Money);
+                }
+            }
+
+            //次の人の止まっているマス座標
+            _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
+        }
     }
 
     void PhaseMoveCamera()

@@ -25,6 +25,11 @@ public class SquareGoal : SquareBase
     MyGameManager _gameManager;
 
 
+    [SerializeField]
+    private GameObject _effectPrefab;
+    private GameObject _effectInstance;
+
+
     public override string GetSquareInfo(CharacterBase character)
     {
         _squareInfo =
@@ -66,6 +71,8 @@ public class SquareGoal : SquareBase
 
         if(Control_SE.Get_Instance())Control_SE.Get_Instance().Play_SE("Goal");
 
+        _effectInstance = Instantiate(_effectPrefab, transform.position + transform.up.normalized * 0.51f, transform.rotation);
+
         _state = SquareGoalState.END;
     }
 
@@ -100,6 +107,9 @@ public class SquareGoal : SquareBase
         {
             _character.CompleteStopExec();
             _statusWindow.SetEnable(false);
+
+            Destroy(_effectInstance);
+            _effectInstance = null;
 
             _state = SquareGoalState.IDLE;
         }

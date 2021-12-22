@@ -23,15 +23,15 @@ public class Miya_Manager_1 : MonoBehaviour
 	private MiniGameConnection _miniGameConnection;
 
 	[SerializeField]
-	private Text _tenukiText;
-
-	[SerializeField]
 	private List<Miya_Controller_1> _miniGameControllers;
 
 
 
-	// Variable
-	public Slider Slider_Percentage;
+	// Variable-------------------------------------------------------------------------------------------
+	//public Slider Slider_Percentage;
+	public Image Guage_Back;
+	Vector3 Rect_Guage_Back_First;
+	RectTransform Rect_Guage_Back;
 
 	public float Second_Wait = 1.0f;
 	float Timer_Wait = 0;
@@ -75,7 +75,29 @@ public class Miya_Manager_1 : MonoBehaviour
 	public Image Board;
 
 
-	public MiniGameResult Result; 
+	public MiniGameResult Result;
+
+
+
+	// Play Player Color
+	public Image PlayerColor_1;
+	public Image PlayerColor_2;
+	public Image PlayerColor_3;
+	public Image PlayerColor_4;
+
+	public Image Character_1;
+	public Image Character_2;
+	public Image Character_3;
+	public Image Character_4;
+
+	public Sprite PlayerSprite_f;
+	public Sprite PlayerSprite_z;
+	public Sprite PlayerSprite_s;
+	public Sprite PlayerSprite_a;
+	public Sprite Get_PlayerSprite_f() { return PlayerSprite_f; }
+	public Sprite Get_PlayerSprite_z() { return PlayerSprite_z; }
+	public Sprite Get_PlayerSprite_s() { return PlayerSprite_s; }
+	public Sprite Get_PlayerSprite_a() { return PlayerSprite_a; }
 
 
 	void Start()
@@ -87,18 +109,22 @@ public class Miya_Manager_1 : MonoBehaviour
 		foreach (var c in _miniGameConnection.Characters)
 		{
 			_miniGameControllers[PlayerCount].Init(c, this);
+
+
 			PlayerCount++;
 		}
 
 
-		_tenukiText.text = "ギリギリチキンレース\nEnterでプレイ";
-
-
-		Slider_Percentage.gameObject.SetActive(false);
+		//Slider_Percentage.gameObject.SetActive(false);
 
 		Timer_Wait = 0;
 
 		FinishGame = false;
+
+
+		Rect_Guage_Back = Guage_Back.GetComponent<RectTransform>();
+		Rect_Guage_Back_First = Rect_Guage_Back.anchoredPosition;
+
 
 
 		// Animation
@@ -108,6 +134,10 @@ public class Miya_Manager_1 : MonoBehaviour
 		// GoalLine
 		Goal_Length = Random.Range(100, 200);
 		Goal.GetComponent<RectTransform>().localPosition = new Vector3( Goal_Length , 0, 0);
+
+
+
+		PlayerColor_1.color = new Color32(255, 0, 0, 50);
 	}
 
 	void Update()
@@ -138,12 +168,10 @@ public class Miya_Manager_1 : MonoBehaviour
 
 	private void TutorialState()
 	{
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
+		//if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
 		{
 			_state = Miya_State_1.WAIT;
-			_tenukiText.text = "ギリギリチキンレース";
-			//_tenukiText.text = "ギリギリチキンレース\nスペースキーを押してチャージ\nスペースキーを離して投げる　";
-			Slider_Percentage.gameObject.SetActive(true);
+			//Slider_Percentage.gameObject.SetActive(true);
 
 			Card.gameObject.SetActive(true);
 			Goal.gameObject.SetActive(true);
@@ -163,10 +191,12 @@ public class Miya_Manager_1 : MonoBehaviour
 
 	float Second_Wait_NextPlayer = 2.0f;
 	float Conter_Wait_NextPlayer = 0;
+
 	private void PlayState()
 	{
 		// ゲージ
-		Slider_Percentage.value = Miya_Controller_1.Get_MeterPercentage();
+		//Slider_Percentage.value = Miya_Controller_1.Get_MeterPercentage(); // koko
+		Rect_Guage_Back.anchoredPosition = new Vector3(Rect_Guage_Back_First.x + Miya_Controller_1.Get_MeterPercentage() * 356, Rect_Guage_Back_First.y, Rect_Guage_Back_First.z);
 
 		// プレイヤー変更
 		if ( Player_Finished )
@@ -176,7 +206,33 @@ public class Miya_Manager_1 : MonoBehaviour
 			{
 				Conter_Wait_NextPlayer = 0;
 
+				switch (CurrentPlayerNumber)
+				{
+					case 1:
+						PlayerColor_1.color = new Color32(0, 0, 0, 35);
+						break;
+					case 2:
+						PlayerColor_2.color = new Color32(0, 0, 0, 35);
+						break;
+					case 3:
+						PlayerColor_3.color = new Color32(0, 0, 0, 35);
+						break;
+				}
+
 				CurrentPlayerNumber++;
+
+				switch (CurrentPlayerNumber)
+				{
+					case 2:
+						PlayerColor_2.color = new Color32(255, 0, 0, 50);
+						break;
+					case 3:
+						PlayerColor_3.color = new Color32(255, 0, 0, 50);
+						break;
+					case 4:
+						PlayerColor_4.color = new Color32(255, 0, 0, 50);
+						break;
+				}
 
 				Set_Animation_Initialize();
 			}
@@ -187,7 +243,6 @@ public class Miya_Manager_1 : MonoBehaviour
 		if ( FinishGame )
 		{
 			_state = Miya_State_1.RESULT;
-			_tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
 		}
 	}
 
@@ -214,6 +269,8 @@ public class Miya_Manager_1 : MonoBehaviour
 	private void Completed()
 	{
 		Player_Finished = false;
+
+
 		if (CurrentPlayerNumber > 4)
 		{
 			FinishGame = true;
@@ -244,7 +301,7 @@ public class Miya_Manager_1 : MonoBehaviour
 
 					sameRanks.Add(chara);
 					minDistance = chara.Get_DistanceScore();
-					Debug.Log(minDistance);
+					//Debug.Log(minDistance);
 				}
 				else if (chara.Get_DistanceScore() == minDistance)
 				{
