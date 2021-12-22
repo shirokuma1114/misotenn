@@ -12,6 +12,10 @@ public class MiniGameCharacter
     public virtual int Money => _ridingCharacter.Money;
     public virtual KomachiInput Input => _ridingCharacter.Input;
 
+    private Sprite _icon;
+    public Sprite Icon => _icon;
+    public void SetIcon(Sprite sprite) { _icon = sprite; }
+
     public MiniGameCharacter(CharacterBase controller)
     {
         _ridingCharacter = controller;

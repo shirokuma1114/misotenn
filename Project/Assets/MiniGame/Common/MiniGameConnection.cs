@@ -39,6 +39,8 @@ public class MiniGameConnection : MonoBehaviour
     private bool _debugMode;
     [SerializeField]
     private List<DebugMiniGameCharacter> _debugCharactors;
+    [SerializeField]
+    private List<CharacterIcon> _characterIcons;
 
     bool _endFlg;
 
@@ -105,7 +107,20 @@ public class MiniGameConnection : MonoBehaviour
             }
 
             foreach (var debugChara in _debugCharactors)
-                _characters.Add(new DebugMiniGameCharacter(debugChara));
+            {
+                DebugMiniGameCharacter miniGameCharacter = new DebugMiniGameCharacter(debugChara);
+
+                foreach (var charaIcon in _characterIcons)
+                {
+                    if (charaIcon.Name == miniGameCharacter.Name)
+                    {
+                        miniGameCharacter.SetIcon(charaIcon.Sprite);
+                        break;
+                    }
+                }
+
+                _characters.Add(miniGameCharacter);
+            }
         }
 
         _instance = this;
@@ -161,7 +176,18 @@ public class MiniGameConnection : MonoBehaviour
 
         foreach(var chara in gameSceneCharacters)
         {
-            _characters.Add(new MiniGameCharacter(chara));
+            MiniGameCharacter miniGameCharacter = new MiniGameCharacter(chara);
+
+            foreach(var charaIcon in _characterIcons)
+            {
+                if (charaIcon.Name == chara.Name)
+                {
+                    miniGameCharacter.SetIcon(charaIcon.Sprite);
+                    break;
+                }
+            }
+            
+            _characters.Add(miniGameCharacter);
         }
     }
 
@@ -218,4 +244,11 @@ public class MiniGameConnection : MonoBehaviour
     {
         return _endFlg;
     }
+}
+
+[System.Serializable]
+public class CharacterIcon
+{
+    public string Name;
+    public Sprite Sprite;
 }
