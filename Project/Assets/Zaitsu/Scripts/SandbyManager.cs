@@ -12,17 +12,37 @@ public class SandbyManager : MonoBehaviour
     private GameObject[] _isOK;
     [SerializeField]
     private StandbyFade _fade;
+    [SerializeField]
+    private Image[] _characterIcon;
+    [SerializeField]
+    private KeyCode[] _correctKey;
+
+    private MiniGameConnection _miniGameConnection;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
+        _miniGameConnection = MiniGameConnection.Instance;
+
         // ステートをスタンバイように変更する
 
-
-        for (int i = 0; i < 4; i++)
+        var characters = _miniGameConnection.Characters;
+        for (int i = 0; i < characters.Count; i++)
         {
-            _isUse[i] = false;
-            _isOK[i].SetActive(false);
+            _characterIcon[i].sprite = characters[i].Icon;
+
+            if(characters[i].IsAutomatic)
+            {
+                _charaImage[i].color = new Color(255.0f, 0f, 0f);
+                _isUse[i] = true;
+                _isOK[i].SetActive(true);
+            }
+            else
+            {
+                _charaImage[i].color = new Color(0f, 0f, 0f);
+                _isUse[i] = false;
+                _isOK[i].SetActive(false);
+            }
         }
     }
 
@@ -30,81 +50,34 @@ public class SandbyManager : MonoBehaviour
     void Update()
     {
         // インプットでカラーとフラグを立てる // カラーとフラグをおろす
-        if (!_isUse[0])
+        var characters = _miniGameConnection.Characters;
+        for(int i = 0; i < characters.Count;i++)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                _charaImage[0].color = new Color(255.0f, 0f, 0f);
-                _isUse[0] = true;
-                _isOK[0].SetActive(true);
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                _charaImage[0].color = new Color(0f, 0f, 0f);
-                _isUse[0] = false;
-                _isOK[0].SetActive(false);
-            }
-        }
-        if (!_isUse[1])
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                _charaImage[1].color = new Color(255.0f, 0f, 0f);
-                _isUse[1] = true;
-                _isOK[1].SetActive(true);
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                _charaImage[1].color = new Color(0f, 0f, 0f);
-                _isUse[1] = false;
-                _isOK[1].SetActive(false);
-            }
-        }
+            var character = characters[i];
 
-        if (!_isUse[2])
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                _charaImage[2].color = new Color(255.0f, 0f, 0f);
-                _isUse[2] = true;
-                _isOK[2].SetActive(true);
-            }
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                _charaImage[2].color = new Color(0f, 0f, 0f);
-                _isUse[2] = false;
-                _isOK[2].SetActive(false);
-            }
-        }
+            if (character.IsAutomatic) continue;
 
-        if (!_isUse[3])
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha4))
+            if (!_isUse[i])
             {
-                _charaImage[3].color = new Color(255.0f, 0f, 0f);
-                _isUse[3] = true;
-                _isOK[3].SetActive(true);
+                if (character.Input.GetButtonDown("A") || Input.GetKeyDown(_correctKey[i]))
+                {
+                    _charaImage[i].color = new Color(255.0f, 0f, 0f);
+                    _isUse[i] = true;
+                    _isOK[i].SetActive(true);
+                }
+            }
+            else
+            {
+                if (character.Input.GetButtonDown("B") || Input.GetKeyDown(_correctKey[i]))
+                {
+                    _charaImage[i].color = new Color(0f, 0f, 0f);
+                    _isUse[i] = false;
+                    _isOK[i].SetActive(false);
+                }
             }
         }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                _charaImage[3].color = new Color(0f, 0f, 0f);
-                _isUse[3] = false;
-                _isOK[3].SetActive(false);
-            }
-        }
-       
+        
+
         // フラグがすべて立った時
         if (_isUse[0] == true&&_isUse[1] == true&&_isUse[2] == true&&_isUse[3] == true)
         {
