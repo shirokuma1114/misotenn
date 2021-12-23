@@ -49,6 +49,9 @@ public class TestGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            Control_SE.Get_Instance().Play_SE("UI_Select");
+
         if(_targetPos)
         {
             _earth.GetComponent<EarthMove>().MoveToPosition(_targetPos.transform.localPosition);
