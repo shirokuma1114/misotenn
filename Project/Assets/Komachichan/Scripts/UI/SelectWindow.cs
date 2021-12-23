@@ -146,6 +146,7 @@ public class SelectWindow : WindowBase
 
     private void SelectAuto()
     {
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         _selectWindows[_selectIndex].SetEnable(true);
         SetEnable(false);
     }

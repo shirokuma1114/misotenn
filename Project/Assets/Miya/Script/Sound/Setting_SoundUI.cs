@@ -86,17 +86,19 @@ public class Setting_SoundUI : WindowBase
 
             if (beforeAxisY == 0.0f)
             {
-                Control_SE.Get_Instance().Play_SE("UI_Select");
-                if (axisY < 0)
+                if (axisY < 0.0f)
                 {
                     Select--;
                     if (Select < 0) Select = 0;
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
+
                     Update_SelectBackground();
                 }
-                if(axisY > 0)
+                if(axisY > 0.0f)
                 {
                     Select++;
                     if (Select > (int)SELECT.SELECT_MAX - 1) Select = (int)SELECT.SELECT_MAX - 1;
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
                     Update_SelectBackground();
                 }
             }
@@ -130,23 +132,27 @@ public class Setting_SoundUI : WindowBase
                             Slider_BGM.value -= GridValue;
                             if (Slider_BGM.value < 0) Slider_BGM.value = 0;
                             Magnification_BGM = Slider_BGM.value;
+                            Event_Sound(true);
                             break;
 
                         case (int)SELECT.SE:
                             Slider_SE.value -= GridValue;
                             if (Slider_SE.value < 0) Slider_SE.value = 0;
                             Magnification_SE = Slider_SE.value;
+                            //Control_SE.Get_Instance().Play_SE("UI_Select");
+                            SE_Test.volume = Magnification_SE;
                             SE_Test.Play();
+                            Event_Sound(true);
                             break;
 
                         case (int)SELECT.TEXT_SPEED:
                             _sliderTextSpeed.value = Mathf.Max(_sliderTextSpeed.value - MessageWindow.TEXT_SPEED_MAX / MessageWindow.TEXT_SPEED_MIN, _sliderTextSpeed.minValue);
                             _messageWindow.SetTextSpeed(_sliderTextSpeed.value);
-                            
+                            Control_SE.Get_Instance().Play_SE("UI_Select");
+
                             break;
                             
                     }
-                    Event_Sound(true);
                 }
                 if(axisX > 0)
                 {
@@ -156,23 +162,30 @@ public class Setting_SoundUI : WindowBase
                             Slider_BGM.value += GridValue;
                             if (Slider_BGM.value > 1) Slider_BGM.value = 1;
                             Magnification_BGM = Slider_BGM.value;
+                            Event_Sound(true);
+
                             break;
 
                         case (int)SELECT.SE:
                             Slider_SE.value += GridValue;
                             if (Slider_SE.value > 1) Slider_SE.value = 1;
                             Magnification_SE = Slider_SE.value;
+                            //Control_SE.Get_Instance().Play_SE("UI_Select");
+                            SE_Test.volume = Magnification_SE;
+
                             SE_Test.Play();
+                            Event_Sound(true);
+
                             break;
 
                         case (int)SELECT.TEXT_SPEED:
                             _sliderTextSpeed.value = Mathf.Min(_sliderTextSpeed.value + MessageWindow.TEXT_SPEED_MAX / MessageWindow.TEXT_SPEED_MIN, _sliderTextSpeed.maxValue);
                             _messageWindow.SetTextSpeed(_sliderTextSpeed.value);
+                            Control_SE.Get_Instance().Play_SE("UI_Select");
 
                             break;
 
                     }
-                    Event_Sound(true);
                 }
 
             }
@@ -186,23 +199,30 @@ public class Setting_SoundUI : WindowBase
 						Slider_BGM.value -= GridValue;
 						if (Slider_BGM.value < 0) Slider_BGM.value = 0;
 						Magnification_BGM = Slider_BGM.value;
-						break;
+                        Event_Sound(true);
+
+                        break;
 
 					case (int)SELECT.SE:
 						Slider_SE.value -= GridValue;
 						if (Slider_SE.value < 0) Slider_SE.value = 0;
 						Magnification_SE = Slider_SE.value;
-						SE_Test.Play();
-						break;
+                        // Control_SE.Get_Instance().Play_SE("UI_Select");
+                        SE_Test.volume = Magnification_SE;
+
+                        SE_Test.Play();
+                        Event_Sound(true);
+
+                        break;
 
                     case (int)SELECT.TEXT_SPEED:
 						_sliderTextSpeed.value = Mathf.Max(_sliderTextSpeed.value - MessageWindow.TEXT_SPEED_MAX / MessageWindow.TEXT_SPEED_MIN, _sliderTextSpeed.minValue);
                         _messageWindow.SetTextSpeed(_sliderTextSpeed.value);
-						
-						break;
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
+
+                        break;
 
 				}
-				Event_Sound(true);
 			}
 			if (Input.GetKeyDown(KeyCode.D))
 			{
@@ -212,23 +232,28 @@ public class Setting_SoundUI : WindowBase
 						Slider_BGM.value += GridValue;
 						if (Slider_BGM.value > 1) Slider_BGM.value = 1;
 						Magnification_BGM = Slider_BGM.value;
-						break;
+                        Event_Sound(true);
+
+                        break;
 
 					case (int)SELECT.SE:
 						Slider_SE.value += GridValue;
 						if (Slider_SE.value > 1) Slider_SE.value = 1;
 						Magnification_SE = Slider_SE.value;
-						SE_Test.Play();
-						break;
+                        SE_Test.volume = Magnification_SE;
+                        SE_Test.Play();
+                        Event_Sound(true);
+
+                        break;
 
 					case (int)SELECT.TEXT_SPEED:
                         _sliderTextSpeed.value = Mathf.Min(_sliderTextSpeed.value + MessageWindow.TEXT_SPEED_MAX / MessageWindow.TEXT_SPEED_MIN, _sliderTextSpeed.maxValue);
                         _messageWindow.SetTextSpeed(_sliderTextSpeed.value);
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
 
-						break;
+                        break;
 
 				}
-				Event_Sound(true);
 			}
 
 			// BACK

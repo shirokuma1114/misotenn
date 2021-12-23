@@ -114,9 +114,11 @@ public class CardManager : MonoBehaviour
         var _cards = GetCards();
         for (int i = 0; i < _cards.Length; i++)
         {
+            if (_cards[i].IsCursoled && i == num) return;
             if (i == num) _cards[i].CursolSet(true, _col);
             else _cards[i].CursolSet(false, new Color(1.0f, 1.0f, 1.0f));
         }
+        Control_SE.Get_Instance().Play_SE("UI_Select");
     }
 
     //カードをめくる
@@ -145,6 +147,7 @@ public class CardManager : MonoBehaviour
     //カードを裏返す(今までめくったカードの番号を配列に保持しておいてそれら全てを裏返す)
     public void ResetCards(int[] _cardsNum)
     {
+        Control_SE.Get_Instance().Play_SE("Card");
         var _cards = GetCards();
         for (int i = 0; i < _cards.Length; i++)
         {

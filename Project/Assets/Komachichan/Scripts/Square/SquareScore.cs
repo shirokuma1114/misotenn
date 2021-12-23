@@ -13,7 +13,7 @@ public enum SquareScore : int
     STEAL = 37,
     SOUVENIR = 30,
     EGOAL = 23,
-    A = 23,
+    PROTECT = 23,
     B = 16,
     C = 9,
     ALLOWANCE_50000_OR_LESS = 2,
