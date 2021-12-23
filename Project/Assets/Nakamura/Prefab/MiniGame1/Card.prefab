@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb4d0e2cc60294340894f78a1fc873d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _backCard: {fileID: 21300000, guid: fa13e9fc9dbb7de45b3456744dc6f1f6, type: 3}
+  _backCard: {fileID: 21300000, guid: 59f4a3b7e3242bd4397fa25b1d95bcea, type: 3}
   _cardImage: {fileID: 6294856831637589106}
 --- !u!114 &3078738561125215213
 MonoBehaviour:
