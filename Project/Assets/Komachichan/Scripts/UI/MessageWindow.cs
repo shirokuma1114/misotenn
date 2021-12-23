@@ -142,6 +142,10 @@ public class MessageWindow : WindowBase
         _isAutomatic = character.IsAutomatic;
         _character = character;
         _playerInput = playerInput;
+        if (_playerInput)
+        {
+            _isAutomatic = false;
+        }
     }
 
     public void SetTextSpeed(float textSpeed)
