@@ -134,6 +134,7 @@ public class CakeGenerator : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
             {
+                Control_SE.Get_Instance().Play_SE("UI_Select");
                 _miniGameCorrection.EndMiniGame();
             }
         }

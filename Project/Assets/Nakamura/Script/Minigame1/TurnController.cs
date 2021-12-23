@@ -28,6 +28,8 @@ public class TurnController : MonoBehaviour
     public bool IsTutorial => _isTutorial;
     private bool _isGameStart = false;
 
+
+    float _time;
    public void Init()
    {
         _miniGameConnection = MiniGameConnection.Instance;
@@ -94,10 +96,11 @@ public class TurnController : MonoBehaviour
             _isGameEnd = false;
 
             _isJoJo = true;
-
+            _time = 0f;
         }
 
-        if (_isJoJo)
+        _time += Time.deltaTime;
+        if (_isJoJo && _time >= 0.1f)
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
             {

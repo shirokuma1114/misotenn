@@ -243,7 +243,7 @@ public class CharacterBase : MonoBehaviour
         UpdateAngleToSquare();
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
-            _currentSquare.PlayLineEffect();
+            _currentSquare.PlayLineEffect(this);
             _state = CharacterState.WAIT;
             _particleController.SetEmission(0.0f);
             //_floating.Set_Using(true);

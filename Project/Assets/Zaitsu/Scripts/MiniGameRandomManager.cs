@@ -86,7 +86,7 @@ public class MiniGameRandomManager : WindowBase
                 _miniGameObj[rotateCount%3].GetComponent<Image>().color = new Color(1f, 223/255f, 162/255f, 1.0f);
                 if (rotateCount % 3 == 0) _speed *= 0.75f;
             }
-
+            
             yield return null;
         }
 
