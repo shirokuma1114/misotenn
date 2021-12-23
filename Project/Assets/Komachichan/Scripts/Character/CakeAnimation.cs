@@ -5,6 +5,8 @@ using UnityEngine;
 public class CakeAnimation : MonoBehaviour
 {
     private Animator _animator;
+    private AudioSource _flySE;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -14,13 +16,13 @@ public class CakeAnimation : MonoBehaviour
     public void StartMove()
     {
         _animator.SetBool("Idle", false);
-        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("Fly");
+        if (Control_SE.Get_Instance()) _flySE = Control_SE.Get_Instance().Play_SE("Fly");
     }
 
     public void EndMove()
     {
         _animator.SetBool("Idle", true);
-        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Stop_SE();
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Stop_SE(_flySE);
     }
 
     public bool CanMove()
