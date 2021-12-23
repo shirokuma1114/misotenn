@@ -64,6 +64,8 @@ public class SandbyManager : MonoBehaviour
                     _charaImage[i].color = new Color(255.0f, 0f, 0f);
                     _isUse[i] = true;
                     _isOK[i].SetActive(true);
+
+                    if(Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
                 }
             }
             else
@@ -73,6 +75,8 @@ public class SandbyManager : MonoBehaviour
                     _charaImage[i].color = new Color(0f, 0f, 0f);
                     _isUse[i] = false;
                     _isOK[i].SetActive(false);
+
+                    if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Close");
                 }
             }
         }
