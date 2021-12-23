@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1 &107374450 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1583258996954525255, guid: 5c7966abbe002ae429d90107d7b28e17, type: 3}
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1 &299708571 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8577524068535766542, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -611,7 +611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1001 &374720264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1193,7 +1193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1 &530173996 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8748697317062749465, guid: 62a4a8b64421559429da4308bf123cc1, type: 3}
@@ -1314,7 +1314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1 &686662068 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5710871575758795486, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -1742,7 +1742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1001 &974197065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2722,7 +2722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!114 &1311871016 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 899737564325444801, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
@@ -3384,7 +3384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1001 &1497157779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3538,7 +3538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1001 &1663106409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5070,7 +5070,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!114 &1916240663 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3190993506664380838, guid: 6bc9cadc1de682844bb27ecae543dc71, type: 3}
@@ -5292,7 +5292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!114 &1980202264 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2265350777256331601, guid: 38da4ff4f59756f4da4a0e59f1eb7630, type: 3}
@@ -5743,7 +5743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1 &2126665797 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1299397555487724022, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -5762,7 +5762,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Amplitude: 0.005
-  Second: 0.29
+  Second: 0.75
 --- !u!1 &2129480880
 GameObject:
   m_ObjectHideFlags: 0
