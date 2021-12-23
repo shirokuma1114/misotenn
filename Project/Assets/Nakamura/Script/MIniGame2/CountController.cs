@@ -61,7 +61,7 @@ public class CountController : MonoBehaviour
                     }
                 }
                 _beforeTrigger = viewButton;
-                /*
+                
                 if (Input.GetKeyDown(KeyCode.W))
                 {
                     _cntCake += 1;
@@ -71,7 +71,7 @@ public class CountController : MonoBehaviour
                 {
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
-                }*/
+                }
 
                 //スペースキー押したらCardの関数呼ぶ
                 if (Input.GetKeyDown(KeyCode.X) || _miniGameChara.Input.GetButtonDown("A"))
