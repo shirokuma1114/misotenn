@@ -58,7 +58,7 @@ public class Control_SE : MonoBehaviour
 
     // Sound
     private const int SE_MAX_NUM = 256;
-	public AudioSource[] _audioSources;
+	private AudioSource[] _audioSources;
 	float Initial_SoundVolume;
 
 	// List
