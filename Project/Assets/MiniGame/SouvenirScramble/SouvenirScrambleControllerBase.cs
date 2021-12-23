@@ -27,7 +27,7 @@ public class SouvenirScrambleControllerBase : MonoBehaviour
         _manager = manager;
 
         _ui = ui;
-        _ui.Init(character.Name);
+        _ui.Init(character.Name,_character.Icon);
     }
 
     public void AddPoint()
@@ -79,6 +79,7 @@ public class SouvenirScrambleControllerBase : MonoBehaviour
         {
             AddPoint();
             _ui.SetItemCounter(Point);
+            Control_SE.Get_Instance().Play_SE("ƒAƒCƒeƒ€");
             Destroy(souvenir.gameObject);
         }
     }

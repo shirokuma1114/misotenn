@@ -37,17 +37,6 @@ public class Control_SE : MonoBehaviour
 	// Start
 	void Start()
 	{
-		// singlegon
-		if ( !Myself )
-		{
-			Myself = this.GetComponent<Control_SE>();
-			DontDestroyOnLoad(this.gameObject);
-		}
-        else
-        {
-            Destroy(gameObject);
-        }
-
 		// Initialize
 		Sound = this.GetComponent<AudioSource>();
 		Initial_SoundVolume = Sound.volume;
@@ -64,4 +53,10 @@ public class Control_SE : MonoBehaviour
 			Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
 		};
 	}
+
+    private void OnEnable()
+    {
+        Myself = this;
+        Debug.Log("Sound_SEêÿÇËë÷Ç¶");
+    }
 }
