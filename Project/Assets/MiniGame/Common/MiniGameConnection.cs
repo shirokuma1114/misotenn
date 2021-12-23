@@ -39,6 +39,8 @@ public class MiniGameConnection : MonoBehaviour
     private bool _debugMode;
     [SerializeField]
     private List<DebugMiniGameCharacter> _debugCharactors;
+    [SerializeField]
+    private List<CharacterIcon> _characterIcons;
 
     bool _endFlg;
 
@@ -62,11 +64,7 @@ public class MiniGameConnection : MonoBehaviour
 
         AllObjectsDisactive();
 
-        _fadeAnimation.Play("FadeOut");
-
-        LoadSceneParameters param = new LoadSceneParameters(LoadSceneMode.Additive);
-        _playingMiniGameScene = SceneManager.LoadScene(miniGamesSceneName, param);
-        StartCoroutine("MiniGameSceneActivate");
+        StartCoroutine(FadeOut(miniGamesSceneName));
     }
 
     //ミニゲームを_miniGameSceneNamesからランダムで再生
@@ -95,8 +93,6 @@ public class MiniGameConnection : MonoBehaviour
         Invoke("MiniGameUnload", 1.0f);
     }
 
-    //======================
-
     private void Awake()
     {
         if (_debugMode)
@@ -111,7 +107,20 @@ public class MiniGameConnection : MonoBehaviour
             }
 
             foreach (var debugChara in _debugCharactors)
-                _characters.Add(new DebugMiniGameCharacter(debugChara));
+            {
+                DebugMiniGameCharacter miniGameCharacter = new DebugMiniGameCharacter(debugChara);
+
+                foreach (var charaIcon in _characterIcons)
+                {
+                    if (charaIcon.Name == miniGameCharacter.Name)
+                    {
+                        miniGameCharacter.SetIcon(charaIcon.Sprite);
+                        break;
+                    }
+                }
+
+                _characters.Add(miniGameCharacter);
+            }
         }
 
         _instance = this;
@@ -167,7 +176,18 @@ public class MiniGameConnection : MonoBehaviour
 
         foreach(var chara in gameSceneCharacters)
         {
-            _characters.Add(new MiniGameCharacter(chara));
+            MiniGameCharacter miniGameCharacter = new MiniGameCharacter(chara);
+
+            foreach(var charaIcon in _characterIcons)
+            {
+                if (charaIcon.Name == chara.Name)
+                {
+                    miniGameCharacter.SetIcon(charaIcon.Sprite);
+                    break;
+                }
+            }
+            
+            _characters.Add(miniGameCharacter);
         }
     }
 
@@ -197,8 +217,38 @@ public class MiniGameConnection : MonoBehaviour
         _fadeAnimation.Play("FadeIn");
     }
 
+    private IEnumerator FadeOut(string miniGamesSceneName)
+    {
+        _fadeAnimation.Play("FadeOut");
+
+        Debug.Log(_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name);
+        Debug.Log(_fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime);
+
+        while (true)
+        {
+            if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut"
+                && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
+            {
+                LoadSceneParameters param = new LoadSceneParameters(LoadSceneMode.Additive);
+                _playingMiniGameScene = SceneManager.LoadScene(miniGamesSceneName, param);
+                StartCoroutine("MiniGameSceneActivate");
+
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
     public bool IsMiniGameFinished()
     {
         return _endFlg;
     }
+}
+
+[System.Serializable]
+public class CharacterIcon
+{
+    public string Name;
+    public Sprite Sprite;
 }

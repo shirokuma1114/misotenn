@@ -8,10 +8,16 @@ public class SampleGameControllerUI : MonoBehaviour
     private Text _playerName;
     private Text _rotateCounter;
     private Text _rendaKey;
+    private Image _playerIcon;
 
     public void SetPlayerName(string playerName)
     {
         _playerName.text = playerName;
+    }
+
+    public void SetPlayerIcon(Sprite sprite)
+    {
+        _playerIcon.sprite = sprite;
     }
 
     public void SetRotateCounter(int count)
@@ -31,6 +37,7 @@ public class SampleGameControllerUI : MonoBehaviour
         _playerName = transform.Find("PlayerName").GetComponent<Text>();
         _rotateCounter = transform.Find("RotateCounter").GetComponent<Text>();
         _rendaKey = transform.Find("RendaKey").GetComponent<Text>();
+        _playerIcon = transform.Find("PlayerImage").GetComponent<Image>();
     }
 
     void Update()

@@ -74,7 +74,7 @@ public class CardManager : MonoBehaviour
         //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
 
         //ターンマネージャーに通知してゲームを開始させる
-        _turnController.Init();
+        //_turnController.Init();
     }
 
     //指定した１枚のカードだけ取得する
