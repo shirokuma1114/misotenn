@@ -129,6 +129,8 @@ public class MyGameManager : MonoBehaviour
 
         _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
 
+
+
         _phase = Phase.AWAKE;
 
         // 初回ターン
@@ -284,7 +286,7 @@ public class MyGameManager : MonoBehaviour
 
     void PhaseAwake()
     {
-        if (_camera.State == EarthMove.EarthMoveState.END)
+        if (_camera.State == EarthMove.EarthMoveState.END && true)
         {
             InitTurn();
         }
@@ -348,8 +350,8 @@ public class MyGameManager : MonoBehaviour
                     _phase = Phase.MINI_GAME;
                     _miniManager.SetEnable(true);
                     _miniManager.StartMiniGamneRand();
+                    return;
                 }
-                return;
             }
 
             _phase = Phase.FADE_OUT;
@@ -367,7 +369,19 @@ public class MyGameManager : MonoBehaviour
             // 現在のキャラクターを止める
             _entryPlugs[_turnIndex].Character.SetWaitEnable(true);
             _turnIndex++;
-            
+            if (_turnIndex >= _entryPlugs.Count)
+            {
+                _turnIndex = 0;
+
+                // 合計ターン加算
+                UpdateTurn();
+
+                foreach (var x in _entryPlugs)
+                {
+                    x.Character.Log.SetMoenyByTurn(x.Character.Money);
+                }
+            }
+
             //次の人の止まっているマス座標
             _camera.MoveToPosition(_entryPlugs[_turnIndex].Character.CurrentSquare.GetPosition(), 500);
         }
@@ -428,7 +442,7 @@ public class MyGameManager : MonoBehaviour
     {
         if(_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" && _fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {
-            SceneManager.LoadScene("re_copy_copy.unity");
+            SceneManager.LoadScene("Result");
             _phase = Phase.NONE;
         }
     }
