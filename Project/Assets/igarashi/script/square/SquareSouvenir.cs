@@ -101,7 +101,7 @@ public class SquareSouvenir : SquareBase
 
         _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
-        _payUI.Open(character);
+        _payUI.Open(character,true);
 
         _state = SquareSouvenirState.PAY_WAIT;
 
