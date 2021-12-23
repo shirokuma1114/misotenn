@@ -140,7 +140,7 @@ public class MoveCardManager : MonoBehaviour
             GameObject card = Instantiate(_cardPrefab);
             var rt = card.GetComponent<RectTransform>();
 
-            rt.position = new Vector3(0.0f, -50.0f, 0.0f);
+            rt.position = new Vector3(0.0f, -100.0f, 0.0f);
             rt.SetParent(transform);
             rt.localScale = _cardPrefab.transform.localScale;
 
