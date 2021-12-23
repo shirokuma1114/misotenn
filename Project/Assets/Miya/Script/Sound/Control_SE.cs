@@ -10,25 +10,55 @@ public class Control_SE : MonoBehaviour
 
 
 	// äOïîÇ©ÇÁì«Ç›çûÇﬁä÷êî
-	public void Play_SE(string _name)
+	public AudioSource Play_SE(string _name)
 	{
+        AudioSource source = null;
+
+        //ãÛÇ¢ÇƒÇÈAudioSourceÇíTÇ∑
+        bool seNumOverflow = true;
+        for (int i = 0; i < SE_MAX_NUM;i++)
+        {
+            if(!_audioSources[i].isPlaying)
+            {
+                source = _audioSources[i];
+                seNumOverflow = false;
+                break;
+            }
+        }
+        if (seNumOverflow)
+        {
+            Debug.Log("AudioSourceë´ÇËÇ»Ç≠ÇƒSEÇ»Ç¡ÇƒÇ»Ç¢Ç©ÇÁSE_MAX_NUMëùÇ‚ÇµÇƒ");
+            return null;
+        }
+
 		Sound_List content = Sound_Contents.Find(l => l.Name == _name);
-		Sound.clip = content.Audio;
-		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE * content.Volume;
-		Sound.loop = content.Loop;
-		Sound.Play();
-	}
-	public void Stop_SE()
+        source.clip = content.Audio;
+        source.volume = Setting_SoundUI.Magnification_SE * content.Volume;
+        source.loop = content.Loop;
+        source.Play();
+
+        // Event
+        Setting_SoundUI.Event_Sound += time =>
+        {
+            source.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
+        };
+
+        //_audioSources.Add(source);
+
+        return source;
+    }
+	public void Stop_SE(AudioSource source)
 	{
-		Sound.Stop();
+        source.Stop();
 	}
 
 
 	// Setting
 	Setting_SoundUI SoundSetting;
 
-	// Sound
-	AudioSource Sound;
+    // Sound
+    private const int SE_MAX_NUM = 16;
+	public AudioSource[] _audioSources;
 	float Initial_SoundVolume;
 
 	// List
@@ -37,26 +67,29 @@ public class Control_SE : MonoBehaviour
 	// Start
 	void Start()
 	{
-		// Initialize
-		Sound = this.GetComponent<AudioSource>();
-		Initial_SoundVolume = Sound.volume;
-		Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
+        _audioSources = new AudioSource[SE_MAX_NUM];
 
-		foreach(var i in Sound_Contents)
-		{
-			if (i.Volume == 0) i.Volume = 1.0f;
-		}
+        for (int i = 0; i < SE_MAX_NUM; i++)
+        {
+            _audioSources[i] = gameObject.AddComponent<AudioSource>();
+        }
 
-		// Event
-		Setting_SoundUI.Event_Sound += time =>
-		{
-			Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
-		};
-	}
+        //// Initialize
+        //Sound = this.GetComponent<AudioSource>();
+        //Initial_SoundVolume = Sound.volume;
+        //Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
+
+        foreach (var i in Sound_Contents)
+        {
+            if (i.Volume == 0) i.Volume = 1.0f;
+        }
+    }
 
     private void OnEnable()
     {
         Myself = this;
         Debug.Log("Sound_SEêÿÇËë÷Ç¶");
     }
+
+
 }
