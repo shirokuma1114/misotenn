@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: "Assets/MiniGame/SampleGame/Scene/\u9023\u6253\u3067GO.unity"
     guid: c8336c7812fc61140bae37b7d6c664a6
   - enabled: 1
-    path: "Assets/Miya/Scene/\u30AE\u30EA\u30AE\u30EA\u30AB\u30FC\u30C9\u30B9\u30E9\u30A4\u30C9\uFF01.unity"
+    path: "Assets/Scenes/\u30AE\u30EA\u30AE\u30EA\u30AB\u30FC\u30C9\u30B9\u30E9\u30A4\u30C9\uFF01.unity"
     guid: f5c08526ef8860d4f891a5bddf40f768
   - enabled: 1
     path: "Assets/MiniGame/SouvenirScramble/Scene/\u304A\u571F\u7523\u4E89\u596A\u6226.unity"
