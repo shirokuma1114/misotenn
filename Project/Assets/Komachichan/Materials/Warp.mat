@@ -114,7 +114,7 @@ Material:
     - _GradOrigin_L: {r: -4, g: 20.39, b: 0, a: 0}
     - _GradOrigin_R: {r: 0, g: 25, b: 0, a: 0}
     - _GradOrigin_T: {r: 0, g: 0, b: 25, a: 0}
-    - _HeightFog_Color: {r: 0.88340086, g: 0.5509434, b: 1, a: 1}
+    - _HeightFog_Color: {r: 0.54901963, g: 1, b: 0.5939101, a: 1}
     - _LeftColor1: {r: 0.74509805, g: 0.44705886, b: 1, a: 1}
     - _LeftColor2: {r: 0.74509805, g: 0.44705886, b: 1, a: 1}
     - _RightColor1: {r: 0.74509805, g: 0.44705886, b: 1, a: 1}
