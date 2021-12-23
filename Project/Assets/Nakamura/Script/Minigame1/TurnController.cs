@@ -21,6 +21,13 @@ public class TurnController : MonoBehaviour
 
     private bool _isJoJo;
 
+    [SerializeField]
+    private SandbyManager _standby;
+
+    private bool _isTutorial = true;
+    public bool IsTutorial => _isTutorial;
+    private bool _isGameStart = false;
+
    public void Init()
    {
         _miniGameConnection = MiniGameConnection.Instance;
@@ -50,6 +57,14 @@ public class TurnController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_standby.gameObject.activeSelf && !_isGameStart)
+        {
+            Init();
+
+            _isTutorial = false;
+            _isGameStart = true;
+        }
+
         if (_isGameEnd)
         {
             //ƒŠƒUƒ‹ƒg‚ğo‚·
