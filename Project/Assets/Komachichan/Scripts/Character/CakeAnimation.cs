@@ -22,6 +22,7 @@ public class CakeAnimation : MonoBehaviour
     public void EndMove()
     {
         _animator.SetBool("Idle", true);
+
         if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Stop_SE(_flySE);
     }
 

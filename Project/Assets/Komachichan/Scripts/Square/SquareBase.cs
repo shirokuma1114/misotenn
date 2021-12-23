@@ -95,6 +95,7 @@ public class SquareBase : MonoBehaviour
 
     public void PlayLineEffect()
     {
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
         var obj = Instantiate(_linePrefab, transform);
         obj.transform.localPosition = new Vector3(0, 1.0f, 0);
     }

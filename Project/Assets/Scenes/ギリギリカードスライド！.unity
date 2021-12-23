@@ -3277,7 +3277,7 @@ MonoBehaviour:
   Character_2: {fileID: 1033158120}
   Character_3: {fileID: 241013604}
   Character_4: {fileID: 1484081048}
-  PlayerSprite_f: {fileID: 21300000, guid: 496dbb1a47c373947bd12ef746cb8b9f, type: 3}
+  PlayerSprite_f: {fileID: 21300000, guid: a8b31076742e2634992abd11c0d9dfc5, type: 3}
   PlayerSprite_z: {fileID: 21300000, guid: b2c7389b012aebe43aec313a40d45e78, type: 3}
   PlayerSprite_s: {fileID: 21300000, guid: a45e7f5d2e1fdfc439b4dd47b8988269, type: 3}
   PlayerSprite_a: {fileID: 21300000, guid: e2fd1801ffceedf409c4f9af472528dc, type: 3}

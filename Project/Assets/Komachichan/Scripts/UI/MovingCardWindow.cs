@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class MovingCardWindow : WindowBase
 {
@@ -27,6 +28,7 @@ public class MovingCardWindow : WindowBase
         foreach(var x in _cards)
         {
             x.GetComponent<Image>().enabled = enable;
+            x.GetComponentsInChildren<Image>().Last().enabled = enable;
             x.GetComponentInChildren<Text>().enabled = enable;
         }
 

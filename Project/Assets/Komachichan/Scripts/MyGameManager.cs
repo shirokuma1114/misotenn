@@ -308,11 +308,11 @@ public class MyGameManager : MonoBehaviour
         if (_entryPlugs[_turnIndex].Character.State == CharacterState.END)
         {
             // ６種類全て集めた
-            if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() == _needSouvenirType)
+            if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() >= _needSouvenirType)
             {
                 _phase = Phase.CLEAR;
                 _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　" +  _needSouvenirType.ToString() + "つの種類のお土産を集めた！\n"
-                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character);
+                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character, true);
 
                 // このターンのおこづかい
                 _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);

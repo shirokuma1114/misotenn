@@ -27,9 +27,9 @@ EditorBuildSettings:
     path: "Assets/MiniGame/SouvenirScramble/Scene/\u304A\u571F\u7523\u4E89\u596A\u6226.unity"
     guid: 656f949cfe4a0234c8d5472841392fa6
   - enabled: 1
-    path: Assets/Nakamura/Scene/MiniGame1.unity
+    path: "Assets/Nakamura/Scene/\u30B9\u30EA\u30FC\u30AB\u30FC\u30C9.unity"
     guid: 3530dbf58c1fddf42b921adb9cf52862
   - enabled: 1
-    path: Assets/Nakamura/Scene/MiniGame2.unity
+    path: "Assets/Nakamura/Scene/\u30B1\u30FC\u30AD\u30D1\u30EC\u30FC\u30C9.unity"
     guid: 9f2462823882ef3408f6a9678ca67dfc
   m_configObjects: {}
