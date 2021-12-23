@@ -95,6 +95,7 @@ public class SelectSelectWindow : MonoBehaviour
     {
         AllocateEntryCharacters();
         _isFade = true;
+        FindObjectOfType<Control_BGM>().FadeOut();
         _fadeAnimation.Play("FadeOut");
     }
 

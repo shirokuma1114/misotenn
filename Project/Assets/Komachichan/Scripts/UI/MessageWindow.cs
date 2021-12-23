@@ -54,6 +54,8 @@ public class MessageWindow : WindowBase
 
     private float _iconPosY;
 
+    private bool _playerInput;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -96,6 +98,11 @@ public class MessageWindow : WindowBase
             _iconTr.anchoredPosition = pos;
 
         }
+
+        if(_playerInput && (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A")))
+        {
+            SetNextMessage();
+        }
         if (!_isAutomatic && (Input.GetKeyDown(KeyCode.Return) || _character.Input.GetButtonDown("A")))
         {
             SetNextMessage();
@@ -104,6 +111,7 @@ public class MessageWindow : WindowBase
 
     private void SetNextMessage()
     {
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
         _currentTextNum = 0;
         _messageNum++;
         _text.text = "";
@@ -120,7 +128,7 @@ public class MessageWindow : WindowBase
     }
 
     // ãÊêÿÇËï∂éöÇ<>Ç∆Ç∑ÇÈ
-    public void SetMessage(string message, CharacterBase character)
+    public void SetMessage(string message, CharacterBase character, bool playerInput = false)
     {
         _isDisplayed = true;
         _splitMessage = Regex.Split(message, @"\s*" + _splitString + @"\s*", RegexOptions.IgnorePatternWhitespace);
@@ -133,6 +141,7 @@ public class MessageWindow : WindowBase
         _text.enabled = true;
         _isAutomatic = character.IsAutomatic;
         _character = character;
+        _playerInput = playerInput;
     }
 
     public void SetTextSpeed(float textSpeed)

@@ -21,6 +21,8 @@ public class CakeAnimation : MonoBehaviour
     {
         _animator.SetBool("Idle", true);
         if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Stop_SE();
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
+        
     }
 
     public bool CanMove()
