@@ -51,14 +51,14 @@ public class CollisionEvent
             if (!_messageWindow.IsDisplayed)
             {
                 // ‚¨“yY‚ğ‚Á‚Ä‚È‚¢
-                if (_targets[_targetIndex].Souvenirs.Count == 0)
-                {
-                    _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Í@‚¨“yY‚ğ@‚Á‚Ä‚¢‚È‚©‚Á‚½I", _owner);
-                    _phase = Phase.END;
-                }
-                else if(_targets[_targetIndex].GetComponent<Protector>().IsProtected)
+                if (_targets[_targetIndex].GetComponent<Protector>().IsProtected)
                 {
                     _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Í@ç‚ç‚ê‚Ä‚¢‚½I", _owner);
+                    _phase = Phase.END;
+                }
+                else if (_targets[_targetIndex].Souvenirs.Count == 0)
+                {
+                    _messageWindow.SetMessage(_targets[_targetIndex].Name + "‚Í@‚¨“yY‚ğ@‚Á‚Ä‚¢‚È‚©‚Á‚½I", _owner);
                     _phase = Phase.END;
                 }
                 else

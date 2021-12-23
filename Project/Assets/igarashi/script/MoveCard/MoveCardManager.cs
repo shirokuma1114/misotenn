@@ -66,12 +66,14 @@ public class MoveCardManager : MonoBehaviour
         _selectedCardIndex = index;
         SelectCardColorUpdate();
         _autoSelect = true;
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
 
         Invoke("DelayAnimation", 0.5f);
     }
 
     private void DelayAnimation()
     {
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
         _finAnimStartFlag = true;
     }
