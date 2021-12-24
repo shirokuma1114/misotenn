@@ -31,12 +31,15 @@ public class Control_SE : MonoBehaviour
             return null;
         }
 
+        source.pitch = _defaultReferenceAudioSorce.pitch;
+
 		Sound_List content = Sound_Contents.Find(l => l.Name == _name);
         source.clip = content.Audio;
         source.volume = Setting_SoundUI.Magnification_SE * content.Volume;
         source.loop = content.Loop;
+        
         source.Play();
-
+        
         // Event
         Setting_SoundUI.Event_Sound += time =>
         {
@@ -55,6 +58,7 @@ public class Control_SE : MonoBehaviour
     // Sound
     private const int SE_MAX_NUM = 32;
 	private AudioSource[] _audioSources;
+	private AudioSource _defaultReferenceAudioSorce;
 
 	// List
 	public List<Sound_List> Sound_Contents = new List<Sound_List>();
@@ -68,11 +72,13 @@ public class Control_SE : MonoBehaviour
         {
             _audioSources[i] = gameObject.AddComponent<AudioSource>();
         }
-
+        
         foreach (var i in Sound_Contents)
         {
             if (i.Volume == 0) i.Volume = 1.0f;
         }
+
+        _defaultReferenceAudioSorce = gameObject.AddComponent<AudioSource>();
     }
 
     private void OnEnable()
