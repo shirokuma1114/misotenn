@@ -117,6 +117,9 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     GameObject _cloud;
 
+    [SerializeField]
+    StartOrderWindow _startOrderWindow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -147,6 +150,8 @@ public class MyGameManager : MonoBehaviour
         }
 
         _fireWork.SetActive(false);
+
+        _startOrderWindow.SetEnable(true);
     }
 
     void CreateCharacters()
@@ -254,7 +259,7 @@ public class MyGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(_phase);
+        Debug.Log(_phase);
 
         if(_phase == Phase.AWAKE)
         {
@@ -292,10 +297,13 @@ public class MyGameManager : MonoBehaviour
 
     void PhaseAwake()
     {
-        if (_camera.State == EarthMove.EarthMoveState.END && true)
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
         {
+            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            _startOrderWindow.SetEnable(false);
             InitTurn();
         }
+
     }
 
     void PhaseInit()
@@ -320,8 +328,8 @@ public class MyGameManager : MonoBehaviour
                 Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
                 _fireWork.SetActive(true); // 花火表示（クリア演出）
                 _cloud.SetActive(false);
-                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　" +  _needSouvenirType.ToString() + "つの種類のお土産を集めた！\n"
-                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character, true);
+                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "は" +  _needSouvenirType.ToString() + "つの種類のお土産を集めた！\n"
+                    + _entryPlugs[_turnIndex].Character.Name + "の勝利！", _entryPlugs[_turnIndex].Character, true);
 
                 // このターンのおこづかい
                 _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
