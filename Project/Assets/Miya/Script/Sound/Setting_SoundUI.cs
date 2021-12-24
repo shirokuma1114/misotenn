@@ -132,6 +132,8 @@ public class Setting_SoundUI : WindowBase
                             Slider_BGM.value -= GridValue;
                             if (Slider_BGM.value < 0) Slider_BGM.value = 0;
                             Magnification_BGM = Slider_BGM.value;
+                            SE_Test.volume = Magnification_SE;
+                            SE_Test.Play();
                             Event_Sound(true);
                             break;
 
@@ -162,6 +164,8 @@ public class Setting_SoundUI : WindowBase
                             Slider_BGM.value += GridValue;
                             if (Slider_BGM.value > 1) Slider_BGM.value = 1;
                             Magnification_BGM = Slider_BGM.value;
+                            SE_Test.volume = Magnification_SE;
+                            SE_Test.Play();
                             Event_Sound(true);
 
                             break;
@@ -199,6 +203,8 @@ public class Setting_SoundUI : WindowBase
 						Slider_BGM.value -= GridValue;
 						if (Slider_BGM.value < 0) Slider_BGM.value = 0;
 						Magnification_BGM = Slider_BGM.value;
+                        SE_Test.volume = Magnification_SE;
+                        SE_Test.Play();
                         Event_Sound(true);
 
                         break;
@@ -232,6 +238,8 @@ public class Setting_SoundUI : WindowBase
 						Slider_BGM.value += GridValue;
 						if (Slider_BGM.value > 1) Slider_BGM.value = 1;
 						Magnification_BGM = Slider_BGM.value;
+                        SE_Test.volume = Magnification_SE;
+                        SE_Test.Play();
                         Event_Sound(true);
 
                         break;
