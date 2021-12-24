@@ -11,6 +11,7 @@ public class MiniGameRandomManager : WindowBase
     [SerializeField] private float _speed = 10f; // 再生時間
     [SerializeField] private int _randMin = 10; // 再生時間
     [SerializeField] private int _randMax = 13; // 再生時間
+    //[SerializeField] private Animation _animation; // スタートアニメーション
 
     [SerializeField]
     private List<Image> _imageList;

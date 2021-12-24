@@ -221,9 +221,6 @@ public class MiniGameConnection : MonoBehaviour
     {
         _fadeAnimation.Play("FadeOut");
 
-        Debug.Log(_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name);
-        Debug.Log(_fadeAnimation.GetCurrentAnimatorStateInfo(0).normalizedTime);
-
         while (true)
         {
             if (_fadeAnimation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut"
