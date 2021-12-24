@@ -76,7 +76,7 @@ public class TutorialWindow : WindowBase
     private void BackToWindow()
     {
         SetEnable(false);
-        //_backToWindow.SetEnable(true);
+        _backToWindow.SetEnable(true);
     }
 
     public override void SetEnable(bool enable)
