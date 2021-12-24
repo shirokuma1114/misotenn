@@ -48,7 +48,6 @@ public class MiniGameConnection : MonoBehaviour
     //※シーンはbuildSettingでAddすること
     public void StartMiniGame(string miniGamesSceneName)
     {
-        _endFlg = false;
         if (_debugMode)
         {
             Debug.Log("デバッグモード中");
@@ -240,6 +239,11 @@ public class MiniGameConnection : MonoBehaviour
     public bool IsMiniGameFinished()
     {
         return _endFlg;
+    }
+
+    public void SetEndFlg(bool flg)
+    {
+        _endFlg = flg;
     }
 }
 
