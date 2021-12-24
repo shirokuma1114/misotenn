@@ -43,7 +43,7 @@ public class CountController : MonoBehaviour
         if (isCountTime && !isCountFin && !_miniGameChara.IsAutomatic)
         {
             //操作ができるプレイヤー
-            if (_id == 0)
+            if (_miniGameChara.Name == "フレジエ")
             {
                 float viewButton = _miniGameChara.Input.GetAxis("Vertical");
                 
@@ -88,7 +88,7 @@ public class CountController : MonoBehaviour
                 }
             }
             //操作ができるエネミー１
-            if (_id == 1)
+            if (_miniGameChara.Name == "ザッハトルテ")
             {
                 if (Input.GetKeyDown(KeyCode.R))
                 {
@@ -135,7 +135,7 @@ public class CountController : MonoBehaviour
                 }
             }
             //操作ができるエネミー2
-            if (_id == 2)
+            if (_miniGameChara.Name == "ショートケーキ")
             {
                 if (Input.GetKeyDown(KeyCode.Y))
                 {
@@ -180,7 +180,7 @@ public class CountController : MonoBehaviour
                 }
             }
             //操作ができるエネミー3
-            if (_id == 3)
+            if (_miniGameChara.Name == "アップルパイ")
             {
                 if (Input.GetKeyDown(KeyCode.I))
                 {
