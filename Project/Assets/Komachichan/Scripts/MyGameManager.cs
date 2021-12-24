@@ -112,6 +112,11 @@ public class MyGameManager : MonoBehaviour
     [SerializeField]
     MiniGameRandomManager _miniManager;
 
+    [SerializeField]
+    GameObject _fireWork;
+    [SerializeField]
+    GameObject _cloud;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -141,6 +146,7 @@ public class MyGameManager : MonoBehaviour
             x.SetInOut();
         }
 
+        _fireWork.SetActive(false);
     }
 
     void CreateCharacters()
@@ -311,6 +317,9 @@ public class MyGameManager : MonoBehaviour
             if(_entryPlugs[_turnIndex].Character.GetSouvenirTypeNum() >= _needSouvenirType)
             {
                 _phase = Phase.CLEAR;
+                Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
+                _fireWork.SetActive(true); // 花火表示（クリア演出）
+                _cloud.SetActive(false);
                 _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　" +  _needSouvenirType.ToString() + "つの種類のお土産を集めた！\n"
                     + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character, true);
 
