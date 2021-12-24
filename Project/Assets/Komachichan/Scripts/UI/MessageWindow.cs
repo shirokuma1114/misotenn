@@ -113,7 +113,7 @@ public class MessageWindow : WindowBase
 
     private void SetNextMessage()
     {
-        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+        Control_SE.Get_Instance().Play_SE("UI_Select");
         _currentTextNum = 0;
         _messageNum++;
         _text.text = "";
