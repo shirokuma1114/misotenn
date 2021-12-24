@@ -25,8 +25,6 @@ public class SouvenirScrambleManager : MonoBehaviour
     private float _startCounter;
     [SerializeField]
     private Image _startCounterBG;
-    [SerializeField]
-    private Text _tenukiText;
 
     [SerializeField]
     private float _playTime;
@@ -46,6 +44,9 @@ public class SouvenirScrambleManager : MonoBehaviour
 
     [SerializeField]
     private ParticleController _speedLine;
+
+    [SerializeField]
+    private SandbyManager _standby;
 
 
     void Start()
@@ -109,12 +110,10 @@ public class SouvenirScrambleManager : MonoBehaviour
 
     void TutorialState()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
+        if (!_standby.gameObject.activeSelf)
         {
             _startCounter = 4;
             _startCounterText.enabled = true;
-
-            _tenukiText.enabled = false;
 
             _speedLine.SetEmission(10.0f);
 

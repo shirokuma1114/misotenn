@@ -80,6 +80,7 @@ public class RouletteUI : MonoBehaviour
                 target = i;
                 //pos.y = -64.0f + _rouletteObjects.Count * 32.0f - 10.0f + _offsetY;
                 i.GetComponent<Text>().enabled = false;
+                if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("Tick");
                 continue;
             }
 
@@ -143,6 +144,7 @@ public class RouletteUI : MonoBehaviour
 
     void Push()
     {
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         _isPushed = true;
         _time = 0.0f;
     }

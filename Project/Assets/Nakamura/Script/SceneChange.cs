@@ -40,11 +40,12 @@ public class SceneChange : MonoBehaviour
     {
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Start") || Input.GetButtonDown("A")) && !isFadeOutStart)
         {
+            FindObjectOfType<Control_BGM>().FadeOut();
             fadeAnimater.Play("FadeOut");
             isFadeOutStart = true;
             if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         }
-        
+
         if (isFadeOutStart && fadeAnimater.GetCurrentAnimatorClipInfo(0)[0].clip.name == "FadeOut" 
             && fadeAnimater.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1.0f)
         {

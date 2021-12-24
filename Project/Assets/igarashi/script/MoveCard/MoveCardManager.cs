@@ -66,12 +66,14 @@ public class MoveCardManager : MonoBehaviour
         _selectedCardIndex = index;
         SelectCardColorUpdate();
         _autoSelect = true;
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
 
         Invoke("DelayAnimation", 0.5f);
     }
 
     private void DelayAnimation()
     {
+        if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Correct");
         _cards[_selectedCardIndex].GetComponent<MoveCard>().PlayFinishAnimation();
         _finAnimStartFlag = true;
     }
@@ -138,7 +140,7 @@ public class MoveCardManager : MonoBehaviour
             GameObject card = Instantiate(_cardPrefab);
             var rt = card.GetComponent<RectTransform>();
 
-            rt.position = new Vector3(0.0f, -50.0f, 0.0f);
+            rt.position = new Vector3(0.0f, -100.0f, 0.0f);
             rt.SetParent(transform);
             rt.localScale = _cardPrefab.transform.localScale;
 

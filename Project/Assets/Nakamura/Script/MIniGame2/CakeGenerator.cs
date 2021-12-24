@@ -23,6 +23,7 @@ public class CakeGenerator : MonoBehaviour
     [SerializeField] private MiniGameConnection _miniGameCorrection;
     [SerializeField] private MiniGameResult _miniGameResult;
     [SerializeField] private GameObject[] _controlUI;//操作ボタン表示UI
+    [SerializeField] private SandbyManager _standby;
 
     private int _nowCake = 0;
     private bool _isStart = false;
@@ -78,7 +79,7 @@ public class CakeGenerator : MonoBehaviour
     void Update()
     {
         //スペースキーが押されたら始まる
-        if (!_isStart && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start")))
+        if (!_isStart && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start")) && !_standby.gameObject.activeSelf)
         {
             _isStart = true;
             _missionObj.SetActive(false);
@@ -133,6 +134,7 @@ public class CakeGenerator : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
             {
+                Control_SE.Get_Instance().Play_SE("UI_Select");
                 _miniGameCorrection.EndMiniGame();
             }
         }

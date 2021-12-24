@@ -54,15 +54,13 @@ public class EnemyBrain : Brain
                 {
                     if (_nowCursol > ((_nowStep - 1) * 4)) _nowCursol -= 1;
                     _cardMgr.SetCursolCurd(_nowCursol, _myColor);
-
-                    if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
+                    
                 }
                 if (viewButton > 0)
                 {
                     if (_nowCursol < _nowStep * 4 - 1) _nowCursol += 1;
                     _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 
-                    if (Control_SE.Get_Instance()) Control_SE.Get_Instance().Play_SE("UI_Select");
                 }
             }
             _beforeTrigger = viewButton;
@@ -82,7 +80,7 @@ public class EnemyBrain : Brain
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || _miniGameChara.Input.GetButtonDown("A"))
             {
                 if (_cardMgr.GetCard(_nowCursol).isCanTurn == false) return;
-
+                Control_SE.Get_Instance().Play_SE("Card");
                 isControl = false;
 
                 //カーソル位置と照らし合わせてめくったカードの番号を持って置く
@@ -266,6 +264,8 @@ public class EnemyBrain : Brain
         //ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
         DOVirtual.DelayedCall(2, () =>
         {
+            Control_SE.Get_Instance().Play_SE("Card");
+
             _nowCursol = _selectCard;
             _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 

@@ -13,6 +13,7 @@ public class Card : MonoBehaviour
   
     private bool _isFront = false;// 選択されているか判定
     private bool _isCursoled = false;// カーソルがついているか判定
+    public bool IsCursoled => _isCursoled;
     private CardData mData;
     private RectTransform mRt;
 

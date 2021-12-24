@@ -38,6 +38,8 @@ public class TestGameManager : MonoBehaviour
     [SerializeField]
     private bool _open = false;
 
+    [SerializeField]
+    WindowBase _window;
 
     // Start is called before the first frame update
     void Start()
@@ -49,6 +51,9 @@ public class TestGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+            _window.SetEnable(true);
+
         if(_targetPos)
         {
             _earth.GetComponent<EarthMove>().MoveToPosition(_targetPos.transform.localPosition);

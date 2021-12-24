@@ -21,6 +21,15 @@ public class TurnController : MonoBehaviour
 
     private bool _isJoJo;
 
+    [SerializeField]
+    private SandbyManager _standby;
+
+    private bool _isTutorial = true;
+    public bool IsTutorial => _isTutorial;
+    private bool _isGameStart = false;
+
+
+    float _time;
    public void Init()
    {
         _miniGameConnection = MiniGameConnection.Instance;
@@ -50,6 +59,14 @@ public class TurnController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_standby.gameObject.activeSelf && !_isGameStart)
+        {
+            Init();
+
+            _isTutorial = false;
+            _isGameStart = true;
+        }
+
         if (_isGameEnd)
         {
             //ƒŠƒUƒ‹ƒg‚ðo‚·
@@ -79,10 +96,11 @@ public class TurnController : MonoBehaviour
             _isGameEnd = false;
 
             _isJoJo = true;
-
+            _time = 0f;
         }
 
-        if (_isJoJo)
+        _time += Time.deltaTime;
+        if (_isJoJo && _time >= 0.1f)
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
             {

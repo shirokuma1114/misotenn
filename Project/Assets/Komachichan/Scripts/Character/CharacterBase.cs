@@ -5,6 +5,44 @@ using UnityEngine.UI;
 using System.Linq;
 public class CharacterBase : MonoBehaviour
 {
+    public enum CharacterReach
+    {
+        NOT_REACH,
+        REACH,
+        ALREADY_REACH,
+    }
+
+    private CharacterReach _characterReach = CharacterReach.NOT_REACH;
+
+    public CharacterReach CharacterReachState
+    {
+        get
+        {
+            var ret = _characterReach;
+            if(_characterReach == CharacterReach.REACH)
+            {
+                _characterReach = CharacterReach.ALREADY_REACH;
+            }
+
+            return ret;
+        }
+    }
+    
+    public void CheckReach()
+    {
+        int needSouvenirTypeNum = FindObjectOfType<MyGameManager>().GetNeedSouvenirType();
+        if(GetSouvenirTypeNum() < needSouvenirTypeNum - 1)
+        {
+            _characterReach = CharacterReach.NOT_REACH;
+            return;
+        }
+
+        if(GetSouvenirTypeNum() == FindObjectOfType<MyGameManager>().GetNeedSouvenirType() - 1 && _characterReach != CharacterReach.ALREADY_REACH)
+        {
+            _characterReach = CharacterReach.REACH;
+        }
+    }
+
     CharacterControllerBase _controller;
 
     // –¼‘O
@@ -243,7 +281,7 @@ public class CharacterBase : MonoBehaviour
         UpdateAngleToSquare();
         if (FindObjectOfType<EarthMove>().State == EarthMove.EarthMoveState.END)
         {
-            _currentSquare.PlayLineEffect();
+            _currentSquare.PlayLineEffect(this);
             _state = CharacterState.WAIT;
             _particleController.SetEmission(0.0f);
             //_floating.Set_Using(true);

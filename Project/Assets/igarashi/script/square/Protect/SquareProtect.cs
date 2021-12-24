@@ -147,4 +147,18 @@ public class SquareProtect : SquareBase
             _state = SquareProtectState.IDLE;
         }
     }
+
+    public override int GetScore(CharacterBase character, CharacterType characterType)
+    {
+        // ‚¨‹à‚ª‚È‚¢
+        if (character.Money < _cost) return base.GetScore(character, characterType);
+
+        // Žç‚é‚¨“yŽY‚ª‚È‚¢
+        if (character.Souvenirs.Count == 0) return (int)SquareScore.NONE_PROTECT + base.GetScore(character, characterType);
+        
+        // —]—T‚ª‚È‚¢
+        if (character.GetSouvenirTypeNum() <= 2 && character.Money < 30000) return (int)SquareScore.PROTECT + base.GetScore(character, characterType);
+        
+        return (int)SquareScore.ADVANTAGEOUS_PROTECT + base.GetScore(character, characterType);
+    }
 }

@@ -25,6 +25,9 @@ public class Miya_Manager_1 : MonoBehaviour
 	[SerializeField]
 	private List<Miya_Controller_1> _miniGameControllers;
 
+    [SerializeField]
+    private SandbyManager _stanby;
+
 
 
 	// Variable-------------------------------------------------------------------------------------------
@@ -138,7 +141,11 @@ public class Miya_Manager_1 : MonoBehaviour
 
 
 		PlayerColor_1.color = new Color32(255, 0, 0, 50);
-	}
+
+
+        _stanby.gameObject.SetActive(true);
+
+    }
 
 	void Update()
 	{
@@ -168,7 +175,7 @@ public class Miya_Manager_1 : MonoBehaviour
 
 	private void TutorialState()
 	{
-		//if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
+		if (!_stanby.gameObject.activeSelf)
 		{
 			_state = Miya_State_1.WAIT;
 			//Slider_Percentage.gameObject.SetActive(true);

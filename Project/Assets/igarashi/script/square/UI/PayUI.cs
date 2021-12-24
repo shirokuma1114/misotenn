@@ -60,7 +60,7 @@ public class PayUI : MonoBehaviour
     /// UIを開く
     /// </summary>
     /// <param name="opener">UIを開いたプレイヤー</param>
-    public void Open(CharacterBase opener)
+    public void Open(CharacterBase opener,bool defaultSelectYes = false)
     {
         _openerCharacter = opener;
 
@@ -70,7 +70,7 @@ public class PayUI : MonoBehaviour
         _no.GetComponentInChildren<Text>().enabled = true;
 
         _selectComplete = false;
-        _selectYes = false;
+        _selectYes = defaultSelectYes;
 
         ButtonColorUpdate();
 

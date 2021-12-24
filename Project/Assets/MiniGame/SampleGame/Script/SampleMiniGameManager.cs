@@ -46,6 +46,9 @@ public class SampleMiniGameManager: MonoBehaviour
     [SerializeField]
     private Image _rendaTextBG;
 
+    [SerializeField]
+    private SandbyManager _standbyManager;
+
     private void Awake()
     {
         _state = SampleGameState.TUTORIAL;
@@ -53,7 +56,6 @@ public class SampleMiniGameManager: MonoBehaviour
     void Start()
     {
         _miniGameConnection = MiniGameConnection.Instance;
-        Debug.Log(_miniGameConnection.Characters.Count);
 
         foreach(var c in _miniGameConnection.Characters)
         {
@@ -66,6 +68,7 @@ public class SampleMiniGameManager: MonoBehaviour
 
         _rendaTextBG.enabled = false;
         _rendaStartCounterText.enabled = false;
+        _tenukiText.enabled = false;
 
         _rendaTimeCounter = 0;
     }
@@ -102,9 +105,7 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void TutorialState()
     {
-        _tenukiText.text = "連打でGO!"; //チュートリアル画面が来る予定のため非表示予定
-
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start"))
+        if (!_standbyManager.gameObject.activeSelf)
         {
             _rendaStartCounterText.enabled = true;
             _rendaStartCounterText.text = "3";
@@ -166,8 +167,6 @@ public class SampleMiniGameManager: MonoBehaviour
 
     private void ResltState()
     {
-        _tenukiText.text = "リザルト\nEnterでゲームシーンへ戻る";
-
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A"))
             _state = SampleGameState.END;
     }

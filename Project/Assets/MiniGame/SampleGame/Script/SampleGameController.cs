@@ -38,6 +38,7 @@ public class SampleGameController : MonoBehaviour
         _manager = manager;
 
         _playerUI.SetPlayerName(character.Name);
+        _playerUI.SetPlayerIcon(character.Icon);
         _playerUI.SetRendaKeyEnable(!character.IsAutomatic);
     }
 
