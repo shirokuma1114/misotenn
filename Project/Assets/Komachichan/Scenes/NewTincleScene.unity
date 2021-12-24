@@ -3852,7 +3852,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[0]
-      value: "\u9023\u6253\u3067GO"
+      value: "\u9023\u6253\u3067GO\uFF01"
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _miniGameSceneNames.Array.data[1]
@@ -6007,6 +6007,10 @@ PrefabInstance:
     - target: {fileID: 7819423056078340626, guid: 41ae9dce033623146a4f084304d37484, type: 3}
       propertyPath: m_Name
       value: ShoutotsuEnshutsu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819423056078340626, guid: 41ae9dce033623146a4f084304d37484, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41ae9dce033623146a4f084304d37484, type: 3}
