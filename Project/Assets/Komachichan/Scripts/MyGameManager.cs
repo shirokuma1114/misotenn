@@ -320,8 +320,8 @@ public class MyGameManager : MonoBehaviour
                 Camera.main.GetComponent<CameraInterpolation>().Enter_Event();
                 _fireWork.SetActive(true); // 花火表示（クリア演出）
                 _cloud.SetActive(false);
-                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "　は　" +  _needSouvenirType.ToString() + "つの種類のお土産を集めた！\n"
-                    + _entryPlugs[_turnIndex].Character.Name + "　の勝利！", _entryPlugs[_turnIndex].Character, true);
+                _messageWindow.SetMessage(_entryPlugs[_turnIndex].Character.Name + "は" +  _needSouvenirType.ToString() + "つの種類のお土産を集めた！\n"
+                    + _entryPlugs[_turnIndex].Character.Name + "の勝利！", _entryPlugs[_turnIndex].Character, true);
 
                 // このターンのおこづかい
                 _entryPlugs[_turnIndex].Character.Log.SetMoenyByTurn(_entryPlugs[_turnIndex].Character.Money);
