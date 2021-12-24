@@ -113,6 +113,8 @@ public class SampleMiniGameManager: MonoBehaviour
 
             _rendaTextBG.enabled = true;
 
+            Control_SE.Get_Instance().Play_SE("Count");
+
             _state = SampleGameState.RENDA_START_COUNT;
         }
     }

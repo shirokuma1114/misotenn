@@ -1683,7 +1683,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5521389821336290541, guid: 69ed56394571bcb41a4de96b9d7c7e33, type: 3}
       propertyPath: Sound_Contents.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5521389821336290541, guid: 69ed56394571bcb41a4de96b9d7c7e33, type: 3}
       propertyPath: Sound_Contents.Array.data[9].Loop
@@ -1698,6 +1698,10 @@ PrefabInstance:
       value: Wind
       objectReference: {fileID: 0}
     - target: {fileID: 5521389821336290541, guid: 69ed56394571bcb41a4de96b9d7c7e33, type: 3}
+      propertyPath: Sound_Contents.Array.data[11].Name
+      value: Count
+      objectReference: {fileID: 0}
+    - target: {fileID: 5521389821336290541, guid: 69ed56394571bcb41a4de96b9d7c7e33, type: 3}
       propertyPath: Sound_Contents.Array.data[9].Audio
       value: 
       objectReference: {fileID: 8300000, guid: 91e1a21409705eb44aacdb48d3c4ed8f, type: 3}
@@ -1705,6 +1709,10 @@ PrefabInstance:
       propertyPath: Sound_Contents.Array.data[10].Audio
       value: 
       objectReference: {fileID: 8300000, guid: ec8a4eeb51fde5b49a7edbd4bb28fb04, type: 3}
+    - target: {fileID: 5521389821336290541, guid: 69ed56394571bcb41a4de96b9d7c7e33, type: 3}
+      propertyPath: Sound_Contents.Array.data[11].Audio
+      value: 
+      objectReference: {fileID: 8300000, guid: eccb455cec9710740ae644e9ec48aebe, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69ed56394571bcb41a4de96b9d7c7e33, type: 3}
 --- !u!1 &1019768080
