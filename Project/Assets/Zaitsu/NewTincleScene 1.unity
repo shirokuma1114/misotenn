@@ -450,7 +450,7 @@ PrefabInstance:
     - target: {fileID: 4445721741829635615, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
       propertyPath: _animation
       value: 
-      objectReference: {fileID: 741271982}
+      objectReference: {fileID: 1496706779}
     - target: {fileID: 4445721741829635615, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
       propertyPath: _miniGameConnection
       value: 
@@ -1089,7 +1089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[11].Name
-      value: MiniGameRandom
+      value: Pon
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[9].Audio
@@ -1595,30 +1595,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &741271981 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 899737564502893083, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
-  m_PrefabInstance: {fileID: 110896312}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &741271982
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741271981}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: fc57fd4972fe79b419ffca08725bfc56, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &758677476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2834,7 +2810,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4445721741829635615, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
   m_PrefabInstance: {fileID: 110896312}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 741271981}
+  m_GameObject: {fileID: 1496706774}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d7dd1dcaad67c6499677905f6b935ec, type: 3}
@@ -3364,6 +3340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1583258996954525255, guid: 5c7966abbe002ae429d90107d7b28e17, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1583258996954525257, guid: 5c7966abbe002ae429d90107d7b28e17, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -3667,6 +3647,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Amplitude: 0.005
   Second: 0.58
+--- !u!1 &1496706774 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 899737564502893083, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
+  m_PrefabInstance: {fileID: 110896312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1496706779
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496706774}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc57fd4972fe79b419ffca08725bfc56, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1497157779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3724,7 +3728,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _fadeAnimation
@@ -3836,26 +3840,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2651294865733501840, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
-      propertyPath: m_Color.b
-      value: 0.45660377
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651294865733501840, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
-      propertyPath: m_Color.g
-      value: 0.53047997
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651294865733501840, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651294866884596784, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 59f4a3b7e3242bd4397fa25b1d95bcea, type: 3}
-    - target: {fileID: 2651294867371865575, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 59f4a3b7e3242bd4397fa25b1d95bcea, type: 3}
     - target: {fileID: 2651294867390195688, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
       propertyPath: m_Name
       value: CasinoUI
@@ -7174,11 +7158,11 @@ PrefabInstance:
       objectReference: {fileID: 492139932}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 19
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
-      value: 19
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _selectWindow
@@ -7606,6 +7590,10 @@ PrefabInstance:
     - target: {fileID: 8216997677167786895, guid: 9a10a435082defb45be0f2d5f69053f8, type: 3}
       propertyPath: m_Name
       value: FadeCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216997677167786895, guid: 9a10a435082defb45be0f2d5f69053f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a10a435082defb45be0f2d5f69053f8, type: 3}
