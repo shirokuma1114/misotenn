@@ -129,6 +129,7 @@ public class Miya_Controller_1 : MonoBehaviour
 
 
 						Control_SE.Get_Instance().Stop_SE(Guage);
+						Move = Control_SE.Get_Instance().Play_SE("Move");
 					}
 					//Debug.Log("Percentage_Meter : " + Percentage_Meter);
 				}
