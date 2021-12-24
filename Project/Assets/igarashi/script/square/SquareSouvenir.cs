@@ -97,7 +97,7 @@ public class SquareSouvenir : SquareBase
         }
 
 
-        var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä\n‚¨“yY@" + _souvenirName + "‚ğ@”ƒ‚¢‚Ü‚·‚©H";
+        var message = _cost.ToString() + "‰~‚ğx•¥‚Á‚Ä\n‚¨“yY" + _souvenirName + "‚ğ”ƒ‚¢‚Ü‚·‚©H";
 
         _messageWindow.SetMessage(message, character);
         _statusWindow.SetEnable(true);
@@ -162,14 +162,14 @@ public class SquareSouvenir : SquareBase
         //İŒÉXV
         _nowStock--;
 
-        var buyMessage = _character.Name + "‚Í\n" + "‚¨“yY  " + _souvenirName + "‚ğ@è‚É“ü‚ê‚½I\n";
+        var buyMessage = _character.Name + "‚Í\n" + "‚¨“yY" + _souvenirName + "‚ğè‚É“ü‚ê‚½I\n";
         if (_nowStock > 0)
         {
-            buyMessage += "c‚è‚ÌİŒÉ‚Í  " + _nowStock.ToString() + "ŒÂ";
+            buyMessage += "c‚è‚ÌİŒÉ‚Í" + _nowStock.ToString() + "ŒÂ";
         }
         else
         {
-            buyMessage += "İŒÉ‚ª@‚È‚­‚È‚Á‚½I";
+            buyMessage += "İŒÉ‚ª‚È‚­‚È‚Á‚½I";
         }
 
         _messageWindow.SetMessage(buyMessage, _character);
