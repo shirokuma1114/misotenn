@@ -102,6 +102,12 @@ public class Miya_Manager_1 : MonoBehaviour
 	public Sprite Get_PlayerSprite_s() { return PlayerSprite_s; }
 	public Sprite Get_PlayerSprite_a() { return PlayerSprite_a; }
 
+	// koko
+	private void Awake()
+	{
+		Miya_Controller_1.Reset_MeterPercentage();
+		Miya_Controller_1.Reset_PlayerCount();
+	}
 
 	void Start()
 	{
@@ -286,6 +292,8 @@ public class Miya_Manager_1 : MonoBehaviour
 			FinishGame = true;
 			// ƒŠƒUƒ‹ƒg
 			Result.Display(Ranking());
+
+			Miya_Controller_1.Reset_PlayerCount();
 		}
 	}
 

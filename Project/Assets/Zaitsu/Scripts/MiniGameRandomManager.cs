@@ -9,9 +9,10 @@ public class MiniGameRandomManager : WindowBase
     [SerializeField] private MiniGameConnection _miniGameConnection;
     [SerializeField] private List<GameObject> _miniGameObj;
     [SerializeField] private float _speed = 10f; // 再生時間
+    private float _speedchange; // 再生時間
     [SerializeField] private int _randMin = 10; // 再生時間
     [SerializeField] private int _randMax = 13; // 再生時間
-    //[SerializeField] private Animation _animation; // スタートアニメーション
+    private Animator _animation; // スタートアニメーション
 
     [SerializeField]
     private List<Image> _imageList;
@@ -24,12 +25,16 @@ public class MiniGameRandomManager : WindowBase
     // Start is called before the first frame update
     void Start()
     {
+        _animation = gameObject.GetComponent<Animator>();
+        _animation.speed = 0;
+
         SetEnable(false);
         //StartMiniGamneRand();
     }
 
     public override void SetEnable(bool enable)
     {
+        Debug.Log("enable = " + enable);
         _enable = enable;
         foreach(var x in _imageList)
         {
@@ -43,6 +48,23 @@ public class MiniGameRandomManager : WindowBase
 
     public void StartMiniGamneRand()
     {
+        _miniGameConnection.SetEndFlg(false);
+        _speedchange = _speed;
+        StartCoroutine(AnimationWait());
+    }
+
+    public IEnumerator AnimationWait()
+    {
+        if (_animation != null)
+        {
+            _animation.speed = 1;
+
+            while (_animation.GetCurrentAnimatorClipInfo(0)[0].clip.name == "MiniGameRandom"
+                && _animation.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+            {
+                yield return null;
+            }
+        }
         List<string> _miniGameList = new List<string>();
 
         // リスト格納
@@ -67,34 +89,37 @@ public class MiniGameRandomManager : WindowBase
         StartCoroutine(RandomStart(PlayMiniGame));
     }
 
-    public IEnumerator RandomStart(UnityAction<string> callback)
+        public IEnumerator RandomStart(UnityAction<string> callback)
     {
         int rotateCount = 0;
         int endCount = Random.Range(_randMin, _randMax);
         float delta = 0;
 
-        _miniGameObj[rotateCount].GetComponent<Image>().color = new Color(1, 0, 0, 1.0f);
+        Control_SE.Get_Instance().Play_SE("MiniGameRandom");
+        _miniGameObj[rotateCount].GetComponent<Image>().color = new Color(1f, 223 / 255f, 162 / 255f, 1.0f);
 
         while (rotateCount<= endCount)
         {
-            delta += Time.deltaTime * _speed;
+            delta += Time.deltaTime * _speedchange;
             
             if (delta >= 1f)
             {
                 delta = 0f;
                 rotateCount++;
                 ClearObject();
+                Control_SE.Get_Instance().Play_SE("MiniGameRandom");
                 _miniGameObj[rotateCount%3].GetComponent<Image>().color = new Color(1f, 223/255f, 162/255f, 1.0f);
-                if (rotateCount % 3 == 0) _speed *= 0.75f;
+                if (rotateCount % 3 == 0) _speedchange *= 0.75f;
             }
             
             yield return null;
         }
 
+        delta = 0f;
         int decisionNum = rotateCount%3;
 
         rotateCount = 0;
-        while (rotateCount <= 4)
+        while (rotateCount <= 3)
         {
             delta += Time.deltaTime * 3.5f;
 
@@ -103,14 +128,19 @@ public class MiniGameRandomManager : WindowBase
                 delta = 0f;
                 rotateCount++;
 
-                if (rotateCount % 2 == 0)
+                if (rotateCount % 2 != 0)
                     _miniGameObj[decisionNum].GetComponent<Image>().color = new Color(1, 1, 1, 1.0f);
                 else
+                {
+                    Control_SE.Get_Instance().Play_SE("MiniGameRandom");
                     _miniGameObj[decisionNum].GetComponent<Image>().color = new Color(1f, 223 / 255f, 162 / 255f, 1.0f);
-
+                }
             }
             yield return null;
         }
+
+        _animation.Play("MiniGameRandom", 0, 0);
+        _animation.speed = 0;
         callback(_miniGameObj[decisionNum].GetComponentInChildren<Text>().text);
     }
 
