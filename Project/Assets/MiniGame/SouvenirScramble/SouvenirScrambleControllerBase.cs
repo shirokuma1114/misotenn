@@ -19,6 +19,7 @@ public class SouvenirScrambleControllerBase : MonoBehaviour
     private SouvenirScrambleManager _manager;
 
     private SouvenirScrambleControllerUI _ui;
+    public SouvenirScrambleControllerUI UI => _ui;
 
 
     public void Init(MiniGameCharacter character,SouvenirScrambleManager manager,SouvenirScrambleControllerUI ui)
