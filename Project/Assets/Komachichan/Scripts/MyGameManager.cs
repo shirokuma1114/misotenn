@@ -657,8 +657,8 @@ public class MyGameManager : MonoBehaviour
         if (!CanClearByCharacter(character)) return;
 
         _phase = Phase.CLEAR;
-        _messageWindow.SetMessage(character.Name + "　は　全てのお土産を制覇した！\n"
-            + character.Name + "　の勝利！", character);
+        _messageWindow.SetMessage(character.Name + "　は全てのお土産を制覇した！\n"
+            + character.Name + "の勝利！", character);
 
         // このターンのおこづかい
         character.Log.SetMoenyByTurn(character.Money);

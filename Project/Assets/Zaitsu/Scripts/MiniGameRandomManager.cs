@@ -34,7 +34,6 @@ public class MiniGameRandomManager : WindowBase
 
     public override void SetEnable(bool enable)
     {
-        Debug.Log("enable = " + enable);
         _enable = enable;
         foreach(var x in _imageList)
         {
