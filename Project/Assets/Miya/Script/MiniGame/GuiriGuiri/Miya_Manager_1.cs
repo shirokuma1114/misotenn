@@ -102,6 +102,12 @@ public class Miya_Manager_1 : MonoBehaviour
 	public Sprite Get_PlayerSprite_s() { return PlayerSprite_s; }
 	public Sprite Get_PlayerSprite_a() { return PlayerSprite_a; }
 
+	// koko
+	private void Awake()
+	{
+		Miya_Controller_1.Reset_MeterPercentage();
+		Miya_Controller_1.Reset_PlayerCount();
+	}
 
 	void Start()
 	{
@@ -255,8 +261,11 @@ public class Miya_Manager_1 : MonoBehaviour
 
 	private void ResltState()
 	{
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A"))
-			_state = Miya_State_1.END;
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A"))
+        {
+            Control_SE.Get_Instance().Play_SE("UI_Correct");
+            _state = Miya_State_1.END;
+        }
 	}
 
 	private void EndState()
@@ -283,6 +292,8 @@ public class Miya_Manager_1 : MonoBehaviour
 			FinishGame = true;
 			// ƒŠƒUƒ‹ƒg
 			Result.Display(Ranking());
+
+			Miya_Controller_1.Reset_PlayerCount();
 		}
 	}
 

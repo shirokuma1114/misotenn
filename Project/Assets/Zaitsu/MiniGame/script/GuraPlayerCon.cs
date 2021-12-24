@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GuraPlayerCon : MonoBehaviour
 {
-    [SerializeField]
-    private CharaManager _chara;
-    [SerializeField] private float speed = 3f;
+    public MiniGameCharacter _character;
+
+    public CharaManager _chara;
+    private float speed = 3f;
 
     private float moveX = 0f;
     private float moveZ = 0f;
@@ -28,8 +29,61 @@ public class GuraPlayerCon : MonoBehaviour
     {
         if (colFlag || !_chara._countFlg|| _chara._endFlg) return;
 
-        moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        //moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        //moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        KeyCode[] keyCode = new KeyCode[4];
+
+        if(_character.Input.ControllerId == 0)
+        {
+            keyCode[0] = KeyCode.W;
+            keyCode[1] = KeyCode.A;
+            keyCode[2] = KeyCode.S;
+            keyCode[3] = KeyCode.D;
+        }
+        if (_character.Input.ControllerId == 1)
+        {
+            keyCode[0] = KeyCode.T;
+            keyCode[1] = KeyCode.F;
+            keyCode[2] = KeyCode.G;
+            keyCode[3] = KeyCode.H;
+        }
+        if (_character.Input.ControllerId == 2)
+        {
+            keyCode[0] = KeyCode.I;
+            keyCode[1] = KeyCode.J;
+            keyCode[2] = KeyCode.K;
+            keyCode[3] = KeyCode.L;
+        }
+        if (_character.Input.ControllerId == 3)
+        {
+            keyCode[0] = KeyCode.UpArrow;
+            keyCode[1] = KeyCode.LeftArrow;
+            keyCode[2] = KeyCode.DownArrow;
+            keyCode[3] = KeyCode.RightArrow;
+        }
+        
+        moveX = 0f;
+        moveZ = 0f;
+        if (Input.GetKey(keyCode[0]))
+        {
+            moveZ = speed * Time.deltaTime;
+        }
+        if (Input.GetKey(keyCode[1]))
+        {
+            moveX = -speed * Time.deltaTime;
+        }
+        if (Input.GetKey(keyCode[2]))
+        {
+            moveZ = -speed * Time.deltaTime;
+        }
+        if (Input.GetKey(keyCode[3]))
+        {
+            moveX = speed * Time.deltaTime;
+        }
+        
+        moveX += _character.Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        moveZ += -_character.Input.GetAxis("Vertical") * speed * Time.deltaTime;
+        
         //rb.velocity = new Vector3(moveX, rb.velocity.y, moveZ);
         transform.position += new Vector3(moveX, 0f, moveZ);
 
@@ -48,7 +102,7 @@ public class GuraPlayerCon : MonoBehaviour
         if (transform.position.y <= -20)
         {
             _chara.AddCake(gameObject);
-            Destroy(gameObject);
+            this.enabled = false;
         }
     }
 
@@ -56,6 +110,7 @@ public class GuraPlayerCon : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
         {
+            Control_SE.Get_Instance().Play_SE("Hit");
             colFlag = true;
             particle.SetActive(true);
             StartCoroutine(CollisionOut());

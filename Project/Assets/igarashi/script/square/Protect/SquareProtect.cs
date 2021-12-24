@@ -40,7 +40,7 @@ public class SquareProtect : SquareBase
         _payUI = FindObjectOfType<PayUI>();
 
         _squareInfo =
-            "プロテクトマス\n" +
+            "保護マス\n" +
             "コスト：" + _cost.ToString() + "円" + "\n" +
             "守られるターン数：" + _protectTurn.ToString();
     }

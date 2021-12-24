@@ -1123,6 +1123,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8758928554440675044, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_Text
+      value: "\u30B9\u30EA\u30FC\u30AB\u30FC\u30C9"
+      objectReference: {fileID: 0}
     - target: {fileID: 8758928555756254361, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1214,7 +1218,7 @@ PrefabInstance:
     - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_VideoClip
       value: 
-      objectReference: {fileID: 32900000, guid: 06e0c4f1d8788c14483219d9e64a0c84, type: 3}
+      objectReference: {fileID: 32900000, guid: b18a925a74e704e429ff94b1472fa11c, type: 3}
     - target: {fileID: 8758928556228037892, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u30FB\u30AB\u30FC\u30C9\u3092\u9078\u629E\n\t:A,D\u30AD\u30FC\n\t:\u5DE6\u30B9\u30C6\u30A3\u30C3\u30AF\n\u30FB\u30AB\u30FC\u30C9\u3092\u3081\u304F\u308B\n\t:Enter\u30AD\u30FC\n\t:A\u30DC\u30BF\u30F3"
