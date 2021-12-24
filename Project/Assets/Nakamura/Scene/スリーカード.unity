@@ -1280,6 +1280,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6523ce1badb8d5243a8d2a835720b5e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _images:
+  - {fileID: 1590538422}
+  - {fileID: 1714811972}
+  - {fileID: 362103943}
+  - {fileID: 591225654}
   _turnText: {fileID: 592999520}
   _enemy:
   - {fileID: 39231734}
