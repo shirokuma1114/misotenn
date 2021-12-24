@@ -295,6 +295,7 @@ public class SquareSteal : SquareBase
 
     public override int GetScore(CharacterBase character, CharacterType characterType)
     {
+        Debug.Log("いただきコスト" + CalcCost(character));
         // コストが足りない
         if (CalcCost(character) > character.Money) return base.GetScore(character, characterType);
 

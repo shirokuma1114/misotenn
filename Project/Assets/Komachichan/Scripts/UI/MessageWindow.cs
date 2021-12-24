@@ -103,6 +103,8 @@ public class MessageWindow : WindowBase
         {
             SetNextMessage();
         }
+        if (_playerInput) return;
+
         if (!_isAutomatic && (Input.GetKeyDown(KeyCode.Return) || _character.Input.GetButtonDown("A")))
         {
             SetNextMessage();
