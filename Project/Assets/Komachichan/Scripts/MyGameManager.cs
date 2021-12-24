@@ -449,6 +449,7 @@ public class MyGameManager : MonoBehaviour
         if (!_messageWindow.IsDisplayed)
         {
             // ƒV[ƒ“‘JˆÚ
+            FindObjectOfType<Control_BGM>().FadeOut();
             _fadeAnimation.Play("FadeOut");
             //_fade.FadeStart(30, true, true, "re_copy");
             _phase = Phase.NEXT_SCENE;
