@@ -14,6 +14,7 @@ public class SampleGameController : MonoBehaviour
 
     private GameObject _rotateCenterObject;
     private int _rotateCounter;
+    public int RotateCount => _rotateCounter;
     private float _prevRotX;
     private float _defaultRotX;
 
@@ -63,7 +64,7 @@ public class SampleGameController : MonoBehaviour
     void Start()
     {
         _rendaCounter = 0;
-        _rotateCounter = 0;
+        _rotateCounter = 0;        
     }
 
     void Update()
@@ -86,6 +87,9 @@ public class SampleGameController : MonoBehaviour
                 if ((nowRotX < -_defaultRotX && _prevRotX > -_defaultRotX) || (nowRotX > _defaultRotX && _prevRotX < _defaultRotX))
                 {
                     RotateCountUp();
+
+                    if (_cakeName == "ƒtƒŒƒWƒG")
+                        Control_SE.Get_Instance().Play_SE("Wind").pitch = 1.5f;
                 }
 
                 _prevRotX = nowRotX;
@@ -104,6 +108,7 @@ public class SampleGameController : MonoBehaviour
         {
             Instantiate(_rendaEffectPrefab, transform);
             _aiRendaIntervalCounter = 0.0f;
+            Control_SE.Get_Instance().Play_SE("Power").pitch = 1.8f;
         }
         _aiRendaIntervalCounter += Time.deltaTime;
     }
@@ -115,6 +120,8 @@ public class SampleGameController : MonoBehaviour
             _rendaCounter++;
 
             Instantiate(_rendaEffectPrefab,transform);
+
+            Control_SE.Get_Instance().Play_SE("Power").pitch = 1.8f;
         }
     }
 

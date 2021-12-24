@@ -117,6 +117,8 @@ public class SouvenirScrambleManager : MonoBehaviour
 
             _speedLine.SetEmission(10.0f);
 
+            Control_SE.Get_Instance().Play_SE("Count");
+
             _state = SouvenirScrambleState.START_COUNT;
         }
     }

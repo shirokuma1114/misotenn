@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TestGameManager : MonoBehaviour
 {
@@ -51,10 +52,18 @@ public class TestGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SceneManager.LoadScene(4);
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            SceneManager.LoadScene(5);
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            SceneManager.LoadScene(6);
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            SceneManager.LoadScene(7);
         if (Input.GetKeyDown(KeyCode.Alpha5))
-            _window.SetEnable(true);
+            SceneManager.LoadScene(8);
 
-        if(_targetPos)
+        if (_targetPos)
         {
             _earth.GetComponent<EarthMove>().MoveToPosition(_targetPos.transform.localPosition);
 
