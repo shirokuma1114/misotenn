@@ -7245,7 +7245,7 @@ PrefabInstance:
       objectReference: {fileID: 1980202264}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _isMiniGameSkip
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cameraInterpole
