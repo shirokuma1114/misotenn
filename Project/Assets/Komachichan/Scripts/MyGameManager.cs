@@ -259,7 +259,7 @@ public class MyGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_phase);
+        //Debug.Log(_phase);
 
         if(_phase == Phase.AWAKE)
         {

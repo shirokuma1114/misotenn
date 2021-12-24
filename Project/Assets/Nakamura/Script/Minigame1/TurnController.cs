@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class TurnController : MonoBehaviour
 {
+    [SerializeField]
+    List<Image> _images;
+
     [SerializeField] private Text _turnText;
     //[SerializeField] private PlayerBrain _player;
     [SerializeField] private EnemyBrain[] _enemy; 
@@ -38,6 +41,30 @@ public class TurnController : MonoBehaviour
         for (int i = 0; i < _enemy.Length; i++)
         {
             _enemy[i]._miniGameChara = _miniGameConnection.Characters[i];
+            if(_enemy[i]._miniGameChara.Name == "フレジエ")
+            {
+                _enemy[i]._myId = 0;
+                _enemy[i]._myColor = new Color(255f / 255f, 143f / 255f, 143f / 255f);
+                _images[i].color = new Color(255f / 255f, 151f / 255f, 129f / 255f);
+            }
+            if(_enemy[i]._miniGameChara.Name == "ザッハトルテ")
+            {
+                _enemy[i]._myId = 1;
+                _enemy[i]._myColor = new Color(143f / 255f, 148f / 255f, 255f / 255f);
+                _images[i].color = new Color(46f / 255f, 219f / 255f, 250f / 255f);
+            }
+            if (_enemy[i]._miniGameChara.Name == "ショートケーキ")
+            {
+                _enemy[i]._myId = 2;
+                _enemy[i]._myColor = new Color(252f / 255f, 255f / 255f, 143f / 255f);
+                _images[i].color = new Color(255f / 255f, 224f / 255f, 95f / 255f);
+            }
+            if (_enemy[i]._miniGameChara.Name == "アップルパイ")
+            {
+                _enemy[i]._myId = 3;
+                _enemy[i]._myColor = new Color(154f / 255f, 255f / 255f, 143f / 255f);
+                _images[i].color = new Color(139f / 255f, 255f / 255f, 102f / 255f);
+            }
         }
         //ゲームの順番を決める
         turnRoulette(gameOrder);
