@@ -10,7 +10,11 @@ public class CubeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Shake(1.0f,0.1f));
+    }
+
+    public void PlayMove()
+    {
+        StartCoroutine(Shake(1.0f, 0.1f));
     }
 
     public IEnumerator Shake(float duration, float magnitude)
