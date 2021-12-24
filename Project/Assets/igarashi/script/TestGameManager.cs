@@ -38,6 +38,8 @@ public class TestGameManager : MonoBehaviour
     [SerializeField]
     private bool _open = false;
 
+    [SerializeField]
+    WindowBase _window;
 
     // Start is called before the first frame update
     void Start()
@@ -50,7 +52,7 @@ public class TestGameManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha5))
-            Control_SE.Get_Instance().Play_SE("UI_Select");
+            _window.SetEnable(true);
 
         if(_targetPos)
         {
