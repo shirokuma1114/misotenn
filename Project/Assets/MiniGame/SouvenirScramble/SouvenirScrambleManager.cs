@@ -88,28 +88,6 @@ public class SouvenirScrambleManager : MonoBehaviour
                 }
             }
         }
-        foreach (var chara in _miniGameConnection.Characters)
-        {
-            for(int i = 0; i < _cars.Count;i++)
-            {
-                var car = _cars[i];
-                if (car.name == chara.Name)
-                {
-                    SouvenirScrambleControllerBase sc;
-                    if (chara.IsAutomatic)
-                    {
-                        sc = car.AddComponent<SouvenirScrambleControllerAI>();
-                    }
-                    else
-                    {
-                        sc = car.AddComponent<SouvenirScrambleController>();
-                    }
-
-                    _controllers.Add(sc);
-                    sc.Init(chara, this,_ui[i]);
-                }
-            }
-        }
 
         _startCounterText.enabled = false;
 
@@ -205,10 +183,14 @@ public class SouvenirScrambleManager : MonoBehaviour
 
     private Dictionary<MiniGameCharacter, int> Ranking()
     {
+        for(int i = 0; i < _controllers.Count;i++)
+        {
+            Debug.Log(_controllers.Count);
+            Debug.Log(_controllers[i].Character.Name);
+        }
         Dictionary<MiniGameCharacter, int> dispCharacters = new Dictionary<MiniGameCharacter, int>();
         List<SouvenirScrambleControllerBase> workCharacters = new List<SouvenirScrambleControllerBase>();
         workCharacters.AddRange(_controllers);
-
         List<SouvenirScrambleControllerBase> sameRanks = new List<SouvenirScrambleControllerBase>();
         for (int rank = 1; rank <= 4;)
         {
