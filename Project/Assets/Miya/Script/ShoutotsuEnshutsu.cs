@@ -12,6 +12,8 @@ public class ShoutotsuEnshutsu : MonoBehaviour
 	{
 		Test = Instantiate(Particle);
 		Count_ParticleFinish = Timer_ParticleFinish;
+
+		Control_SE.Get_Instance().Play_SE("Shoutotsu");
 	}
 	public bool Get_Completed()
 	{
