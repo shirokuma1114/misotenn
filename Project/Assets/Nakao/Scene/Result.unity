@@ -7973,7 +7973,6 @@ GameObject:
   - component: {fileID: 1647730872}
   - component: {fileID: 1647730875}
   - component: {fileID: 1647730874}
-  - component: {fileID: 1647730876}
   m_Layer: 5
   m_Name: BackKey
   m_TagString: Untagged
@@ -8101,7 +8100,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1647730876}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonChangeBackText, Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
@@ -8113,39 +8112,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1647730876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1647730870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f102a838c8c47f344b0a30f5a0560864, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  text: {fileID: 161289496}
-  image1: {fileID: 852874851}
-  image2: {fileID: 1134532627}
-  image3: {fileID: 2010722393}
-  image4: {fileID: 2093283177}
-  P1text: {fileID: 262944202}
-  P2text: {fileID: 1402431975}
-  P3text: {fileID: 163964100}
-  P4text: {fileID: 215753166}
-  Top1: {fileID: 1966767363}
-  Top2: {fileID: 1449303756}
-  Back: {fileID: 159542552}
-  P1out: {fileID: 1848932451}
-  P2out: {fileID: 1818360937}
-  P3out: {fileID: 543615914}
-  P4out: {fileID: 396011437}
-  P1in: {fileID: 1162154524}
-  P2in: {fileID: 1621567856}
-  P3in: {fileID: 322501770}
-  P4in: {fileID: 1361153012}
-  TriggerButton: 0
 --- !u!1 &1652865152
 GameObject:
   m_ObjectHideFlags: 0
