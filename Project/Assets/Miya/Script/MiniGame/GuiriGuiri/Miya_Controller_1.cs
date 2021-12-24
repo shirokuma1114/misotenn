@@ -57,6 +57,11 @@ public class Miya_Controller_1 : MonoBehaviour
 	float Counter_AI = 0;
 
 
+	AudioSource Guage;
+	AudioSource Move;
+	AudioSource Clap;
+
+
 	public void Init(MiniGameCharacter character, Miya_Manager_1 manager)
 	{
 		_controller = character;
@@ -121,6 +126,9 @@ public class Miya_Controller_1 : MonoBehaviour
 
 						Animation = true;
 						Set_Animation();
+
+
+						Control_SE.Get_Instance().Stop_SE(Guage);
 					}
 					//Debug.Log("Percentage_Meter : " + Percentage_Meter);
 				}
@@ -147,6 +155,10 @@ public class Miya_Controller_1 : MonoBehaviour
 					Counter_AI = 0;
 					
 					Hold = true;
+
+
+					Guage = Control_SE.Get_Instance().Play_SE("Guage");
+					Guage.pitch = 2;
 				}
 				break;
 
@@ -162,6 +174,10 @@ public class Miya_Controller_1 : MonoBehaviour
 					// Animation
 					Animation = true;
 					Set_Animation();
+
+
+					Control_SE.Get_Instance().Stop_SE(Guage);
+					Move = Control_SE.Get_Instance().Play_SE("Move");
 				}
 				break;
 
@@ -175,6 +191,10 @@ public class Miya_Controller_1 : MonoBehaviour
 		if ((Input.GetKeyDown(KeyCode.Space) || _controller.Input.GetButtonDown("A")) && !Throw)
 		{
 			Hold = true;
+
+
+			Guage = Control_SE.Get_Instance().Play_SE("Guage");
+			Guage.pitch = 2;
 		}
 
 		if ((Input.GetKeyUp(KeyCode.Space) || _controller.Input.GetButtonUp("A")) && Hold)
@@ -185,6 +205,10 @@ public class Miya_Controller_1 : MonoBehaviour
 			// Animation
 			Animation = true;
 			Set_Animation();
+
+
+			Control_SE.Get_Instance().Stop_SE(Guage);
+			Move = Control_SE.Get_Instance().Play_SE("Move");
 		}
 	}
 
@@ -217,6 +241,9 @@ public class Miya_Controller_1 : MonoBehaviour
 		_manager.Inform_Finished();
 		_playerUI.Set_Score((int)_manager.Get_Length_CardToGoal());
 		Score_Distance = (int)_manager.Get_Length_CardToGoal();
+
+
+		Clap = Control_SE.Get_Instance().Play_SE("Clap");
 	}
 	// OnDisable
 	private void OnDisable()
