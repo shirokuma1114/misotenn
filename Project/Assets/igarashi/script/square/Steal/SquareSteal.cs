@@ -58,7 +58,7 @@ public class SquareSteal : SquareBase
 
 
         _squareInfo =
-            "刀狩マス\n" +
+            "いただきマス\n" +
             "コスト：" + _cost.ToString() + "円";
     }
 
@@ -86,7 +86,7 @@ public class SquareSteal : SquareBase
         int displayCost = CalcCost(character);
 
         _squareInfo =
-           "刀狩マス\n" +
+           "いただきマス\n" +
            "コスト：" + displayCost.ToString() + "円";
 
         return _squareInfo;
