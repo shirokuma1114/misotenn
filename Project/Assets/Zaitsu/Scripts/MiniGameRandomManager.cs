@@ -43,6 +43,13 @@ public class MiniGameRandomManager : WindowBase
         {
             x.enabled = enable;
         }
+
+
+        if (enable) return;
+        foreach(var x in _miniGameObj)
+        {
+            x.GetComponentInChildren<Text>().text = "?????";
+        }
     }
 
     public void StartMiniGamneRand()
