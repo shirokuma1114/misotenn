@@ -20,8 +20,10 @@ public class SampleGameController : MonoBehaviour
 
     [SerializeField]
     private SampleGameControllerUI _playerUI;
-    [SerializeField]
+    public SampleGameControllerUI UI => _playerUI;
+
     private KeyCode _rendaKey;
+
     [SerializeField]
     private string _cakeName;
     public string CakeName => _cakeName;
@@ -33,10 +35,11 @@ public class SampleGameController : MonoBehaviour
     private float _aiRendaIntervalCounter;
 
 
-    public void Init(MiniGameCharacter character,SampleMiniGameManager manager)
+    public void Init(MiniGameCharacter character,SampleMiniGameManager manager,KeyCode rendaKey)
     {
         _controller = character;
         _manager = manager;
+        _rendaKey = rendaKey;
 
         _playerUI.SetPlayerName(character.Name);
         _playerUI.SetPlayerIcon(character.Icon);

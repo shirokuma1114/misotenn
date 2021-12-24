@@ -49,6 +49,15 @@ public class SampleMiniGameManager: MonoBehaviour
     [SerializeField]
     private SandbyManager _standbyManager;
 
+    [SerializeField]
+    private List<Transform> _carTransforms;
+
+    [SerializeField]
+    private List<Transform> _uiTransforms;
+
+    [SerializeField]
+    private List<KeyCode> _rendaKeys;
+
     private void Awake()
     {
         _state = SampleGameState.TUTORIAL;
@@ -57,13 +66,20 @@ public class SampleMiniGameManager: MonoBehaviour
     {
         _miniGameConnection = MiniGameConnection.Instance;
 
-        foreach(var c in _miniGameConnection.Characters)
+        var characters = _miniGameConnection.Characters;
+        for(int i = 0; i < characters.Count;i++)
         {
-            foreach(var mc in _miniGameControllers)
+            var character = characters[i];
+            foreach (var minigameCharacter in _miniGameControllers)
             {
-                if(mc.CakeName == c.Name)
-                    mc.Init(c, this);
-            }            
+                if (minigameCharacter.CakeName == character.Name)
+                {
+                    minigameCharacter.Init(character, this,_rendaKeys[i]);
+                    minigameCharacter.gameObject.transform.position = _carTransforms[i].position;
+                    minigameCharacter.gameObject.transform.rotation = _carTransforms[i].rotation;
+                    minigameCharacter.UI.transform.position = _uiTransforms[i].position;
+                }
+            }
         }
 
         _rendaTextBG.enabled = false;

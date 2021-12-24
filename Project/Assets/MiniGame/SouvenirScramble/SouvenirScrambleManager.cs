@@ -48,11 +48,46 @@ public class SouvenirScrambleManager : MonoBehaviour
     [SerializeField]
     private SandbyManager _standby;
 
+    [SerializeField]
+    private List<Transform> _playerTransforms;
+
+    [SerializeField]
+    private List<Transform> _uiTransforms;
+
 
     void Start()
     {
         _miniGameConnection = MiniGameConnection.Instance;
 
+        var characters = _miniGameConnection.Characters;
+        for(int iChara = 0; iChara < characters.Count; iChara++)
+        {
+            var character = characters[iChara];
+
+            for (int iCar = 0; iCar < _cars.Count; iCar++)
+            {
+                var car = _cars[iCar];
+                if (car.name == character.Name)
+                {
+                    SouvenirScrambleControllerBase controller;
+                    if (character.IsAutomatic)
+                    {
+                        controller = car.AddComponent<SouvenirScrambleControllerAI>();
+                    }
+                    else
+                    {
+                        controller = car.AddComponent<SouvenirScrambleController>();
+                    }
+
+                    controller.gameObject.transform.position = _playerTransforms[iChara].position;
+                    controller.gameObject.transform.rotation = _playerTransforms[iChara].rotation;
+                    _ui[iCar].transform.position = _uiTransforms[iChara].transform.position;
+                    controller.Init(character, this, _ui[iChara]);
+
+                    _controllers.Add(controller);
+                }
+            }
+        }
         foreach (var chara in _miniGameConnection.Characters)
         {
             for(int i = 0; i < _cars.Count;i++)
