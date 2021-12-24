@@ -59,6 +59,8 @@ public class OmiyageEnshutsu : MonoBehaviour
     GameObject _particle;
     bool _particlePlaying;
 
+	AudioSource Puni;
+
 
 	// Start
 	void Start()
@@ -98,6 +100,9 @@ public class OmiyageEnshutsu : MonoBehaviour
 		Animation_Sequence.Join(Rect.DORotate(new Vector3(0, 0, -15), 1));
 
 		// ‚Ú‚æ‚æ‚ñ
+		Puni = Control_SE.Get_Instance().Play_SE("Omiyage_Puni");
+		Puni.pitch = 1.5f;
+
 		float difference = 0.2f;
 		float duration = 0.1f;
 		for (int i = 0; i < 3; i++)
@@ -108,8 +113,10 @@ public class OmiyageEnshutsu : MonoBehaviour
 			Animation_Sequence.Append(Rect.DOScaleY(1.25f + difference, duration));
 			NewMethod(difference, duration);
 		}
-		Animation_Sequence.Append(Rect.DOScale(new Vector3(1.25f, 1.25f, 1.25f), duration));
-		Animation_Sequence.AppendInterval(Second_Display);
+		Animation_Sequence.Append(Rect.DOScale(new Vector3(1.25f, 1.25f, 1.25f), duration)
+			.OnComplete(Completed_Puni));
+		Animation_Sequence.AppendInterval(Second_Display)
+			.OnComplete(Do_Shu);
 
 		// ˆÚ“®Ek¬
 		Animation_Sequence.Append(Rect.DOLocalMove(new Vector3(20, 0, 0), 1));
@@ -132,6 +139,14 @@ public class OmiyageEnshutsu : MonoBehaviour
 	{
 		_particle = Instantiate(Particle);
         _particlePlaying = true;
+	}
+	private void Completed_Puni()
+	{
+		Control_SE.Get_Instance().Stop_SE(Puni);
+	}
+	private void Do_Shu()
+	{
+		Control_SE.Get_Instance().Play_SE("Omiyage_Shu");
 	}
 	// OnDisable
 	private void OnDisable()
