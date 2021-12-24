@@ -252,7 +252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8758928556228037893, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 576
+      value: 562
       objectReference: {fileID: 0}
     - target: {fileID: 8758928556228037893, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -400,7 +400,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A4"
+  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A"
 --- !u!222 &333373592
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -617,7 +617,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A0"
+  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A"
 --- !u!222 &360377292
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2313,7 +2313,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A7"
+  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A"
 --- !u!222 &1231943688
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2530,7 +2530,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A1"
+  m_Text: "\u9023\u6253\u30AD\u30FC\uFF1A"
 --- !u!222 &1312485010
 CanvasRenderer:
   m_ObjectHideFlags: 0
