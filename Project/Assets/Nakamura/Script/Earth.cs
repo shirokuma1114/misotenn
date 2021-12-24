@@ -16,23 +16,6 @@ public class Earth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.DOScale(new Vector3(0, 0, 0), 0.2f);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (isDefaultScale)
-            {
-                transform.DOScale(new Vector3(2, 4, 2), 0.2f);
-                isDefaultScale = false;
-            }
-            else if (!isDefaultScale)
-            {
-                transform.DOScale(new Vector3(10, 10, 10), 0.2f);
-                isDefaultScale = true;
-            }
-        }
-    
-
          transform.Rotate(new Vector3(0.0f, 0.0f, -0.1f));
     }
 }

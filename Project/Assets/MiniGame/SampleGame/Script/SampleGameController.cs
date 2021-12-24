@@ -43,7 +43,7 @@ public class SampleGameController : MonoBehaviour
 
         _playerUI.SetPlayerName(character.Name);
         _playerUI.SetPlayerIcon(character.Icon);
-        _playerUI.SetRendaKeyEnable(!character.IsAutomatic);
+        _playerUI.SetRendaKeyEnable(!character.IsAutomatic,rendaKey);
     }
 
     public void Go()
