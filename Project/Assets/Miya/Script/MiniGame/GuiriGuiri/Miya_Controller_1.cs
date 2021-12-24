@@ -33,6 +33,10 @@ public class Miya_Controller_1 : MonoBehaviour
 	bool Animation = false;
 
 	static int PlayerCount = 0;
+	static public void Reset_PlayerCount()
+	{
+		PlayerCount = 0;
+	}
 	int PlayerNumber = -1;
 
 
