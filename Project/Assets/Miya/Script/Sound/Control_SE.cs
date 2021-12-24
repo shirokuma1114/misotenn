@@ -40,7 +40,7 @@ public class Control_SE : MonoBehaviour
         // Event
         Setting_SoundUI.Event_Sound += time =>
         {
-            source.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
+            source.volume = content.Volume * Setting_SoundUI.Magnification_SE;
         };
 
         //_audioSources.Add(source);
@@ -52,14 +52,9 @@ public class Control_SE : MonoBehaviour
         source.Stop();
 	}
 
-
-	// Setting
-	Setting_SoundUI SoundSetting;
-
     // Sound
     private const int SE_MAX_NUM = 256;
 	private AudioSource[] _audioSources;
-	float Initial_SoundVolume;
 
 	// List
 	public List<Sound_List> Sound_Contents = new List<Sound_List>();
@@ -74,11 +69,6 @@ public class Control_SE : MonoBehaviour
             _audioSources[i] = gameObject.AddComponent<AudioSource>();
         }
 
-        //// Initialize
-        //Sound = this.GetComponent<AudioSource>();
-        //Initial_SoundVolume = Sound.volume;
-        //Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_SE;
-
         foreach (var i in Sound_Contents)
         {
             if (i.Volume == 0) i.Volume = 1.0f;
@@ -90,6 +80,4 @@ public class Control_SE : MonoBehaviour
         Myself = this;
         Debug.Log("Sound_SEêÿÇËë÷Ç¶");
     }
-
-
 }
