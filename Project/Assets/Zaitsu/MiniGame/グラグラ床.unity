@@ -5235,6 +5235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CountFlg: 0
+  _frame: {fileID: 421057316}
 --- !u!1 &421057313
 GameObject:
   m_ObjectHideFlags: 0
@@ -6541,6 +6542,7 @@ MonoBehaviour:
   _miniGameResult: {fileID: 5875773037131965060}
   _rendaStartCounterText: {fileID: 410464864}
   _rendaTextBG: {fileID: 421057316}
+  _standbyManager: {fileID: 0}
 --- !u!4 &1957176711
 Transform:
   m_ObjectHideFlags: 0
