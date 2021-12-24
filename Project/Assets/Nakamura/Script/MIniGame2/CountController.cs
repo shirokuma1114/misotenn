@@ -51,11 +51,13 @@ public class CountController : MonoBehaviour
                 {
                     if(viewButton < 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
                         _cntCake += 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
                     if(viewButton > 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
                         if (_cntCake > 0) _cntCake -= 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
@@ -64,11 +66,13 @@ public class CountController : MonoBehaviour
                 
                 if (Input.GetKeyDown(KeyCode.W))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
                     _cntCake += 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
                 if (Input.GetKeyDown(KeyCode.S))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
@@ -77,6 +81,7 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.X) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
+                    Control_SE.Get_Instance().Play_SE("UI_Correct");
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                     _cntText.color = Color.yellow;
@@ -87,11 +92,15 @@ public class CountController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.R))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
+
                     _cntCake += 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
                 if (Input.GetKeyDown(KeyCode.F))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
+
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
@@ -101,11 +110,14 @@ public class CountController : MonoBehaviour
                 {
                     if (viewButton < 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
+
                         _cntCake += 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
                     if (viewButton > 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
                         if (_cntCake > 0) _cntCake -= 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
@@ -116,6 +128,7 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.V) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
+                    Control_SE.Get_Instance().Play_SE("UI_Correct");
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                     _cntText.color = Color.yellow;
@@ -126,11 +139,13 @@ public class CountController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Y))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
                     _cntCake += 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
                 if (Input.GetKeyDown(KeyCode.H))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
@@ -140,11 +155,13 @@ public class CountController : MonoBehaviour
                 {
                     if (viewButton < 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
                         _cntCake += 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
                     if (viewButton > 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
                         if (_cntCake > 0) _cntCake -= 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
@@ -156,6 +173,7 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.N) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
+                    Control_SE.Get_Instance().Play_SE("UI_Correct");
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                     _cntText.color = Color.yellow;
@@ -166,11 +184,13 @@ public class CountController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.I))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
                     _cntCake += 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
                 if (Input.GetKeyDown(KeyCode.K))
                 {
+                    Control_SE.Get_Instance().Play_SE("UI_Select");
                     if (_cntCake > 0) _cntCake -= 1;
                     _cntText.text = Convert.ToString(_cntCake);
                 }
@@ -180,11 +200,14 @@ public class CountController : MonoBehaviour
                 {
                     if (viewButton < 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
+
                         _cntCake += 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
                     if (viewButton > 0.0f)
                     {
+                        Control_SE.Get_Instance().Play_SE("UI_Select");
                         if (_cntCake > 0) _cntCake -= 1;
                         _cntText.text = Convert.ToString(_cntCake);
                     }
@@ -195,6 +218,7 @@ public class CountController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.M) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
+                    Control_SE.Get_Instance().Play_SE("UI_Correct");
                     _cakeGenerator.SetCntFin(_id, _cntCake);
                     isCountFin = true;//カウント終了
                     _cntText.color = Color.yellow;

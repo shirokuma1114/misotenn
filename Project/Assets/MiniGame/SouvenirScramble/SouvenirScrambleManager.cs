@@ -192,7 +192,10 @@ public class SouvenirScrambleManager : MonoBehaviour
     void ResltState()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start") || Input.GetButtonDown("A"))
+        {
+            Control_SE.Get_Instance().Play_SE("UI_Correct");
             _state = SouvenirScrambleState.END;
+        }
     }
 
     void EndState()

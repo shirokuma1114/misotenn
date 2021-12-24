@@ -6,6 +6,8 @@ public class KomachiInput
 {
     private int _controllerId;
 
+    public int ControllerId => _controllerId;
+
     public KomachiInput(int controllerId)
     {
         _controllerId = controllerId;
@@ -31,4 +33,5 @@ public class KomachiInput
     {
         return Input.GetAxisRaw(axisName + _controllerId);
     }
+
 }

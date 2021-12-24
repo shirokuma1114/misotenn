@@ -79,8 +79,10 @@ public class CakeGenerator : MonoBehaviour
     void Update()
     {
         //スペースキーが押されたら始まる
-        if (!_isStart && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start")) && !_standby.gameObject.activeSelf)
+        if (!_isStart && (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start")) && !_standby.gameObject.activeSelf)
         {
+            Control_SE.Get_Instance().Play_SE("Whistle");
+
             _isStart = true;
             _missionObj.SetActive(false);
             _gameUiObj.SetActive(true);
@@ -134,7 +136,7 @@ public class CakeGenerator : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("A") || Input.GetButtonDown("Start"))
             {
-                Control_SE.Get_Instance().Play_SE("UI_Select");
+                Control_SE.Get_Instance().Play_SE("UI_Correct");
                 _miniGameCorrection.EndMiniGame();
             }
         }

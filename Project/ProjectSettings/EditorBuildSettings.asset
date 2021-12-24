@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: "Assets/MiniGame/SampleGame/Scene/\u9023\u6253\u3067GO\uFF01.unity"
     guid: c8336c7812fc61140bae37b7d6c664a6
   - enabled: 1
+    path: "Assets/Zaitsu/MiniGame/\u30B0\u30E9\u30B0\u30E9\u5E8A.unity"
+    guid: ff4fa7b703f90ea4b8d9253df885b6ad
+  - enabled: 1
     path: "Assets/Scenes/\u30AE\u30EA\u30AE\u30EA\u30AB\u30FC\u30C9\u30B9\u30E9\u30A4\u30C9\uFF01.unity"
     guid: f5c08526ef8860d4f891a5bddf40f768
   - enabled: 1
