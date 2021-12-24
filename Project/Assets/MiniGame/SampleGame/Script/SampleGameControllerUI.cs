@@ -25,9 +25,10 @@ public class SampleGameControllerUI : MonoBehaviour
         _rotateCounter.text = count.ToString();
     }
 
-    public void SetRendaKeyEnable(bool enable)
+    public void SetRendaKeyEnable(bool enable,KeyCode keyCode)
     {
         _rendaKey.enabled = enable;
+        _rendaKey.text = _rendaKey.text + keyCode.ToString().Replace("Alpha","");
     }
 
     //================

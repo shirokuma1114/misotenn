@@ -8,8 +8,8 @@ public class EnemyBrain : Brain
     //プレイヤー共通
     [SerializeField] private TurnController _turnController;
     [SerializeField] private CardManager _cardMgr;
-    [SerializeField] private Color _myColor;
-    [SerializeField] private int _myId;//正解のカード画像
+    public Color _myColor;
+    public int _myId;//正解のカード画像
     private int _nowCursol;
     private int _nowStep;
     private int[] _turnCard = new int[3];//めくったカード
@@ -39,6 +39,7 @@ public class EnemyBrain : Brain
             _incorrectMemory[i] = -1;
             lookMemory[i] = -1;
         }
+        
     }
 
     void Update()
