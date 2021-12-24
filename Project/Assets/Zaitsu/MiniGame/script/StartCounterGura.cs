@@ -16,11 +16,13 @@ public class StartCounterGura : MonoBehaviour
     {
         CountFlg = false;
         _num = GetComponent<Text>();
-
+    }
+    
+    public void PlayCount()
+    {
         StartCoroutine(NumCount(Destroy));
     }
     
-
     public IEnumerator NumCount(UnityEngine.Events.UnityAction callback)
     {
         yield return new WaitForSeconds(1f);

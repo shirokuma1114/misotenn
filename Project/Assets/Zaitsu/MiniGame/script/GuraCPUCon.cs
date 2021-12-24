@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class GuraCPUCon : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> _cake;
-    [SerializeField]
-    private CharaManager _chara;
-    [SerializeField]
-    private float speed = 3f;
+    public MiniGameCharacter _character;
+
+    public List<GameObject> _cake = new List<GameObject>();
+    public CharaManager _chara;
+    private float speed = 1f;
     
     private Vector3 latestPos;  //‘O‰ñ‚ÌPosition
     private bool colFlag;  //‘O‰ñ‚ÌPosition
@@ -54,7 +53,7 @@ public class GuraCPUCon : MonoBehaviour
         if (transform.position.y <= -20)
         {
             _chara.AddCake(gameObject);
-            Destroy(gameObject);
+            this.enabled = false;
         }
     }
 
@@ -62,6 +61,7 @@ public class GuraCPUCon : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Control_SE.Get_Instance().Play_SE("Hit");
             colFlag = true;
             particle.SetActive(true);
             StartCoroutine(CollisionOut());
