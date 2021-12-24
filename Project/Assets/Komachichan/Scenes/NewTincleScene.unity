@@ -1073,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.size
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[9].Name
@@ -1084,6 +1084,10 @@ PrefabInstance:
       value: Stop
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[11].Name
+      value: MiniGameRandom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[9].Audio
       value: 
       objectReference: {fileID: 8300000, guid: 82677bf3b3d50a24c8f57d862544cffd, type: 3}
@@ -1091,6 +1095,10 @@ PrefabInstance:
       propertyPath: Sound_Contents.Array.data[10].Audio
       value: 
       objectReference: {fileID: 8300000, guid: b4700011a60a11341b4daa15fd1fcb4f, type: 3}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[11].Audio
+      value: 
+      objectReference: {fileID: 8300000, guid: 4adbe06c702e1c74ea4eee049b8222ca, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
 --- !u!114 &446226947 stripped
@@ -1920,6 +1928,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Amplitude: 0.005
   Second: 0.58
+--- !u!1 &964478159 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 899737564502893083, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
+  m_PrefabInstance: {fileID: 110896312}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &964478164
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 964478159}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc57fd4972fe79b419ffca08725bfc56, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &974197065
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2914,7 +2946,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4445721741829635615, guid: 5cf11ed16c9876b4abe94c17d7d0a484, type: 3}
   m_PrefabInstance: {fileID: 110896312}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 964478159}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0d7dd1dcaad67c6499677905f6b935ec, type: 3}
@@ -3920,6 +3952,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2651294866884596784, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 59f4a3b7e3242bd4397fa25b1d95bcea, type: 3}
+    - target: {fileID: 2651294867371865575, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 59f4a3b7e3242bd4397fa25b1d95bcea, type: 3}
     - target: {fileID: 2651294867390195688, guid: 06cfcaed37a016844a54433e2f743fe0, type: 3}
       propertyPath: m_Name
       value: CasinoUI
