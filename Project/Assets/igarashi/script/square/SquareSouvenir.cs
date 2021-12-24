@@ -220,6 +220,11 @@ public class SquareSouvenir : SquareBase
         // ç›å…Ç™Ç»Ç¢
         if (_nowStock <= 0) return base.GetScore(character, characterType);
 
+        // Ç†Ç∆àÍå¬Ç≈ëµÇ§
+        if(character.Souvenirs.Where(x => x.Type == _type).Count() == 0
+            && character.GetSouvenirTypeNum() == FindObjectOfType<MyGameManager>().GetNeedSouvenirType() - 1) return (int)SquareScore.DONT_HAVE_SOUVENIR_TO_WIN + base.GetScore(character, characterType);
+
+
         // éùÇ¡ÇƒÇ¢Ç»Ç¢Ç®ìyéYÇ™îÑÇ¡ÇƒÇ¢ÇÈ
         if (character.Souvenirs.Where(x => x.Type == _type).Count() == 0)return (int)SquareScore.DONT_HAVE_SOUVENIR + base.GetScore(character, characterType);
 
