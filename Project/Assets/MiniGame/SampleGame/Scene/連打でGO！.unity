@@ -144,7 +144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8758928555756254361, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 8758928555756254361, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1066,7 +1066,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5754340407403619873, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619873, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1125,6 +1125,14 @@ PrefabInstance:
       value: "\u30D5\u30EC\u30B8\u30A8"
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _debugCharactors.Array.data[2]._name
+      value: "\u30A2\u30C3\u30D7\u30EB\u30D1\u30A4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+      propertyPath: _debugCharactors.Array.data[3]._name
+      value: "\u30B7\u30E7\u30FC\u30C8\u30B1\u30FC\u30AD"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _debugCharactors.Array.data[0]._inputID
       value: 0
       objectReference: {fileID: 0}
@@ -1142,15 +1150,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _debugCharactors.Array.data[1]._automatic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _debugCharactors.Array.data[2]._automatic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
       propertyPath: _debugCharactors.Array.data[3]._automatic
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
@@ -2599,7 +2607,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 825d3d81359e0e24eab3393f3295e693, type: 3}
     - target: {fileID: 1545682018326589330, guid: aadffe4f59ac3ae4bae5b6fc19f8c91a, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 1545682018326589330, guid: aadffe4f59ac3ae4bae5b6fc19f8c91a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3480,6 +3488,7 @@ MonoBehaviour:
   - {fileID: 2005765548}
   - {fileID: 1215995571}
   - {fileID: 2119353428}
+  _rendaKeys: 31000000340000003700000030000000
 --- !u!4 &1957176711
 Transform:
   m_ObjectHideFlags: 0
@@ -3844,7 +3853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1517031430546272579, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 1517031430546272579, guid: f6b9e531405bd3c4f9824cdebc874702, type: 3}
       propertyPath: m_AnchorMax.x
@@ -4159,7 +4168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerUI: {fileID: 500353898}
-  _rendaKey: 52
   _cakeName: "\u30A2\u30C3\u30D7\u30EB\u30D1\u30A4"
   _rendaEffectPrefab: {fileID: 8493154521479085526, guid: 9efe6d7be7ea7944baf7882a4d98cb29, type: 3}
 --- !u!23 &571516505409203947
@@ -11522,7 +11530,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerUI: {fileID: 1169386186}
-  _rendaKey: 48
   _cakeName: "\u30B6\u30C3\u30CF\u30C8\u30EB\u30C6"
   _rendaEffectPrefab: {fileID: 8493154521479085526, guid: 9efe6d7be7ea7944baf7882a4d98cb29, type: 3}
 --- !u!4 &5153923861523185808
@@ -11972,7 +11979,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerUI: {fileID: 967029646}
-  _rendaKey: 55
   _cakeName: "\u30B7\u30E7\u30FC\u30C8\u30B1\u30FC\u30AD"
   _rendaEffectPrefab: {fileID: 8493154521479085526, guid: 9efe6d7be7ea7944baf7882a4d98cb29, type: 3}
 --- !u!33 &5823016372936107070
@@ -12384,7 +12390,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerUI: {fileID: 1808727995}
-  _rendaKey: 49
   _cakeName: "\u30D5\u30EC\u30B8\u30A8"
   _rendaEffectPrefab: {fileID: 8493154521479085526, guid: 9efe6d7be7ea7944baf7882a4d98cb29, type: 3}
 --- !u!23 &6675064635768369422
