@@ -14490,6 +14490,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StandbyCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 12b42724c48bb3e47a2f146735c5fab3, type: 3}
     - target: {fileID: 8758928556228037892, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u30FB\u6570\u5B57\u3092\u5909\u3048\u308B\n\t:W,S\u30AD\u30FC\n\t:\u5DE6\u30B9\u30C6\u30A3\u30C3\u30AF\n\u30FB\u6C7A\u5B9A\n\t:Enter\u30AD\u30FC\n\t:A\u30DC\u30BF\u30F3"
