@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class ShoutotsuEnshutsu : MonoBehaviour
 {
+	GameObject Test;
+	float Count_ParticleFinish = 0;
+
 	// äOïîÇ≈ì«Ç›çûÇﬁä÷êî--------------------------------------------------------------------------
 	public void Start_ShoutotsuEnshutsu()
 	{
-		Instantiate(Particle);
+		Test = Instantiate(Particle);
+		Count_ParticleFinish = Timer_ParticleFinish;
+
+		Control_SE.Get_Instance().Play_SE("Shoutotsu");
 	}
 	public bool Get_Completed()
 	{
@@ -26,7 +32,9 @@ public class ShoutotsuEnshutsu : MonoBehaviour
 	{
 		ParticleSystem_m = Particle.GetComponent<ParticleSystem>();
 		var main = ParticleSystem_m.main;
-		Timer_ParticleFinish = main.duration + main.startLifetime.constant;
+		Timer_ParticleFinish = 3.00f + 1;// main.duration + main.startLifetime.constant;
+
+		Count_ParticleFinish = Timer_ParticleFinish;
 	}
 
 	// Update
@@ -39,7 +47,11 @@ public class ShoutotsuEnshutsu : MonoBehaviour
 	// Update
 	void FixedUpdate()
 	{
-		Timer_ParticleFinish -= Time.deltaTime;
-		if (Timer_ParticleFinish < 0) Completed_Enshutsu = true;
+		Count_ParticleFinish -= Time.deltaTime;
+		if (Count_ParticleFinish < 0)
+		{
+			Completed_Enshutsu = true;
+			Destroy(Test);
+		}
 	}
 }

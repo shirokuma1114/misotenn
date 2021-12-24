@@ -18,7 +18,9 @@ public class OkozukaiEnshutsu : MonoBehaviour
 
         Completed_Enshutsu = false;
 
-    }
+
+		Control_SE.Get_Instance().Play_SE("Okozukai");
+	}
 	public bool Get_Completed()
 	{
 		return Completed_Enshutsu;
