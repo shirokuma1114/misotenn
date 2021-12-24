@@ -123,6 +123,17 @@ public class SquareMoveForward : SquareBase
             return;
         }
 
+        // 移動先のマスの評価
+        SquareBase square = this;
+        for (int i = 0; i < _moveNum; i++) square = square.OutConnects.Last();
+
+        // スコアが1以上
+        if (square.GetScore(_character, CharacterType.COM1) > 0)
+        {
+            _payUI.AISelectYes();
+            return;
+        }
+
         // 1/2で払わない
         if (Random.Range(0, 1) == 0)
         {
@@ -149,7 +160,7 @@ public class SquareMoveForward : SquareBase
         if (_cost > character.Money) return base.GetScore(character, characterType);
 
         // 移動先のマスの評価
-        SquareBase square = character.CurrentSquare;
+        SquareBase square = this;
         for(int i = 0; i < _moveNum; i++) square = square.OutConnects.Last();
 
         // このマス分のお金を引く

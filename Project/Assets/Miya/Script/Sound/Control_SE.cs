@@ -53,7 +53,7 @@ public class Control_SE : MonoBehaviour
 	}
 
     // Sound
-    private const int SE_MAX_NUM = 256;
+    private const int SE_MAX_NUM = 32;
 	private AudioSource[] _audioSources;
 
 	// List
