@@ -9,7 +9,7 @@ public class SouvenirScrambleControllerBase : MonoBehaviour
     protected MiniGameCharacter _character;
     public MiniGameCharacter Character => _character;
 
-    protected float _moveSpeed = 0.1f;
+    protected float _moveSpeed = 10f;
 
     private Camera _camera;
 
