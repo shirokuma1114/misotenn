@@ -19,7 +19,7 @@ public class SouvenirScrambleControllerAI : SouvenirScrambleControllerBase
             return;
 
         Vector3 moveDir = (_target.TargetPos - transform.position).normalized;
-        _rb.velocity += moveDir.normalized * _moveSpeed * 0.5f;
+        _rb.velocity += moveDir.normalized * _moveSpeed * 0.5f * Time.deltaTime;
     }
 
     private void UpdateTarget()
