@@ -22,6 +22,6 @@ public class SouvenirScrambleController : SouvenirScrambleControllerBase
         if (Input.GetKey(KeyCode.A))
             moveDir.x = -1;
 
-        _rb.velocity += moveDir.normalized * _moveSpeed;
+        _rb.velocity += moveDir.normalized * _moveSpeed * Time.deltaTime;
     }
 }
