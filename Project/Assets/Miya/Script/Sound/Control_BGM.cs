@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Control_BGM : MonoBehaviour
 {
-	// ŠO•”‚©‚çŒÄ‚Ño‚µ
+	// ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½
 	public void FadeOut() { if (FadeState == FADE_STATE.NONE) FadeState = FADE_STATE.OUT; Count_Fade = Second_Fade; }
 	public void FadeIn() { if (FadeState == FADE_STATE.NONE) FadeState = FADE_STATE.IN; }
 	public float Get_FadeSecond() { return Second_Fade; }
@@ -40,7 +40,14 @@ public class Control_BGM : MonoBehaviour
 		// Event
 		Setting_SoundUI.Event_Sound += time =>
 		{
-			Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_BGM;
+			//Debug.Log("AudioSource : " + Sound);
+
+			if (this) Sound = this.GetComponent<AudioSource>();
+			if (this) Sound.volume = Initial_SoundVolume * Setting_SoundUI.Magnification_BGM;
+
+			// Debug
+			//Debug.Log("Initial : " + Initial_SoundVolume);
+			//Debug.Log("Magnification : " + Setting_SoundUI.Magnification_BGM);
 		};
 
 
@@ -79,7 +86,7 @@ public class Control_BGM : MonoBehaviour
 			case FADE_STATE.OUT:
 				Count_Fade -= Time.deltaTime; if (Count_Fade < 0) Count_Fade = 0;
 				sound_base = Initial_SoundVolume * Setting_SoundUI.Magnification_BGM;
-				Sound.volume = sound_base * (Count_Fade / Second_Fade);// 1¨0
+				Sound.volume = sound_base * (Count_Fade / Second_Fade);// 1ï¿½ï¿½0
 
 				if (Count_Fade <= 0)
 				{
