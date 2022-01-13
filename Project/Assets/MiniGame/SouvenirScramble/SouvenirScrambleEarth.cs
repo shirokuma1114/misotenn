@@ -15,6 +15,6 @@ public class SouvenirScrambleEarth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.RotateAround(transform.position,new Vector3(-1, 0, 0), _rotateSpeed);
+        transform.RotateAround(transform.position,new Vector3(-1, 0, 0), _rotateSpeed * Time.deltaTime);
     }
 }
