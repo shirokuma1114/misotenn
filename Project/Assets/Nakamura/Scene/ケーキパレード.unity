@@ -1286,7 +1286,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: dd29a49de55730d4c843c8d56caac6b3, type: 3}
     m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
@@ -14402,6 +14402,14 @@ PrefabInstance:
       propertyPath: m_Text
       value: "\u30B1\u30FC\u30AD\u30D1\u30EC\u30FC\u30C9"
       objectReference: {fileID: 0}
+    - target: {fileID: 8758928554440675044, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: dd29a49de55730d4c843c8d56caac6b3, type: 3}
+    - target: {fileID: 8758928555644101308, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: dd29a49de55730d4c843c8d56caac6b3, type: 3}
     - target: {fileID: 8758928555756254361, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -14502,6 +14510,10 @@ PrefabInstance:
       propertyPath: m_Text
       value: "\u30FB\u6570\u5B57\u3092\u5909\u3048\u308B\n\t:W,S\u30AD\u30FC\n\t:\u5DE6\u30B9\u30C6\u30A3\u30C3\u30AF\n\u30FB\u6C7A\u5B9A\n\t:Enter\u30AD\u30FC\n\t:A\u30DC\u30BF\u30F3"
       objectReference: {fileID: 0}
+    - target: {fileID: 8758928556228037892, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: dd29a49de55730d4c843c8d56caac6b3, type: 3}
     - target: {fileID: 8758928556228037892, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 35
