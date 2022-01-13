@@ -9,12 +9,12 @@ public class Control_SE : MonoBehaviour
 	static public Control_SE Get_Instance() { return Myself; }
 
 
-	// ŠO•”‚©‚ç“Ç‚İ‚ŞŠÖ”
+	// ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ŞŠÖï¿½
 	public AudioSource Play_SE(string _name)
 	{
         AudioSource source = null;
 
-        //‹ó‚¢‚Ä‚éAudioSource‚ğ’T‚·
+        //ï¿½ó‚¢‚Ä‚ï¿½AudioSourceï¿½ï¿½Tï¿½ï¿½
         bool seNumOverflow = true;
         for (int i = 0; i < SE_MAX_NUM;i++)
         {
@@ -27,7 +27,7 @@ public class Control_SE : MonoBehaviour
         }
         if (seNumOverflow)
         {
-            Debug.Log("AudioSource‘«‚è‚È‚­‚ÄSE‚È‚Á‚Ä‚È‚¢‚©‚çSE_MAX_NUM‘‚â‚µ‚Ä");
+            Debug.Log("AudioSourceï¿½ï¿½ï¿½ï¿½È‚ï¿½ï¿½ï¿½SEï¿½È‚ï¿½ï¿½Ä‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½SE_MAX_NUMï¿½ï¿½ï¿½â‚µï¿½ï¿½");
             return null;
         }
 
@@ -43,7 +43,7 @@ public class Control_SE : MonoBehaviour
         // Event
         Setting_SoundUI.Event_Sound += time =>
         {
-            source.volume = content.Volume * Setting_SoundUI.Magnification_SE;
+            //source.volume = content.Volume * Setting_SoundUI.Magnification_SE;
         };
 
         //_audioSources.Add(source);
@@ -84,6 +84,6 @@ public class Control_SE : MonoBehaviour
     private void OnEnable()
     {
         Myself = this;
-        Debug.Log("Sound_SEØ‚è‘Ö‚¦");
+        //Debug.Log("Sound_SEï¿½Ø‚ï¿½Ö‚ï¿½");
     }
 }

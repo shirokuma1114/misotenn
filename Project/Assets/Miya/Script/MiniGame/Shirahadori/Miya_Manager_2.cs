@@ -32,7 +32,7 @@ public class Miya_Manager_2 : MonoBehaviour
 
 	// Variable
 	float	Counter_Wait_Start		= 0;
-	float	Conter_Wait_NextPlayer	= 0;
+	//float	Conter_Wait_NextPlayer	= 0;
 
 	int		CurrentPlayerNumber = 1;
 	bool	Player_Finished		= false;
@@ -78,12 +78,12 @@ public class Miya_Manager_2 : MonoBehaviour
 		// Template
 		_miniGameConnection = MiniGameConnection.Instance;
 		int i = 0; foreach (var c in _miniGameConnection.Characters) { _miniGameControllers[i].Init(c, this); i++; }
-		//_tenukiText.text = "‘SW’†”’‰Hæ‚èI\nEnter‚ÅƒvƒŒƒC";
+		//_tenukiText.text = "ï¿½Sï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½I\nEnterï¿½Åƒvï¿½ï¿½ï¿½C";
 
 
 		// Variable
 		Counter_Wait_Start = 0;
-		Conter_Wait_NextPlayer = 0;
+		//Conter_Wait_NextPlayer = 0;
 
 		CurrentPlayerNumber = 1;
 		Player_Finished = false;
@@ -99,7 +99,7 @@ public class Miya_Manager_2 : MonoBehaviour
 
 		// Play
 		Second_FallingStandby	= Random.Range(Range_Second_FallingStandby.x, Range_Second_FallingStandby.y);
-		Tolerance = 0.13f; // —v’²®
+		Tolerance = 0.13f; // ï¿½vï¿½ï¿½ï¿½ï¿½
 	}
 
 
@@ -121,7 +121,7 @@ public class Miya_Manager_2 : MonoBehaviour
 		//if (Input.GetKeyDown(KeyCode.Return))
 		{
 			_state = Miya_State_2.WAIT;
-			//_tenukiText.text = "‘SW’†”’‰Hæ‚èI";
+			//_tenukiText.text = "ï¿½Sï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½Hï¿½ï¿½ï¿½I";
 			// Display
 			Card.gameObject.SetActive(true);
 		}
@@ -132,7 +132,7 @@ public class Miya_Manager_2 : MonoBehaviour
 		Counter_Wait_Start += Time.deltaTime;
 		if (Counter_Wait_Start > Second_Wait_Start)
 		{
-			// ã‚É“Š‚°ã‚°
+			// ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½ã‚°
 			Sequence_First = DOTween.Sequence();
 			Sequence_First.Append(Rect_Card.DORotate(new Vector3(0, 88, 0), 1));
 			Sequence_First.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1)
@@ -175,7 +175,7 @@ public class Miya_Manager_2 : MonoBehaviour
 		if ( FinishGame )
 		{
 			_state = Miya_State_2.RESULT;
-			//_tenukiText.text = "ƒŠƒUƒ‹ƒg\nEnter‚ÅƒQ[ƒ€ƒV[ƒ“‚Ö–ß‚é";
+			//_tenukiText.text = "ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½g\nEnterï¿½ÅƒQï¿½[ï¿½ï¿½ï¿½Vï¿½[ï¿½ï¿½ï¿½Ö–ß‚ï¿½";
 		}
 	}
 	// OnComplete
@@ -201,14 +201,14 @@ public class Miya_Manager_2 : MonoBehaviour
 	{
 		if (CurrentPlayerNumber != 4)
 		{
-			// ‰ŠúˆÊ’u
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u
 			Sequence_Initialize = DOTween.Sequence();
 			Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, -100, 0), 1));
 			Sequence_Initialize.Join(Rect_Hand_L.DOLocalMove(new Vector3(-200, 0, 0), 1));
 			Sequence_Initialize.Join(Rect_Hand_R.DOLocalMove(new Vector3( 200, 0, 0), 1));
 			Sequence_Initialize.Join(Rect_Button.DORotate(new Vector3(0, 0, 0), 1));
 			Sequence_Initialize.Join(Rect_Button.DOScaleY(1, 1));
-			// ã‚É“Š‚°ã‚°
+			// ï¿½ï¿½É“ï¿½ï¿½ï¿½ï¿½ã‚°
 			Sequence_Initialize.Append(Rect_Card.DORotate(new Vector3(0, 88, 0), 1));
 			Sequence_Initialize.Append(Rect_Card.DOLocalMove(new Vector3(0, Falling_Position_Start, 0), 1)
 				.OnComplete(Completed));
@@ -264,7 +264,7 @@ public class Miya_Manager_2 : MonoBehaviour
 	}
 
 
-	//‡ˆÊ•t‚¯
+	//ï¿½ï¿½ï¿½Ê•tï¿½ï¿½
 	private Dictionary<MiniGameCharacter, int> Ranking()
 	{
 		Dictionary<MiniGameCharacter, int> dispCharacters = new Dictionary<MiniGameCharacter, int>();
