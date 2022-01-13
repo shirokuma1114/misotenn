@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Setting_SoundUI : WindowBase
 {
-	// ŠO•”‚©‚çŒÄ‚Ño‚·ŠÖ”
+	// ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚Ñoï¿½ï¿½ï¿½Öï¿½
 	public override void SetEnable(bool enable)
 	{
 		Window.SetActive(true);
@@ -22,7 +22,7 @@ public class Setting_SoundUI : WindowBase
     static public float Magnification_BGM = 0.5f;
 	static public float Magnification_SE  = 0.5f;
 
-	// QÆ
+	// ï¿½Qï¿½ï¿½
 	public GameObject Window;
 	public Image	Background_Select;
 	public Slider	Slider_BGM;
@@ -129,7 +129,7 @@ public class Setting_SoundUI : WindowBase
                     switch (Select)
                     {
                         case (int)SELECT.BGM:
-                            Slider_BGM.value -= GridValue;
+                            Slider_BGM.value -= 1.0f / 60 / 5;
                             if (Slider_BGM.value < 0) Slider_BGM.value = 0;
                             Magnification_BGM = Slider_BGM.value;
                             SE_Test.volume = Magnification_SE;
@@ -138,7 +138,7 @@ public class Setting_SoundUI : WindowBase
                             break;
 
                         case (int)SELECT.SE:
-                            Slider_SE.value -= GridValue;
+                            Slider_SE.value -= 1.0f / 60 / 5;
                             if (Slider_SE.value < 0) Slider_SE.value = 0;
                             Magnification_SE = Slider_SE.value;
                             //Control_SE.Get_Instance().Play_SE("UI_Select");
@@ -161,7 +161,7 @@ public class Setting_SoundUI : WindowBase
                     switch (Select)
                     {
                         case (int)SELECT.BGM:
-                            Slider_BGM.value += GridValue;
+                            Slider_BGM.value += 1.0f / 60 / 5;
                             if (Slider_BGM.value > 1) Slider_BGM.value = 1;
                             Magnification_BGM = Slider_BGM.value;
                             SE_Test.volume = Magnification_SE;
@@ -171,7 +171,7 @@ public class Setting_SoundUI : WindowBase
                             break;
 
                         case (int)SELECT.SE:
-                            Slider_SE.value += GridValue;
+                            Slider_SE.value += 1.0f / 60 / 5;
                             if (Slider_SE.value > 1) Slider_SE.value = 1;
                             Magnification_SE = Slider_SE.value;
                             //Control_SE.Get_Instance().Play_SE("UI_Select");
