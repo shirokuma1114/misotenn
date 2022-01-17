@@ -790,6 +790,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3160613731872857724, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: _relativePath
+      value: "MiniGameMove/Tutorial_\u304A\u571F\u7523\u4E89\u596A\u6226.mp4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097134654900625652, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: relativePath
+      value: "MiniGameMove/Tutorial_\u304A\u571F\u7523\u4E89\u596A\u6226.mp4"
+      objectReference: {fileID: 0}
     - target: {fileID: 8758928554440675044, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u304A\u571F\u7523\u4E89\u596A\u6226"
@@ -887,9 +895,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_Url
+      value: https://drive.google.com/uc?id=1D1ki6A4UVSsBbkZVyhDD1rGIaT-lHv6q
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_VideoClip
       value: 
       objectReference: {fileID: 32900000, guid: 152404e10a8c5ff4faa8da4a66e7eba7, type: 3}
+    - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_DataSource
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8758928556228037892, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u30FB\u79FB\u52D5\n\t:\u5DE6\u30B9\u30C6\u30A3\u30C3\u30AF"

@@ -6038,6 +6038,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3160613731872857724, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: _relativePath
+      value: "MiniGameMove/Tutorial_\u30B0\u30E9\u30B0\u30E9\u5E8A.mp4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097134654900625652, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: relativePath
+      value: "MiniGameMove/Tutorial_\u30B0\u30E9\u30B0\u30E9\u5E8A.mp4"
+      objectReference: {fileID: 0}
     - target: {fileID: 8758928554440675044, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u30B0\u30E9\u30B0\u30E9\u5E8A"
@@ -6139,9 +6147,17 @@ PrefabInstance:
       value: StandbyCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_Url
+      value: https://drive.google.com/uc?id=1Mgv5hM_Iw3KsmRTg-2o8aM7u855y0XbV
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_VideoClip
       value: 
       objectReference: {fileID: 32900000, guid: 1f62e1969fbc9464d96b4aa4035a32ec, type: 3}
+    - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_DataSource
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8758928556228037892, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u30FBWASD : \u30B1\u30FC\u30AD\u3092\u79FB\u52D5\n\u30FB\u30B9\u30C6\u30FC\u30B8\u304B\u3089\u843D\u3061\u308B\u306A\uFF01"

@@ -55,14 +55,17 @@ public class MoveCard : MonoBehaviour
         _finAnimSequence = DOTween.Sequence();
 
         _finAnimSequence.Append(rt.DOMove(new Vector3(Screen.width / 2, Screen.height / 2, 0), 1.0f));
-        _finAnimSequence.Append(rt.DORotate(new Vector3(0, 0, -360 * 2), 2.0f, RotateMode.WorldAxisAdd));
+
+        var fly = rt.DORotate(new Vector3(0, 0, -360 * 2), 2.0f, RotateMode.WorldAxisAdd);
+        fly.OnStart(() => { Control_SE.Get_Instance().Play_SE("CardFly"); });
+        _finAnimSequence.Append(fly);
         _finAnimSequence.Join(rt.DOScale(new Vector3(0, 0, 0), 2.0f));
 
         _finAnimSequence.Play();
 
         _finAnimSequence.OnComplete(
             () => { _manager.FinAnimEnd(); }
-            );
+            );        
     }
 
     //================================================
