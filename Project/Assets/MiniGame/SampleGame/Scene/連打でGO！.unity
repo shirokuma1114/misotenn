@@ -130,6 +130,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3160613731872857724, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: _relativePath
+      value: "MiniGameMove/Tutorial_\u9023\u6253\u3067GO.mp4"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8097134654900625652, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: relativePath
+      value: "MiniGameMove/Tutorial_\u9023\u6253\u3067GO.mp4"
+      objectReference: {fileID: 0}
     - target: {fileID: 8758928554440675044, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u9023\u6253\u3067GO\n"
@@ -223,6 +231,10 @@ PrefabInstance:
       value: StandbyCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_Url
+      value: https://drive.google.com/uc?id=1ZDE50C8zU8oAv1KbLaHxU1sjwrNGJSD0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Looping
       value: 1
       objectReference: {fileID: 0}
@@ -230,6 +242,10 @@ PrefabInstance:
       propertyPath: m_VideoClip
       value: 
       objectReference: {fileID: 32900000, guid: ea4035a84a695984486c9e5460ca1104, type: 3}
+    - target: {fileID: 8758928555980202141, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
+      propertyPath: m_DataSource
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8758928556228037892, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
       propertyPath: m_Text
       value: "\u30FB\u529B\u3092\u6E9C\u3081\u308B\n\t:A\u30DC\u30BF\u30F3\u9023\u6253\n\t:\u540D\u524D\u306E\u3068\u3053\u308D\u306B\u8868\u793A\u3055\u308C\u305F\u6570\u5B57\u30AD\u30FC\u9023\u6253"
@@ -258,7 +274,8 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -91
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8097134654900625652, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 00ad5b351ef686b42a3492b1a69698e1, type: 3}
 --- !u!4 &305406564 stripped
 Transform:
