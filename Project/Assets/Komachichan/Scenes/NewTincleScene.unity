@@ -1684,7 +1684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 0
-  _startStock: 3
+  _startStock: 1
 --- !u!1001 &686954162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2219,7 +2219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 4
-  _startStock: 3
+  _startStock: 2
 --- !u!1 &906176756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6111592403822388391, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 1
-  _startStock: 3
+  _startStock: 1
 --- !u!1 &910710178 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2432769630315534826, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2534,7 +2534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 3
-  _startStock: 3
+  _startStock: 2
 --- !u!1 &1063325853 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6506001878473741211, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2682,7 +2682,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 5
-  _startStock: 3
+  _startStock: 4
 --- !u!1 &1124543666 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 293562350001510022, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
@@ -8083,11 +8083,11 @@ PrefabInstance:
       objectReference: {fileID: 492139932}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 19
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
-      value: 19
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _selectWindow
