@@ -25,14 +25,14 @@ public class PlayerBrain : Brain
         {
             _correctMemory[i] = -1;
         }
-        ////仮に自分からとしておく
-        //StartTurn();
     }
    
     void Update()
     {
         if (isControl)
         {
+            Debug.Log("isControll = " + isControl);
+
             //操作ができる
             if (Input.GetKeyDown(KeyCode.A))
             {
@@ -75,7 +75,7 @@ public class PlayerBrain : Brain
                         _cardMgr.SetCardCantTurn(_correctMemory);//カード裏返せなくする
                         _turnController.TurnChange();
 
-                        Debug.Log("勝った敵脳内");
+                        Debug.Log("プレイヤー勝った");
                         return;
                     }
                     else
@@ -84,7 +84,7 @@ public class PlayerBrain : Brain
                         _nowCursol = (_nowStep - 1) * 4;
                         _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 
-                        DOVirtual.DelayedCall(0.5f, () => isControl = true);
+                        isControl = true;
                     }
                 }
                 else

@@ -158,14 +158,14 @@ public class TurnController : MonoBehaviour
         }
         if(_isSkip)
         {
-            Debug.Log("スキップ" + gameOrder[_nowTurnOrder]);
+           // Debug.Log("スキップ" + gameOrder[_nowTurnOrder]);
             if (_nowTurnOrder < 3) _nowTurnOrder += 1;
             else _nowTurnOrder = 0;
             TurnChange();//再帰...
             return;
         }
 
-        Debug.Log(gameOrder[_nowTurnOrder] + "のターン");
+        //Debug.Log(gameOrder[_nowTurnOrder] + "のターン");
 
         switch (gameOrder[_nowTurnOrder])
         {
@@ -224,7 +224,7 @@ public class TurnController : MonoBehaviour
     }
     
     //ルーレット用アニメーション関数
-    private int[] turnRoulette(int[] _order)
+    private void turnRoulette(int[] _order)
     {
         int ran = Random.Range(0, 4);
 
@@ -233,7 +233,5 @@ public class TurnController : MonoBehaviour
             if(ran + i > 3) _order[i] = (ran + i) - 4;
             else _order[i] = ran + i;
         }
-
-        return _order;
     }
 }

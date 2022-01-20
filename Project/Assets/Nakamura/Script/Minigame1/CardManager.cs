@@ -136,7 +136,6 @@ public class CardManager : MonoBehaviour
                 if ((GetCard(num).id) == _enemyBrains[i].GetId())
                 {
                     _enemyBrains[i].lookMemory[_nowStep - 1] = num;
-                    Debug.Log(_enemyBrains[i].GetId() + "番が" + _nowStep +"ターン目の" + (GetCard(num).id) + "のカードをおぼえました");
                 }
             }
             
@@ -149,6 +148,7 @@ public class CardManager : MonoBehaviour
     {
         Control_SE.Get_Instance().Play_SE("Card");
         var _cards = GetCards();
+
         for (int i = 0; i < _cards.Length; i++)
         {
             for (int j = 0; j < _cardsNum.Length; j++)
