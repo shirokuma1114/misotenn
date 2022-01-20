@@ -33,8 +33,8 @@ public class SquareGoal : SquareBase
     public override string GetSquareInfo(CharacterBase character)
     {
         _squareInfo =
-            "ƒS[ƒ‹ƒ}ƒX\n" +
-            "Ÿ‚à‚ç‚¦‚é‚¨‹àF" + ComputeGetMoney(character.LapCount + 1).ToString() + "‰~";
+            "ï¿½Sï¿½[ï¿½ï¿½ï¿½}ï¿½X\n" +
+            "ï¿½ï¿½ï¿½ï¿½ï¿½ç‚¦ï¿½é‚¨ï¿½ï¿½ï¿½F" + ComputeGetMoney(character.LapCount + 1).ToString() + "ï¿½~";
 
         return _squareInfo;
     }
@@ -80,7 +80,7 @@ public class SquareGoal : SquareBase
     {
         _statusWindow.SetEnable(true);
 
-        // ü‰ñ”’Ç‰Á
+        // ï¿½ï¿½ï¿½ñ”’Ç‰ï¿½
         _character.LapCount++;
         _statusWindow.SetLapNum(_character.LapCount);
 
@@ -88,7 +88,7 @@ public class SquareGoal : SquareBase
         character.AddMoney(money);
         _statusWindow.SetMoney(_character.Money);
 
-        var message = character.Name + "‚Í" + character.LapCount.ToString() + "ü–Ú\n" + money.ToString() + "‰~‚à‚ç‚Á‚½";
+        var message = character.Name + "ï¿½ï¿½" + character.LapCount.ToString() + "ï¿½ï¿½ï¿½ï¿½\n" + money.ToString() + "ï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
         _messageWindow.SetMessage(message, character);
     }
 
@@ -123,6 +123,6 @@ public class SquareGoal : SquareBase
 
     private int ComputeGetMoney(int lapCount)
     {
-        return _baseMoney + (lapCount - 1) * 15000;
+        return _baseMoney + (lapCount - 1) * 10000;
     }
 }

@@ -912,7 +912,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _rouletteValues: e8030000d0070000b80b0000a00f0000881300007017000010270000
+  _rouletteValues: 00000000d0070000a00f000070170000401f000010270000204e0000
 --- !u!224 &395040592 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1439123331609803499, guid: ab9b005b05776944fbc32435ba33dfbd, type: 3}
@@ -1417,23 +1417,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
       propertyPath: _souvenirs.Array.data[0]._price
-      value: 8000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
       propertyPath: _souvenirs.Array.data[1]._price
-      value: 7000
-      objectReference: {fileID: 0}
-    - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
-      propertyPath: _souvenirs.Array.data[2]._price
       value: 15000
       objectReference: {fileID: 0}
     - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
+      propertyPath: _souvenirs.Array.data[2]._price
+      value: 30000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
       propertyPath: _souvenirs.Array.data[3]._price
-      value: 5000
+      value: 15000
+      objectReference: {fileID: 0}
+    - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
+      propertyPath: _souvenirs.Array.data[4]._price
+      value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
       propertyPath: _souvenirs.Array.data[5]._price
-      value: 6000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 9097744183813453396, guid: abb848f6b1e19814590f123f04123e33, type: 3}
       propertyPath: _souvenirs.Array.data[0]._sprite
@@ -1704,7 +1708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 0
-  _startStock: 3
+  _startStock: 1
 --- !u!1001 &686954162
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1802,7 +1806,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 20000
+  _cost: 10000
   _protectTurn: 3
   _protectEffectPrefab: {fileID: 7935460762043612305, guid: 3fbdf20f3a0065d43bcae2f137bbe397, type: 3}
 --- !u!1 &730564636
@@ -2005,8 +2009,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 10000
-  _moveNum: 1
+  _cost: 3000
+  _moveNum: 3
 --- !u!1001 &843312734
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2239,7 +2243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 4
-  _startStock: 3
+  _startStock: 2
 --- !u!1 &906176756 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6111592403822388391, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2264,7 +2268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 1
-  _startStock: 3
+  _startStock: 1
 --- !u!1 &910710178 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2432769630315534826, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2554,7 +2558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 3
-  _startStock: 3
+  _startStock: 2
 --- !u!1 &1063325853 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6506001878473741211, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -2573,7 +2577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 10000
+  _cost: 5000
   _warpHolePrefab: {fileID: 92367833789280284, guid: 13ef361d71bbc304ab04e2f51651e6bb, type: 3}
 --- !u!1001 &1083615775
 PrefabInstance:
@@ -2702,7 +2706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
   _type: 5
-  _startStock: 3
+  _startStock: 4
 --- !u!1 &1124543666 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 293562350001510022, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
@@ -3362,8 +3366,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 10000
-  _moveNum: 3
+  _cost: 5000
+  _moveNum: 5
 --- !u!114 &1275287146 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1819193854114614342, guid: 2714157b2bb7e584a9d6791a304eeff5, type: 3}
@@ -3404,8 +3408,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 10000
-  _moveNum: 3
+  _cost: 6000
+  _moveNum: 6
 --- !u!1 &1299349374 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4065705651995134352, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -3651,7 +3655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 10000
+  _cost: 5000
   _warpHolePrefab: {fileID: 92367833789280284, guid: 13ef361d71bbc304ab04e2f51651e6bb, type: 3}
 --- !u!1001 &1348719613
 PrefabInstance:
@@ -4524,8 +4528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 20000
-  _moveNum: 4
+  _cost: 3000
+  _moveNum: 3
 --- !u!1 &1619679966 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8384565530517145650, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
@@ -5568,6 +5572,42 @@ PrefabInstance:
       propertyPath: _linePrefab
       value: 
       objectReference: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.size
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[0]
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[1]
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[2]
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[3]
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[4]
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[5]
+      value: 6000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[6]
+      value: 8000
+      objectReference: {fileID: 0}
+    - target: {fileID: 8896845709999305213, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
+      propertyPath: _rouletteValues.Array.data[7]
+      value: 12000
+      objectReference: {fileID: 0}
     - target: {fileID: 9155859006244639368, guid: c9c2989049da8ea4a9bc070bbce82e26, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.904514
@@ -5889,7 +5929,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _rouletteValues: d0070000a00f000070170000401f000010270000204e000030750000
+  _rouletteValues: e8030000d0070000b80b0000401f00002823000010270000
 --- !u!114 &1785705688 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6873976736550423695, guid: b6662320d4cb7a74d9c554b972e6fddd, type: 3}
@@ -6503,7 +6543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _baseCost: 15000
+  _baseCost: 10000
 --- !u!1 &1989632042
 GameObject:
   m_ObjectHideFlags: 0
@@ -6794,8 +6834,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _linePrefab: {fileID: 4240053167703607840, guid: 1067d621ef03a0148837f375320265ad, type: 3}
-  _cost: 10000
-  _moveNum: 2
+  _cost: 3000
+  _moveNum: 3
 --- !u!1001 &2074641299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8051,7 +8091,7 @@ PrefabInstance:
       objectReference: {fileID: 1367598610}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _initMoney
-      value: 3000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _isFixedMode
@@ -8067,7 +8107,7 @@ PrefabInstance:
       objectReference: {fileID: 492139932}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMaxValue
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _cardMinValue
@@ -8103,7 +8143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _needSouvenirType
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5998749721470583819, guid: 9cb3d98ceee36e84d83c6c30e140e48e, type: 3}
       propertyPath: _startOrderWindow
