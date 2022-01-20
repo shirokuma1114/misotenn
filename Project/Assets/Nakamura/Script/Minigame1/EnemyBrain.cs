@@ -109,7 +109,8 @@ public class EnemyBrain : Brain
                         _turnController.TurnChange();
 
                         Debug.Log(_miniGameChara.Name + "Ÿ‚Á‚½");
-                        return;
+
+                        //return;
                     }
                     else
                     {
@@ -301,7 +302,7 @@ public class EnemyBrain : Brain
                     _turnController.TurnChange();
 
                     Debug.Log(_miniGameChara.Name + "Ÿ‚Á‚½");
-                    return;
+                    //return;
                 }
                 else
                 {
