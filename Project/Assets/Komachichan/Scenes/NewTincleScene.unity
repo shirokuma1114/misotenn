@@ -1289,7 +1289,7 @@ PrefabInstance:
       objectReference: {fileID: 12800000, guid: dd29a49de55730d4c843c8d56caac6b3, type: 3}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.size
-      value: 16
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[9].Name
@@ -1328,6 +1328,14 @@ PrefabInstance:
       value: Omiyage_Shu
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[16].Name
+      value: CardFly
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[17].Name
+      value: Money
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[9].Audio
       value: 
       objectReference: {fileID: 8300000, guid: 82677bf3b3d50a24c8f57d862544cffd, type: 3}
@@ -1356,6 +1364,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 6180136f41dcaab41abcd297da818d88, type: 3}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[16].Audio
+      value: 
+      objectReference: {fileID: 8300000, guid: 3cc0d39f42dd05941b4d5c4394d9b4af, type: 3}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[17].Audio
+      value: 
+      objectReference: {fileID: 8300000, guid: 15f56e24e40d0344aa692b3034658574, type: 3}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[12].Volume
       value: 0.4
       objectReference: {fileID: 0}
@@ -1369,6 +1385,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
       propertyPath: Sound_Contents.Array.data[15].Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[16].Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5878872102670196773, guid: a5e9d647f1b75c9428a0855ef377a73c, type: 3}
+      propertyPath: Sound_Contents.Array.data[17].Volume
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

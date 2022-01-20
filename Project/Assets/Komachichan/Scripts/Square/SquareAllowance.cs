@@ -83,6 +83,7 @@ public class SquareAllowance : SquareBase
                 int effectLevel = selectedItemIndex * 10 / _rouletteValues.Count; //演出のレベル計算　10はレベルの最大
 
                 _effect.Start_OkozukaiEnshutsu(effectLevel);
+                Control_SE.Get_Instance().Play_SE("Money");
             }
         }
 
