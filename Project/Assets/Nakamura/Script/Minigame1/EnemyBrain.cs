@@ -39,12 +39,13 @@ public class EnemyBrain : Brain
             _incorrectMemory[i] = -1;
             lookMemory[i] = -1;
         }
-        
     }
 
     void Update()
     {
-        if (isControl)
+        if (_miniGameChara == null) return;
+
+        if (isControl && _miniGameChara.IsAutomatic == false)
         {
             //‘€ì‚ª‚Å‚«‚é
             if (_miniGameChara.Input == null) return;
@@ -107,7 +108,7 @@ public class EnemyBrain : Brain
                         _cardMgr.SetCardCantTurn(_correctMemory);//ƒJ[ƒh— •Ô‚¹‚È‚­‚·‚é
                         _turnController.TurnChange();
 
-                        Debug.Log("Ÿ‚Á‚½“G”]“à");
+                        Debug.Log(_miniGameChara.Name + "Ÿ‚Á‚½");
                         return;
                     }
                     else
@@ -299,7 +300,7 @@ public class EnemyBrain : Brain
                     _cardMgr.SetCardCantTurn(_correctMemory);//ƒJ[ƒh— •Ô‚¹‚È‚­‚·‚é
                     _turnController.TurnChange();
 
-                    Debug.Log("Ÿ‚Á‚½“G”]“à");
+                    Debug.Log(_miniGameChara.Name + "Ÿ‚Á‚½");
                     return;
                 }
                 else
@@ -308,11 +309,19 @@ public class EnemyBrain : Brain
                     _nowCursol = (_nowStep - 1) * 4;
                     _cardMgr.SetCursolCurd(_nowCursol, _myColor);
 
-                    DOVirtual.DelayedCall(0.5f, () =>
+                    if (_miniGameChara.IsAutomatic == false)
                     {
                         isControl = true;
                         TurnCard();
-                    });
+                    }
+                    else
+                    {
+                        DOVirtual.DelayedCall(0.5f, () =>
+                        {
+                            isControl = true;
+                            TurnCard();
+                        });
+                    }
                 }
             }
             else
