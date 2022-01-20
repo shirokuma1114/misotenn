@@ -217,7 +217,11 @@ public class TurnController : MonoBehaviour
             if (_winner[i] == -1)
             {
                 _winner[i] = _id;
-                if (i == _winner.Length - 1) _isGameEnd = true;
+                if (i == _winner.Length - 2)
+                {
+                    _winner[3] = 6 - (_winner[0] + _winner[1] + _winner[2]);
+                    _isGameEnd = true;
+                }
                 break;
             }
         }
