@@ -492,6 +492,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+--- !u!114 &270272749 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5754340407403619878, guid: 9748690c350ff174692e94624ac37e8f, type: 3}
+  m_PrefabInstance: {fileID: 270272748}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3afa9b1c084104c4c82d7ced4cfe035b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &326786656
 GameObject:
   m_ObjectHideFlags: 0
@@ -2243,11 +2254,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: db95d741d4ebf884ea13d2525f84fb72, type: 3}
   - {fileID: 21300000, guid: 6f4956abd03da894ca34bdd75f8aa9ab, type: 3}
   - {fileID: 21300000, guid: 62ebaf268c43bec40968ec2b5dcee31e, type: 3}
+  _textList:
+  - "\u30D5\u30EC\u30B8\u30A8"
+  - "\u30B6\u30C3\u30CF\u30C8\u30EB\u30C6"
+  - "\u30B7\u30E7\u30FC\u30C8\u30B1\u30FC\u30AD"
+  - "\u30A2\u30C3\u30D7\u30EB\u30D1\u30A4"
   _turnController: {fileID: 946361843}
   _enemyBrains:
   - {fileID: 1343465386}
   - {fileID: 99232084}
   - {fileID: 1373152205}
+  _miniGameConnection: {fileID: 270272749}
 --- !u!1 &1547629078
 GameObject:
   m_ObjectHideFlags: 0

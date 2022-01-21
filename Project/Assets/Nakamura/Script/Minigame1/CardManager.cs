@@ -10,8 +10,10 @@ public class CardManager : MonoBehaviour
 {
     [SerializeField] private Card _cardPrefab;
     [SerializeField] private List<Sprite> _imgList;
+    [SerializeField] private List<string> _textList;
     [SerializeField] private TurnController _turnController;
     [SerializeField] private EnemyBrain[] _enemyBrains;
+    [SerializeField] private MiniGameConnection _miniGameConnection;
     void Start()
     {
         // カード情報リスト
@@ -20,11 +22,21 @@ public class CardManager : MonoBehaviour
         // forを回す回数を取得する
         int loopCnt = _imgList.Count;
 
+        _miniGameConnection = MiniGameConnection.Instance;
+
         for (int i = 0; i < loopCnt; i++)
         {
+            for (int j = 0; j < _miniGameConnection.Characters.Count; j++)
+            {
+                if (_textList[i] == _miniGameConnection.Characters[j].Name)
+                {
+                    CardData cardata = new CardData(i, _imgList[i]);
+                    cardDataList.Add(cardata);
+                }
+            }
             // カード情報を生成する
-            CardData cardata = new CardData(i, _imgList[i]);
-            cardDataList.Add(cardata);
+            //CardData cardata = new CardData(i, _imgList[i]);
+            //cardDataList.Add(cardata);
         }
 
         // プレイヤーはカードを３枚揃えるのが目的ーーーーーーー下記関数化したらバグったのでこのまま

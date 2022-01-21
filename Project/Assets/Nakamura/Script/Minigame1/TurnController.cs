@@ -10,7 +10,7 @@ public class TurnController : MonoBehaviour
 
     [SerializeField] private Text _turnText;
     //[SerializeField] private PlayerBrain _player;
-    [SerializeField] private EnemyBrain[] _enemy; 
+    [SerializeField] private EnemyBrain[] _enemy;
     [SerializeField] private Image _nowTurnArrow;
     [SerializeField] private Text[] _names;
     [SerializeField] private MiniGameConnection _miniGameConnection;
@@ -18,7 +18,7 @@ public class TurnController : MonoBehaviour
 
     public int[] gameOrder = new int[4];//0～３のキャラクターIDが入る
     private int[] _winner = new int[4];//勝った人のIDを入れておく
-    
+
     private int _nowTurnOrder = 0;
     private bool _isGameEnd = false;
 
@@ -33,48 +33,47 @@ public class TurnController : MonoBehaviour
 
 
     float _time;
-   public void Init()
-   {
+    public void Init()
+    {
         _miniGameConnection = MiniGameConnection.Instance;
+
+        //ゲームの順番を決める
+        turnRoulette(gameOrder);
 
         //_player._miniGameChara = _miniGameConnection.Characters[0];
         for (int i = 0; i < _enemy.Length; i++)
         {
             _enemy[i]._miniGameChara = _miniGameConnection.Characters[i];
-            if(_enemy[i]._miniGameChara.Name == "フレジエ")
+            _enemy[i]._myId = i;
+            if (_enemy[i]._miniGameChara.Name == "フレジエ")
             {
-                _enemy[i]._myId = 0;
                 _enemy[i]._myColor = new Color(255f / 255f, 143f / 255f, 143f / 255f);
                 _images[i].color = new Color(255f / 255f, 151f / 255f, 129f / 255f);
             }
-            if(_enemy[i]._miniGameChara.Name == "ザッハトルテ")
+            if (_enemy[i]._miniGameChara.Name == "ザッハトルテ")
             {
-                _enemy[i]._myId = 1;
                 _enemy[i]._myColor = new Color(143f / 255f, 148f / 255f, 255f / 255f);
                 _images[i].color = new Color(46f / 255f, 219f / 255f, 250f / 255f);
             }
             if (_enemy[i]._miniGameChara.Name == "ショートケーキ")
             {
-                _enemy[i]._myId = 2;
                 _enemy[i]._myColor = new Color(252f / 255f, 255f / 255f, 143f / 255f);
                 _images[i].color = new Color(255f / 255f, 224f / 255f, 95f / 255f);
             }
             if (_enemy[i]._miniGameChara.Name == "アップルパイ")
             {
-                _enemy[i]._myId = 3;
                 _enemy[i]._myColor = new Color(154f / 255f, 255f / 255f, 143f / 255f);
                 _images[i].color = new Color(139f / 255f, 255f / 255f, 102f / 255f);
             }
         }
-        //ゲームの順番を決める
-        turnRoulette(gameOrder);
        
+
         for (int i = 0; i < _winner.Length; i++)
         {
             _winner[i] = -1;
         }
 
-        for(int i = 0;i < _names.Length;i++)
+        for (int i = 0; i < _names.Length; i++)
         {
             _names[i].text = _enemy[i]._miniGameChara.Name;
         }
@@ -100,22 +99,22 @@ public class TurnController : MonoBehaviour
             Dictionary<MiniGameCharacter, int> rank = new Dictionary<MiniGameCharacter, int>();
             for (int i = 0; i < _winner.Length; i++)
             {
-               if(_winner[i] == 0)
-               {
-                   rank.Add(_enemy[0]._miniGameChara, (i + 1));
-               }
-               else if (_winner[i] == 1)
-               {
-                   rank.Add(_enemy[1]._miniGameChara, (i + 1));
-               }
-               else if (_winner[i] == 2)
-               {
-                   rank.Add(_enemy[2]._miniGameChara, (i + 1));
-               }
-               else if (_winner[i] == 3)
-               {
-                   rank.Add(_enemy[3]._miniGameChara, (i + 1));
-               }
+                if (_winner[i] == 0)
+                {
+                    rank.Add(_enemy[0]._miniGameChara, (i + 1));
+                }
+                else if (_winner[i] == 1)
+                {
+                    rank.Add(_enemy[1]._miniGameChara, (i + 1));
+                }
+                else if (_winner[i] == 2)
+                {
+                    rank.Add(_enemy[2]._miniGameChara, (i + 1));
+                }
+                else if (_winner[i] == 3)
+                {
+                    rank.Add(_enemy[3]._miniGameChara, (i + 1));
+                }
             }
             //_miniGameResult.
             _miniGameResult.Display(rank);
@@ -148,29 +147,29 @@ public class TurnController : MonoBehaviour
 
         //もう勝ってる人ならスキップする
         var _isSkip = false;
-        for(int i = 0;i < _winner.Length;i++)
+        for (int i = 0; i < _winner.Length; i++)
         {
-            if(_winner[i] == gameOrder[_nowTurnOrder])
+            if (_winner[i] == gameOrder[_nowTurnOrder])
             {
+                Debug.Log("スキップID：" + _winner[i] + "/今のターンID：" + gameOrder[_nowTurnOrder]);
                 _isSkip = true;
                 break;
             }
         }
-        if(_isSkip)
+        if (_isSkip)
         {
-           // Debug.Log("スキップ" + gameOrder[_nowTurnOrder]);
             if (_nowTurnOrder < 3) _nowTurnOrder += 1;
             else _nowTurnOrder = 0;
             TurnChange();//再帰...
             return;
         }
 
-        //Debug.Log(gameOrder[_nowTurnOrder] + "のターン");
-
         switch (gameOrder[_nowTurnOrder])
         {
             //プレイヤー
             case 0:
+                Debug.Log("ケース: 0 " + _enemy[0]._miniGameChara.Name);
+
                 _turnText.text = _enemy[0]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 180, 0);
                 _enemy[0].StartTurn();
@@ -179,14 +178,18 @@ public class TurnController : MonoBehaviour
 
             //エネミー１
             case 1:
+                Debug.Log("ケース: 1 " + _enemy[1]._miniGameChara.Name);
+
                 _turnText.text = _enemy[1]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 140, 0);
                 _enemy[1].StartTurn();
-                if(_enemy[1]._miniGameChara.IsAutomatic == true) _enemy[1].TurnCard();
+                if (_enemy[1]._miniGameChara.IsAutomatic == true) _enemy[1].TurnCard();
                 break;
 
             //エネミー２
             case 2:
+                Debug.Log("ケース: 2 " + _enemy[2]._miniGameChara.Name);
+
                 _turnText.text = _enemy[2]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 100, 0);
 
@@ -196,6 +199,8 @@ public class TurnController : MonoBehaviour
 
             //エネミー３
             case 3:
+                Debug.Log("ケース: 3 " + _enemy[3]._miniGameChara.Name);
+
                 _turnText.text = _enemy[3]._miniGameChara.Name + "　の番です";
                 rect.localPosition = new Vector3(-270, 60, 0);
 
@@ -212,12 +217,12 @@ public class TurnController : MonoBehaviour
     //勝った人を保存
     public void SetWinner(int _id)
     {
-        for(int i = 0;i < _winner.Length;i++)
+        for (int i = 0; i < 4; i++)
         {
             if (_winner[i] == -1)
             {
                 _winner[i] = _id;
-                if (i == _winner.Length - 2)
+                if (i == 2)
                 {
                     _winner[3] = 6 - (_winner[0] + _winner[1] + _winner[2]);
                     _isGameEnd = true;
@@ -226,16 +231,21 @@ public class TurnController : MonoBehaviour
             }
         }
     }
-    
+
     //ルーレット用アニメーション関数
     private void turnRoulette(int[] _order)
     {
         int ran = Random.Range(0, 4);
 
-        for(int i = 0;i < _order.Length;i++)
+        for (int i = 0; i < 4; i++)
         {
-            if(ran + i > 3) _order[i] = (ran + i) - 4;
+            if (ran + i > 3) _order[i] = (ran + i) - 4;
             else _order[i] = ran + i;
+        }
+
+        for (int i = 0; i < 4; i++)
+        {
+            Debug.Log(i + "番目は" + _order[i]);
         }
     }
 }

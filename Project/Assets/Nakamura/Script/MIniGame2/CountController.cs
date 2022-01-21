@@ -78,7 +78,8 @@ public class CountController : MonoBehaviour
                 }
 
                 //スペースキー押したらCardの関数呼ぶ
-                if (Input.GetKeyDown(KeyCode.X) || _miniGameChara.Input.GetButtonDown("A"))
+                if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return) ||
+                    Input.GetKeyDown(KeyCode.X) || _miniGameChara.Input.GetButtonDown("A"))
                 {
                     //ケーキのカウント
                     Control_SE.Get_Instance().Play_SE("UI_Correct");
